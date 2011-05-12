@@ -20,10 +20,10 @@ The widget can be placed in any widget compatible area of your theme. It contain
 
 The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on. There are several plugins available for doing that, including the following:
 
-* Widget Logic
-* Widget Context
-* Widgets on Pages
-* Add Widgets to Pages
+* [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/)
+* [Widget Context](http://wordpress.org/extend/plugins/widget-context/)
+* [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/)
+* [Add Widgets to Pages](http://wordpress.org/extend/plugins/add-widgets-to-pages/)
 
 Please [contact us](http://www.beautomated.com/contact/ "beAutomated Contact Form") if you have any questions or issues with this plugin.
 
@@ -46,10 +46,10 @@ The sign-up form uses standard HTML list items so it can be manipulated by CSS w
 
 There is an optional setting to limit the plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on. There are several plugins available for doing that, including the following:
 
-* Widget Logic
-* Widget Context
-* Widgets on Pages
-* Add Widgets to Pages
+* [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/)
+* [Widget Context](http://wordpress.org/extend/plugins/widget-context/)
+* [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/)
+* [Add Widgets to Pages](http://wordpress.org/extend/plugins/add-widgets-to-pages/)
 
 == Screenshots ==
 
