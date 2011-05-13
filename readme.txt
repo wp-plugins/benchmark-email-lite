@@ -1,20 +1,20 @@
 === Benchmark Email Lite ===
-Contributors: beAutomated
+Contributors: beautomated
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter
 Requires at least: 2.8.6
 Tested up to: 3.1.2
 Stable tag: 1.0
 
-Benchmark Email Lite creates a newsletter sign-up form widget.
+Benchmark Email Lite creates a newsletter signup form widget.
 
 == Description ==
 
-Benchmark Email Lite creates a newsletter sign-up form widget. The widget creates a simple W3C and WAVE validated sign-up form to instantly subscribe visitors to a Benchmark Email contact list, requesting the subscriber's first name, last name, and email address. If the subscribe pre-exists on the list, this will update the subscriber's first and last names on the mailing list.
+Benchmark Email Lite creates a newsletter signup form widget. The widget creates a simple W3C and WAVE validated signup form to instantly subscribe visitors to a Benchmark Email contact list, requesting the subscriber's first name, last name, and email address. If the subscriber pre-exists on the list, this will update the subscriber's first and last names on the mailing list.
 
-The sign-up form uses standard HTML list items so it can be manipulated by CSS within your theme to match your site's design. Some themes will automatically style the widget to match the design. Contact us or the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly.
+The signup form uses standard HTML list items so it can be manipulated by CSS within your theme to match your site's design. Some themes will automatically style the widget to match the design. Contact us or the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly.
 
-If you do not currently have a Benchmark Email account, please consider clicking our affiliate link to try their [30-day FREE trial](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email"). Clicking this affiliate link will, if you eventually sign-up for a paid account with Benchmark Email, earn us a commission that we can use to support this plugin and develop it further.
+If you do not currently have a Benchmark Email account, please consider clicking our affiliate link to try their [30-day FREE trial](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email"). Clicking this affiliate link will, if you eventually signup for a paid account with Benchmark Email, earn us a commission that we can use to support this plugin and develop it further.
 
 The widget can be placed in any widget compatible area of your theme. It contains administrative controls where you enter an optional title, your Benchmark Email API Key, and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired.
 
@@ -25,7 +25,7 @@ The widget can be extended to allow subscriptions to multiple lists or even mult
 * [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
 * [Add Widgets to Pages](http://wordpress.org/extend/plugins/add-widgets-to-pages/ "Get Add Widgets to Pages Plugin")
 
-Please [Contact Us](http://www.beautomated.com/contact/ "beAutomated Contact Form") if you have any questions or issues with this plugin.
+Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you have any questions or issues with this plugin.
 
 == Installation ==
 
@@ -41,7 +41,7 @@ Please [Contact Us](http://www.beautomated.com/contact/ "beAutomated Contact For
 
 = How do I make the form match my theme? =
 
-The sign-up form uses standard HTML list items so it can be manipulated by CSS within you theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly.
+The signup form uses standard HTML list items so it can be manipulated by CSS within you theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly.
 
 = How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
