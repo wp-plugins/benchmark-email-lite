@@ -1,8 +1,8 @@
 === Benchmark Email Lite ===
-Contributors: beautomated
+Contributors: beAutomated
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter
-Requires at least: 3.0
+Requires at least: 2.8.6
 Tested up to: 3.1.2
 Stable tag: 1.0
 
@@ -16,24 +16,25 @@ The sign-up form uses standard HTML list items so it can be manipulated by CSS w
 
 If you do not currently have a Benchmark Email account, please consider clicking our affiliate link to try their [30-day FREE trial](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email"). Clicking this affiliate link will, if you eventually sign-up for a paid account with Benchmark Email, earn us a commission that we can use to support this plugin and develop it further.
 
-The widget can be placed in any widget compatible area of your theme. It contains administrative controls where you enter an optional title, your Benchmark Email API token, and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired.
+The widget can be placed in any widget compatible area of your theme. It contains administrative controls where you enter an optional title, your Benchmark Email API Key, and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired.
 
 The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on. There are several plugins available for doing that, including the following:
 
-* [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/)
-* [Widget Context](http://wordpress.org/extend/plugins/widget-context/)
-* [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/)
-* [Add Widgets to Pages](http://wordpress.org/extend/plugins/add-widgets-to-pages/)
+* [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/ "Get Widget Logic Plugin")
+* [Widget Context](http://wordpress.org/extend/plugins/widget-context/ "Get Widget Context Plugin")
+* [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
+* [Add Widgets to Pages](http://wordpress.org/extend/plugins/add-widgets-to-pages/ "Get Add Widgets to Pages Plugin")
 
-Please [contact us](http://www.beautomated.com/contact/ "beAutomated Contact Form") if you have any questions or issues with this plugin.
+Please [Contact Us](http://www.beautomated.com/contact/ "beAutomated Contact Form") if you have any questions or issues with this plugin.
 
 == Installation ==
 
 1. Upload `benchmark-email-lite.php` to the `/wp-content/plugins/` directory.
 1. Activate the plugin through the Plugins menu in WordPress.
 1. Add the Widget to your sidebar through the Widgets menu in WordPress Appearance section.
-1. If you are creating a new Benchmark Email account, please use the link http://www.benchmarkemail.com/?p=68907 to support the development of this plugin.
-1. Expand the Widget options. Enter an optional title, your Benchmark Email API token and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired. Click Save when you're all done.
+1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/?p=68907](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email") to support the development of this plugin.
+1. Obtain your Benchmark Email API Key by logging into Benchmark Email, click My Account, click My Account Settings, scroll to the big yellow box towards the bottom of the page and copy the API Key code.
+1. Expand the Widget options. Enter an optional title, your Benchmark Email API Key and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired. Click Save when you're all done.
 1. Test the plugin by going to your site and completing the form with temporary dummy data. You should see a "Successful" message. Verify that the subscription went through by logging into Benchmark Email, clicking List, choosing your list. The new subscription should be at the top. You can delete the dummy entry once verified.
 
 == Frequently Asked Questions ==
@@ -46,10 +47,10 @@ The sign-up form uses standard HTML list items so it can be manipulated by CSS w
 
 There is an optional setting to limit the plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on. There are several plugins available for doing that, including the following:
 
-* [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/)
-* [Widget Context](http://wordpress.org/extend/plugins/widget-context/)
-* [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/)
-* [Add Widgets to Pages](http://wordpress.org/extend/plugins/add-widgets-to-pages/)
+* [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/ "Get Widget Logic Plugin")
+* [Widget Context](http://wordpress.org/extend/plugins/widget-context/ "Get Widget Context Plugin")
+* [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
+* [Add Widgets to Pages](http://wordpress.org/extend/plugins/add-widgets-to-pages/ "Get Add Widgets to Pages Plugin")
 
 == Screenshots ==
 
