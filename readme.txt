@@ -39,6 +39,10 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 
 == Frequently Asked Questions ==
 
+= What does "Error: [L] transport error - could not open socket" mean? =
+
+This means that the plugin is not able to connect with the Benchmark Email API server. Their server could be down for maintenance, or there could be some other connection problem. We will be putting a more friendly error message in the next release! To check with Benchmark Email, visit their home page or call them at 1-800-430-4095.
+
 = How do I make the form match my theme? =
 
 The signup form uses standard HTML list items so it can be manipulated by CSS within you theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
