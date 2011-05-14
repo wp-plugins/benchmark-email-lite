@@ -29,7 +29,7 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 
 == Installation ==
 
-1. Upload `benchmark-email-lite.php` to the `/wp-content/plugins/` directory.
+1. Upload `benchmark-email-lite` folder and its contents to your `/wp-content/plugins/` directory.
 1. Activate the plugin through the Plugins menu in WordPress.
 1. Add the Widget to your sidebar through the Widgets menu in WordPress Appearance section.
 1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/?p=68907](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email") to support the development of this plugin.
@@ -41,7 +41,7 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 
 = How do I make the form match my theme? =
 
-The signup form uses standard HTML list items so it can be manipulated by CSS within you theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is 'benchmarkemaillite_widget'.
+The signup form uses standard HTML list items so it can be manipulated by CSS within you theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
 
 = How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
@@ -52,9 +52,9 @@ There is an optional setting to limit the plugin to a single page, if desired. T
 * [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
 * [Add Widgets to Pages](http://wordpress.org/extend/plugins/add-widgets-to-pages/ "Get Add Widgets to Pages Plugin")
 
-= I use Kubrick theme and I'm seeing bullets! =
+= I use the Kubrick theme and I'm seeing bullets! =
 
-We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot override this without forcing a new stylesheet, which would have a negative effect on other themes. So, we recommend you override this within your CSS with the entry at the bottom '.entry ul li::before,#sidebar ul ul li::before{content:"";}'
+We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot override this without forcing a new stylesheet, which would have a negative effect on other themes. So, we recommend you override this within your CSS with the entry at the bottom `.entry ul li::before,#sidebar ul ul li::before{content:"";}`
 
 == Screenshots ==
 
@@ -66,10 +66,10 @@ We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot
 
 = 1.0.1 =
 
-* Fixed bug in first name, last name, and email address submitted data sanitizing to be compatible with international symbols or anything that WordPress considers safe for data validation purposes. Reference: 'sanitize_email()' and 'sanitize_text_field()' functions on WordPress Codex.
+* Fixed bug in first name, last name, and email address submitted data sanitizing to be compatible with international symbols or anything that WordPress considers safe for data validation purposes. Reference: `sanitize_email()` and `sanitize_text_field()` functions on WordPress Codex.
 * Fixed bug when the widget is installed multiple times on a single page leading to only one form pre-populating the entered data and some CSS conflicts. Multiple instances per page are now supported!
-* Updated admin area widget field sanitization method to 'sanitize_text_field()' function requiring v2.9.0.
-* Added anchor '#benchmark-email-lite' into URL so that after form submission it puts the user on the proper screen position to view the server response.
+* Updated admin area widget field sanitization method to `sanitize_text_field()` function requiring v2.9.0.
+* Added anchor `#benchmark-email-lite` into URL so that after form submission it puts the user on the proper screen position to view the server response.
 * Adjusted the server response to clear out the submitted values upon successful form submission.
 * Re-titled the Benchmark Email Token to the term "API Key" to match what Benchmark Email is calling it on their website.
 * Added support for international language translation/localization.
