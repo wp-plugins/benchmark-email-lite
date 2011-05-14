@@ -52,7 +52,7 @@ There is an optional setting to limit the plugin to a single page, if desired. T
 * [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
 * [Add Widgets to Pages](http://wordpress.org/extend/plugins/add-widgets-to-pages/ "Get Add Widgets to Pages Plugin")
 
-= I use Kuberick theme and I'm seeing bullets! =
+= I use Kubrick theme and I'm seeing bullets! =
 
 We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot override this without forcing a new stylesheet, which would have a negative effect on other themes. So, we recommend you override this within your CSS with the entry at the bottom '.entry ul li::before,#sidebar ul ul li::before{content:"";}'
 
