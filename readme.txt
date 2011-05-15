@@ -41,7 +41,7 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 
 = What does "Error: [L] transport error - could not open socket" mean? =
 
-This means that the plugin is not able to connect with the Benchmark Email API server. Their server could be down for maintenance, or there could be some other connection problem. We will be putting a more friendly error message in the next release! To check with Benchmark Email, visit their home page or call them at 1-800-430-4095.
+This means that the plugin is not able to connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). Their server could be down for maintenance, or there could be some other connection problem. To remedy this occasional problem, we are building connection failover handling into the next release planned for Monday May 16, 2011.
 
 = How do I make the form match my theme? =
 
