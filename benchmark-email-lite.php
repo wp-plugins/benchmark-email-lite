@@ -3,11 +3,18 @@
 Plugin Name: Benchmark Email Lite
 Plugin URI: http://www.beautomated.com/benchmark-email-lite/
 Description: A plugin to create a Benchmark Email newsletter widget in WordPress.
-Version: 1.0.1
+Version: 1.0.2
 Author: beAutomated
 Author URI: http://www.beautomated.com/
 License: GPL
 */
+
+// Global Variables
+$benchmarkemaillite_client = false;
+$benchmarkemaillite_token = false;
+$benchmarkemaillite_listid = false;
+$benchmarkemaillite_apiurl = 'http://api.benchmarkemail.com/1.0/';
+$benchmarkemaillite_cachefile = plugin_dir_path(__FILE__) . 'subscription_cache.csv';
 
 // Use widgets_init action hook to execute custom function
 add_action('widgets_init', 'benchmarkemaillite_register_widget');
@@ -72,7 +79,7 @@ wp_dropdown_pages(
 		</p>
 		<p>
 			<a href="http://www.benchmarkemail.com/?p=68907" target="_blank">
-			<?php echo __('Signup for a 30-day FREE Trial and support this plugin\'s Development!'); ?></a>
+			<?php echo __('Signup for a 30-day FREE Trial and support this plugin\'s development!'); ?></a>
 		</p>
 		<p>
 			<?php echo __('Name of Benchmark Email List'); ?>
@@ -95,11 +102,12 @@ wp_dropdown_pages(
 	// Display the Widget
 	function widget($args, $instance) {
 
-		// Vars
-		global $post;
+		// Widget Variables
+		global $post, $benchmarkemaillite_token;
+		$benchmarkemaillite_token = $instance['token'];
 		$response = '';
 		extract($args);
-		$key = $instance['id'];
+		$key = ($val = $instance['id']) ? $val : uniqid();
 
 		// Exclude from Pages/Posts
 		if ($instance['page'] && $instance['page'] != $post->ID) { return false; }
@@ -120,12 +128,37 @@ wp_dropdown_pages(
 			$email = sanitize_email($_POST['subscribe_email'][$key]);
 			$first = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_first'][$key])));
 			$last = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_last'][$key])));
+
+			// Validate Email Address
 			if (!self::valid_email($email)) {
 				$response = '<p class="errormsg">' . __('Error: Please enter a valid Email Address.') . '</p>';
-			} else {
-				list($status, $client) = self::connect();
-				if (!$status) { echo $client . $after_widget; return false; }
-				$response = self::subscription($client, $instance['token'], $instance['list'], $email, $first, $last, $key);
+			}
+
+			// Valid Email Address
+			else {
+
+				// Connect to Benchmark Email
+				if (!$response) {
+					$status = self::bme_connect();
+					if ($status !== true) { $response = $status; }
+				}
+
+				// Locate List
+				if (!$response) {
+					$status = self::bme_list($instance['list']);
+					if ($status !== true) { $response = $status; }
+				}
+
+				// Flush Cache and Run Live Subscription
+				if (!$response) {
+					self::bme_upload($key);
+					$response = self::bme_subscribe($email, $first, $last, $key);
+				}
+
+				// Handle Failover to Cache File
+				if (!strstr($response, 'successmsg')) {
+					$response = self::cache_subscription($instance['list'], $email, $first, $last, $key);
+				}
 			}
 
 			// Re-process Fields In Case They Were Cleared Upon Success
@@ -165,70 +198,113 @@ wp_dropdown_pages(
 			? true : false;
 	}
 
-	// Connect to Benchmark Email
-	function connect() {
+	// Cache Subscription Option
+	function cache_subscription($list, $email, $first, $last, $key) {
+		global $benchmarkemaillite_cachefile;
+		$fw = fopen($benchmarkemaillite_cachefile, 'a');
+		$string = "\"$list\",\"$email\",\"$first\",\"$last\"\n";
+		fwrite($fw, $string);
+		fclose($fw);
+		$_POST['subscribe_first'][$key] = '';
+		$_POST['subscribe_last'][$key] = '';
+		$_POST['subscribe_email'][$key] = '';
+		return '<p class="successmsg">' . __('Successfully Queued Subscription.') . '</p>';
+	}
+
+	// Attempt to Connect to Benchmark Email
+	function bme_connect() {
+		global $benchmarkemaillite_client, $benchmarkemaillite_apiurl;
 		require_once(ABSPATH . WPINC . '/class-IXR.php');
 		if (!class_exists(IXR_Client)) {
-			return array(false, '<p class="errormsg">' . __('Error: IXR Client library isn\'t installed.') . '</p>');
+			return '<p class="errormsg">' . __('Error: Unable to access the IXR Client library file: class-IXR.php.') . '</p>';
 		}
-		return array(true, new IXR_Client('http://api.benchmarkemail.com/1.0/'));
+		$benchmarkemaillite_client = new IXR_Client($benchmarkemaillite_apiurl);
+		return true;
+	}
+
+	// Locate List to Subscribe Onto
+	function bme_list($list) {
+		global $benchmarkemaillite_client, $benchmarkemaillite_token, $benchmarkemaillite_listid;
+		$benchmarkemaillite_client->query('listGet', $benchmarkemaillite_token, '', 1, 100, 'name', 'asc');
+		if ($benchmarkemaillite_client->isError()) {
+			return '<p class="errormsg">Error: [L] ' . $benchmarkemaillite_client->getErrorMessage() . '</p>';
+		}
+		$lists = $benchmarkemaillite_client->getResponse();
+		foreach ($lists as $listdata) {
+			if (strtolower($listdata['listname']) == strtolower($list)) {
+				$benchmarkemaillite_listid = $listdata['id'];
+				return true;
+			}
+		}
+		return '<p class="errormsg">' . __('Error: Unable to locate the specified list.') . '</p>';
+	}
+
+	// Process Subscription Cache
+	function bme_upload($key) {
+		global $benchmarkemaillite_cachefile;
+		if (!file_exists($benchmarkemaillite_cachefile)) { return false; }
+		if (($fr = fopen($benchmarkemaillite_cachefile, 'r')) !== false) {
+			while (($data = fgetcsv($fr)) !== false) {
+				if (self::bme_list($data[0]) === true) {
+					self::bme_subscribe($data[1], $data[2], $data[3], $key);
+				}
+			}
+			fclose($fr);
+			unlink($benchmarkemaillite_cachefile);
+		}
 	}
 
 	// Get Existing Subscriber Data
-	function lookup($client, $token, $listID, $email) {
-		$client->query('listGetContacts', $token, $listID, $email, 1, 100, 'name', 'asc');
-		//$client->query('listGetContactDetails', $token, $listID, $email); THIS BME API CALL IS BROKEN!
-		if ($client->isError()) {
-			return array(false, '<p class="errormsg">Error: [C] ' . $client->getErrorMessage()) . '</p>';
+	function bme_find($email) {
+		global $benchmarkemaillite_client, $benchmarkemaillite_token, $benchmarkemaillite_listid;
+		$benchmarkemaillite_client->query(
+			'listGetContacts', $benchmarkemaillite_token, $benchmarkemaillite_listid, $email, 1, 100, 'name', 'asc'
+		);
+		if ($benchmarkemaillite_client->isError()) {
+			return '<p class="errormsg">Error: [C] ' . $benchmarkemaillite_client->getErrorMessage() . '</p>';
 		}
-		$data = $client->getResponse();
-		return array(true, $data[0]['id']);
+		$data = $benchmarkemaillite_client->getResponse();
+		return ($data[0]) ? $data[0]['id'] : false;
 	}
 
 	// Add or Update Subscriber
-	function subscription($client, $token, $list, $email, $first, $last, $key) {
+	function bme_subscribe($email, $first, $last, $key) {
+		global $benchmarkemaillite_client, $benchmarkemaillite_token, $benchmarkemaillite_listid;
 
-		// Locate List to Subscribe Onto
-		$client->query('listGet', $token, '', 1, 100, 'name', 'asc');
-		if ($client->isError()) {
-			return '<p class="errormsg">Error: [L] ' . $client->getErrorMessage() . '</p>';
-		}
-		$lists = $client->getResponse();
-		$listID = false;
-		foreach ($lists as $listdata) {
-			if (strtolower($listdata['listname']) == strtolower($list)) { $listID = $listdata['id']; }
-		}
-		if (!$listID) { return '<p class="errormsg">' . __('Error: Unable to locate the specified list.') . '</p>'; }
+		// Check for Subscription Preexistance
+		$contactID = self::bme_find($email);
+		if (!is_numeric($contactID) && $contactID != false) { return $contactID; }
 
-		// Check for Pre-Existance
-		list($status, $contactID) = self::lookup($client, $token, $listID, $email);
-		if (!$status) { return $contactID; }
-
-		// Subscriber Doesn't Pre-Exist, Add New Subscriber
+		// Doesn't Pre-Exist, Add New Subscription
 		if (!is_numeric($contactID)) {
-			$client->query('listAddContacts', $token, $listID, array(array('email' => $email)));
-			if ($client->isError()) {
-				return '<p class="errormsg">Error: [A] ' . $client->getErrorMessage() . '</p>';
-			}
-
-			// Get New Subscriber ID
-			list($status, $contactID) = self::lookup($client, $token, $listID, $email);
-			if (!$status) { return $contactID; }
-		}
-
-		// Set Subscriber Data
-		if ($contactID) {
-			$client->query(
-				'listUpdateContactDetails', $token, $listID, $contactID, array(
-					'firstname' => $first, 'lastname' => $last
+			$type = 'Added';
+			$benchmarkemaillite_client->query(
+				'listAddContacts', $benchmarkemaillite_token, $benchmarkemaillite_listid, array(
+					array('email' => $email, 'firstname' => $first, 'lastname' => $last)
 				)
 			);
-			if ($client->isError()) { return 'Error: [U] ' . $client->getErrorMessage(); }
+			if ($benchmarkemaillite_client->isError()) {
+				return '<p class="errormsg">Error: [A] ' . $benchmarkemaillite_client->getErrorMessage() . '</p>';
+			}
 			$_POST['subscribe_first'][$key] = '';
 			$_POST['subscribe_last'][$key] = '';
 			$_POST['subscribe_email'][$key] = '';
-			return '<p class="successmsg">' . __('Successful. Thank you.') . '</p>';
+			return '<p class="successmsg">' . __('Successfully Added Subscription.') . '</p>';
 		}
+
+		// Or Update Preexisting Subscription
+		$benchmarkemaillite_client->query(
+			'listUpdateContactDetails', $benchmarkemaillite_token, $benchmarkemaillite_listid, $contactID, array(
+				'firstname' => $first, 'lastname' => $last
+			)
+		);
+		if ($benchmarkemaillite_client->isError()) {
+			return 'Error: [U] ' . $benchmarkemaillite_client->getErrorMessage();
+		}
+		$_POST['subscribe_first'][$key] = '';
+		$_POST['subscribe_last'][$key] = '';
+		$_POST['subscribe_email'][$key] = '';
+		return '<p class="successmsg">' . __('Successfully Updated Subscription.') . '</p>';
 	}
 }
 
