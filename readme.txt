@@ -88,6 +88,6 @@ We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot
 
 == Upgrade Notice ==
 
-= 1.0 =
+= 1.0.1 =
 
 * Fixes a couple of bugs and adds a few minor features!
