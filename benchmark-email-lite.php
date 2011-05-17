@@ -10,16 +10,16 @@ License: GPL
 */
 
 // Global Variables
+$benchmarkemaillite_apiurl = 'http://api.benchmarkemail.com/1.0/';
+$benchmarkemaillite_cachefile = plugin_dir_path(__FILE__) . 'subscription_cache.csv';
 $benchmarkemaillite_client = false;
 $benchmarkemaillite_token = false;
 $benchmarkemaillite_listid = false;
-$benchmarkemaillite_apiurl = 'http://api.benchmarkemail.com/1.0/';
-$benchmarkemaillite_cachefile = plugin_dir_path(__FILE__) . 'subscription_cache.csv';
+$benchmarkemaillite_response = array();
 
 // Wordpress API Hooks
 add_action('widgets_init', 'benchmarkemaillite_register_widget');
 add_action('widgets_init', array('benchmarkemaillite_widget', 'widgetfrontendsubmission'));
-add_action('widgets_init', array('benchmarkemaillite_widget', 'widgetpageheaders'));
 add_filter('plugin_row_meta', array('benchmarkemaillite_widget', 'pluginlinks'), 10, 2);
 
 // Register the Widget
@@ -45,20 +45,11 @@ class benchmarkemaillite_widget extends WP_Widget {
 		return $links;
 	}
 
-	// Display the Widget JS
-	function widgetpageheaders() {
-		if (is_active_widget(false, false, 'benchmarkemaillite_widget') && !is_admin()) {
-			wp_deregister_script('benchmarkemaillite');
-			wp_register_script('benchmarkemaillite', plugins_url() . '/benchmark-email-lite/benchmark-email-lite.js', array('jquery', 'jquery-form'), '1.0.2', true);
-			wp_enqueue_script('benchmarkemaillite');
-		}
-	}
-
 	// Process Submission
 	function widgetfrontendsubmission() {
-		global $benchmarkemaillite_token;
+		global $benchmarkemaillite_token, $benchmarkemaillite_response;
 
-		// Proceed AJAX Processing Upon Widget Form Submission
+		// Proceed Processing Upon Widget Form Submission
 		if (is_array($_POST) && strstr($_POST['formid'], 'benchmark-email-lite-')) {
 			$response = '';
 
@@ -74,7 +65,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 			$email = sanitize_email($_POST['subscribe_email'][$key]);
 
 			// Check for Missing or Invalid Email Address
-			if (!$email || !is_email($email)) { $response = '0|' . __('Error: Please enter a valid Email Address.'); }
+			if (!$email || !is_email($email)) { $response = array(false, __('Error: Please enter a valid Email Address.')); }
 
 			// Valid Email Address
 			else {
@@ -96,13 +87,11 @@ class benchmarkemaillite_widget extends WP_Widget {
 				}
 	
 				// Handle Failover to Cache File
-				if (substr($response, 0, 2) == '0|') {
+				if (!$response[0]) {
 					$response = self::cache_subscription($instance['list'], $email, $first, $last, $key);
 				}
 			}
-
-			// Output Response to AJAX
-			echo "$key|$response"; exit;
+			$benchmarkemaillite_response[$key] = $response;
 		}
 	}
 
@@ -175,13 +164,28 @@ wp_dropdown_pages(
 	function widget($args, $instance) {
 
 		// Widget Variables
-		global $post, $benchmarkemaillite_token;
+		global $post, $benchmarkemaillite_token, $benchmarkemaillite_response;
 		extract($args);
 		$key = explode('-', $widget_id);
 		$key = $key[1];
 
 		// Exclude from Pages/Posts
 		if ($instance['page'] && $instance['page'] != $post->ID) { return false; }
+
+		// Process Response
+		$response = '';
+		if ($benchmarkemaillite_response[$key]) {
+			$response = ($benchmarkemaillite_response[$key][0])
+				? '<p class="successmsg">' . $benchmarkemaillite_response[$key][1] . '</p>'
+				: '<p class="errormsg">' . $benchmarkemaillite_response[$key][1] . '</p>';
+
+			// Sanitize Submission for Form Prepopulation Upon Errors
+			if (!$benchmarkemaillite_response[$key][0]) {
+				$first = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_first'][$key])));
+				$last = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_last'][$key])));
+				$email = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_email'][$key])));
+			}
+		}
 
 		// Begin Outputting Widget
 		echo $before_widget;
@@ -195,7 +199,7 @@ wp_dropdown_pages(
 
 		// Finish Outputting Widget
 		echo '
-<form method="post" action="" class="benchmark-email-lite" id="benchmark-email-lite-' . $key . '">
+<form method="post" action="#benchmark-email-lite-' . $key . '" class="benchmark-email-lite" id="benchmark-email-lite-' . $key . '">
 <ul style="list-style-type:none;margin:0;">
 	<li>
 		<input type="hidden" name="formid" value="benchmark-email-lite-' . $key . '" />
@@ -212,10 +216,7 @@ wp_dropdown_pages(
 		<input type="text" id="subscribe_email-' . $key . '" name="subscribe_email[' . $key . ']" value="' . $email . '" />
 	</li>
 	<li><input type="submit" value="' . __('Subscribe') . '" /></li>
-	<li>
-		<p class="errormsg" id="subscribe_fail-' . $key . '" style="display:none;"></p>
-		<p class="successmsg" id="subscribe_pass-' . $key . '" style="display:none;"></p>
-	</li>
+	<li>' . $response . '</li>
 </ul>
 </form>
 ' . $after_widget;
@@ -232,10 +233,10 @@ wp_dropdown_pages(
 			$string = "\"$list\",\"$email\",\"$first\",\"$last\"\n";
 			if (fwrite($fw, $string)) {
 				fclose($fw);
-				return '1|' . __('Successfully Queued Subscription.');
+				return array(true, __('Successfully Queued Subscription.'));
 			}
 		}
-		return '0|' . __('Error: Unable to Queue Subscription. Check Plugin Folder Write Permissions.');
+		return array(false, __('Error: Unable to Queue Subscription. Check Plugin Folder Write Permissions.'));
 	}
 
 	// Attempt to Connect to Benchmark Email
@@ -243,7 +244,7 @@ wp_dropdown_pages(
 		global $benchmarkemaillite_client, $benchmarkemaillite_apiurl;
 		require_once(ABSPATH . WPINC . '/class-IXR.php');
 		if (!class_exists(IXR_Client)) {
-			return '0|' . __('Error: Unable to access the IXR Client library file: class-IXR.php.');
+			return array(false, __('Error: Unable to access the IXR Client library file: class-IXR.php.'));
 		}
 		$benchmarkemaillite_client = new IXR_Client($benchmarkemaillite_apiurl);
 		return true;
@@ -254,7 +255,7 @@ wp_dropdown_pages(
 		global $benchmarkemaillite_client, $benchmarkemaillite_token, $benchmarkemaillite_listid;
 		$benchmarkemaillite_client->query('listGet', $benchmarkemaillite_token, '', 1, 100, 'name', 'asc');
 		if ($benchmarkemaillite_client->isError()) {
-			return '0|' . __('Error: [L] ' . $benchmarkemaillite_client->getErrorMessage());
+			return array(false, __('Error: [L] ' . $benchmarkemaillite_client->getErrorMessage()));
 		}
 		$lists = $benchmarkemaillite_client->getResponse();
 		foreach ($lists as $listdata) {
@@ -263,7 +264,7 @@ wp_dropdown_pages(
 				return true;
 			}
 		}
-		return '0|' . __('Error: Unable to locate the specified list.');
+		return array(false, __('Error: Unable to locate the specified list.'));
 	}
 
 	// Process Subscription Cache
@@ -278,7 +279,9 @@ wp_dropdown_pages(
 			}
 			fclose($fr);
 			unlink($benchmarkemaillite_cachefile);
+			return true;
 		}
+		return false;
 	}
 
 	// Get Existing Subscriber Data
@@ -288,7 +291,7 @@ wp_dropdown_pages(
 			'listGetContacts', $benchmarkemaillite_token, $benchmarkemaillite_listid, $email, 1, 100, 'name', 'asc'
 		);
 		if ($benchmarkemaillite_client->isError()) {
-			return '0|' . __('Error: [C] ' . $benchmarkemaillite_client->getErrorMessage());
+			return array(false, __('Error: [C] ' . $benchmarkemaillite_client->getErrorMessage()));
 		}
 		$data = $benchmarkemaillite_client->getResponse();
 		return (is_array($data) && is_array($data[0])) ? $data[0]['id'] : false;
@@ -310,9 +313,9 @@ wp_dropdown_pages(
 				)
 			);
 			if ($benchmarkemaillite_client->isError()) {
-				return '0|' . __('Error: [A] ' . $benchmarkemaillite_client->getErrorMessage());
+				return array(false, __('Error: [A] ' . $benchmarkemaillite_client->getErrorMessage()));
 			}
-			return '1|' . __('Successfully Added Subscription.');
+			return array(true, __('Successfully Added Subscription.'));
 		}
 
 		// Or Update Preexisting Subscription
@@ -322,9 +325,9 @@ wp_dropdown_pages(
 			)
 		);
 		if ($benchmarkemaillite_client->isError()) {
-			return '0|' . 'Error: [U] ' . $benchmarkemaillite_client->getErrorMessage();
+			return array(false, 'Error: [U] ' . $benchmarkemaillite_client->getErrorMessage());
 		}
-		return '1|' . __('Successfully Updated Subscription.');
+		return array(true, __('Successfully Updated Subscription.'));
 	}
 }
 
