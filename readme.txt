@@ -72,6 +72,12 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 
 == Changelog ==
 
+= 1.0.2 =
+
+* Added failover handling. If the API becomes unavailable the plugin will dump subscriptions into a CSV buffering file in the plugin folder that will attempt to post to the API and clear the file upon each subsequent subscription submission.
+
+* Changed the first name and last name field titles from "firstname" to "First Name" per the spec of the newly released API.
+
 = 1.0.1 =
 
 * Fixed bug in first name, last name, and email address submitted data sanitizing to be compatible with international symbols or anything that WordPress considers safe for data validation purposes. Reference: `sanitize_email()` and `sanitize_text_field()` functions on WordPress Codex.
@@ -87,6 +93,10 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+
+* Added failover handling whe the API becomes unavailable and changed firstname/lastname field labels for their new API.
 
 = 1.0.1 =
 
