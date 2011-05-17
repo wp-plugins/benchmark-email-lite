@@ -16,11 +16,13 @@ $benchmarkemaillite_listid = false;
 $benchmarkemaillite_apiurl = 'http://api.benchmarkemail.com/1.0/';
 $benchmarkemaillite_cachefile = plugin_dir_path(__FILE__) . 'subscription_cache.csv';
 
-// Use widgets_init action hook to execute custom function
+// Wordpress API Hooks
 add_action('widgets_init', 'benchmarkemaillite_register_widget');
+add_action('widgets_init', array('benchmarkemaillite_widget', 'widgetfrontendsubmission'));
+add_action('widgets_init', array('benchmarkemaillite_widget', 'widgetpageheaders'));
 add_filter('plugin_row_meta', array('benchmarkemaillite_widget', 'pluginlinks'), 10, 2);
 
-// Register the widget
+// Register the Widget
 function benchmarkemaillite_register_widget() {
 	register_widget('benchmarkemaillite_widget');
 }
@@ -28,14 +30,9 @@ function benchmarkemaillite_register_widget() {
 // Main Class for the Widget
 class benchmarkemaillite_widget extends WP_Widget {
 
-	// Process the Widget
-	function benchmarkemaillite_widget() {
-		$widget_ops = array(
-			'classname' => 'benchmarkemaillite_widget',
-			'description' => __('Create a Benchmark Email newsletter widget in WordPress.')
-		);
-		$this->WP_Widget('benchmarkemaillite_widget', __('Benchmark Email Lite'), $widget_ops);
-	}
+	/**********************
+	 WORDPRESS HOOK METHODS
+	 **********************/
 
 	// Administrative Links
 	function pluginlinks($links, $file) {
@@ -48,15 +45,89 @@ class benchmarkemaillite_widget extends WP_Widget {
 		return $links;
 	}
 
+	// Display the Widget JS
+	function widgetpageheaders() {
+		if (is_active_widget(false, false, 'benchmarkemaillite_widget') && !is_admin()) {
+			wp_deregister_script('benchmarkemaillite');
+			wp_register_script('benchmarkemaillite', plugins_url() . '/benchmark-email-lite/benchmark-email-lite.js', array('jquery', 'jquery-form'), '1.0.2', true);
+			wp_enqueue_script('benchmarkemaillite');
+		}
+	}
+
+	// Process Submission
+	function widgetfrontendsubmission() {
+		global $benchmarkemaillite_token;
+
+		// Proceed AJAX Processing Upon Widget Form Submission
+		if (is_array($_POST) && strstr($_POST['formid'], 'benchmark-email-lite-')) {
+			$response = '';
+
+			// Get Widget Options for this Instance
+			$instance = get_option('widget_benchmarkemaillite_widget');
+			$key = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_key'])));
+			$instance = $instance[$key];
+			$benchmarkemaillite_token = $instance['token'];
+
+			// Sanitize Submission
+			$first = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_first'][$key])));
+			$last = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_last'][$key])));
+			$email = sanitize_email($_POST['subscribe_email'][$key]);
+
+			// Check for Missing or Invalid Email Address
+			if (!$email || !is_email($email)) { $response = '0|' . __('Error: Please enter a valid Email Address.'); }
+
+			// Valid Email Address
+			else {
+
+				// Try to Connect to Benchmark Email
+				$status = self::bme_connect();
+				if ($status !== true) { $response = $status; }
+	
+				// Try to Locate List
+				if (!$response) {
+					$status = self::bme_list($instance['list']);
+					if ($status !== true) { $response = $status; }
+				}
+	
+				// Try to Flush Cache and Run Live Subscription
+				if (!$response) {
+					self::bme_upload($key);
+					$response = self::bme_subscribe($email, $first, $last, $key);
+				}
+	
+				// Handle Failover to Cache File
+				if (substr($response, 0, 2) == '0|') {
+					$response = self::cache_subscription($instance['list'], $email, $first, $last, $key);
+				}
+			}
+
+			// Output Response to AJAX
+			echo "$key|$response"; exit;
+		}
+	}
+
+	/***********************
+	 WIDGET STANDARD METHODS
+	 ***********************/
+
+	// Process the Widget
+	function benchmarkemaillite_widget() {
+		$widget_ops = array(
+			'classname' => 'benchmarkemaillite_widget',
+			'description' => __('Create a Benchmark Email newsletter widget in WordPress.')
+		);
+		$this->WP_Widget('benchmarkemaillite_widget', __('Benchmark Email Lite'), $widget_ops);
+	}
+
 	// Build the Widget Settings Form
 	function form($instance) {
-		$defaults = array('id' => uniqid(), 'title' => __('Join Our Newsletter'), 'page' => '', 'token' => '', 'list' => '');
+		$defaults = array('title' => __('Join Our Newsletter'), 'page' => '', 'token' => '', 'list' => '');
 		$instance = wp_parse_args((array) $instance, $defaults);
 ?>
 		<p>
 			<?php echo __('Widget Title'); ?>
-			<input name="<?php echo $this->get_field_name('id'); ?>" type="hidden" value="<?php echo uniqid(); ?>" />
-			<input class="widefat" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($instance['title']); ?>" />
+			<input class="widefat" name="<?php echo $this->get_field_name('title'); ?>" type="text"
+				value="<?php echo esc_attr($instance['title']); ?>" />
 		</p>
 		<p>
 			<?php echo __('Limit to Page'); ?>
@@ -75,7 +146,8 @@ wp_dropdown_pages(
 		</p>
 		<p>
 			<?php echo __('Your Benchmark Email API Key'); ?>
-			<input class="widefat" name="<?php echo $this->get_field_name('token'); ?>" type="text" value="<?php echo esc_attr($instance['token']); ?>" />
+			<input class="widefat" name="<?php echo $this->get_field_name('token'); ?>" type="text"
+				value="<?php echo esc_attr($instance['token']); ?>" />
 		</p>
 		<p>
 			<a href="http://www.benchmarkemail.com/?p=68907" target="_blank">
@@ -83,7 +155,8 @@ wp_dropdown_pages(
 		</p>
 		<p>
 			<?php echo __('Name of Benchmark Email List'); ?>
-			<input class="widefat" name="<?php echo $this->get_field_name('list'); ?>" type="text" value="<?php echo esc_attr($instance['list']); ?>" />
+			<input class="widefat" name="<?php echo $this->get_field_name('list'); ?>" type="text"
+				value="<?php echo esc_attr($instance['list']); ?>" />
 		</p>
 <?php
 	}
@@ -91,7 +164,6 @@ wp_dropdown_pages(
 	// Save the Widget Settings
 	function update($new_instance, $old_instance) {
 		$instance = $old_instance;
-		$instance['id'] = sanitize_text_field($new_instance['id']);
 		$instance['title'] = sanitize_text_field($new_instance['title']);
 		$instance['page'] = absint($new_instance['page']);
 		$instance['token'] = sanitize_text_field($new_instance['token']);
@@ -104,10 +176,9 @@ wp_dropdown_pages(
 
 		// Widget Variables
 		global $post, $benchmarkemaillite_token;
-		$benchmarkemaillite_token = $instance['token'];
-		$response = '';
 		extract($args);
-		$key = ($val = $instance['id']) ? $val : uniqid();
+		$key = explode('-', $widget_id);
+		$key = $key[1];
 
 		// Exclude from Pages/Posts
 		if ($instance['page'] && $instance['page'] != $post->ID) { return false; }
@@ -117,59 +188,14 @@ wp_dropdown_pages(
 		$title = apply_filters('widget_title', $instance['title']);
 		if (!empty($title)) { echo $before_title . $title . $after_title; }
 		if (empty($instance['token']) || empty($instance['list'])) {
-			echo '<p class="errormsg">' . __('Error: Please configure your Benchmark Email API Key and List Name.') . '</p>' . $after_widget;
+			echo '<p class="errormsg">' . __('Error: Please configure your Benchmark Email API Key and List Name.')
+				. '</p>' . $after_widget;
 			return false;
-		}
-
-		// Process Submission
-		if ($_POST['formid'] == 'benchmark-email-lite-' . $key) {
-
-			// Sanitize Submission
-			$email = sanitize_email($_POST['subscribe_email'][$key]);
-			$first = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_first'][$key])));
-			$last = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_last'][$key])));
-
-			// Validate Email Address
-			if (!self::valid_email($email)) {
-				$response = '<p class="errormsg">' . __('Error: Please enter a valid Email Address.') . '</p>';
-			}
-
-			// Valid Email Address
-			else {
-
-				// Connect to Benchmark Email
-				if (!$response) {
-					$status = self::bme_connect();
-					if ($status !== true) { $response = $status; }
-				}
-
-				// Locate List
-				if (!$response) {
-					$status = self::bme_list($instance['list']);
-					if ($status !== true) { $response = $status; }
-				}
-
-				// Flush Cache and Run Live Subscription
-				if (!$response) {
-					self::bme_upload($key);
-					$response = self::bme_subscribe($email, $first, $last, $key);
-				}
-
-				// Handle Failover to Cache File
-				if (!strstr($response, 'successmsg')) {
-					$response = self::cache_subscription($instance['list'], $email, $first, $last, $key);
-				}
-			}
-
-			// Re-process Fields In Case They Were Cleared Upon Success
-			$email = sanitize_email($_POST['subscribe_email'][$key]);
-			$first = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_first'][$key])));
-			$last = stripslashes(sanitize_text_field(str_replace('"', '', $_POST['subscribe_last'][$key])));
 		}
 
 		// Finish Outputting Widget
 		echo '
-<form method="post" action="#benchmark-email-lite-' . $key . '" id="benchmark-email-lite-' . $key . '">
+<form method="post" action="" class="benchmark-email-lite" id="benchmark-email-lite-' . $key . '">
 <ul style="list-style-type:none;margin:0;">
 	<li>
 		<input type="hidden" name="formid" value="benchmark-email-lite-' . $key . '" />
@@ -186,29 +212,30 @@ wp_dropdown_pages(
 		<input type="text" id="subscribe_email-' . $key . '" name="subscribe_email[' . $key . ']" value="' . $email . '" />
 	</li>
 	<li><input type="submit" value="' . __('Subscribe') . '" /></li>
-	<li>' . $response . '</li>
+	<li>
+		<p class="errormsg" id="subscribe_fail-' . $key . '" style="display:none;"></p>
+		<p class="successmsg" id="subscribe_pass-' . $key . '" style="display:none;"></p>
+	</li>
 </ul>
 </form>
 ' . $after_widget;
 	}
 
-	// Validate Email Address
-	function valid_email($str) {
-		return preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)
-			? true : false;
-	}
+	/***********************
+	 BENCHMARK EMAIL METHODS
+	 ***********************/
 
 	// Cache Subscription Option
 	function cache_subscription($list, $email, $first, $last, $key) {
 		global $benchmarkemaillite_cachefile;
-		$fw = fopen($benchmarkemaillite_cachefile, 'a');
-		$string = "\"$list\",\"$email\",\"$first\",\"$last\"\n";
-		fwrite($fw, $string);
-		fclose($fw);
-		$_POST['subscribe_first'][$key] = '';
-		$_POST['subscribe_last'][$key] = '';
-		$_POST['subscribe_email'][$key] = '';
-		return '<p class="successmsg">' . __('Successfully Queued Subscription.') . '</p>';
+		if ($fw = fopen($benchmarkemaillite_cachefile, 'a')) {
+			$string = "\"$list\",\"$email\",\"$first\",\"$last\"\n";
+			if (fwrite($fw, $string)) {
+				fclose($fw);
+				return '1|' . __('Successfully Queued Subscription.');
+			}
+		}
+		return '0|' . __('Error: Unable to Queue Subscription. Check Plugin Folder Write Permissions.');
 	}
 
 	// Attempt to Connect to Benchmark Email
@@ -216,7 +243,7 @@ wp_dropdown_pages(
 		global $benchmarkemaillite_client, $benchmarkemaillite_apiurl;
 		require_once(ABSPATH . WPINC . '/class-IXR.php');
 		if (!class_exists(IXR_Client)) {
-			return '<p class="errormsg">' . __('Error: Unable to access the IXR Client library file: class-IXR.php.') . '</p>';
+			return '0|' . __('Error: Unable to access the IXR Client library file: class-IXR.php.');
 		}
 		$benchmarkemaillite_client = new IXR_Client($benchmarkemaillite_apiurl);
 		return true;
@@ -227,7 +254,7 @@ wp_dropdown_pages(
 		global $benchmarkemaillite_client, $benchmarkemaillite_token, $benchmarkemaillite_listid;
 		$benchmarkemaillite_client->query('listGet', $benchmarkemaillite_token, '', 1, 100, 'name', 'asc');
 		if ($benchmarkemaillite_client->isError()) {
-			return '<p class="errormsg">Error: [L] ' . $benchmarkemaillite_client->getErrorMessage() . '</p>';
+			return '0|' . __('Error: [L] ' . $benchmarkemaillite_client->getErrorMessage());
 		}
 		$lists = $benchmarkemaillite_client->getResponse();
 		foreach ($lists as $listdata) {
@@ -236,7 +263,7 @@ wp_dropdown_pages(
 				return true;
 			}
 		}
-		return '<p class="errormsg">' . __('Error: Unable to locate the specified list.') . '</p>';
+		return '0|' . __('Error: Unable to locate the specified list.');
 	}
 
 	// Process Subscription Cache
@@ -261,10 +288,10 @@ wp_dropdown_pages(
 			'listGetContacts', $benchmarkemaillite_token, $benchmarkemaillite_listid, $email, 1, 100, 'name', 'asc'
 		);
 		if ($benchmarkemaillite_client->isError()) {
-			return '<p class="errormsg">Error: [C] ' . $benchmarkemaillite_client->getErrorMessage() . '</p>';
+			return '0|' . __('Error: [C] ' . $benchmarkemaillite_client->getErrorMessage());
 		}
 		$data = $benchmarkemaillite_client->getResponse();
-		return ($data[0]) ? $data[0]['id'] : false;
+		return (is_array($data) && is_array($data[0])) ? $data[0]['id'] : false;
 	}
 
 	// Add or Update Subscriber
@@ -277,34 +304,27 @@ wp_dropdown_pages(
 
 		// Doesn't Pre-Exist, Add New Subscription
 		if (!is_numeric($contactID)) {
-			$type = 'Added';
 			$benchmarkemaillite_client->query(
 				'listAddContacts', $benchmarkemaillite_token, $benchmarkemaillite_listid, array(
-					array('email' => $email, 'firstname' => $first, 'lastname' => $last)
+					array('email' => $email, 'First Name' => $first, 'Last Name' => $last)
 				)
 			);
 			if ($benchmarkemaillite_client->isError()) {
-				return '<p class="errormsg">Error: [A] ' . $benchmarkemaillite_client->getErrorMessage() . '</p>';
+				return '0|' . __('Error: [A] ' . $benchmarkemaillite_client->getErrorMessage());
 			}
-			$_POST['subscribe_first'][$key] = '';
-			$_POST['subscribe_last'][$key] = '';
-			$_POST['subscribe_email'][$key] = '';
-			return '<p class="successmsg">' . __('Successfully Added Subscription.') . '</p>';
+			return '1|' . __('Successfully Added Subscription.');
 		}
 
 		// Or Update Preexisting Subscription
 		$benchmarkemaillite_client->query(
 			'listUpdateContactDetails', $benchmarkemaillite_token, $benchmarkemaillite_listid, $contactID, array(
-				'firstname' => $first, 'lastname' => $last
+				'First Name' => $first, 'Last Name' => $last
 			)
 		);
 		if ($benchmarkemaillite_client->isError()) {
-			return 'Error: [U] ' . $benchmarkemaillite_client->getErrorMessage();
+			return '0|' . 'Error: [U] ' . $benchmarkemaillite_client->getErrorMessage();
 		}
-		$_POST['subscribe_first'][$key] = '';
-		$_POST['subscribe_last'][$key] = '';
-		$_POST['subscribe_email'][$key] = '';
-		return '<p class="successmsg">' . __('Successfully Updated Subscription.') . '</p>';
+		return '1|' . __('Successfully Updated Subscription.');
 	}
 }
 

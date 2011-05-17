@@ -74,6 +74,8 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 
 = 1.0.2 =
 
+* Fixed a bug when multiple widgets exist on a page and sometimes aren't being keyed properly, causing the processor to not always know which widget is being submitted.
+* Added AJAX processing so the page doesn't have to refresh upon form submission.
 * Added failover handling. If the API becomes unavailable the plugin will dump subscriptions into a CSV buffering file in the plugin folder that will attempt to post to the API and clear the file upon each subsequent subscription submission.
 * Changed the first name and last name field titles from "firstname" to "First Name" per the spec of the newly released API.
 
