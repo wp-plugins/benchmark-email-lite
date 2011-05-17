@@ -39,17 +39,13 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 
 == Frequently Asked Questions ==
 
-= Why aren't the First and Last name fields populating my list? =
+= Why aren't the First and Last name fields populating onto my list? =
 
 Benchmark Email has a bug in their API that was introduced today, Monday May 16, 2011. We reported the problem and they are working to fix this issue.
 
 = What does "Error: [L] transport error - could not open socket" mean? =
 
-This means that the plugin is not able to connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). Their server could be down for maintenance, or there could be some other connection problem. To remedy this occasional problem, we are building connection failover handling into the next release of the plugin v1.0.2, which is currently developed and undergoing Quality Assurance testing. We also created a [monitoring job via pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
-
-= How do I make the form match my theme? =
-
-The signup form uses standard HTML list items so it can be manipulated by CSS within you theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
+This means that the plugin is not able to connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). Their server could be down for maintenance, or there could be some other connection problem. To remedy this occasional problem, we are building connection failover handling into the next release of the plugin v1.0.2, which is currently developed and undergoing Quality Assurance testing. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
 
 = How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
@@ -63,6 +59,10 @@ There is an optional setting to limit the plugin to a single page, if desired. T
 = I use the Kubrick theme and I'm seeing bullets! =
 
 We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot override this without forcing a new stylesheet, which would have a negative effect on other themes. So, we recommend you override this within your CSS with the entry at the bottom `.entry ul li::before,#sidebar ul ul li::before{content:"";}`
+
+= How do I make the form match my theme? =
+
+The signup form uses standard HTML list items so it can be manipulated by CSS within you theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
 
 == Screenshots ==
 
