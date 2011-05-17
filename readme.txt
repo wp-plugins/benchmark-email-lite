@@ -96,7 +96,7 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 
 = 1.0.2 =
 
-* Added failover handling whe the API becomes unavailable and changed firstname/lastname field labels for their new API.
+* Added failover handling whe the API becomes unavailable and changed firstname and lastname field labels for their new API.
 
 = 1.0.1 =
 
