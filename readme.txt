@@ -18,12 +18,7 @@ If you do not currently have a Benchmark Email account, please consider clicking
 
 The widget can be placed in any widget compatible area of your theme. It contains administrative controls where you enter an optional title, your Benchmark Email API Key, and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired.
 
-The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on. There are several plugins available for doing that, including the following:
-
-* [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/ "Get Widget Logic Plugin")
-* [Widget Context](http://wordpress.org/extend/plugins/widget-context/ "Get Widget Context Plugin")
-* [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
-* [Add Widgets to Pages](http://wordpress.org/extend/plugins/add-widgets-to-pages/ "Get Add Widgets to Pages Plugin")
+The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on. There are several plugins available for doing that; please refer to the FAQ tab for examples.
 
 Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you have any questions or issues with this plugin.
 
@@ -50,7 +45,7 @@ There is an optional setting to limit the plugin to a single page, if desired. T
 * [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/ "Get Widget Logic Plugin")
 * [Widget Context](http://wordpress.org/extend/plugins/widget-context/ "Get Widget Context Plugin")
 * [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
-* [Add Widgets to Pages](http://wordpress.org/extend/plugins/add-widgets-to-pages/ "Get Add Widgets to Pages Plugin")
+* [Add Widgets to Page](http://wordpress.org/extend/plugins/add-widgets-to-page/ "Get Add Widgets to Page Plugin")
 
 = I use the Kubrick theme and I'm seeing bullets! =
 
