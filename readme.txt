@@ -34,7 +34,7 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 
 == Frequently Asked Questions ==
 
-= What do I occasionally get "Successfully Queued Subscription"? =
+= Why do I occasionally get "Successfully Queued Subscription"? =
 
 This occurs when the plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the plugin folder, and unload the queue upon the next successful connection to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
 
