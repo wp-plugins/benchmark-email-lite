@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, beautomated
 Requires at least: 2.9
 Tested up to: 3.1.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 Benchmark Email Lite creates a newsletter signup form widget.
 
@@ -39,13 +39,9 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 
 == Frequently Asked Questions ==
 
-= Why aren't the First and Last name fields populating onto my list? =
+= What do I occasionally get "Successfully Queued Subscription"? =
 
-Benchmark Email has a bug in their API that was introduced today, Monday May 16, 2011. We reported the problem and they are working to fix this issue.
-
-= What does "Error: [L] transport error - could not open socket" mean? =
-
-This means that the plugin is not able to connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). Their server could be down for maintenance, or there could be some other connection problem. To remedy this occasional problem, we are building connection failover handling into the next release of the plugin v1.0.2, which is currently developed and undergoing Quality Assurance testing. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
+This occurs when the plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the plugin folder, and unload the queue upon the next successful connection to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
 
 = How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
