@@ -26,7 +26,7 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 
 1. Upload `benchmark-email-lite` folder and its contents to your `/wp-content/plugins/` directory.
 1. Activate the plugin through the Plugins menu in WordPress.
-1. Add the Widget to your sidebar through the Widgets menu in WordPress Appearance section.
+1. Add the Widget to a widget capable area of your theme through the Widgets menu in WordPress Appearance section.
 1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/?p=68907](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email") to support the development of this plugin.
 1. Obtain your Benchmark Email API Key by logging into Benchmark Email, click My Account, click My Account Settings, scroll to the big yellow box towards the bottom of the page and copy the API Key code.
 1. Expand the Widget options. Enter an optional title, your Benchmark Email API Key and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired. Click Save when you're all done.
@@ -47,6 +47,28 @@ There is an optional setting to limit the plugin to a single page, if desired. T
 * [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
 * [Add Widgets to Page](http://wordpress.org/extend/plugins/add-widgets-to-page/ "Get Add Widgets to Page Plugin")
 
+= I want to put the widget somewhere that widgets aren't currently allowed! =
+
+The Benchmark Email Lite plugin does not currently support a shortcode for inclusion in a page body. We might be adding this capability down the road. The good news is that you can still use the plugin without needing a sidebar, if you can customize your theme! You can add a little code to the theme to allow the widget wherever you wish it to be - even inside the page body if you want it there. In order to enable the widget where you want it to go, add the following code to your theme files:
+
+functions.php
+
+`if ( function_exists('register_sidebar') ) {
+	register_sidebar(array(
+		'name' => '*my_custom_widget_bar*',
+		'before_widget' => '<div class="*MyCustomWidgetBarWidgetClass*">',
+		'after_widget' => '</div>',
+		'before_title' => '<h2>',
+		'after_title' => '</h2>',
+	));
+}`
+
+footer.php or page.php (or another file where you want the widget to go within your theme's markup)
+
+`<!-- HTML markup that goes before the placement of the widget -->
+<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('my_custom_widget_bar') ) { } ?>
+<!-- HTML markup that goes after the placement of the widget -->`
+
 = I use the Kubrick theme and I'm seeing bullets! =
 
 We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot override this without forcing a new stylesheet, which would have a negative effect on other themes. So, we recommend you override this within your CSS with the entry at the bottom `.entry ul li::before,#sidebar ul ul li::before{content:"";}`
@@ -63,21 +85,30 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 
 == Changelog ==
 
+= 1.0.2.2 Unstable =
+
+* Added BME API key to failover CSV temporary buffer file.
+* Added spinner icon appearance upon front end form submission.
+* Converted the response texts to proper case.
+* Restructured the CSV buffer file processing logic and combined with main process.
+* Fixed PHP notices showing up when debug mode is turned on in `wp-config.php`.
+* Removed display of the front end form upon successful submission.
+
 = 1.0.2 =
 
-* Fixed a bug when multiple widgets exist on a page and sometimes aren't being keyed properly, causing the processor to not always know which widget is being submitted.
-* Changed the first name and last name field titles from "firstname" to "First Name" per the spec of the newly released API.
 * Added failover handling. If the API becomes unavailable the plugin will dump subscriptions into a CSV buffering file in the plugin folder that will attempt to post to the API and clear the file upon each subsequent subscription submission.
+* Changed the first name and last name field titles from "firstname" to "First Name" per the spec of the newly released API.
+* Fixed a bug when multiple widgets exist on a page and sometimes aren't being keyed properly, causing the processor to not always know which widget is being submitted.
 
 = 1.0.1 =
 
+* Added support for international language translation/localization.
+* Added anchor `#benchmark-email-lite` into URL so that after form submission it puts the user on the proper screen position to view the server response.
+* Updated admin area widget field sanitization method to `sanitize_text_field()` function requiring v2.9.0.
+* Re-titled the Benchmark Email Token to the term "API Key" to match what Benchmark Email is calling it on their website.
+* Adjusted the server response to clear out the submitted values upon successful form submission.
 * Fixed bug in first name, last name, and email address submitted data sanitizing to be compatible with international symbols or anything that WordPress considers safe for data validation purposes. Reference: `sanitize_email()` and `sanitize_text_field()` functions on WordPress Codex.
 * Fixed bug when the widget is installed multiple times on a single page leading to only one form pre-populating the entered data and some CSS conflicts. Multiple instances per page are now supported!
-* Updated admin area widget field sanitization method to `sanitize_text_field()` function requiring v2.9.0.
-* Added anchor `#benchmark-email-lite` into URL so that after form submission it puts the user on the proper screen position to view the server response.
-* Adjusted the server response to clear out the submitted values upon successful form submission.
-* Re-titled the Benchmark Email Token to the term "API Key" to match what Benchmark Email is calling it on their website.
-* Added support for international language translation/localization.
 
 = 1.0 =
 

@@ -3,7 +3,7 @@
 Plugin Name: Benchmark Email Lite
 Plugin URI: http://www.beautomated.com/benchmark-email-lite/
 Description: A plugin to create a Benchmark Email newsletter widget in WordPress.
-Version: 1.0.2.1
+Version: 1.0.2.2
 Author: beAutomated
 Author URI: http://www.beautomated.com/
 License: GPL
@@ -60,7 +60,6 @@ class benchmarkemaillite_widget extends WP_Widget {
 
 		// Proceed Processing Upon Widget Form Submission
 		if (array_key_exists('formid', $_POST) && strstr($_POST['formid'], 'benchmark-email-lite')) {
-			$response = '';
 
 			// Get Widget Options for this Instance
 			$instance = get_option('widget_benchmarkemaillite_widget');
@@ -167,7 +166,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		// Output Setup Notification, If Widget Not Yet Setup
 		if (empty($instance['token']) || empty($instance['list'])) {
 			echo $before_widget . '<p class="errormsg">'
-				. __('Error: Please configure your Benchmark Email API Key and List Name.')
+				. __('Error: Please configure your Benchmark Email API key and list name.')
 				. '</p>' . $after_widget;
 			return false;
 		}
@@ -207,24 +206,20 @@ class benchmarkemaillite_widget extends WP_Widget {
 
 	// Main Subscription Logic
 	function processsubscription($listname, $key, $email, $first, $last) {
+		$response = '';
 
 		// Check for Missing or Invalid Email Address
 		if (!$email || !is_email($email)) {
-			$response = array(false, __('Error: Please enter a valid Email Address.'));
+			$response = array(false, __('Error: Please enter a valid email address.'));
 		}
 
 		// Valid Email Address
 		else {
 
-			// Try to Connect to Benchmark Email
-			$status = self::bme_connect();
+			// Open Benchmark Email Connection and Try to Locate List
+			self::bme_connect();
+			$status = self::bme_list($listname);
 			if ($status !== true) { $response = $status; }
-
-			// Try to Locate List
-			if (!$response) {
-				$status = self::bme_list($listname);
-				if ($status !== true) { $response = $status; }
-			}
 
 			// Try to Flush Cache and Run Live Subscription
 			if (!$response) {
@@ -246,10 +241,10 @@ class benchmarkemaillite_widget extends WP_Widget {
 			$string = "\"$list\",\"$email\",\"$first\",\"$last\",\"" . self::$token . "\"\n";
 			if (fwrite($fw, $string)) {
 				fclose($fw);
-				return array(true, __('Successfully Queued Subscription.'));
+				return array(true, __('Successfully queued subscription.'));
 			}
 		}
-		return array(false, __('Error: Unable to Queue Subscription. Check Plugin Folder Write Permissions.'));
+		return array(false, __('Error: Unable to queue subscription. Check plugin folder write permissions.'));
 	}
 
 	// Process Subscription Cache File, If Exists
@@ -278,11 +273,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 	// Attempt to Connect to Benchmark Email
 	function bme_connect() {
 		require_once(ABSPATH . WPINC . '/class-IXR.php');
-		if (!class_exists(IXR_Client)) {
-			return array(false, __('Error: Unable to access the IXR Client library file: class-IXR.php.'));
-		}
 		self::$client = new IXR_Client(self::$apiurl);
-		return true;
 	}
 
 	// Locate List to Subscribe Onto
@@ -310,7 +301,10 @@ class benchmarkemaillite_widget extends WP_Widget {
 			return array(false, __('Error: [C] ' . self::$client->getErrorMessage()));
 		}
 		$data = self::$client->getResponse();
-		return (is_array($data) && is_array($data[0])) ? $data[0]['id'] : false;
+		return (
+			is_array($data) && array_key_exists(0, $data)
+			&& is_array($data[0]) && array_key_exists('id', $data[0])
+		) ? $data[0]['id'] : false;
 	}
 
 	// Add or Update Subscriber
@@ -330,7 +324,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 			if (self::$client->isError()) {
 				return array(false, __('Error: [A] ' . self::$client->getErrorMessage()));
 			}
-			return array(true, __('Successfully Added Subscription.'));
+			return array(true, __('Successfully added subscription.'));
 		}
 
 		// Or Update Preexisting Subscription
@@ -342,7 +336,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		if (self::$client->isError()) {
 			return array(false, 'Error: [U] ' . self::$client->getErrorMessage());
 		}
-		return array(true, __('Successfully Updated Subscription.'));
+		return array(true, __('Successfully updated subscription.'));
 	}
 }
 
