@@ -3,7 +3,7 @@
 Plugin Name: Benchmark Email Lite
 Plugin URI: http://www.beautomated.com/benchmark-email-lite/
 Description: A plugin to create a Benchmark Email newsletter widget in WordPress.
-Version: 1.0.2.3
+Version: 1.0.3
 Author: beAutomated
 Author URI: http://www.beautomated.com/
 License: GPL
