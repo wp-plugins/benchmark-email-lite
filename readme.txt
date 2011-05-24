@@ -61,14 +61,14 @@ functions.php
 		'after_title' => '</h2>',
 	));
 }`
-
+-
 
 footer.php or page.php
 (or another file where you want the widget to go within your theme's markup)
 `<!-- HTML markup that goes before the placement of the widget -->
 <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('my_custom_widget_bar') ) { } ?>
 <!-- HTML markup that goes after the placement of the widget -->`
-
+-
 
 = I use the Kubrick theme and I'm seeing bullets! =
 
