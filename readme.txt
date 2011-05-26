@@ -85,34 +85,34 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 
 == Changelog ==
 
-= 1.0.3 =
+= 1.0.3 on 2011-05-23 =
 
-* Added BME API key to failover CSV temporary buffer file.
-* Added spinner icon appearance upon front end form submission.
-* Converted the response texts to proper case.
-* Restructured the CSV buffer file processing logic and combined with main process.
-* Fixed PHP notices showing up when debug mode is turned on in `wp-config.php`.
-* Removed display of the front end form upon successful submission.
+* Added: BME API key to failover CSV temporary buffer file.
+* Added: Spinner icon appearance upon front end form submission.
+* Updated: The response texts to proper case.
+* Updated: The CSV buffer file processing logic and combined with main process.
+* Fixed: PHP notices showing up when debug mode is turned on in `wp-config.php`.
+* Removed: Display of the front end form upon successful submission.
 
-= 1.0.2 =
+= 1.0.2 on 2011-05-18 =
 
-* Added failover handling. If the API becomes unavailable the plugin will dump subscriptions into a CSV buffering file in the plugin folder that will attempt to post to the API and clear the file upon each subsequent subscription submission.
-* Changed the first name and last name field titles from "firstname" to "First Name" per the spec of the newly released API.
-* Fixed a bug when multiple widgets exist on a page and sometimes aren't being keyed properly, causing the processor to not always know which widget is being submitted.
+* Added: Failover handling. If the API becomes unavailable the plugin will dump subscriptions into a CSV buffering file in the plugin folder that will attempt to post to the API and clear the file upon each subsequent subscription submission.
+* Updated: The first name and last name field titles from "firstname" to "First Name" per the spec of the newly released API.
+* Fixed: Bug when multiple widgets exist on a page and sometimes aren't being keyed properly, causing the processor to not always know which widget is being submitted.
 
-= 1.0.1 =
+= 1.0.1 on 2011-05-14 =
 
-* Added support for international language translation/localization.
-* Added anchor `#benchmark-email-lite` into URL so that after form submission it puts the user on the proper screen position to view the server response.
-* Updated admin area widget field sanitization method to `sanitize_text_field()` function requiring v2.9.0.
-* Re-titled the Benchmark Email Token to the term "API Key" to match what Benchmark Email is calling it on their website.
-* Adjusted the server response to clear out the submitted values upon successful form submission.
-* Fixed bug in first name, last name, and email address submitted data sanitizing to be compatible with international symbols or anything that WordPress considers safe for data validation purposes. Reference: `sanitize_email()` and `sanitize_text_field()` functions on WordPress Codex.
-* Fixed bug when the widget is installed multiple times on a single page leading to only one form pre-populating the entered data and some CSS conflicts. Multiple instances per page are now supported!
+* Added: Support for international language translation/localization.
+* Added: Anchor `#benchmark-email-lite` into URL so that after form submission it puts the user on the proper screen position to view the server response.
+* Updated: Admin area widget field sanitization method to `sanitize_text_field()` function requiring v2.9.0.
+* Updated: Title for the Benchmark Email Token to the term "API Key" to match what Benchmark Email is calling it on their website.
+* Updated: The server response to clear out the submitted values upon successful form submission.
+* Fixed: Bug in first name, last name, and email address submitted data sanitizing to be compatible with international symbols or anything that WordPress considers safe for data validation purposes. Reference: `sanitize_email()` and `sanitize_text_field()` functions on WordPress Codex.
+* Fixed: Bug when the widget is installed multiple times on a single page leading to only one form pre-populating the entered data and some CSS conflicts. Multiple instances per page are now supported!
 
-= 1.0 =
+= 1.0 on 2011-05-12 =
 
-* Initial release.
+* Added: Initial plugin release.
 
 == Upgrade Notice ==
 
