@@ -3,7 +3,7 @@ Contributors: beautomated
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 2.9
-Tested up to: 3.1.2
+Tested up to: 3.1.3
 Stable tag: 1.0.3
 
 Benchmark Email Lite creates a newsletter signup form widget.
@@ -51,7 +51,7 @@ There is an optional setting to limit the plugin to a single page, if desired. T
 
 The Benchmark Email Lite plugin does not currently support a shortcode for inclusion in a page body. We might be adding this capability down the road. The good news is that you can still use the plugin without needing a sidebar, if you can customize your theme! You can add a little code to the theme to allow the widget wherever you wish it to be - even inside the page body if you want it there. In order to enable the widget where you want it to go, add the following code to your theme files:
 
-* functions.php
+functions.php
 `if ( function_exists('register_sidebar') ) {
 	register_sidebar(array(
 		'name' => '*my_custom_widget_bar*',
@@ -61,13 +61,14 @@ The Benchmark Email Lite plugin does not currently support a shortcode for inclu
 		'after_title' => '</h2>',
 	));
 }`
+.
 
-* footer.php or page.php
+footer.php or page.php
 (or another file where you want the widget to go within your theme's markup)
 `<!-- HTML markup that goes before the placement of the widget -->
 <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('my_custom_widget_bar') ) { } ?>
 <!-- HTML markup that goes after the placement of the widget -->`
-
+.
 
 = I use the Kubrick theme and I'm seeing bullets! =
 
@@ -84,6 +85,12 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 3. This is an example of the widget with customized CSS.
 
 == Changelog ==
+
+= 1.0.4 [development] on 2011-06-05 =
+
+* Added: Two credit links for people to optinally turn on to front end traffic. One link is to our Benchmark Email affiliate link and the other points to our website. Both links help support the development of this plugin.
+* Added: AJAX feedback mechanism in widget administration that checks the API key and list name fields against the Benchmark Email database and reports status.
+* Updated: Subscription to utilize Benchmark Email's double optin method. This prevents the problem when somebody who wants to re-subscribe can't get out of the Master Unsubscribe List.
 
 = 1.0.3 on 2011-05-23 =
 
