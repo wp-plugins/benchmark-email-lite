@@ -27,9 +27,8 @@ class benchmarkemaillite_widget extends WP_Widget {
 	// Variables Available Without Class Instantiation
 	private static $apiurl = 'http://api.benchmarkemail.com/1.0/';
 	private static $cachefile = 'subscription_cache.csv';
-	private static $link1 = 'http://www.benchmarkemail.com/?p=68907';
-	private static $link2 = 'http://www.beautomated.com/';
-	private static $link3 = 'http://www.beautomated.com/contact/';
+	private static $linkaffiliate = 'http://www.benchmarkemail.com/?p=68907';
+	private static $linkcontact = 'http://www.beautomated.com/contact/';
 	private static $listid = false;
 	private static $client = false;
 	private static $token = false;
@@ -84,9 +83,9 @@ class benchmarkemaillite_widget extends WP_Widget {
 	// Administrative Links
 	function pluginlinks($links, $file) {
 		if (basename($file) == basename(__FILE__)) {
-			$link = '<a href="' . self::$link3 . '">' . __('Contact Developer') . '</a>';
+			$link = '<a href="' . self::$linkcontact . '">' . __('Contact Developer') . '</a>';
 			array_unshift($links, $link);
-			$link = '<a href="' . self::$link1 . '">' . __('Free 30 Day Benchmark Email Trial') . '</a>';
+			$link = '<a href="' . self::$linkaffiliate . '">' . __('Free 30 Day Benchmark Email Trial') . '</a>';
 			array_unshift($links, $link);
 		}
 		return $links;
@@ -126,9 +125,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 			'title' => __('Join Our Newsletter'),
 			'page' => '',
 			'token' => '',
-			'list' => '',
-			'link1' => '0',
-			'link2' => '0'
+			'list' => ''
 		);
 		$instance = wp_parse_args((array) $instance, $defaults);
 ?>
@@ -151,7 +148,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 			<span id="<?php echo $this->get_field_name('token'); ?>-response"></span>
 		</p>
 		<p>
-			<a href="<?php echo self::$link1; ?>" target="_blank">
+			<a href="<?php echo self::$linkaffiliate; ?>" target="_blank">
 			<?php echo __('Signup for a 30-day FREE Trial and support this plugin\'s development!'); ?></a>
 		</p>
 		<p>
@@ -160,22 +157,6 @@ class benchmarkemaillite_widget extends WP_Widget {
 				value="<?php echo esc_attr($instance['list']); ?>" id="<?php echo $this->get_field_name('list'); ?>"
 				onblur="benchmarkemaillite_check('<?php echo $this->get_field_name('list'); ?>', '<?php echo $this->get_field_name('list'); ?>', '<?php echo $this->get_field_name('token'); ?>')" /><br />
 			<span id="<?php echo $this->get_field_name('list'); ?>-response"></span>
-		</p>
-		<p>
-			<?php echo __('Display free trial link?'); ?><br />
-			<small><?php echo __('Supports development of this plugin.'); ?></small><br />
-			<input name="<?php echo $this->get_field_name('link1'); ?>" type="radio"
-				value="1" <?php checked($instance['link1'], 1); ?> /> yes
-			<input name="<?php echo $this->get_field_name('link1'); ?>" type="radio"
-				value="0" <?php checked($instance['link1'], 0); ?> /> no
-		</p>
-		<p>
-			<?php echo __('Display beAutomated link?'); ?><br />
-			<small><?php echo __('Gives credit to the plugin developer.'); ?></small><br />
-			<input name="<?php echo $this->get_field_name('link2'); ?>" type="radio"
-				value="1"<?php checked($instance['link2'], 1); ?> /> yes
-			<input name="<?php echo $this->get_field_name('link2'); ?>" type="radio"
-				value="0"<?php checked($instance['link2'], 0); ?> /> no
 		</p>
 <?php
 	}
@@ -187,8 +168,6 @@ class benchmarkemaillite_widget extends WP_Widget {
 		$instance['page'] = absint($new_instance['page']);
 		$instance['token'] = sanitize_text_field($new_instance['token']);
 		$instance['list'] = sanitize_text_field($new_instance['list']);
-		$instance['link1'] = intval($new_instance['link1']);
-		$instance['link2'] = intval($new_instance['link2']);
 		return $instance;
 	}
 
@@ -237,16 +216,6 @@ class benchmarkemaillite_widget extends WP_Widget {
 			return false;
 		}
 
-		// Determine Whether to Show Credit Links
-		$link1 = (array_key_exists('link1', $instance) && ($instance['link1'] == '1'))
-			? '<li><a href="' . self::$link1 . '" title="'
-				. __('30 Day Free Trial with Email Marketing Service')
-				. '">' . __('Free Trial Benchmark Email') . '</a></li>' : '';
-		$link2 = (array_key_exists('link2', $instance) && ($instance['link2'] == '1'))
-			? '<li><a href="' . self::$link2 . '" title="'
-				. __('Custom WordPress Plugin Development and WordPress Training by beAutomated')
-				. '">' . __('Custom WordPress Plugins') . '</a></li>' : '';
-
 		// Output Widget Subscription Form
 		echo $before_widget . '
 <form method="post" action="#benchmark-email-lite-' . $key . '">
@@ -267,8 +236,6 @@ class benchmarkemaillite_widget extends WP_Widget {
 	</li>
 	<li><input type="submit" value="' . __('Subscribe') . '" onclick="document.getElementById(\'subscribe_spinner-' . $key . '\').style.display=\'block\';this.form.style.display=\'none\';" /></li>
 	<li>' . $printresponse . '</li>
-	' . $link1 . '
-	' . $link2 . '
 </ul>
 </form>
 <p id="subscribe_spinner-' . $key . '" style="display:none;text-align:center;">

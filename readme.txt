@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 2.9
 Tested up to: 3.1.3
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 Benchmark Email Lite creates a newsletter signup form widget.
 
@@ -33,6 +33,17 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 1. Test the plugin by going to your site and completing the form with temporary dummy data. You should see a "Successfully Added/Updated/Queued Subscription." message. Verify that the subscription went through by logging into Benchmark Email, clicking List, choosing your list. The new subscription should be at the top. You can delete the dummy entry once verified.
 
 == Frequently Asked Questions ==
+
+= Why did you switch to "double optin" in v1.0.4?  =
+
+Two reasons. First, Benchmark Email requested that we use this method because it ensures list quality, which in effect keeps everyone out of trouble and keeps their prices down. Second, in the event somebody unsubscribes and gets placed on the Master Unsubscribe List, they can only be removed from this opt out list by the Benchmark Email customer opening a ticket for removal or the subscriber re-subscribing with a confirmed "double optin" method. This provides an easy way for somebody to re-subscribe. 
+
+= Where do I go to change the "double optin" confirmation email text? =
+
+1. Log into your Benchmark Email account.
+1. Click on Lists tab, then Signup Forms sub-tab.
+1. Either create a new signup form or click to edit the "Sample Signup Form".
+1. Complete the section titled "Optin Mail".
 
 = Why do I occasionally get "Successfully Queued Subscription"? =
 
@@ -86,9 +97,8 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 
 == Changelog ==
 
-= 1.0.4 [development] on 2011-06-05 =
+= 1.0.4 on 2011-06-20 =
 
-* Added: Two credit links for people to optinally turn on to front end traffic. One link is to our Benchmark Email affiliate link and the other points to our website. Both links help support the development of this plugin.
 * Added: AJAX feedback mechanism in widget administration that checks the API key and list name fields against the Benchmark Email database and reports status.
 * Updated: Subscription to utilize Benchmark Email's double optin method. This prevents the problem when somebody who wants to re-subscribe can't get out of the Master Unsubscribe List.
 
