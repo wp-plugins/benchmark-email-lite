@@ -3,13 +3,15 @@
 Plugin Name: Benchmark Email Lite
 Plugin URI: http://www.beautomated.com/benchmark-email-lite/
 Description: A plugin to create a Benchmark Email newsletter widget in WordPress.
-Version: 1.0.2.3
+Version: 1.0.4
 Author: beAutomated
 Author URI: http://www.beautomated.com/
 License: GPL
 */
 
 // Wordpress API Hooks
+add_action('admin_init', array('benchmarkemaillite_widget', 'admin_js'));
+add_action('wp_ajax_bmewidget', array('benchmarkemaillite_widget', 'admin_ajax_callback'));
 add_action('widgets_init', 'benchmarkemaillite_register_widget');
 add_action('widgets_init', array('benchmarkemaillite_widget', 'widgetfrontendsubmission'));
 add_filter('plugin_row_meta', array('benchmarkemaillite_widget', 'pluginlinks'), 10, 2);
@@ -25,10 +27,13 @@ class benchmarkemaillite_widget extends WP_Widget {
 	// Variables Available Without Class Instantiation
 	private static $apiurl = 'http://api.benchmarkemail.com/1.0/';
 	private static $cachefile = 'subscription_cache.csv';
+	private static $linkaffiliate = 'http://www.benchmarkemail.com/?p=68907';
+	private static $linkcontact = 'http://www.beautomated.com/contact/';
 	private static $listid = false;
 	private static $client = false;
 	private static $token = false;
 	private static $response = array();
+	private static $version = '1.0.4';
 
 	// Class Constructor
 	function benchmarkemaillite_widget() {
@@ -44,12 +49,43 @@ class benchmarkemaillite_widget extends WP_Widget {
 	 WORDPRESS HOOK METHODS
 	 **********************/
 
+	// Admin Area JavaScripts
+	function admin_js() {
+		wp_deregister_script('benchmark-email-lite');
+		wp_register_script(
+			'benchmark-email-lite',
+			plugins_url() . '/benchmark-email-lite/benchmark-email-lite.admin.js',
+			array('jquery'),
+			self::$version,
+			true
+		);
+		wp_enqueue_script('benchmark-email-lite');
+	}
+
+	// Admin Area AJAX Callback - Open Benchmark Email Connection and Try to Locate List
+	function admin_ajax_callback() {
+		self::$token = sanitize_text_field($_POST['bmetoken']);
+		self::bme_connect();
+		$status = self::bme_list(sanitize_text_field($_POST['bmelist']));
+		$field = sanitize_text_field($_POST['bmefield']);
+		if (strstr($field, 'list')) {
+			echo ($status !== true)
+				? '<span style="color:red;font-weight:bold;">' . __('Error: Unable to verify the list.') . '</span>'
+				: '<span style="color:green;font-weight:bold;">' . __('Successfully verified the list.') . '</span>';
+		} else if (strstr($field, 'token')) {
+			echo ($status !== true && !$status[0])
+				? '<span style="color:red;font-weight:bold;">' . __('Error: Unable to verify the key.') . '</span>'
+				: '<span style="color:green;font-weight:bold;">' . __('Successfully verified the key.') . '</span>';
+		}
+		exit;
+	}
+
 	// Administrative Links
 	function pluginlinks($links, $file) {
 		if (basename($file) == basename(__FILE__)) {
-			$link = '<a href="http://www.beautomated.com/contact/">Contact Developer</a>';
+			$link = '<a href="' . self::$linkcontact . '">' . __('Contact Developer') . '</a>';
 			array_unshift($links, $link);
-			$link = '<a href="http://www.benchmarkemail.com/?p=68907">Free 30 Day Benchmark Email Trial</a>';
+			$link = '<a href="' . self::$linkaffiliate . '">' . __('Free 30 Day Benchmark Email Trial') . '</a>';
 			array_unshift($links, $link);
 		}
 		return $links;
@@ -79,13 +115,18 @@ class benchmarkemaillite_widget extends WP_Widget {
 		}
 	}
 
-	/*********************************
-	 WORDPRESS WIDGET STANDARD METHODS
-	 *********************************/
+	/************************
+	 WORDPRESS WIDGET METHODS
+	 ************************/
 
 	// Build the Widget Settings Form
 	function form($instance) {
-		$defaults = array('title' => __('Join Our Newsletter'), 'page' => '', 'token' => '', 'list' => '');
+		$defaults = array(
+			'title' => __('Join Our Newsletter'),
+			'page' => '',
+			'token' => '',
+			'list' => ''
+		);
 		$instance = wp_parse_args((array) $instance, $defaults);
 ?>
 		<p>
@@ -102,16 +143,20 @@ class benchmarkemaillite_widget extends WP_Widget {
 		<p>
 			<?php echo __('Your Benchmark Email API Key'); ?>
 			<input class="widefat" name="<?php echo $this->get_field_name('token'); ?>" type="text"
-				value="<?php echo esc_attr($instance['token']); ?>" />
+				value="<?php echo esc_attr($instance['token']); ?>" id="<?php echo $this->get_field_name('token'); ?>"
+				onblur="benchmarkemaillite_check('<?php echo $this->get_field_name('token'); ?>', '<?php echo $this->get_field_name('list'); ?>', '<?php echo $this->get_field_name('token'); ?>')" /><br />
+			<span id="<?php echo $this->get_field_name('token'); ?>-response"></span>
 		</p>
 		<p>
-			<a href="http://www.benchmarkemail.com/?p=68907" target="_blank">
+			<a href="<?php echo self::$linkaffiliate; ?>" target="_blank">
 			<?php echo __('Signup for a 30-day FREE Trial and support this plugin\'s development!'); ?></a>
 		</p>
 		<p>
 			<?php echo __('Name of Benchmark Email List'); ?>
 			<input class="widefat" name="<?php echo $this->get_field_name('list'); ?>" type="text"
-				value="<?php echo esc_attr($instance['list']); ?>" />
+				value="<?php echo esc_attr($instance['list']); ?>" id="<?php echo $this->get_field_name('list'); ?>"
+				onblur="benchmarkemaillite_check('<?php echo $this->get_field_name('list'); ?>', '<?php echo $this->get_field_name('list'); ?>', '<?php echo $this->get_field_name('token'); ?>')" /><br />
+			<span id="<?php echo $this->get_field_name('list'); ?>-response"></span>
 		</p>
 <?php
 	}
@@ -279,17 +324,15 @@ class benchmarkemaillite_widget extends WP_Widget {
 	// Locate List to Subscribe Onto
 	function bme_list($list) {
 		self::$client->query('listGet', self::$token, '', 1, 100, 'name', 'asc');
-		if (self::$client->isError()) {
-			return array(false, __('Error: [L] ' . self::$client->getErrorMessage()));
-		}
+		if (self::$client->isError()) { return array(false); }
 		$lists = self::$client->getResponse();
 		foreach ($lists as $listdata) {
-			if (strtolower($listdata['listname']) == strtolower($list)) {
+			if (strtolower(trim($listdata['listname'])) == strtolower(trim($list))) {
 				self::$listid = $listdata['id'];
 				return true;
 			}
 		}
-		return array(false, __('Error: Unable to locate the specified list.'));
+		return $lists;
 	}
 
 	// Get Existing Subscriber Data
@@ -298,7 +341,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 			'listGetContacts', self::$token, self::$listid, $email, 1, 100, 'name', 'asc'
 		);
 		if (self::$client->isError()) {
-			return array(false, __('Error: [C] ' . self::$client->getErrorMessage()));
+			return array(false, __('Error: [Cont] ' . self::$client->getErrorMessage()));
 		}
 		$data = self::$client->getResponse();
 		return (
@@ -317,14 +360,14 @@ class benchmarkemaillite_widget extends WP_Widget {
 		// Doesn't Pre-Exist, Add New Subscription
 		if (!is_numeric($contactID)) {
 			self::$client->query(
-				'listAddContacts', self::$token, self::$listid, array(
+				'listAddContactsOptin', self::$token, self::$listid, array(
 					array('email' => $email, 'First Name' => $first, 'Last Name' => $last)
-				)
+				), '1'
 			);
 			if (self::$client->isError()) {
-				return array(false, __('Error: [A] ' . self::$client->getErrorMessage()));
+				return array(false, __('Error: [Add] ' . self::$client->getErrorMessage()));
 			}
-			return array(true, __('Successfully added subscription.'));
+			return array(true, __('A verification email has been sent.'));
 		}
 
 		// Or Update Preexisting Subscription
@@ -334,7 +377,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 			)
 		);
 		if (self::$client->isError()) {
-			return array(false, 'Error: [U] ' . self::$client->getErrorMessage());
+			return array(false, 'Error: [Updt] ' . self::$client->getErrorMessage());
 		}
 		return array(true, __('Successfully updated subscription.'));
 	}

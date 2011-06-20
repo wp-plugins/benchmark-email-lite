@@ -3,8 +3,8 @@ Contributors: beautomated
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 2.9
-Tested up to: 3.1.2
-Stable tag: 1.0.2
+Tested up to: 3.1.3
+Stable tag: 1.0.4
 
 Benchmark Email Lite creates a newsletter signup form widget.
 
@@ -34,6 +34,17 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 
 == Frequently Asked Questions ==
 
+= Why did you switch to "double optin" in v1.0.4?  =
+
+Two reasons. First, Benchmark Email requested that we use this method because it ensures list quality, which in effect keeps everyone out of trouble and keeps their prices down. Second, in the event somebody unsubscribes and gets placed on the Master Unsubscribe List, they can only be removed from this opt out list by the Benchmark Email customer opening a ticket for removal or the subscriber re-subscribing with a confirmed "double optin" method. This provides an easy way for somebody to re-subscribe. 
+
+= Where do I go to change the "double optin" confirmation email text? =
+
+1. Log into your Benchmark Email account.
+1. Click on Lists tab, then Signup Forms sub-tab.
+1. Either create a new signup form or click to edit the "Sample Signup Form".
+1. Complete the section titled "Optin Mail".
+
 = Why do I occasionally get "Successfully Queued Subscription"? =
 
 This occurs when the plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the plugin folder, and unload the queue upon the next successful connection to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
@@ -52,7 +63,6 @@ There is an optional setting to limit the plugin to a single page, if desired. T
 The Benchmark Email Lite plugin does not currently support a shortcode for inclusion in a page body. We might be adding this capability down the road. The good news is that you can still use the plugin without needing a sidebar, if you can customize your theme! You can add a little code to the theme to allow the widget wherever you wish it to be - even inside the page body if you want it there. In order to enable the widget where you want it to go, add the following code to your theme files:
 
 functions.php
-
 `if ( function_exists('register_sidebar') ) {
 	register_sidebar(array(
 		'name' => '*my_custom_widget_bar*',
@@ -62,12 +72,14 @@ functions.php
 		'after_title' => '</h2>',
 	));
 }`
+.
 
-footer.php or page.php (or another file where you want the widget to go within your theme's markup)
-
+footer.php or page.php
+(or another file where you want the widget to go within your theme's markup)
 `<!-- HTML markup that goes before the placement of the widget -->
 <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('my_custom_widget_bar') ) { } ?>
 <!-- HTML markup that goes after the placement of the widget -->`
+.
 
 = I use the Kubrick theme and I'm seeing bullets! =
 
@@ -85,36 +97,45 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 
 == Changelog ==
 
-= 1.0.2.2 Unstable =
+= 1.0.4 on 2011-06-20 =
 
-* Added BME API key to failover CSV temporary buffer file.
-* Added spinner icon appearance upon front end form submission.
-* Converted the response texts to proper case.
-* Restructured the CSV buffer file processing logic and combined with main process.
-* Fixed PHP notices showing up when debug mode is turned on in `wp-config.php`.
-* Removed display of the front end form upon successful submission.
+* Added: AJAX feedback mechanism in widget administration that checks the API key and list name fields against the Benchmark Email database and reports status.
+* Updated: Subscription to utilize Benchmark Email's double optin method. This prevents the problem when somebody who wants to re-subscribe can't get out of the Master Unsubscribe List.
 
-= 1.0.2 =
+= 1.0.3 on 2011-05-23 =
 
-* Added failover handling. If the API becomes unavailable the plugin will dump subscriptions into a CSV buffering file in the plugin folder that will attempt to post to the API and clear the file upon each subsequent subscription submission.
-* Changed the first name and last name field titles from "firstname" to "First Name" per the spec of the newly released API.
-* Fixed a bug when multiple widgets exist on a page and sometimes aren't being keyed properly, causing the processor to not always know which widget is being submitted.
+* Added: BME API key to failover CSV temporary buffer file.
+* Added: Spinner icon appearance upon front end form submission.
+* Updated: The response texts to proper case.
+* Updated: The CSV buffer file processing logic and combined with main process.
+* Fixed: PHP notices showing up when debug mode is turned on in `wp-config.php`.
+* Removed: Display of the front end form upon successful submission.
 
-= 1.0.1 =
+= 1.0.2 on 2011-05-18 =
 
-* Added support for international language translation/localization.
-* Added anchor `#benchmark-email-lite` into URL so that after form submission it puts the user on the proper screen position to view the server response.
-* Updated admin area widget field sanitization method to `sanitize_text_field()` function requiring v2.9.0.
-* Re-titled the Benchmark Email Token to the term "API Key" to match what Benchmark Email is calling it on their website.
-* Adjusted the server response to clear out the submitted values upon successful form submission.
-* Fixed bug in first name, last name, and email address submitted data sanitizing to be compatible with international symbols or anything that WordPress considers safe for data validation purposes. Reference: `sanitize_email()` and `sanitize_text_field()` functions on WordPress Codex.
-* Fixed bug when the widget is installed multiple times on a single page leading to only one form pre-populating the entered data and some CSS conflicts. Multiple instances per page are now supported!
+* Added: Failover handling. If the API becomes unavailable the plugin will dump subscriptions into a CSV buffering file in the plugin folder that will attempt to post to the API and clear the file upon each subsequent subscription submission.
+* Updated: The first name and last name field titles from "firstname" to "First Name" per the spec of the newly released API.
+* Fixed: Bug when multiple widgets exist on a page and sometimes aren't being keyed properly, causing the processor to not always know which widget is being submitted.
 
-= 1.0 =
+= 1.0.1 on 2011-05-14 =
 
-* Initial release.
+* Added: Support for international language translation/localization.
+* Added: Anchor `#benchmark-email-lite` into URL so that after form submission it puts the user on the proper screen position to view the server response.
+* Updated: Admin area widget field sanitization method to `sanitize_text_field()` function requiring v2.9.0.
+* Updated: Title for the Benchmark Email Token to the term "API Key" to match what Benchmark Email is calling it on their website.
+* Updated: The server response to clear out the submitted values upon successful form submission.
+* Fixed: Bug in first name, last name, and email address submitted data sanitizing to be compatible with international symbols or anything that WordPress considers safe for data validation purposes. Reference: `sanitize_email()` and `sanitize_text_field()` functions on WordPress Codex.
+* Fixed: Bug when the widget is installed multiple times on a single page leading to only one form pre-populating the entered data and some CSS conflicts. Multiple instances per page are now supported!
+
+= 1.0 on 2011-05-12 =
+
+* Added: Initial plugin release.
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+
+* Minor code updates and UI enhancements (see changelog).
 
 = 1.0.2 =
 
