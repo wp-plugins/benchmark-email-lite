@@ -6,7 +6,7 @@ Description: A plugin to create a Benchmark Email newsletter widget in WordPress
 Version: 1.0.4
 Author: beAutomated
 Author URI: http://www.beautomated.com/
-License: GPL
+License: GPL2
 */
 
 // Wordpress API Hooks
