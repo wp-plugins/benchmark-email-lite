@@ -34,16 +34,16 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 
 == Frequently Asked Questions ==
 
-= Why did you switch to "double optin" in v1.0.4?  =
+= Why did you switch to double opt-in in v1.0.4?  =
 
-Two reasons. First, Benchmark Email requested that we use this method because it ensures list quality, which in effect keeps everyone out of trouble and keeps their prices down. Second, in the event somebody unsubscribes and gets placed on the Master Unsubscribe List, they can only be removed from this opt out list by the Benchmark Email customer opening a ticket for removal or the subscriber re-subscribing with a confirmed "double optin" method. This provides an easy way for somebody to re-subscribe. 
+Two reasons. First, Benchmark Email requested that we use this method because it ensures list quality, which in effect keeps everyone out of trouble and keeps their prices down. Second, in the event somebody unsubscribes and chooses "Do Not Contact" checkbox and gets placed on the Master Unsubscribe List, they can only be removed from this list by the Benchmark Email customer opening a ticket for removal or the subscriber re-subscribing with a confirmed double opt-in method. This provides an easy way for somebody to re-subscribe.
 
-= Where do I go to change the "double optin" confirmation email text? =
+= Where do I go to change the double opt-in confirmation email text? =
 
 1. Log into your Benchmark Email account.
 1. Click on Lists tab, then Signup Forms sub-tab.
 1. Either create a new signup form or click to edit the "Sample Signup Form".
-1. Complete the section titled "Optin Mail".
+1. Complete the section titled "Opt-in Mail".
 
 = Why do I occasionally get "Successfully Queued Subscription"? =
 
@@ -100,7 +100,7 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 = 1.0.4 on 2011-06-20 =
 
 * Added: AJAX feedback mechanism in widget administration that checks the API key and list name fields against the Benchmark Email database and reports status.
-* Updated: Subscription to utilize Benchmark Email's double optin method. This prevents the problem when somebody who wants to re-subscribe can't get out of the Master Unsubscribe List.
+* Updated: Subscription to utilize Benchmark Email's double opt-in method. This prevents the problem when somebody who wants to re-subscribe can't get out of the Master Unsubscribe List.
 
 = 1.0.3 on 2011-05-23 =
 
