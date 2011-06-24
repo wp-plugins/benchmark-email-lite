@@ -133,6 +133,10 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 
 == Upgrade Notice ==
 
+= 1.0.4 =
+
+* New admin area verifications and use of douple opt-in (see changelog).
+
 = 1.0.3 =
 
 * Minor code updates and UI enhancements (see changelog).
