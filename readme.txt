@@ -3,7 +3,7 @@ Contributors: beautomated
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 2.9
-Tested up to: 3.1.3
+Tested up to: 3.2
 Stable tag: 1.0.4
 
 Benchmark Email Lite creates a newsletter signup form widget.
