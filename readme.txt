@@ -3,8 +3,8 @@ Contributors: beautomated
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 2.9
-Tested up to: 3.2
-Stable tag: 1.0.4
+Tested up to: 3.2.1
+Stable tag: 1.0.5
 
 Benchmark Email Lite creates a newsletter signup form widget.
 
@@ -47,7 +47,7 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 = Why do I occasionally get "Successfully Queued Subscription"? =
 
-This occurs when the plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the plugin folder, and unload the queue upon the next successful connection to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
+This occurs when the plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the plugin folder, and automatically attempt to unload the queue every 5 minutes until successfull to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
 
 = How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
@@ -96,6 +96,14 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 3. This is an example of the widget with customized CSS.
 
 == Changelog ==
+
+= 1.0.5 on 2011-08-18 =
+
+* Updated: Moved the subscriptions queueing in the event of API failure to WP cron instead of being triggered upon subsequent subscription.
+* Updated: Moved the subscriptions queueing in the event of API failure storage from a CSV file type storage to storage in the WordPress database. Prevents filesystem permissions issues.
+* Updated: Cleaned-up some code with unnecessary referencing of widget IDs during subscriptions processing.
+* Updated: Renamed "cache" to "queue" for clarification about the failover handling support.
+* Fixed: Added a new button on the widget configuration panel to "Verify API Key and List Name" as the previous tab-off event wasn't always being executed if users click Save without first tabbing off the elements to be tested.
 
 = 1.0.4 on 2011-06-20 =
 
