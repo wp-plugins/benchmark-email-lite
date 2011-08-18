@@ -141,6 +141,10 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 
 == Upgrade Notice ==
 
+= 1.0.5 =
+
+* New admin area verification button and utilizing WP cron system for failover queue (see changelog).
+
 = 1.0.4 =
 
 * New admin area verifications and use of douple opt-in (see changelog).
