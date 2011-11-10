@@ -20,7 +20,7 @@ The widget can be placed in any widget compatible area of your theme. It contain
 
 The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on. There are several plugins available for doing that; please refer to the FAQ tab for examples.
 
-Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you have any questions or issues with this plugin.
+Please visit our [Support Forum](http://wordpress.org/tags/benchmark-email-lite?forum_id=10 "Visit our WordPress Support Forum") if you have any questions or issues regarding this plugin.
 
 == Installation ==
 
@@ -33,6 +33,10 @@ Please [Contact Us](http://www.beautomated.com/contact/ "Contact Us") if you hav
 1. Test the plugin by going to your site and completing the form with temporary dummy data. You should see a "Successfully Added/Updated/Queued Subscription." message. Verify that the subscription went through by logging into Benchmark Email, clicking List, choosing your list. The new subscription should be at the top. You can delete the dummy entry once verified.
 
 == Frequently Asked Questions ==
+
+= Why did the widget suddenly stop connecting with Benchmark Email? =
+
+Please check your API key. We observed on 11/09/2011 that our own API key was deleted/reset on Benchmark Email's server. We had to generate a new one and place the new key code into our widget settings. To generate a new API key, log into Benchmark Email via their website and go to My Account, then Account Settings, then scroll towards the bottom of the page.
 
 = Why did you switch to double opt-in in v1.0.4?  =
 
