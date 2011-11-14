@@ -24,9 +24,26 @@ Please visit our [Support Forum](http://wordpress.org/tags/benchmark-email-lite?
 
 == Installation ==
 
-1. Upload `benchmark-email-lite` folder and its contents to your `/wp-content/plugins/` directory.
+Automatic Installation
+
+1. Login to your blog and go to the Plugins page.
+1. Click on the Add New button.
+1. Search for beCounted.
+1. Click Install now.
+1. (sometimes required) Enter your FTP or FTPS username and password, as provided by your web host.
+1. Click Activate plugin.
+1. Add the widget to a widget capable area of your theme through the Appearance->Widgets menu.
+1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/?p=68907](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email") to support the development of this plugin.
+1. Obtain your Benchmark Email API Key by logging into Benchmark Email, click My Account, click My Account Settings, scroll to the big yellow box towards the bottom of the page and copy the API Key code.
+1. Expand the Widget options. Enter an optional title, your Benchmark Email API Key and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired. Click Save when you're all done.
+1. Test the plugin by going to your site and completing the form with temporary dummy data. You should see a "Successfully Added/Updated/Queued Subscription." message. Verify that the subscription went through by logging into Benchmark Email, clicking List, choosing your list. The new subscription should be at the top. You can delete the dummy entry once verified.
+
+Manual Installation
+
+1. Download the plugin and un-zip it.
+1. Upload the `benchmark-email-lite` folder to your `wp-content/plugins/` directory.
 1. Activate the plugin through the Plugins menu in WordPress.
-1. Add the Widget to a widget capable area of your theme through the Widgets menu in WordPress Appearance section.
+1. Add the widget to a widget capable area of your theme through the Appearance->Widgets menu.
 1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/?p=68907](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email") to support the development of this plugin.
 1. Obtain your Benchmark Email API Key by logging into Benchmark Email, click My Account, click My Account Settings, scroll to the big yellow box towards the bottom of the page and copy the API Key code.
 1. Expand the Widget options. Enter an optional title, your Benchmark Email API Key and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired. Click Save when you're all done.
