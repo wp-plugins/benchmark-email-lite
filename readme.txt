@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 2.9
 Tested up to: 3.2.1
-Stable tag: 1.0.5
+Stable tag: 1.1
 
 Benchmark Email Lite creates a newsletter signup form widget.
 
@@ -112,11 +112,25 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 
 == Screenshots ==
 
-1. This is the widget control panel.
-2. This is the default widget on Twenty Ten theme.
-3. This is an example of the widget with customized CSS.
+1. This is the default widget on Twenty Eleven theme.
+2. This is the widget control panel.
 
 == Changelog ==
+
+= 1.1 on 2011-12-07 =
+
+* Added: Prepopulation of the fields for logged in users.
+* Added: Ability to toggle first and last name fields off.
+* Added: Optional text to display to your readers.
+* Added: Ability to change the text of the subscribe button.
+* Added: Added widget title display in widget subtitle bar area.
+* Added: New link on widget admin panel to view list names on BME.
+* Updated: Expanded widget administration panel width to 400 pixels.
+* Updated: Moved widget back end and front end HTML markup code to separate files.
+* Updated: Added text next to the API Key field regarding the one year expiration issue.
+* Updated: Sanitization functions adjusted.
+* Removed: Output of widget set-up instructions on website before the widget is configured.
+* Fixed: Bug when extra spaces existed between words in the list name admin vs front end behavior differed.
 
 = 1.0.5 on 2011-08-18 =
 
@@ -161,6 +175,10 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 * Added: Initial plugin release.
 
 == Upgrade Notice ==
+
+= 1.1 =
+
+* Made name fields optional and several other enhancements. See changelog.
 
 = 1.0.5 =
 
