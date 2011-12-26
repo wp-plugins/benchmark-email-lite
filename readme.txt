@@ -74,10 +74,11 @@ This occurs when the plugin is not able to immediately connect with the Benchmar
 
 There is an optional setting to limit the plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on. There are several plugins available for doing that, including the following:
 
-* [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/ "Get Widget Logic Plugin")
-* [Widget Context](http://wordpress.org/extend/plugins/widget-context/ "Get Widget Context Plugin")
-* [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
 * [Add Widgets to Page](http://wordpress.org/extend/plugins/add-widgets-to-page/ "Get Add Widgets to Page Plugin")
+* [Widget Context](http://wordpress.org/extend/plugins/widget-context/ "Get Widget Context Plugin")
+* [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/ "Get Widget Logic Plugin")
+* [Widget Shortcode](http://wordpress.org/extend/plugins/widget-shortcode/ "Get Widget Shortcode Plugin")
+* [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
 
 = I want to put the widget somewhere that widgets aren't currently allowed! =
 
