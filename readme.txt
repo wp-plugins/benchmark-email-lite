@@ -3,28 +3,35 @@ Contributors: beautomated, seanconklin, randywsandberg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 2.9
-Tested up to: 3.3
-Stable tag: 1.1
+Tested up to: 3.3.1
+Stable tag: 2.0
 
-Benchmark Email Lite creates a newsletter signup form widget.
+Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your blog posts.
 
 == Description ==
 
-Benchmark Email Lite creates a newsletter signup form widget. The widget creates a simple W3C and WAVE validated signup form to instantly subscribe visitors to a Benchmark Email contact list, requesting the subscriber's first name, last name, and email address. If the subscriber preexists on the list, this will update the subscriber's first and last names on the mailing list.
+If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite plugin lets you build an email list right from the pages of your WordPress site, and send your subscribers email versions of your blog posts in a flash.
 
-The signup form uses standard HTML list items so it can be manipulated by CSS within your theme to match your site's design. Some themes will automatically style the widget to match the design. Contact us or the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly.
+Using a simple W3C and Wave-validated signup form, subscribers can sign up for your blog posts using just their first name, last name and email address. If someone signs up and they’re already a subscriber, the widget will automatically update the person’s first and last name in your email list. 
 
-If you do not currently have a Benchmark Email account, please consider clicking our affiliate link to try their [30-day FREE trial](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email"). Clicking this affiliate link will, if you eventually signup for a paid account with Benchmark Email, earn us a commission that we can use to support this plugin and develop it further.
+You want a signup form that looks like your blog, right? The Benchmark Email Lite widget uses standard HTML list items so you can code your CSS to make the widget match your blog’s design. Some themes will automatically match your signup form to the style of your blog, but if you’re having trouble accomplishing this, contact us free of charge, or ask your theme designer for help.
 
-The widget can be placed in any widget compatible area of your theme. It contains administrative controls where you enter an optional title, your Benchmark Email API Key, and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired.
+Place the widget in any compatible area of your theme, and use administrative controls to enter an optional title, email list name and your Benchmark Email API key. Controls within the page / post editor interface let you email a simple version of your blog posts (including images and video) on a schedule, or the moment you finish them. It’s your choice.  
 
-The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on. There are several plugins available for doing that; please refer to the FAQ tab for examples.
+You can post the widget on one page of your blog, or every page, and use a third-party plugin to manage this (see the FAQ tab for options). You can also set up multiple lists and APIs on the back-end of the widget. 
 
-Please visit our [Support Forum](http://wordpress.org/tags/benchmark-email-lite?forum_id=10 "Visit our WordPress Support Forum") if you have any questions or issues regarding this plugin.
+To get started, sign up for a Benchmark Email [30-day free trial](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email 30-days free") here. With a free trial, you can use the widget free of charge for as long as you’d like.  
 
 == Installation ==
 
-Automatic Installation
+Update Instructions
+
+1. Click to have the plugin updated.
+1. Expand the Widget options for any existing widgets. Verify that the settings are all correct. Click Save when you're all done.
+1. Click Benchmark Email Lite under the Settings menu and ensure your API keys are properly configured.
+1. Test the plugin by going to your site and completing the form with temporary dummy data. You should see a "Successfully Added/Updated/Queued Subscription." message. Verify that the subscription went through by logging into Benchmark Email, clicking List, choosing your list. The new subscription should be at the top. You can delete the dummy entry once verified.
+
+New Automatic Installation
 
 1. Login to your blog and go to the Plugins page.
 1. Click on the Add New button.
@@ -33,23 +40,29 @@ Automatic Installation
 1. (sometimes required) Enter your FTP or FTPS username and password, as provided by your web host.
 1. Click Activate plugin.
 1. Add the widget to a widget capable area of your theme through the Appearance->Widgets menu.
-1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/?p=68907](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email") to support the development of this plugin.
+1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/?p=68907](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email").
 1. Obtain your Benchmark Email API Key by logging into Benchmark Email, click My Account, click My Account Settings, scroll to the big yellow box towards the bottom of the page and copy the API Key code.
 1. Expand the Widget options. Enter an optional title, your Benchmark Email API Key and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired. Click Save when you're all done.
+1. Click Benchmark Email Lite under the Settings menu and ensure your API keys are properly configured.
 1. Test the plugin by going to your site and completing the form with temporary dummy data. You should see a "Successfully Added/Updated/Queued Subscription." message. Verify that the subscription went through by logging into Benchmark Email, clicking List, choosing your list. The new subscription should be at the top. You can delete the dummy entry once verified.
 
-Manual Installation
+New Manual Installation
 
 1. Download the plugin and un-zip it.
 1. Upload the `benchmark-email-lite` folder to your `wp-content/plugins/` directory.
 1. Activate the plugin through the Plugins menu in WordPress.
 1. Add the widget to a widget capable area of your theme through the Appearance->Widgets menu.
-1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/?p=68907](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email") to support the development of this plugin.
+1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/?p=68907](http://www.benchmarkemail.com/?p=68907 "Try Benchmark Email").
 1. Obtain your Benchmark Email API Key by logging into Benchmark Email, click My Account, click My Account Settings, scroll to the big yellow box towards the bottom of the page and copy the API Key code.
 1. Expand the Widget options. Enter an optional title, your Benchmark Email API Key and the name of the list for your visitors to be subscribed to. There is an optional setting to limit the plugin to a single page, if desired. Click Save when you're all done.
+1. Click Benchmark Email Lite under the Settings menu and ensure your API keys are properly configured.
 1. Test the plugin by going to your site and completing the form with temporary dummy data. You should see a "Successfully Added/Updated/Queued Subscription." message. Verify that the subscription went through by logging into Benchmark Email, clicking List, choosing your list. The new subscription should be at the top. You can delete the dummy entry once verified.
 
 == Frequently Asked Questions ==
+
+= Where do I go for help with any issues? =
+
+Please visit our [Support Forum](http://wordpress.org/tags/benchmark-email-lite?forum_id=10 "Visit our WordPress Support Forum") if you have any questions or issues regarding this plugin. You may also call beAutomated at 408-876-4022 during business hours or email info@beautomated.com.
 
 = Why did the widget suddenly stop connecting with Benchmark Email? =
 
@@ -66,6 +79,10 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 1. Either create a new signup form or click to edit the "Sample Signup Form".
 1. Complete the section titled "Opt-in Mail".
 
+= What happens if a subscriber resubmits their subscription? =
+
+If the subscriber preexists on the list, this will update the subscriber's first and last names on the mailing list.
+
 = Why do I occasionally get "Successfully Queued Subscription"? =
 
 This occurs when the plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the plugin folder, and automatically attempt to unload the queue every 5 minutes until successfull to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
@@ -74,11 +91,10 @@ This occurs when the plugin is not able to immediately connect with the Benchmar
 
 There is an optional setting to limit the plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on. There are several plugins available for doing that, including the following:
 
-* [Add Widgets to Page](http://wordpress.org/extend/plugins/add-widgets-to-page/ "Get Add Widgets to Page Plugin")
-* [Widget Context](http://wordpress.org/extend/plugins/widget-context/ "Get Widget Context Plugin")
 * [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/ "Get Widget Logic Plugin")
-* [Widget Shortcode](http://wordpress.org/extend/plugins/widget-shortcode/ "Get Widget Shortcode Plugin")
+* [Widget Context](http://wordpress.org/extend/plugins/widget-context/ "Get Widget Context Plugin")
 * [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
+* [Add Widgets to Page](http://wordpress.org/extend/plugins/add-widgets-to-page/ "Get Add Widgets to Page Plugin")
 
 = I want to put the widget somewhere that widgets aren't currently allowed! =
 
@@ -103,20 +119,34 @@ footer.php or page.php
 <!-- HTML markup that goes after the placement of the widget -->`
 .
 
-= I use the Kubrick theme and I'm seeing bullets! =
-
-We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot override this without forcing a new stylesheet, which would have a negative effect on other themes. So, we recommend you override this within your CSS with the entry at the bottom `.entry ul li::before,#sidebar ul ul li::before{content:"";}`
-
 = How do I make the form match my theme? =
 
 The signup form uses standard HTML list items so it can be manipulated by CSS within you theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
+
+= I use the Kubrick theme and I'm seeing bullets! =
+
+We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot override this without forcing a new stylesheet, which would have a negative effect on other themes. So, we recommend you override this within your CSS with the entry at the bottom `.entry ul li::before,#sidebar ul ul li::before{content:"";}`
 
 == Screenshots ==
 
 1. This is the default widget on Twenty Eleven theme.
 2. This is the widget control panel.
+3. This is the page/post publish section.
+4. This is a sample email generated from a post.
+5. This is the plugin settings panel.
 
 == Changelog ==
+
+= 2.0 on 2012-01-31 =
+
+* Added: Ability to create Benchmark Email campaigns from WordPress pages and posts.
+* Added: Ability to send post campaigns immediately to either a test address or a selected Benchmark Email list.
+* Added: Plugin settings page for global API Key(s) and campaign settings.
+* Updated: Moved API key setting from individual widgets to a new plugin settings panel.
+* Updated: Split PHP functions among several classes/files for organization and growth.
+* Updated: Added warranty disclaimer text in the main plugin file header.
+* Fixed: W3C validation error on strict mode, caused by two hidden input fields.
+* Fixed: Localizations (language) weren't being loaded properly for International support.
 
 = 1.1 on 2011-12-07 =
 
@@ -128,7 +158,7 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 * Added: New link on widget admin panel to view list names on BME.
 * Updated: Expanded widget administration panel width to 400 pixels.
 * Updated: Moved widget back end and front end HTML markup code to separate files.
-* Updated: Added text next to the API Key field regarding the one year expiration issue.
+* Updated: Added text next to the API Key field regarding FAQ #1.
 * Updated: Sanitization functions adjusted.
 * Removed: Output of widget set-up instructions on website before the widget is configured.
 * Fixed: Bug when extra spaces existed between words in the list name admin vs front end behavior differed.
@@ -176,6 +206,10 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 * Added: Initial plugin release.
 
 == Upgrade Notice ==
+
+= 2.0 =
+
+* New settings panel and post-to-campaign support. API keys are moved from widgets to settings panel on activation.
 
 = 1.1 =
 
