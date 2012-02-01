@@ -16,7 +16,7 @@ Using a simple W3C and Wave-validated signup form, subscribers can sign up for y
 
 You want a signup form that looks like your blog, right? The Benchmark Email Lite widget uses standard HTML list items so you can code your CSS to make the widget match your blog’s design. Some themes will automatically match your signup form to the style of your blog, but if you’re having trouble accomplishing this, contact us free of charge, or ask your theme designer for help.
 
-Place the widget in any compatible area of your theme, and use administrative controls to enter an optional title, email list name and your Benchmark Email API key. Controls within the page / post editor interface let you email a simple version of your blog posts (including images and video) on a schedule, or the moment you finish them. It’s your choice.  
+Place the widget in any compatible area of your theme, and use administrative controls to enter an optional title, email list name and your Benchmark Email API key. Controls within the page / post editor interface let you email a simple version of your blog posts (including images) the moment you finish them.
 
 You can post the widget on one page of your blog, or every page, and use a third-party plugin to manage this (see the FAQ tab for options). You can also set up multiple lists and APIs on the back-end of the widget. 
 
@@ -62,7 +62,11 @@ New Manual Installation
 
 = Where do I go for help with any issues? =
 
-Please visit our [Support Forum](http://wordpress.org/tags/benchmark-email-lite?forum_id=10 "Visit our WordPress Support Forum") if you have any questions or issues regarding this plugin. You may also call beAutomated at 408-876-4022 during business hours or email info@beautomated.com.
+Please visit our [Support Forum](http://wordpress.org/tags/benchmark-email-lite?forum_id=10 "Visit our WordPress Support Forum") if you have any questions or issues regarding this plugin. You may also call Benchmark Email at 1-800-430-4095 extension 2 during business hours or email support@benchmarkemail.com.
+
+= My signup form widget(s) broke after an upgrade from version 1.x =
+
+We built an automatic process that attempts to upgrade existing widget settings for version 2.x compatibility. Should that process fail for some reason, please log into your benchmarkemail.com account and copy/paste your API key from the My Settings page (bottom) to the plugin settings page under the Settings menu item called Benchmark Email Lite. You may have to save the value you paste in twice for it to take, due to the possibility of a partially completed process during the plugin upgrade.
 
 = Why did the widget suddenly stop connecting with Benchmark Email? =
 
