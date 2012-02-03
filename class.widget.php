@@ -20,6 +20,8 @@ class benchmarkemaillite_widget extends WP_Widget {
 	// Build the Widget Settings Form
 	function form($instance) {
 		$options = get_option('benchmark-email-lite_group');
+		$badconfig_message = '<br /><strong style="color:red;">' . __('Please configure your API Key(s) on the', 'benchmark-email-lite') . ' '
+				. '<a href="options-general.php?page=benchmark-email-lite">' . __('settings page', 'benchmark-email-lite') . '</a>.</strong>';
 		$defaults = array(
 			'title' => __('Subscribe to Newsletter', 'benchmark-email-lite'),
 			'button' => __('Subscribe', 'benchmark-email-lite'),
@@ -31,14 +33,9 @@ class benchmarkemaillite_widget extends WP_Widget {
 		);
 		$instance = wp_parse_args((array) $instance, $defaults);
 		$instance['id'] = $this->id;
-		if (!isset($options[1])) {
-			echo __('Please configure this plugin first.', 'benchmark-email-lite');
-			return;
-		}
+		if (!isset($options[1])) { echo $badconfig_message; return; }
 		$tokens = (!is_array($options[1])) ? unserialize($options[1]) : $options[1];
-		$dropdown_message = ($tokens[0]) ? ''
-			: '<br /><strong style="color:red;">' . __('Please configure your API Key(s) on the', 'benchmark-email-lite') . ' '
-				. '<a href="options-general.php?page=benchmark-email-lite">' . __('settings page', 'benchmark-email-lite') . '</a>.</strong>';
+		$dropdown_message = ($tokens[0]) ? '' : $badconfig_message;
 		$dropdown = benchmarkemaillite::print_lists($tokens, $instance['list']);
 		require('widget.admin.html.php');
 	}
