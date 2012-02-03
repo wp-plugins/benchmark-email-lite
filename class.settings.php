@@ -24,21 +24,20 @@ class benchmarkemaillite_settings {
 						$widgets[$instance]['list'] = "{$widget['token']}|{$widget['list']}|{$list['id']}";
 					}
 				}
-
-				// Delete Old API Key
-				unset($widgets[$instance]['token']);
 			}
 		}
 		update_option('widget_benchmarkemaillite_widget', $widgets);
-		$upgradetokens = array_unique($upgradetokens);
 
-		// Update Plugin Settings, Maintaining API Keys
+		// Gather Preexisting API Keys
 		$options = get_option('benchmark-email-lite_group');
 		$presettokens = (isset($options[1])) ? $options[1] : array();
 		$presettokens = (!is_array($presettokens)) ? unserialize($presettokens) : $presettokens;
+
+		// Update Plugin Settings, Maintaining API Keys
+		$tokens = array_unique(array_merge($upgradetokens, $presettokens));
 		update_option(
 			'benchmark-email-lite_group', array(
-				1 => array_merge($upgradetokens, $presettokens),
+				1 => $tokens,
 				2 => 'yes',
 				3 => 'simple',
 				4 => '',
