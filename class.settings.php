@@ -6,8 +6,8 @@ class benchmarkemaillite_settings {
 	 WP Hook Methods
 	 ***************/
 
-	// Plugin Activation
-	function activate() {
+	// Plugin Reactivation - Hooked Into Activation And Admin Area
+	function upgrade() {
 
 		// Search For v1.x Widgets, Move API Keys To Plugin Settings
 		$widgets = get_option('widget_benchmarkemaillite_widget');
@@ -37,11 +37,27 @@ class benchmarkemaillite_settings {
 			}
 		}
 		$tokens = array_unique($tokens);
-
-		// Update Plugin Settings, Maintaining API Keys
 		update_option(
 			'benchmark-email-lite_group', array(
 				1 => $tokens,
+				2 => isset($options[2]) ? $options[2] : 'yes',
+				3 => isset($options[3]) ? $options[3] : 'simple',
+				4 => isset($options[4]) ? $options[4] : '',
+			)
+		);
+	}
+
+	// Plugin Activation
+	function activate() {
+
+		// Upgrade v1.x to v2.x Plugin Settings
+		self::upgrade();
+
+		// Update Plugin Settings, Maintaining API Keys
+		$options = get_option('benchmark-email-lite_group');
+		update_option(
+			'benchmark-email-lite_group', array(
+				1 => isset($options[1]) ? $options[1] : array(),
 				2 => 'yes',
 				3 => 'simple',
 				4 => '',
@@ -54,12 +70,23 @@ class benchmarkemaillite_settings {
 		}
 	}
 
-	// Admin Plugins Page Needed Settings Notice
+	// Admin Settings Notice
 	function notices() {
-		if ($GLOBALS['pagenow'] != 'plugins.php') { return; }
+
+		// Check For API Key
 		$options = get_option('benchmark-email-lite_group');
 		$tokens = (isset($options[1])) ? $options[1] : array();
 		$tokens = (!is_array($tokens)) ? unserialize($tokens) : $tokens;
+
+		// Try To Upgrade v1.x to v2.x Plugin Settings
+		if (!$tokens[0] && !$tokens[1] && !$tokens[2] && !$tokens[3] && !$tokens[4]) { self::upgrade(); }
+
+		// Check Again For API Key
+		$options = get_option('benchmark-email-lite_group');
+		$tokens = (isset($options[1])) ? $options[1] : array();
+		$tokens = (!is_array($tokens)) ? unserialize($tokens) : $tokens;
+
+		// If Not Found, Print Admin Notice
 		if (!$tokens[0] && !$tokens[1] && !$tokens[2] && !$tokens[3] && !$tokens[4]) {
 			echo '<div class="fade updated"><p><strong>Benchmark Email Lite</strong></p><p>' . __('Please configure your API Key(s) on the', 'benchmark-email-lite') . ' '
 				. '<a href="options-general.php?page=benchmark-email-lite">' . __('settings page', 'benchmark-email-lite') . '</a>.</p></div>';
