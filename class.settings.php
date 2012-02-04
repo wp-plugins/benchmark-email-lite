@@ -1,6 +1,5 @@
 <?php
 
-// The following is the WordPress Settings API functions
 class benchmarkemaillite_settings {
 
 	/***************
@@ -12,10 +11,10 @@ class benchmarkemaillite_settings {
 
 		// Search For v1.x Widgets, Move API Keys To Plugin Settings
 		$widgets = get_option('widget_benchmarkemaillite_widget');
-		$upgradetokens = array();
+		$tokens = array();
 		foreach ($widgets as $instance => $widget) {
-			if (isset($widget['token'])) {
-				$upgradetokens[] = $widget['token'];
+			if (isset($widget['token']) && $widget['token'] != '') {
+				$tokens[] = $widget['token'];
 
 				// Update List Selection In Widget
 				benchmarkemaillite_api::$token = $widget['token'];
@@ -31,11 +30,15 @@ class benchmarkemaillite_settings {
 
 		// Gather Preexisting API Keys
 		$options = get_option('benchmark-email-lite_group');
-		$presettokens = (isset($options[1])) ? $options[1] : array();
-		$presettokens = (!is_array($presettokens)) ? unserialize($presettokens) : $presettokens;
+		if (isset($options[1]) && $options[1] != '') {
+			$newtokens = (!is_array($options[1])) ? unserialize($options[1]) : $options[1];
+			if (is_array($newtokens)) {
+				foreach ($newtokens as $newtoken) { if ($token) { $tokens[] = $token; } }
+			}
+		}
+		$tokens = array_unique($tokens);
 
 		// Update Plugin Settings, Maintaining API Keys
-		$tokens = array_unique(array_merge($upgradetokens, $presettokens));
 		update_option(
 			'benchmark-email-lite_group', array(
 				1 => $tokens,
