@@ -1,5 +1,6 @@
 <?php
 
+// The following is the WordPress Settings API functions
 class benchmarkemaillite_settings {
 
 	/***************
