@@ -6,8 +6,8 @@ class benchmarkemaillite_settings {
 	 WP Hook Methods
 	 ***************/
 
-	// Plugin Reactivation - Hooked Into Activation And Admin Area
-	function upgrade() {
+	// Plugin Upgrade Reactivation - Hooked Into Activation And Admin Area Notice
+	function activate() {
 
 		// Search For v1.x Widgets, Move API Keys To Plugin Settings
 		$widgets = get_option('widget_benchmarkemaillite_widget');
@@ -30,64 +30,36 @@ class benchmarkemaillite_settings {
 
 		// Gather Preexisting API Keys
 		$options = get_option('benchmark-email-lite_group');
-		if (isset($options[1]) && $options[1] != '') {
-			$newtokens = (!is_array($options[1])) ? unserialize($options[1]) : $options[1];
-			if (is_array($newtokens)) {
-				foreach ($newtokens as $newtoken) { if ($token) { $tokens[] = $token; } }
-			}
+		if (isset($options[1]) && is_array($options[1])) {
+			$tokens = array_merge($tokens, $options[1]);
 		}
 		$tokens = array_unique($tokens);
 		update_option(
 			'benchmark-email-lite_group', array(
 				1 => $tokens,
+
+				// Set Default Values
 				2 => isset($options[2]) ? $options[2] : 'yes',
 				3 => isset($options[3]) ? $options[3] : 'simple',
 				4 => isset($options[4]) ? $options[4] : '',
 			)
 		);
-	}
-
-	// Plugin Activation
-	function activate() {
-
-		// Upgrade v1.x to v2.x Plugin Settings
-		self::upgrade();
-
-		// Update Plugin Settings, Maintaining API Keys
-		$options = get_option('benchmark-email-lite_group');
-		update_option(
-			'benchmark-email-lite_group', array(
-				1 => isset($options[1]) ? $options[1] : array(),
-				2 => 'yes',
-				3 => 'simple',
-				4 => '',
-			)
-		);
 
 		// Vendor Handshake With Benchmark Email
-		if ($tokens[0] || $tokens[1] || $tokens[2] || $tokens[3] || $tokens[4]) {
-			benchmarkemaillite_api::handshake($options[1]);
-		}
+		benchmarkemaillite_api::handshake($tokens);
 	}
 
 	// Admin Settings Notice
 	function notices() {
 
-		// Check For API Key
-		$options = get_option('benchmark-email-lite_group');
-		$tokens = (isset($options[1])) ? $options[1] : array();
-		$tokens = (!is_array($tokens)) ? unserialize($tokens) : $tokens;
-
 		// Try To Upgrade v1.x to v2.x Plugin Settings
-		if (!$tokens[0] && !$tokens[1] && !$tokens[2] && !$tokens[3] && !$tokens[4]) { self::upgrade(); }
-
-		// Check Again For API Key
+		// This Exists Because WordPress Sadly Doesn't Fire Activation Hook Upon Upgrade Reactivation
 		$options = get_option('benchmark-email-lite_group');
-		$tokens = (isset($options[1])) ? $options[1] : array();
-		$tokens = (!is_array($tokens)) ? unserialize($tokens) : $tokens;
+		if (!isset($options[1][0])) { self::activate(); }
 
-		// If Not Found, Print Admin Notice
-		if (!$tokens[0] && !$tokens[1] && !$tokens[2] && !$tokens[3] && !$tokens[4]) {
+		// Check Second Time For API Key - If Not Found, Print Admin Notice
+		$options = get_option('benchmark-email-lite_group');
+		if (!isset($options[1][0])) {
 			echo '<div class="fade updated"><p><strong>Benchmark Email Lite</strong></p><p>' . __('Please configure your API Key(s) on the', 'benchmark-email-lite') . ' '
 				. '<a href="options-general.php?page=benchmark-email-lite">' . __('settings page', 'benchmark-email-lite') . '</a>.</p></div>';
 		}
@@ -149,7 +121,7 @@ class benchmarkemaillite_settings {
 	function section2() { }
 	function field1() {
 		$options = get_option('benchmark-email-lite_group');
-		$key = (!is_array($options[1])) ? unserialize($options[1]) : $options[1];
+		$key = $options[1];
 		$key[0] = isset($key[0]) ? $key[0] : '';
 		$key[1] = isset($key[1]) ? $key[1] : '';
 		$key[2] = isset($key[2]) ? $key[2] : '';
@@ -166,25 +138,26 @@ class benchmarkemaillite_settings {
 		echo "<input id='benchmark-email-lite_group_2' type='checkbox' name='benchmark-email-lite_group[2]' value='yes'" . checked('yes', $options[2], false) . " /> "
 			. __("Include the sentence &quot;Having trouble viewing this email? <u>click here</u>.&quot; in the top of emails?", 'benchamrk-email-lite');
 	}
-	function field3() { // Design Template Disabled
+	function field3() { // Design Template - This Field Is Disabled
 		$options = get_option('benchmark-email-lite_group');
 		echo "<input id='benchmark-email-lite_group_3' type='hidden' name='benchmark-email-lite_group[3]'
 			value='simple' checked='checked' />";
 	}
-	function field4() { // Permission Reminder Disabled
+	function field4() { // Permission Reminder - This Field Is Disabled
 		$options = get_option('benchmark-email-lite_group');
 		echo "<input id='benchmark-email-lite_group_4' type='hidden' name='benchmark-email-lite_group[4]'
 			value='' checked='checked' />";
 	}
 	function validate($values) {
 		foreach ($values as $key => $val) {
-			switch ($key) {
-				case '1':
-					$values[1] = serialize($val);
-					benchmarkemaillite_api::handshake($val);
-					break;
-				default: $values[$key] = esc_attr($val);
+			if ($key == '1') {
+				benchmarkemaillite_api::handshake($val);
+
+				// WordPress Sadly Pre-serializes This
+				$values[$key] = is_serialized($val) ? unserialize($val) : $val;
+				$values[$key] = array_unique($values[$key], SORT_STRING);
 			}
+			else { $values[$key] = esc_attr($val); }
 		}
 		return $values;
 	}
