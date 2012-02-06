@@ -38,11 +38,10 @@ class benchmarkemaillite_posts {
 		// Open Benchmark Email Connection and Locate List
 		$options = get_option('benchmark-email-lite_group');
 		if (!isset($options[1])) { return; }
-		$tokens = (!is_array($options[1])) ? unserialize($options[1]) : $options[1];
-		$dropdown_message = ($tokens[0]) ? ''
+		$dropdown_message = (isset($options[1][0])) ? ''
 			: '<br /><strong style="color:red;">' . __('Please configure your API Key(s) on the', 'benchmark-email-lite') . ' '
 				. '<a href="options-general.php?page=benchmark-email-lite">' . __('settings page', 'benchmark-email-lite') . '</a>.</strong>';
-		$dropdown = benchmarkemaillite::print_lists($tokens, $bmelist);
+		$dropdown = benchmarkemaillite::print_lists($options[1], $bmelist);
 
 		// Output Form
 		require('metabox.html.php');
