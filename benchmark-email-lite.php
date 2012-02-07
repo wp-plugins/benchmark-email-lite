@@ -41,11 +41,11 @@ add_action('widgets_init', 'benchmarkemaillite_register_widget');
 function benchmarkemaillite_register_widget() { register_widget('benchmarkemaillite_widget'); }
 
 // Settings API Hooks
-register_activation_hook(__FILE__, array('benchmarkemaillite_settings', 'activate'));
+add_action('init', array('benchmarkemaillite_settings', 'upgrade'));
 add_action('admin_init', array('benchmarkemaillite_settings', 'initialize'));
 add_action('admin_menu', array('benchmarkemaillite_settings', 'menu'));
-add_filter('plugin_action_links_' . plugin_basename(__FILE__), array('benchmarkemaillite_settings', 'links'));
 add_action('admin_notices', array('benchmarkemaillite_settings', 'notices'));
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), array('benchmarkemaillite_settings', 'links'));
 
 class benchmarkemaillite {
 

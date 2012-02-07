@@ -62,7 +62,7 @@ New Manual Installation
 
 = Where do I go for help with any issues? =
 
-Please visit our [Support Forum](http://wordpress.org/tags/benchmark-email-lite?forum_id=10 "Visit our WordPress Support Forum") if you have any questions or issues regarding this plugin. You may also call Benchmark Email at 1-800-430-4095 extension 2 during business hours or email support@benchmarkemail.com.
+Please call Benchmark Email at 1-800-430-4095 extension 2 during business hours or email support@benchmarkemail.com.
 
 = My signup form widget(s) broke after an upgrade from version 1.x =
 
