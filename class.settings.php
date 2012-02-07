@@ -6,8 +6,13 @@ class benchmarkemaillite_settings {
 	 WP Hook Methods
 	 ***************/
 
-	// Plugin Upgrade Reactivation - Hooked Into Activation And Admin Area Notice
-	function activate() {
+	// Triggered By Front And Back Ends - Try To Upgrade v1.x to v2.x Plugin Settings
+	// This Exists Because WordPress Sadly Doesn't Fire Activation Hook Upon Upgrade Reactivation
+	function upgrade() {
+
+		// Exit If Already Configured
+		$options = get_option('benchmark-email-lite_group');
+		if (isset($options[1][0])) { return; }
 
 		// Search For v1.x Widgets, Move API Keys To Plugin Settings
 		$widgets = get_option('widget_benchmarkemaillite_widget');
@@ -29,7 +34,6 @@ class benchmarkemaillite_settings {
 		update_option('widget_benchmarkemaillite_widget', $widgets);
 
 		// Gather Preexisting API Keys
-		$options = get_option('benchmark-email-lite_group');
 		if (isset($options[1]) && is_array($options[1])) {
 			$tokens = array_merge($tokens, $options[1]);
 		}
@@ -51,13 +55,6 @@ class benchmarkemaillite_settings {
 
 	// Admin Settings Notice
 	function notices() {
-
-		// Try To Upgrade v1.x to v2.x Plugin Settings
-		// This Exists Because WordPress Sadly Doesn't Fire Activation Hook Upon Upgrade Reactivation
-		$options = get_option('benchmark-email-lite_group');
-		if (!isset($options[1][0])) { self::activate(); }
-
-		// Check Second Time For API Key - If Not Found, Print Admin Notice
 		$options = get_option('benchmark-email-lite_group');
 		if (!isset($options[1][0])) {
 			echo '<div class="fade updated"><p><strong>Benchmark Email Lite</strong></p><p>' . __('Please configure your API Key(s) on the', 'benchmark-email-lite') . ' '
