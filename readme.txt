@@ -35,7 +35,7 @@ New Automatic Installation
 
 1. Login to your blog and go to the Plugins page.
 1. Click on the Add New button.
-1. Search for beCounted.
+1. Search for Benchmark Email Lite.
 1. Click Install now.
 1. (sometimes required) Enter your FTP or FTPS username and password, as provided by your web host.
 1. Click Activate plugin.
@@ -62,11 +62,7 @@ New Manual Installation
 
 = Where do I go for help with any issues? =
 
-Please call Benchmark Email at 1-800-430-4095 extension 2 during business hours or email support@benchmarkemail.com.
-
-= My signup form widget(s) broke after an upgrade from version 1.x =
-
-We built an automatic process that attempts to upgrade existing widget settings for version 2.x compatibility. Should that process fail for some reason, please log into your benchmarkemail.com account and copy/paste your API key from the My Settings page (bottom) to the plugin settings page under the Settings menu item called Benchmark Email Lite. You may have to save the value you paste in twice for it to take, due to the possibility of a partially completed process during the plugin upgrade.
+Please call Benchmark Email at 1-800-430-4095 or email support@benchmarkemail.com.
 
 = Why did the widget suddenly stop connecting with Benchmark Email? =
 
