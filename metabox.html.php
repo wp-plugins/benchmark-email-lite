@@ -1,7 +1,6 @@
 <p>
 	<label for="bmelist"><?php echo __('Select a list for this campaign', 'benchmark-email-lite'); ?></label><br />
 	<select style="width:100%;" name="bmelist" id="bmelist"><?php echo $dropdown; ?></select>
-	<?php echo $dropdown_message; ?>
 </p>
 <p>
 	<label for="bmetitle"><?php echo __('Email name', 'benchmark-email-lite'); ?></label><br />

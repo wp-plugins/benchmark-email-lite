@@ -6,37 +6,44 @@ class benchmarkemaillite_settings {
 	 WP Hook Methods
 	 ***************/
 
+	// Bad Configuration Message
+	function badconfig_message() {
+		return '<br /><strong style="color:red;">' . __('Please configure your API key(s) on the', 'benchmark-email-lite') . ' '
+			. '<a href="options-general.php?page=benchmark-email-lite">' . __('Benchmark Email Lite settings page', 'benchmark-email-lite') . '</a>.</strong>';
+	}
+
 	// Triggered By Front And Back Ends - Try To Upgrade v1.x to v2.x Plugin Settings
 	// This Exists Because WordPress Sadly Doesn't Fire Activation Hook Upon Upgrade Reactivation
 	function upgrade() {
+		$tokens = array();
 
 		// Exit If Already Configured
 		$options = get_option('benchmark-email-lite_group');
-		if (isset($options[1][0])) { return; }
+		if (isset($options[1][0]) && $options[1][0]) { return; }
 
 		// Search For v1.x Widgets, Move API Keys To Plugin Settings
 		$widgets = get_option('widget_benchmarkemaillite_widget');
-		$tokens = array();
-		foreach ($widgets as $instance => $widget) {
-			if (isset($widget['token']) && $widget['token'] != '') {
-				$tokens[] = $widget['token'];
-
-				// Update List Selection In Widget
-				benchmarkemaillite_api::$token = $widget['token'];
-				$lists = benchmarkemaillite_api::lists();
-				foreach ($lists as $list) {
-					if ($list['listname'] == $widget['list']) {
-						$widgets[$instance]['list'] = "{$widget['token']}|{$widget['list']}|{$list['id']}";
+		if (is_array($widgets)) {
+			foreach ($widgets as $instance => $widget) {
+				if (isset($widget['token']) && $widget['token'] != '') {
+					$tokens[] = $widget['token'];
+	
+					// Update List Selection In Widget
+					benchmarkemaillite_api::$token = $widget['token'];
+					$lists = benchmarkemaillite_api::lists();
+					if (!is_array($lists)) { continue; }
+					foreach ($lists as $list) {
+						if ($list['listname'] == $widget['list']) {
+							$widgets[$instance]['list'] = "{$widget['token']}|{$widget['list']}|{$list['id']}";
+						}
 					}
 				}
 			}
+			update_option('widget_benchmarkemaillite_widget', $widgets);
 		}
-		update_option('widget_benchmarkemaillite_widget', $widgets);
 
 		// Gather Preexisting API Keys
-		if (isset($options[1]) && is_array($options[1])) {
-			$tokens = array_merge($tokens, $options[1]);
-		}
+		if (isset($options[1][0])) {$tokens = array_merge($tokens, $options[1]); }
 		$tokens = array_unique($tokens);
 		update_option(
 			'benchmark-email-lite_group', array(
@@ -56,9 +63,9 @@ class benchmarkemaillite_settings {
 	// Admin Settings Notice
 	function notices() {
 		$options = get_option('benchmark-email-lite_group');
-		if (!isset($options[1][0])) {
-			echo '<div class="fade updated"><p><strong>Benchmark Email Lite</strong></p><p>' . __('Please configure your API Key(s) on the', 'benchmark-email-lite') . ' '
-				. '<a href="options-general.php?page=benchmark-email-lite">' . __('settings page', 'benchmark-email-lite') . '</a>.</p></div>';
+		if (!isset($options[1][0]) || !$options[1][0]) {
+			echo '<div class="fade updated"><p><strong>Benchmark Email Lite</strong>'
+				. self::badconfig_message() . '</p></div>';
 		}
 	}
 
@@ -118,17 +125,25 @@ class benchmarkemaillite_settings {
 	function section2() { }
 	function field1() {
 		$options = get_option('benchmark-email-lite_group');
+		$results = array();
 		$key = $options[1];
-		$key[0] = isset($key[0]) ? $key[0] : '';
-		$key[1] = isset($key[1]) ? $key[1] : '';
-		$key[2] = isset($key[2]) ? $key[2] : '';
-		$key[3] = isset($key[3]) ? $key[3] : '';
-		$key[4] = isset($key[4]) ? $key[4] : '';
-		echo "<input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[0]}' /> Primary<br />
-			<input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[1]}' /> Optional<br />
-			<input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[2]}' /> Optional <br />
-			<input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[3]}' /> Optional<br />
-			<input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[4]}' /> Optional";
+		for ($i = 0; $i < 5; $i++) {
+			$key[$i] = isset($key[$i]) ? $key[$i] : '';
+			if (!$key[$i]) { $results[$i] = '<img style="vertical-align:middle;opacity:0;" src="images/yes.png" alt="" width="16" height="16" />'; }
+			else {
+				benchmarkemaillite_api::$token = $key[$i];
+				$results[$i] = (is_array(benchmarkemaillite_api::lists()))
+					? '<img style="vertical-align:middle;" src="images/yes.png" alt="Yes" title="'
+						. benchmarkemaillite::goodconnection_message() . '" width="16" height="16" />'
+					: '<img style="vertical-align:middle;" style="" src="images/no.png" alt="No" title="'
+						. benchmarkemaillite::badconnection_message() . '" width="16" height="16" />';
+			}
+		}
+		echo "{$results[0]} <input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[0]}' /> Primary<br />
+			{$results[1]} <input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[1]}' /> Optional<br />
+			{$results[2]} <input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[2]}' /> Optional <br />
+			{$results[3]} <input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[3]}' /> Optional<br />
+			{$results[4]} <input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[4]}' /> Optional";
 	}
 	function field2() {
 		$options = get_option('benchmark-email-lite_group');
@@ -147,13 +162,27 @@ class benchmarkemaillite_settings {
 	}
 	function validate($values) {
 		foreach ($values as $key => $val) {
-			if ($key == '1') {
-				benchmarkemaillite_api::handshake($val);
 
-				// WordPress Sadly Pre-serializes This
-				$values[$key] = is_serialized($val) ? unserialize($val) : $val;
-				$values[$key] = array_unique($values[$key], SORT_STRING);
+			// Process Saving Of API Keys
+			if ($key == '1') {
+
+				// WordPress Sadly Pre-serializes This Array Setting
+				$values[1] = is_serialized($val) ? unserialize($val) : $val;
+
+				// Remove Empties
+				$values[1] = array_filter($values[1]);
+
+				// Remove Duplicates
+				$values[1] = array_unique($values[1]);
+
+				// Reset Keys
+				$values[1] = array_values($values[1]);
+
+				// Vendor Handshake With Benchmark Email
+				benchmarkemaillite_api::handshake($values[1]);
 			}
+
+			// Sanitize Non Array Settings
 			else { $values[$key] = esc_attr($val); }
 		}
 		return $values;

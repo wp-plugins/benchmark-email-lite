@@ -25,8 +25,8 @@ class benchmarkemaillite_api {
 	function lists() {
 		self::connect();
 		self::$client->query('listGet', self::$token, '', 1, 100, 'name', 'asc');
-		if (self::$client->isError()) { return array(); }
-		return self::$client->getResponse();
+		$response = self::$client->getResponse();
+		return isset($response['faultCode']) ? $response['faultCode'] : $response;
 	}
 
 	// Get Existing Subscriber Data

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 2.9
 Tested up to: 3.3.1
-Stable tag: 2.0
+Stable tag: 2.0.1
 
 Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your blog posts.
 
@@ -133,6 +133,16 @@ We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot
 
 == Changelog ==
 
+= 2.0.1 on 2012-02-13 =
+
+* Added: Green and red indicators adjacent to entered API keys on the Benchmark Email Lite settings page, showing status upon save.
+* Added: Benchmark Email response code into error message after creating an email campaign failure.
+* Fixed: Includes silent updates made to the v2.0 release concerning automatic upgrading of saved widget settings from earlier v1.x.
+* Fixed: v3.3.0 compatibility when no widgets preexisted from earlier version caused a warning at the top of the screen.
+* Fixed: After deleting API key, the warnings about the need to have an API key weren't being fired anymore.
+* Fixed: Bad API key(s) were triggering an error "Unable to connect" that wasn't very helpful.
+* Fixed: Bad API key(s) were causing the good API keys to not be considered and utilized.
+
 = 2.0 on 2012-01-31 =
 
 * Added: Ability to create Benchmark Email campaigns from WordPress pages and posts.
@@ -202,6 +212,10 @@ We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot
 * Added: Initial plugin release.
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+
+* Several minor fixes to API key settings and a couple minor related enhancements as well.
 
 = 2.0 =
 

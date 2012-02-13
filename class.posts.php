@@ -37,10 +37,10 @@ class benchmarkemaillite_posts {
 
 		// Open Benchmark Email Connection and Locate List
 		$options = get_option('benchmark-email-lite_group');
-		if (!isset($options[1])) { return; }
-		$dropdown_message = (isset($options[1][0])) ? ''
-			: '<br /><strong style="color:red;">' . __('Please configure your API Key(s) on the', 'benchmark-email-lite') . ' '
-				. '<a href="options-general.php?page=benchmark-email-lite">' . __('settings page', 'benchmark-email-lite') . '</a>.</strong>';
+		if (!isset($options[1][0]) || !$options[1][0]) {
+			echo benchmarkemaillite_settings::badconfig_message();
+			return;
+		}
 		$dropdown = benchmarkemaillite::print_lists($options[1], $bmelist);
 
 		// Output Form
@@ -111,7 +111,9 @@ class benchmarkemaillite_posts {
 		} else if (!is_numeric(benchmarkemaillite_api::$campaignid)) {
 			update_option(
 				'benchmark-email-lite_errors',
-				__('There was a problem creating or updating your email campaign.', 'benchmark-email-lite')
+				__('There was a problem creating or updating your email campaign. Please try again later.', 'benchmark-email-lite')
+				. (isset(benchmarkemaillite_api::$campaignid['faultString'])
+					? ' ' . __('Benchmark Email response code: ', 'benchmark-email-lite') . benchmarkemaillite_api::$campaignid['faultCode'] : '')
 			);
 			return;
 		}

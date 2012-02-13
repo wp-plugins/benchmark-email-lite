@@ -36,11 +36,11 @@ class benchmarkemaillite_widget extends WP_Widget {
 		$instance['id'] = $this->id;
 
 		// Get Drop Down Values
-		$badconfig_message = '<br /><strong style="color:red;">' . __('Please configure your API Key(s) on the', 'benchmark-email-lite') . ' '
-				. '<a href="options-general.php?page=benchmark-email-lite">' . __('settings page', 'benchmark-email-lite') . '</a>.</strong>';
 		$options = get_option('benchmark-email-lite_group');
-		if (!isset($options[1])) { echo $badconfig_message; return; }
-		$dropdown_message = (isset($options[1][0])) ? '' : $badconfig_message;
+		if (!isset($options[1][0]) || !$options[1][0]) {
+			echo benchmarkemaillite_settings::badconfig_message();
+			return;
+		}
 		$dropdown = benchmarkemaillite::print_lists($options[1], $instance['list']);
 
 		// Print Widget

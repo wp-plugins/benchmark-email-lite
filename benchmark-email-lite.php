@@ -3,7 +3,7 @@
 Plugin Name: Benchmark Email Lite
 Plugin URI: http://www.beautomated.com/benchmark-email-lite/
 Description: Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your blog posts.
-Version: 2.0
+Version: 2.0.1
 Author: beAutomated
 Author URI: http://www.beautomated.com/
 License: GPLv2
@@ -51,7 +51,7 @@ class benchmarkemaillite {
 
 	// Variables Available Without Class Instantiation
 	static $apiurl = 'http://api.benchmarkemail.com/1.0/';
-	static $linkaffiliate = 'http://www.benchmarkemail.com/?p=68907';
+	static $linkaffiliate = 'http://www.benchmarkemail.com/Register';
 	static $linkcontact = 'http://www.beautomated.com/contact/';
 
 	/**********************
@@ -74,6 +74,20 @@ class benchmarkemaillite {
 		return $links;
 	}
 
+	/********
+	 MESSAGES
+	 ********/
+
+	// Good Key Or Connection Message
+	function goodconnection_message() {
+		return __('Valid API key and API server connection.', 'benchmark-email-lite');
+	}
+
+	// Bad Key Or Connection Message
+	function badconnection_message() {
+		return __('Invalid API key or API server connection problem.', 'benchmark-email-lite');
+	}
+
 	/*******
 	 UTILITY
 	 *******/
@@ -84,7 +98,8 @@ class benchmarkemaillite {
 		foreach ($keys as $key) {
 			if (!$key) { continue; }
 			benchmarkemaillite_api::$token = $key;
-			$lists[$key] = benchmarkemaillite_api::lists();
+			$response = benchmarkemaillite_api::lists();
+			$lists[$key] = is_array($response) ? $response : '';
 		}
 
 		// Generate Output
@@ -92,9 +107,15 @@ class benchmarkemaillite {
 		$i = 0;
 		foreach ($lists as $key => $list1) {
 			if (!$key) { continue; }
-			if (!$list1) { return "<option disabled='disabled' value=''>Unable to connect! Please try again later.</option>\n"; }
 			if ($i > 0) { $output .= "<option disabled='disabled' value=''></option>\n"; }
 			$output .= "<option disabled='disabled' value=''>{$key}</option>\n";
+			if (!$list1) {
+				$i++;
+				$list1 = array();
+				$output .= "<option value=''" . (($i == 1) ? " selected='selected'" : '')
+					. " disabled='disabled'>↳ " . self::badconnection_message() . "</option>\n";
+				continue;
+			}
 			foreach ($list1 as $list) {
 				if ($list['listname'] == 'Master Unsubscribe List') { continue; }
 				$i++;

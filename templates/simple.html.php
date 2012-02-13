@@ -35,8 +35,6 @@ a img.aligncenter{display:block;margin-left:auto;margin-right:auto;}
 .wp-caption img{border:0 none;height:auto;margin:0;max-width:98.5%;padding:0;width:auto;}
 .wp-caption p.wp-caption-text{font-size:11px;line-height:17px;margin:0;padding:0 4px 5px;}
 </style>
-</head>
-<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
 <center>
 	<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
 		<tr>
