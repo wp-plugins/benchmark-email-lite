@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 2.9
 Tested up to: 3.3.1
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 
 Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your blog posts.
 
@@ -133,6 +133,10 @@ We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot
 
 == Changelog ==
 
+= 2.0.2 on 2012-02-20 =
+
+* Fixed: Queue unloading was failing when the API connection goes down and subscriptions come in.
+
 = 2.0.1 on 2012-02-13 =
 
 * Added: Green and red indicators adjacent to entered API keys on the Benchmark Email Lite settings page, showing status upon save.
@@ -212,6 +216,10 @@ We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot
 * Added: Initial plugin release.
 
 == Upgrade Notice ==
+
+= 2.0.2 =
+
+* Fixed a single bug related to subscription queueing.
 
 = 2.0.1 =
 

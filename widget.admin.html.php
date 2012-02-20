@@ -2,7 +2,6 @@
 <p>
 	<?php echo __('Benchmark Email contact list name', 'benchmark-email-lite'); ?>:
 	<select name="<?php echo $this->get_field_name('list'); ?>"><?php echo $dropdown; ?></select>
-	<?php echo $dropdown_message; ?>
 </p>
 <p>
 	<?php echo __('Widget title', 'benchmark-email-lite'); ?>:

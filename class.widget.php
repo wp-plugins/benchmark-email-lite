@@ -192,7 +192,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		$queue = explode("\n", $queue);
 		foreach ($queue as $row) {
 			$row = explode('||', $row);
-			if (sizeof($row) < 5) { continue; }
+			if (sizeof($row) < 4) { continue; }
 			self::processsubscription($row[0], $row[1], $row[2], $row[3]);
 		}
 	}
