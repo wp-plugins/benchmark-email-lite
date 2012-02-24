@@ -60,15 +60,19 @@ New Manual Installation
 
 = Where do I go for help with any issues? =
 
-Please call Benchmark Email at 1-800-430-4095 or email support@benchmarkemail.com.
+Please call Benchmark Email at 1 800.430.4095 or email support@benchmarkemail.com.
 
 = Why did the widget suddenly stop connecting with Benchmark Email? =
 
 Please check your API key. We observed on 11/09/2011 that our own API key was deleted/reset on Benchmark Email's server. We had to generate a new one and place the new key code into our widget settings. To generate a new API key, log into Benchmark Email via their website and go to My Account, then Account Settings, then scroll towards the bottom of the page.
 
-= Why did you switch to double opt-in in v1.0.4?  =
+= What happens if a subscriber resubmits their subscription? =
 
-Two reasons. First, Benchmark Email requested that we use this method because it ensures list quality, which in effect keeps everyone out of trouble and keeps their prices down. Second, in the event somebody unsubscribes and chooses "Do Not Contact" checkbox and gets placed on the Master Unsubscribe List, they can only be removed from this list by the Benchmark Email customer opening a ticket for removal or the subscriber re-subscribing with a confirmed double opt-in method. This provides an easy way for somebody to re-subscribe.
+If the subscriber's email address preexists on the list, this will update the other fields, if enabled on your widget and populated by the user.
+
+= Why do I occasionally get "Successfully Queued Subscription"? =
+
+This occurs when the plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the plugin folder, and automatically attempt to unload the queue every 5 minutes until successfull to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
 
 = Where do I go to change the double opt-in confirmation email text? =
 
@@ -76,14 +80,6 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 1. Click on Lists tab, then Signup Forms sub-tab.
 1. Either create a new signup form or click to edit the "Sample Signup Form".
 1. Complete the section titled "Opt-in Mail".
-
-= What happens if a subscriber resubmits their subscription? =
-
-If the subscriber preexists on the list, this will update the subscriber's first and last names on the mailing list.
-
-= Why do I occasionally get "Successfully Queued Subscription"? =
-
-This occurs when the plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the plugin folder, and automatically attempt to unload the queue every 5 minutes until successfull to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
 
 = How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
@@ -93,6 +89,10 @@ There is an optional setting to limit the plugin to a single page, if desired. T
 * [Widget Context](http://wordpress.org/extend/plugins/widget-context/ "Get Widget Context Plugin")
 * [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
 * [Add Widgets to Page](http://wordpress.org/extend/plugins/add-widgets-to-page/ "Get Add Widgets to Page Plugin")
+
+= How do I make the form match my theme? =
+
+The signup form uses standard HTML list items so it can be manipulated by CSS within you theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
 
 = I want to put the widget somewhere that widgets aren't currently allowed! =
 
@@ -117,13 +117,9 @@ footer.php or page.php
 <!-- HTML markup that goes after the placement of the widget -->`
 .
 
-= How do I make the form match my theme? =
+= Why did you switch to double opt-in starting in v1.0.4?  =
 
-The signup form uses standard HTML list items so it can be manipulated by CSS within you theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
-
-= I use the Kubrick theme and I'm seeing bullets! =
-
-We have confirmed that the Kuberick theme adds bullets in the sidebar. We cannot override this without forcing a new stylesheet, which would have a negative effect on other themes. So, we recommend you override this within your CSS with the entry at the bottom `.entry ul li::before,#sidebar ul ul li::before{content:"";}`
+Two reasons. First, Benchmark Email requested that we use this method because it ensures list quality, which in effect keeps everyone out of trouble and keeps their prices down. Second, in the event somebody unsubscribes and chooses "Do Not Contact" checkbox and gets placed on the Master Unsubscribe List, they can only be removed from this list by the Benchmark Email customer opening a ticket for removal or the subscriber re-subscribing with a confirmed double opt-in method. This provides an easy way for somebody to re-subscribe.
 
 == Screenshots ==
 
