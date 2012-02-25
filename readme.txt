@@ -14,7 +14,7 @@ If you want your blog to reach every reader, you have to use email. The Benchmar
 
 Using a simple W3C and Wave-validated signup form, subscribers can sign up for your blog posts with just their email address. You can also ask for their first and last name. More fields will be provided in further versions. If someone signs up and they’re already a subscriber, the widget will automatically update the person’s first and last name in your email list.
 
-You want a signup form that looks like your blog, right? The Benchmark Email Lite widget uses standard HTML list items so you can code your CSS to make the widget match your blog’s design. Some themes will automatically match your signup form to the style of your blog, but if you’re having trouble accomplishing this, please ask your theme designer for help.
+You want a signup form that looks like your blog, right? The Benchmark Email Lite widget uses standard HTML list items so you can code your CSS to make the widget match your blog’s design. Most themes will automatically match your signup form to the style of your blog.
 
 Place the widget in any compatible area of your theme, and use administrative controls to fully customize the signup form. Because organization is key, choose the list these new subscribers will be added to. You can post the signup widget on one page of your blog, or every page, and use a third-party plugin to manage this (see the FAQ tab for options).
 
@@ -83,16 +83,11 @@ This occurs when the plugin is not able to immediately connect with the Benchmar
 
 = How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
-There is an optional setting to limit the plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on. There are several plugins available for doing that, including the following:
-
-* [Widget Logic](http://wordpress.org/extend/plugins/widget-logic/ "Get Widget Logic Plugin")
-* [Widget Context](http://wordpress.org/extend/plugins/widget-context/ "Get Widget Context Plugin")
-* [Widgets on Pages](http://wordpress.org/extend/plugins/widgets-on-pages/ "Get Widgets on Pages Plugin")
-* [Add Widgets to Page](http://wordpress.org/extend/plugins/add-widgets-to-page/ "Get Add Widgets to Page Plugin")
+There is an optional setting to limit the plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on.
 
 = How do I make the form match my theme? =
 
-The signup form uses standard HTML list items so it can be manipulated by CSS within you theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
+The signup form uses standard HTML list items so it can be manipulated by CSS within your theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
 
 = I want to put the widget somewhere that widgets aren't currently allowed! =
 
