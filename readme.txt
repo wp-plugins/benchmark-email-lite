@@ -16,13 +16,13 @@ Using a simple W3C and Wave-validated signup form, subscribers can sign up for y
 
 You want a signup form that looks like your blog, right? The Benchmark Email Lite widget uses standard HTML list items so you can code your CSS to make the widget match your blog’s design. Most themes will automatically match your signup form to the style of your blog.
 
-Place the widget in any compatible area of your theme, and use administrative controls to fully customize the signup form. Because organization is key, choose the list these new subscribers will be added to. You can post the signup widget on one page of your blog, or every page, and use a third-party plugin to manage this (see the FAQ tab for options).
+Place the widget in any compatible area of your theme, and use administrative controls to fully customize the signup form. Because organization is key, choose the list these new subscribers will be added to. You can post the signup widget on one page of your blog, or every page.
 
 Controls within the page / post editor interface let you email a simple version of your blog posts (including images) the moment you finish them. Customize the email and from name as well as the subject line for each email you send. Achieve perfection, the plugin allows you to send yourself test emails before actually sending the blog post to your subscribers. 
 
 To get started, sign up for a Benchmark Email [30-day free trial](http://www.benchmarkemail.com/Register "Try Benchmark Email 30-days free") here. With a free trial, you can use the plugin and get a full experience of what Benchmark Email has to offer, including our Surveys, Polls and Autoresponders. We know you'll love what you see, so once you upgrade your plan you can still use the plugin free of charge for as long as you’d like. The plugin is integrated via API with your Benchmark Email account. You may control up to 5 Benchmark Email accounts from a single Wordpress site. 
 
-If you have any questions or need any guidance integrating the API with the plugin please feel free to contact us at 1 800.430.4095. Support is also included with the free trial.
+If you have any questions or need any guidance integrating the API with the plugin please feel free to contact us at 800.430.4095. Support is also included with the free trial.
 
 == Installation ==
 
@@ -60,7 +60,7 @@ New Manual Installation
 
 = Where do I go for help with any issues? =
 
-Please call Benchmark Email at 1 800.430.4095 or email support@benchmarkemail.com.
+Please call Benchmark Email at 800.430.4095.
 
 = Why did the widget suddenly stop connecting with Benchmark Email? =
 
@@ -83,7 +83,7 @@ This occurs when the plugin is not able to immediately connect with the Benchmar
 
 = How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
-There is an optional setting to limit the plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme. You may use a third party plugin to control which pages or posts the widget appears on.
+There is an optional setting to limit the plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme.
 
 = How do I make the form match my theme? =
 
