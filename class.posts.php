@@ -43,6 +43,18 @@ class benchmarkemaillite_posts {
 		}
 		$dropdown = benchmarkemaillite::print_lists($options[1], $bmelist);
 
+		// Round Time To Nearest Quarter Hours
+		$localtime = current_time('timestamp');
+		$minutes = date('i', $localtime);
+		$newminutes = ceil($minutes / 15) * 15;
+		$localtime_quarterhour = $localtime + 60 * ($newminutes - $minutes);
+
+		// Get Timezone String
+		$tz = ($val = get_option('timezone_string')) ? $val : 'UTC';
+		$dateTime = new DateTime();
+		$dateTime->setTimeZone(new DateTimeZone($tz));
+		$localtime_zone = $dateTime->format('T');
+
 		// Output Form
 		require('metabox.html.php');
 	}
@@ -52,7 +64,10 @@ class benchmarkemaillite_posts {
 
 		// Set Variables
 		$bmelist = isset($_POST['bmelist']) ? esc_attr($_POST['bmelist']) : false;
-		list(benchmarkemaillite_api::$token, $listname, benchmarkemaillite_api::$listid) = explode('|', $bmelist);
+		if ($bmelist) {
+			list(benchmarkemaillite_api::$token, $listname, benchmarkemaillite_api::$listid)
+				= explode('|', $bmelist);
+		}
 		$bmetitle = isset($_POST['bmetitle']) ? stripslashes(strip_tags($_POST['bmetitle'])) : false;
 		$bmefrom = isset($_POST['bmefrom']) ? stripslashes(strip_tags($_POST['bmefrom'])) : false;
 		$bmesubject = isset($_POST['bmesubject']) ? stripslashes(strip_tags($_POST['bmesubject'])) : false;
@@ -105,7 +120,7 @@ class benchmarkemaillite_posts {
 		if ($result == __('preexists', 'benchmark-email-lite')) {
 			update_option(
 				'benchmark-email-lite_errors',
-				__('This campaign was previously sent, therefore it cannot be updated nor sent again. Please choose another email name.', 'benchmark-email-lite') . " <em>{$campaign}</em>"
+				__('This campaign was previously sent, therefore it cannot be updated nor sent again. Please choose another email name.', 'benchmark-email-lite')
 			);
 			return;
 		} else if (!is_numeric(benchmarkemaillite_api::$campaignid)) {
@@ -124,7 +139,7 @@ class benchmarkemaillite_posts {
 				benchmarkemaillite_api::campaign_test($bmetestto);
 				update_option(
 					'benchmark-email-lite_errors',
-					__('Your campaign', 'benchmark-email-lite') . ' <em>' . $bmetitle . '</em>&nbsp; '
+					__('Your campaign', 'benchmark-email-lite') . " <em>{$bmetitle}</em>&nbsp; "
 					. __('was successfully', 'benchmark-email-lite') . " {$result}."
 				);
 				break;
@@ -132,8 +147,20 @@ class benchmarkemaillite_posts {
 				benchmarkemaillite_api::campaign_now();
 				update_option(
 					'benchmark-email-lite_errors',
-					__('Your campaign', 'benchmark-email-lite') . ' <em>' . $bmetitle . '</em>&nbsp; '
+					__('Your campaign', 'benchmark-email-lite') . " <em>{$bmetitle}</em>&nbsp; "
 					. __('was successfully sent', 'benchmark-email-lite') . '.'
+				);
+				break;
+			case '3':
+				$pacifictime = benchmarkemaillite::is_dst() ? (time() + (3600 * -7)) : (time() + (3600 * -8));
+				$bmedate = isset($_POST['bmedate']) ? $_POST['bmedate'] : date('d M Y', $pacifictime);
+				$bmetime = isset($_POST['bmetime']) ? $_POST['bmetime'] : date('H:i', $pacifictime);
+				$when = "$bmedate $bmetime";
+				benchmarkemaillite_api::campaign_later($when);
+				update_option(
+					'benchmark-email-lite_errors',
+					__('Your campaign', 'benchmark-email-lite') . ' <em>' . $bmetitle . '</em>&nbsp; '
+					. __('was successfully scheduled for', 'benchmark-email-lite') . " <em>{$when}</em>."
 				);
 		}
 	}

@@ -46,20 +46,18 @@ class benchmarkemaillite_api {
 	}
 
 	// Add or Update Subscriber
-	function subscribe($email, $first, $last) {
+	function subscribe($data) {
 
 		// Check for Subscription Preexistance
-		$contactID = self::find($email);
+		if (!isset($data['Email'])) { return array(false, '[No Email Address]'); }
+		$data['email'] = $data['Email'];
+		$contactID = self::find($data['Email']);
 		if (!is_numeric($contactID) && $contactID != false) { return $contactID; }
 		self::connect();
 
 		// Doesn't Pre-Exist, Add New Subscription
 		if (!is_numeric($contactID)) {
-			self::$client->query(
-				'listAddContactsOptin', self::$token, self::$listid, array(
-					array('email' => $email, 'First Name' => $first, 'Last Name' => $last)
-				), '1'
-			);
+			self::$client->query('listAddContactsOptin', self::$token, self::$listid, array($data), '1');
 			if (self::$client->isError()) {
 				return array(false, self::$client->getErrorMessage());
 			}
@@ -67,11 +65,7 @@ class benchmarkemaillite_api {
 		}
 
 		// Or Update Preexisting Subscription
-		self::$client->query(
-			'listUpdateContactDetails', self::$token, self::$listid, $contactID, array(
-				'First Name' => $first, 'Last Name' => $last
-			)
-		);
+		self::$client->query('listUpdateContactDetails', self::$token, self::$listid, $contactID, $data);
 		if (self::$client->isError()) {
 			return array(false, 'Error: [Updt] ' . self::$client->getErrorMessage());
 		}
@@ -129,6 +123,14 @@ class benchmarkemaillite_api {
 		if (!is_numeric(self::$campaignid)) { return; }
 		self::connect();
 		self::$client->query('emailSendNow', self::$token, self::$campaignid);
+		return self::$client->isError();
+	}
+
+	// Schedule Email Campaign
+	function campaign_later($when) {
+		if (!is_numeric(self::$campaignid)) { return; }
+		self::connect();
+		self::$client->query('emailSchedule', self::$token, self::$campaignid, $when);
 		return self::$client->isError();
 	}
 }

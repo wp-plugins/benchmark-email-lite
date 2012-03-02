@@ -3,7 +3,7 @@
 Plugin Name: Benchmark Email Lite
 Plugin URI: http://www.beautomated.com/benchmark-email-lite/
 Description: Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your blog posts.
-Version: 2.0.2
+Version: 2.2
 Author: beAutomated
 Author URI: http://www.beautomated.com/
 License: GPLv2
@@ -35,13 +35,15 @@ add_action('admin_notices', array('benchmarkemaillite_posts', 'custom_errors'));
 add_action('admin_init', array('benchmarkemaillite_posts', 'post_metabox'));
 
 // Widget API Hooks
+add_action('admin_init', array('benchmarkemaillite_widget', 'loadjs'));
 add_action('widgets_init', array('benchmarkemaillite_widget', 'widgetfrontendsubmission'));
 add_action('benchmarkemaillite_queue', array('benchmarkemaillite_widget', 'queue_upload'));
 add_action('widgets_init', 'benchmarkemaillite_register_widget');
 function benchmarkemaillite_register_widget() { register_widget('benchmarkemaillite_widget'); }
 
 // Settings API Hooks
-add_action('init', array('benchmarkemaillite_settings', 'upgrade'));
+add_action('init', array('benchmarkemaillite_settings', 'upgrade1'));
+add_action('init', array('benchmarkemaillite_settings', 'upgrade2'));
 add_action('admin_init', array('benchmarkemaillite_settings', 'initialize'));
 add_action('admin_menu', array('benchmarkemaillite_settings', 'menu'));
 add_action('admin_notices', array('benchmarkemaillite_settings', 'notices'));
@@ -50,7 +52,7 @@ add_filter('plugin_action_links_' . plugin_basename(__FILE__), array('benchmarke
 class benchmarkemaillite {
 
 	// Variables Available Without Class Instantiation
-	static $apiurl = 'http://api.benchmarkemail.com/1.0/';
+	static $apiurl = 'https://api.benchmarkemail.com/1.0/';
 	static $linkaffiliate = 'http://www.benchmarkemail.com/Register';
 	static $linkcontact = 'http://www.beautomated.com/contact/';
 
@@ -138,6 +140,14 @@ class benchmarkemaillite {
 		ob_end_clean();
 		return $result;
 		return ob_get_clean();
+	}
+
+	// Are We On Daylight Savings Time?
+	function is_dst() {
+		$remove_hour = strtotime('Second Sunday March 0');
+		$add_hour = strtotime('First Sunday November 0');
+		$time  = time();
+		return ($time >= $remove_hour && $time < $add_hour) ? true : false;
 	}
 }
 

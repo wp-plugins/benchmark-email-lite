@@ -8,20 +8,23 @@ class benchmarkemaillite_settings {
 
 	// Bad Configuration Message
 	function badconfig_message() {
-		return '<br /><strong style="color:red;">' . __('Please configure your API key(s) on the', 'benchmark-email-lite') . ' '
-			. '<a href="options-general.php?page=benchmark-email-lite">' . __('Benchmark Email Lite settings page', 'benchmark-email-lite') . '</a>.</strong>';
+		return '<br /><strong style="color:red;">'
+			. __('Please configure your API key(s) on the', 'benchmark-email-lite')
+			. ' <a href="options-general.php?page=benchmark-email-lite">'
+			. __('Benchmark Email Lite settings page', 'benchmark-email-lite')
+			. '.</a></strong>';
 	}
 
-	// Triggered By Front And Back Ends - Try To Upgrade v1.x to v2.x Plugin Settings
+	// Triggered By Front And Back Ends - Try To Upgrade Plugin and Widget Settings
 	// This Exists Because WordPress Sadly Doesn't Fire Activation Hook Upon Upgrade Reactivation
-	function upgrade() {
-		$tokens = array();
+	function upgrade1() {
 
 		// Exit If Already Configured
 		$options = get_option('benchmark-email-lite_group');
 		if (isset($options[1][0]) && $options[1][0]) { return; }
 
-		// Search For v1.x Widgets, Move API Keys To Plugin Settings
+		// Search For v1.x Widgets, Gather API Keys For Plugin Settings
+		$tokens = array();
 		$widgets = get_option('widget_benchmarkemaillite_widget');
 		if (is_array($widgets)) {
 			foreach ($widgets as $instance => $widget) {
@@ -58,6 +61,27 @@ class benchmarkemaillite_settings {
 
 		// Vendor Handshake With Benchmark Email
 		benchmarkemaillite_api::handshake($tokens);
+	}
+
+	// Search For v2.0.x Widgets And Upgrade To 2.1
+	function upgrade2() {
+		$widgets = get_option('widget_benchmarkemaillite_widget');
+		if (!is_array($widgets)) { return; }
+		$changed = false;
+		foreach ($widgets as $instance => $widget) {
+			if (!is_array($widget) || isset($widget['fields'])) { continue; }
+			$changed = true;
+			if (isset($widget['showname']) && $widget['showname'] != '1') {
+				$widgets[$instance]['fields'] = array('Email');
+				$widgets[$instance]['fields_labels'] = array('Email');
+				$widgets[$instance]['fields_required'] = array(1);
+			} else {
+				$widgets[$instance]['fields'] = array('First Name', 'Last Name', 'Email');
+				$widgets[$instance]['fields_labels'] = array('First Name', 'Last Name', 'Email');
+				$widgets[$instance]['fields_required'] = array(0, 0, 1);
+			}
+		}
+		if ($changed) { update_option('widget_benchmarkemaillite_widget', $widgets); }
 	}
 
 	// Admin Settings Notice
@@ -106,12 +130,20 @@ class benchmarkemaillite_settings {
 
 	function page() {
 		$options = get_option('benchmark-email-lite_group');
-		echo '<div class="wrap">' . screen_icon() . '<h2>Benchmark Email Lite</h2>'
- 			. '<form action="options.php" method="post">';
+		echo '
+			<div class="wrap">
+				' . screen_icon() . '
+				<h2>Benchmark Email Lite</h2>
+				<form action="options.php" method="post">
+		';
 		settings_fields('benchmark-email-lite_group');
 		do_settings_sections(__FILE__);
-		echo '<p><input name="Submit" type="submit" class="button-primary" value="Save Changes" /></p>'
-			. '</form></div>';
+		echo '
+				<p><input name="Submit" type="submit" class="button-primary" value="Save Changes" /></p>
+				<p>' . __('Need help? Please call Benchmark Email at 800.430.4095.', 'benchmark-email-lite') . '</p>
+				</form>
+			</div>
+		';
 	}
 	function section1() {
 		echo '<p>' . __('The API Key(s) connect your WordPress site with your Benchmark Email account(s).', 'benchmark-email-lite') . ' '
