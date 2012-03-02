@@ -152,8 +152,10 @@ class benchmarkemaillite_posts {
 				);
 				break;
 			case '3':
-				$bmedate = isset($_POST['bmedate']) ? $_POST['bmedate'] : date('d M Y', current_time('timestamp'));
-				$bmetime = isset($_POST['bmetime']) ? $_POST['bmetime'] : date('H:i', current_time('timestamp'));
+				$bmedate = isset($_POST['bmedate'])
+					? esc_attr($_POST['bmedate']) : date('d M Y', current_time('timestamp'));
+				$bmetime = isset($_POST['bmetime'])
+					? esc_attr($_POST['bmetime']) : date('H:i', current_time('timestamp'));
 				$when = "$bmedate $bmetime";
 				benchmarkemaillite_api::campaign_later($when);
 				update_option(
