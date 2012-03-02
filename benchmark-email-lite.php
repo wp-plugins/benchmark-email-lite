@@ -141,14 +141,6 @@ class benchmarkemaillite {
 		return $result;
 		return ob_get_clean();
 	}
-
-	// Are We On Daylight Savings Time?
-	function is_dst() {
-		$remove_hour = strtotime('Second Sunday March 0');
-		$add_hour = strtotime('First Sunday November 0');
-		$time  = time();
-		return ($time >= $remove_hour && $time < $add_hour) ? true : false;
-	}
 }
 
 ?>
