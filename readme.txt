@@ -22,7 +22,7 @@ Controls within the page / post editor interface let you email a simple version 
 
 To get started, sign up for a Benchmark Email [30-day free trial](http://www.benchmarkemail.com/Register "Try Benchmark Email 30-days free") here. With a free trial, you can use the plugin and get a full experience of what Benchmark Email has to offer, including our Surveys, Polls and Autoresponders. We know you'll love what you see, so once you upgrade your plan you can still use the plugin free of charge for as long as you’d like. The plugin is integrated via API with your Benchmark Email account. You may control up to 5 Benchmark Email accounts from a single Wordpress site. 
 
-If you have any questions or need any guidance integrating the API with the plugin please feel free to contact us at 800.430.4095. Support is also included with the free trial.
+Need help? Please call Benchmark Email at 800.430.4095.
 
 == Installation ==
 
