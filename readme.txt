@@ -10,7 +10,7 @@ Benchmark Email Lite lets you build an email list right from your WordPress site
 
 == Description ==
 
-If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite plugin lets you build an email list right from the pages of your WordPress site, and send your subscribers email versions of your blog posts in a flash.
+If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite WordPress Plugin lets you build an email list right from the pages of your WordPress site, and send your subscribers email versions of your blog posts in a flash.
 
 Using a simple W3C and Wave-validated signup form, subscribers can sign up for your blog posts with just their email address. You can also ask for their first and last name. More fields will be provided in further versions. If someone signs up and they’re already a subscriber, the widget will automatically update the person’s first and last name in your email list.
 
@@ -18,9 +18,9 @@ You want a signup form that looks like your blog, right? The Benchmark Email Lit
 
 Place the widget in any compatible area of your theme, and use administrative controls to fully customize the signup form. Because organization is key, choose the list these new subscribers will be added to. You can post the signup widget on one page of your blog, or every page.
 
-Controls within the page / post editor interface let you email a simple version of your blog posts (including images) the moment you finish them. Customize the email and from name as well as the subject line for each email you send. Achieve perfection, the plugin allows you to send yourself test emails before actually sending the blog post to your subscribers. 
+Controls within the page / post editor interface let you email a simple version of your blog posts (including images) the moment you finish them. Customize the email and from name as well as the subject line for each email you send. Achieve perfection, the Plugin allows you to send yourself test emails before actually sending the blog post to your subscribers. 
 
-To get started, sign up for a Benchmark Email [30-day free trial](http://www.benchmarkemail.com/Register "Try Benchmark Email 30-days free") here. With a free trial, you can use the plugin and get a full experience of what Benchmark Email has to offer, including our Surveys, Polls and Autoresponders. We know you'll love what you see, so once you upgrade your plan you can still use the plugin free of charge for as long as you’d like. The plugin is integrated via API with your Benchmark Email account. You may control up to 5 Benchmark Email accounts from a single Wordpress site. 
+To get started, sign up for a Benchmark Email [30-day free trial](http://www.benchmarkemail.com/Register "Try Benchmark Email 30-days free"). With a free trial, you can use the Plugin and get a full experience of what Benchmark Email has to offer, including our Surveys, Polls and Autoresponders. We know you'll love what you see, so once you upgrade your plan you can still use the Plugin free of charge for as long as you’d like. The Plugin is integrated via API with your Benchmark Email account. You may control up to 5 Benchmark Email accounts from a single Wordpress site. 
 
 Need help? Please call Benchmark Email at 800.430.4095.
 
@@ -28,7 +28,7 @@ Need help? Please call Benchmark Email at 800.430.4095.
 
 Update Instructions
 
-1. Click to have the plugin updated.
+1. Click to have the Plugin updated.
 1. Click Benchmark Email Lite under the Settings menu and ensure your API keys are properly configured.
 1. Expand the Widget options for any existing widgets. Verify that the settings are all correct. Click Save when you're all done.
 1. Now you can setup any number of signup form widgets and save any number of posts and pages to email campaigns!
@@ -48,9 +48,9 @@ New Automatic Installation
 
 New Manual Installation
 
-1. Download the plugin and un-zip it.
+1. Download the Plugin and un-zip it.
 1. Upload the `benchmark-email-lite` folder to your `wp-content/plugins/` directory.
-1. Activate the plugin through the Plugins menu in WordPress.
+1. Activate the Plugin through the Plugins menu in WordPress.
 1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/Register](http://www.benchmarkemail.com/Register "Try Benchmark Email").
 1. Obtain your Benchmark Email API Key by logging into Benchmark Email, click My Account, click My Account Settings, scroll to the big yellow box towards the bottom of the page and copy the API Key code.
 1. Back on your site, click Benchmark Email Lite under the Settings menu and ensure your API key is properly configured.
@@ -72,7 +72,7 @@ If the subscriber's email address preexists on the list, this will update the ot
 
 = Why do I occasionally get "Successfully Queued Subscription"? =
 
-This occurs when the plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the plugin folder, and automatically attempt to unload the queue every 5 minutes until successfull to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
+This occurs when the Plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the Plugin folder, and automatically attempt to unload the queue every 5 minutes until successfull to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
 
 = Where do I go to change the double opt-in confirmation email text? =
 
@@ -83,7 +83,7 @@ This occurs when the plugin is not able to immediately connect with the Benchmar
 
 = How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
-There is an optional setting to limit the plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme.
+There is an optional setting to limit the Plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme.
 
 = How do I make the form match my theme? =
 
@@ -91,7 +91,7 @@ The signup form uses standard HTML list items so it can be manipulated by CSS wi
 
 = I want to put the widget somewhere that widgets aren't currently allowed! =
 
-The Benchmark Email Lite plugin does not currently support a shortcode for inclusion in a page body. We might be adding this capability down the road. The good news is that you can still use the plugin without needing a sidebar, if you can customize your theme! You can add a little code to the theme to allow the widget wherever you wish it to be - even inside the page body if you want it there. In order to enable the widget where you want it to go, add the following code to your theme files:
+The Benchmark Email Lite Plugin does not currently support a shortcode for inclusion in a page body. We might be adding this capability down the road. The good news is that you can still use the Plugin without needing a sidebar, if you can customize your theme! You can add a little code to the theme to allow the widget wherever you wish it to be - even inside the page body if you want it there. In order to enable the widget where you want it to go, add the following code to your theme files:
 
 functions.php
 `if ( function_exists('register_sidebar') ) {
@@ -122,7 +122,7 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 2. This is the widget control panel.
 3. This is the page/post publish section.
 4. This is a sample email generated from a post.
-5. This is the plugin settings panel.
+5. This is the Plugin settings panel.
 
 == Changelog ==
 
@@ -145,9 +145,9 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: Ability to create Benchmark Email campaigns from WordPress pages and posts.
 * Added: Ability to send post campaigns immediately to either a test address or a selected Benchmark Email list.
 * Added: Plugin settings page for global API Key(s) and campaign settings.
-* Updated: Moved API key setting from individual widgets to a new plugin settings panel.
+* Updated: Moved API key setting from individual widgets to a new Plugin settings panel.
 * Updated: Split PHP functions among several classes/files for organization and growth.
-* Updated: Added warranty disclaimer text in the main plugin file header.
+* Updated: Added warranty disclaimer text in the main Plugin file header.
 * Fixed: W3C validation error on strict mode, caused by two hidden input fields.
 * Fixed: Localizations (language) weren't being loaded properly for International support.
 
@@ -190,7 +190,7 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 = 1.0.2 on 2011-05-18 =
 
-* Added: Failover handling. If the API becomes unavailable the plugin will dump subscriptions into a CSV buffering file in the plugin folder that will attempt to post to the API and clear the file upon each subsequent subscription submission.
+* Added: Failover handling. If the API becomes unavailable the Plugin will dump subscriptions into a CSV buffering file in the Plugin folder that will attempt to post to the API and clear the file upon each subsequent subscription submission.
 * Updated: The first name and last name field titles from "firstname" to "First Name" per the spec of the newly released API.
 * Fixed: Bug when multiple widgets exist on a page and sometimes aren't being keyed properly, causing the processor to not always know which widget is being submitted.
 
@@ -206,7 +206,7 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 = 1.0 on 2011-05-12 =
 
-* Added: Initial plugin release.
+* Added: Initial Plugin release.
 
 == Upgrade Notice ==
 
