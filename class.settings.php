@@ -130,20 +130,15 @@ class benchmarkemaillite_settings {
 
 	function page() {
 		$options = get_option('benchmark-email-lite_group');
-		echo '
-			<div class="wrap">
-				' . screen_icon() . '
-				<h2>Benchmark Email Lite</h2>
-				<form action="options.php" method="post">
-		';
+		$tabs = array('reports' => 'Benchmark Email Lite Reports', 'settings' => 'Benchmark Email Lite Settings');
+		$current = isset($_GET['tab']) ? esc_attr($_GET['tab']) : 'settings';
+ 		require_once('admin.html.php');
+	}
+	function print_settings() {
+		echo '<form action="options.php" method="post">';
 		settings_fields('benchmark-email-lite_group');
 		do_settings_sections(__FILE__);
-		echo '
-				<p><input name="Submit" type="submit" class="button-primary" value="Save Changes" /></p>
-				<p>' . __('Need help? Please call Benchmark Email at 800.430.4095.', 'benchmark-email-lite') . '</p>
-				</form>
-			</div>
-		';
+		echo '<p><input name="Submit" type="submit" class="button-primary" value="Save Changes" /></p></form>';
 	}
 	function section1() {
 		echo '<p>' . __('The API Key(s) connect your WordPress site with your Benchmark Email account(s).', 'benchmark-email-lite') . ' '

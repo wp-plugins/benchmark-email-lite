@@ -133,6 +133,20 @@ class benchmarkemaillite_api {
 		self::$client->query('emailSchedule', self::$token, self::$campaignid, $when);
 		return self::$client->isError();
 	}
+
+	// Get Email Campaigns
+	function campaigns() {
+		self::connect();
+		self::$client->query('reportGet', self::$token, '', 1, 100, 'date', 'desc');
+		return self::$client->getResponse();
+	}
+
+	// Get Email Campaign Report Summary
+	function campaign_summary($id) {
+		self::connect();
+		self::$client->query('reportGetSummary', self::$token, $id);
+		return self::$client->getResponse();
+	}
 }
 
 ?>

@@ -3,7 +3,7 @@
 Plugin Name: Benchmark Email Lite
 Plugin URI: http://www.beautomated.com/benchmark-email-lite/
 Description: Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your blog posts.
-Version: 2.2
+Version: 2.3
 Author: beAutomated
 Author URI: http://www.beautomated.com/
 License: GPLv2
@@ -22,8 +22,9 @@ GNU General Public License for more details.
 // Include Plugin Object Files
 require_once('class.api.php');
 require_once('class.posts.php');
-require_once('class.widget.php');
+require_once('class.reports.php');
 require_once('class.settings.php');
+require_once('class.widget.php');
 
 // Plugin API Hooks
 add_action('wp_init', array('benchmarkemaillite', 'initialize'));
@@ -140,6 +141,39 @@ class benchmarkemaillite {
 		ob_end_clean();
 		return $result;
 		return ob_get_clean();
+	}
+
+	// List Items Generator
+	function makelist($data) {
+		echo '<ul>';
+		foreach ($data as $title => $row) {
+			echo "<li><strong>{$title}:</strong> {$row}</li>";
+		}
+		echo '</ul>';
+	}
+
+	// HTML Table Generator
+	function maketable($data) {
+	?>
+	<table>
+		<thead>
+			<tr>
+				<?php foreach ($data[0] as $i => $val) { ?>
+				<th><?php echo $i; ?></th>
+				<?php } ?>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach($data as $i => $val) { ?>
+			<tr>
+				<?php foreach ($val as $i2 => $val2) { ?>
+				<td><?php echo $val2; ?></td>
+				<?php } ?>
+			</tr>
+			<?php } ?>
+		</tbody>
+	</table>
+	<?php
 	}
 }
 
