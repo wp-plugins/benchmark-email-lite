@@ -2,6 +2,7 @@
 
 class benchmarkemaillite_reports {
 	static $url = 'options-general.php?page=benchmark-email-lite&amp;tab=reports';
+	static $campaign = false;
 
 	function show() {
 		$options = get_option('benchmark-email-lite_group');
@@ -11,56 +12,27 @@ class benchmarkemaillite_reports {
 			echo "<p><a href='" . self::$url . "'>Back to Reports</a></p>";
 			$tokenindex = intval($_GET['tokenindex']);
 			benchmarkemaillite_api::$token = $options[1][$tokenindex];
-			$id = (string)intval($_GET['campaign']);
-			$url = self::$url . "&amp;campaign={$id}&amp;tokenindex={$tokenindex}&amp;show=";
+			self::$campaign = (string)intval($_GET['campaign']);
+			$url = self::$url . '&amp;campaign=' . self::$campaign . "&amp;tokenindex={$tokenindex}&amp;show=";
 
 			// Show Detail Page
 			if (isset($_GET['show']) && $show = esc_attr($_GET['show'])) {
 				benchmarkemaillite_api::connect();
 				switch ($show) {
-					case 'clicks':
-						benchmarkemaillite_api::$client->query(
-							'reportGetClicks', benchmarkemaillite_api::$token, $id
-						);
-						break;
-					case 'opens':
-						benchmarkemaillite_api::$client->query(
-							'reportGetOpens', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc'
-						);
-						break;
-					case 'unopens':
-						benchmarkemaillite_api::$client->query(
-							'reportGetUnopens', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc'
-						);
-						break;
-					case 'bounces':
-						benchmarkemaillite_api::$client->query(
-							'reportGetHardBounces', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc'
-						);
-						break;
-					case 'unsubscribes':
-						benchmarkemaillite_api::$client->query(
-							'reportGetUnsubscribes', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc'
-						);
-						break;
-					case 'forwards':
-						benchmarkemaillite_api::$client->query(
-							'reportGetForwards', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc'
-						);
-						break;
-				}
-				if ($response = benchmarkemaillite_api::$client->getResponse()) {
-					benchmarkemaillite::maketable($response);
-				} else {
-					echo '<p>' . __('Sorry, no data is available.', 'benchmark-email-lite') . '</p>';
+					case 'clicks': self::showClicks(); break;
+					case 'opens': self::showOpens(); break;
+					case 'unopens': self::showUnopens(); break;
+					case 'bounces': self::showBounces(); break;
+					case 'unsubscribes': self::showUnsubscribes(); break;
+					case 'forwards': self::showForwards(); break;
 				}
 			}
 		
 			// Campaign Summary
 			else {
-				$response = benchmarkemaillite_api::campaign_summary($id);
+				$response = benchmarkemaillite_api::campaign_summary(self::$campaign);
 				$response['unopens'] = intval($response['mailSent']) - intval($response['opens']);
-				$response = array_merge($response, get_transient("benchmarkemaillite_{$id}"));
+				$response = array_merge($response, get_transient('benchmarkemaillite_' . self::$campaign));
 				/*
 				[mailSent] => 143
 				[id] => 1114607
@@ -114,6 +86,127 @@ class benchmarkemaillite_reports {
 				}
 			}
 			require_once('reports.overview.html.php');
+		}
+	}
+
+	// Specific Reports
+	function showClicks() {
+		echo '<h3>Email Clicks Report</h3>';
+		benchmarkemaillite_api::$client->query(
+			'reportGetClicks', benchmarkemaillite_api::$token, self::$campaign
+		);
+		if ($response = benchmarkemaillite_api::$client->getResponse()) {
+			$data = array();
+			foreach ($response as $i => $row) {
+				benchmarkemaillite_api::$client->query(
+					'reportGetClickEmails', benchmarkemaillite_api::$token, self::$campaign, $row['URL'], 1, 100, 'date', 'desc'
+				);
+				if ($response2 = benchmarkemaillite_api::$client->getResponse()) {
+					foreach ($response2 as $row2) {
+						$data[] = array(
+							'Name' => $row2['name'],
+							'Email' => $row2['email'],
+							'URL' => $row['URL'],
+							'Date' => $row2['logdate'],
+						);
+					}
+				}
+			}
+			benchmarkemaillite::maketable($data);
+		} else {
+			echo '<p>' . __('Sorry, no data is available.', 'benchmark-email-lite') . '</p>';
+		}
+	}
+	function showOpens() {
+		echo '<h3>Email Opens Report</h3>';
+		benchmarkemaillite_api::$client->query(
+			'reportGetOpens', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
+		);
+		if ($response = benchmarkemaillite_api::$client->getResponse()) {
+			$data = array();
+			foreach ($response as $row) {
+				$data[] = array(
+					'Name' => $row['name'],
+					'Email' => $row['email'],
+					'Date' => $row['logdate'],
+				);
+			}
+			benchmarkemaillite::maketable($data);
+		} else {
+			echo '<p>' . __('Sorry, no data is available.', 'benchmark-email-lite') . '</p>';
+		}
+	}
+	function showUnopens() {
+		echo '<h3>Email Unopened Report</h3>';
+		benchmarkemaillite_api::$client->query(
+			'reportGetUnopens', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
+		);
+		if ($response = benchmarkemaillite_api::$client->getResponse()) {
+			$data = array();
+			foreach ($response as $row) {
+				$data[] = array(
+					'Name' => $row['name'],
+					'Email' => $row['email'],
+				);
+			}
+			benchmarkemaillite::maketable($data);
+		} else {
+			echo '<p>' . __('Sorry, no data is available.', 'benchmark-email-lite') . '</p>';
+		}
+	}
+	function showBounces() {
+		echo '<h3>Email Bounce Report</h3>';
+		benchmarkemaillite_api::$client->query(
+			'reportGetHardBounces', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
+		);
+		$response1 = benchmarkemaillite_api::$client->getResponse();
+		benchmarkemaillite_api::$client->query(
+			'reportGetSoftBounces', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
+		);
+		$response2 = benchmarkemaillite_api::$client->getResponse();
+		$response = array_merge($response1, $response2);
+		if ($response) {
+			$data = array();
+			foreach ($response as $row) {
+				$data[] = array(
+					'Name' => $row['name'],
+					'Email' => $row['email'],
+					'Bounce Type' => $row['type'],
+				);
+			}
+			benchmarkemaillite::maketable($data);
+		} else {
+			echo '<p>' . __('Sorry, no data is available.', 'benchmark-email-lite') . '</p>';
+		}
+	}
+	function showUnsubscribes() {
+		echo '<h3>Email Unsubscribes Report</h3>';
+		benchmarkemaillite_api::$client->query(
+			'reportGetUnsubscribes', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
+		);
+		if ($response = benchmarkemaillite_api::$client->getResponse()) {
+			$data = array();
+			foreach ($response as $row) {
+				$data[] = array(
+					'Name' => $row['name'],
+					'Email' => $row['email'],
+					'Date' => $row['logdate'],
+				);
+			}
+			benchmarkemaillite::maketable($data);
+		} else {
+			echo '<p>' . __('Sorry, no data is available.', 'benchmark-email-lite') . '</p>';
+		}
+	}
+	function showForwards() {
+		echo '<h3>Email Forwards Report</h3>';
+		benchmarkemaillite_api::$client->query(
+			'reportGetForwards', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
+		);
+		if ($response = benchmarkemaillite_api::$client->getResponse()) {
+			benchmarkemaillite::maketable($response);
+		} else {
+			echo '<p>' . __('Sorry, no data is available.', 'benchmark-email-lite') . '</p>';
 		}
 	}
 }
