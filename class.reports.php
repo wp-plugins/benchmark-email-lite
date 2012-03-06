@@ -12,28 +12,41 @@ class benchmarkemaillite_reports {
 			$tokenindex = intval($_GET['tokenindex']);
 			benchmarkemaillite_api::$token = $options[1][$tokenindex];
 			$id = (string)intval($_GET['campaign']);
-		
+			$url = self::$url . "&amp;campaign={$id}&amp;tokenindex={$tokenindex}&amp;show=";
+
 			// Show Detail Page
 			if (isset($_GET['show']) && $show = esc_attr($_GET['show'])) {
 				benchmarkemaillite_api::connect();
 				switch ($show) {
 					case 'clicks':
-						benchmarkemaillite_api::$client->query('reportGetClicks', benchmarkemaillite_api::$token, $id);
+						benchmarkemaillite_api::$client->query(
+							'reportGetClicks', benchmarkemaillite_api::$token, $id
+						);
 						break;
 					case 'opens':
-						benchmarkemaillite_api::$client->query('reportGetOpens', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc');
+						benchmarkemaillite_api::$client->query(
+							'reportGetOpens', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc'
+						);
 						break;
 					case 'unopens':
-						benchmarkemaillite_api::$client->query('reportGetUnopens', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc');
+						benchmarkemaillite_api::$client->query(
+							'reportGetUnopens', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc'
+						);
 						break;
 					case 'bounces':
-						benchmarkemaillite_api::$client->query('reportGetHardBounces', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc');
+						benchmarkemaillite_api::$client->query(
+							'reportGetHardBounces', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc'
+						);
 						break;
 					case 'unsubscribes':
-						benchmarkemaillite_api::$client->query('reportGetUnsubscribes', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc');
+						benchmarkemaillite_api::$client->query(
+							'reportGetUnsubscribes', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc'
+						);
 						break;
 					case 'forwards':
-						benchmarkemaillite_api::$client->query('reportGetForwards', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc');
+						benchmarkemaillite_api::$client->query(
+							'reportGetForwards', benchmarkemaillite_api::$token, $id, 1, 100, 'date', 'desc'
+						);
 						break;
 				}
 				if ($response = benchmarkemaillite_api::$client->getResponse()) {
@@ -46,6 +59,8 @@ class benchmarkemaillite_reports {
 			// Campaign Summary
 			else {
 				$response = benchmarkemaillite_api::campaign_summary($id);
+				$response['unopens'] = intval($response['mailSent']) - intval($response['opens']);
+				$response = array_merge($response, get_transient("benchmarkemaillite_{$id}"));
 				/*
 				[mailSent] => 143
 				[id] => 1114607
@@ -63,26 +78,7 @@ class benchmarkemaillite_reports {
 				[shareURL] => http://visitor.benchmarkemail.com/c/b/4A6947
 				[timezone] => PDT
 				*/
-				$data = array(
-					'Name' => $response['emailName'],
-					'List' => $response['toListName'],
-					'Scheduled' => "{$response['scheduleDate']} {$response['timezone']}",
-					'Subject' => $response['subject'],
-					'Link' => $response['shareURL'],		
-				);
-				benchmarkemaillite::makelist($data);
-				$url = self::$url . "&amp;campaign={$id}&amp;tokenindex={$tokenindex}&amp;show=";
-				$data = array(
-					'Sent' => $response['mailSent'],
-					'Clicks' => "<a href='{$url}clicks'>{$response['clicks']}</a>",
-					'Opens' => "<a href='{$url}opens'>{$response['opens']}</a>",
-					'Unopens' => intval($response['mailSent']) - intval($response['opens']),
-					'Bounces' => "<a href='{$url}bounces'>{$response['bounces']}</a>",
-					'Abuse Reports' => $response['abuseReports'],
-					'Unsubscribes' => "<a href='{$url}unsubscribes'>{$response['unsubscribes']}</a>",
-					'Forwards' => "<a href='{$url}forwards'>{$response['forwards']}</a>",
-				);
-				benchmarkemaillite::maketable(array($data));
+				require_once('reports.detail.html.php');
 			}
 		}
 		
@@ -113,16 +109,11 @@ class benchmarkemaillite_reports {
 				[encToken] => mFcQnoBFKMTLHop7IM%2BVPRJBf%2BXlOWc4
 				*/
 				foreach ($response as $email) {
-					$url = self::$url . "&amp;campaign={$email['id']}&amp;tokenindex={$tokenindex}";
-					$emails[] = array(
-						'Created' => $email['createdDate'],
-						'Name' => "<a href='{$url}'>{$email['emailName']}</a>",
-						'List' => $email['toListName'],
-						'Status' => "{$email['status']} {$email['scheduleDate']}",
-					);
+					$emails[] = $email;
+					set_transient("benchmarkemaillite_{$email['id']}", $email);
 				}
 			}
-			benchmarkemaillite::maketable($emails);
+			require_once('reports.overview.html.php');
 		}
 	}
 }

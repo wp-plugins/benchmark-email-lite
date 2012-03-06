@@ -143,15 +143,6 @@ class benchmarkemaillite {
 		return ob_get_clean();
 	}
 
-	// List Items Generator
-	function makelist($data) {
-		echo '<ul>';
-		foreach ($data as $title => $row) {
-			echo "<li><strong>{$title}:</strong> {$row}</li>";
-		}
-		echo '</ul>';
-	}
-
 	// HTML Table Generator
 	function maketable($data) {
 	?>
