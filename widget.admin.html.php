@@ -35,7 +35,7 @@
 <table>
 	<thead>
 		<tr>
-			<th><?php echo __('Field', 'benchmark-email-lite'); ?></th>
+			<th><?php echo __('Field Name', 'benchmark-email-lite'); ?></th>
 			<th><?php echo __('Label', 'benchmark-email-lite'); ?></th>
 			<th><?php echo __('Required', 'benchmark-email-lite'); ?></th>
 			<th colspan="2"><?php echo __('Tools', 'benchmark-email-lite'); ?></th>
