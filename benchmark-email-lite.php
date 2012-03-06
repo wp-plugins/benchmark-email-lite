@@ -146,7 +146,7 @@ class benchmarkemaillite {
 	// HTML Table Generator
 	function maketable($data) {
 	?>
-	<table>
+	<table class="widefat" cellspacing="0">
 		<thead>
 			<tr>
 				<?php foreach ($data[0] as $i => $val) { ?>

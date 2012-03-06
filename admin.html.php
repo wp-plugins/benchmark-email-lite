@@ -14,6 +14,7 @@
 		default: benchmarkemaillite_settings::print_settings();
 	}
 	?>
+	<br />
 	<hr />
 	<p><?php echo __('Need help? Please call Benchmark Email at 800.430.4095.', 'benchmark-email-lite'); ?></p>
 </div>
