@@ -9,7 +9,7 @@ class benchmarkemaillite_reports {
 		
 		// Handle Requests
 		if (isset($_GET['tokenindex']) && isset($_GET['campaign'])) {
-			echo "<p><a href='" . self::$url . "'>Back to Reports</a></p>";
+			echo "<p><a href='" . self::$url . "'>Back to Email Reports</a></p>";
 			$tokenindex = intval($_GET['tokenindex']);
 			benchmarkemaillite_api::$token = $options[1][$tokenindex];
 			self::$campaign = (string)intval($_GET['campaign']);
@@ -17,6 +17,7 @@ class benchmarkemaillite_reports {
 
 			// Show Detail Page
 			if (isset($_GET['show']) && $show = esc_attr($_GET['show'])) {
+				echo "<p><a href='{$url}'>Back to Email Campaign Report</a></p>";
 				benchmarkemaillite_api::connect();
 				switch ($show) {
 					case 'clicks': self::showClicks(); break;
@@ -90,6 +91,25 @@ class benchmarkemaillite_reports {
 	}
 
 	// Specific Reports
+	function showLocations() {
+		echo '<h3>Opens by Location</h3>';
+		benchmarkemaillite_api::$client->query(
+			'reportGetOpenCountry', benchmarkemaillite_api::$token, self::$campaign
+		);
+		if ($response = benchmarkemaillite_api::$client->getResponse()) {
+			$data = array();
+			foreach ($response as $row) {
+				if (!$row['openCount']) { continue; }
+				$data[] = array(
+					'Country' => ucwords(strtolower($row['country_name'])),
+					'Opens' => $row['openCount'],
+				);
+			}
+			benchmarkemaillite::maketable($data);
+		} else {
+			echo '<p>' . __('Sorry, no data is available.', 'benchmark-email-lite') . '</p>';
+		}
+	}
 	function showClicks() {
 		echo '<h3>Email Clicks Report</h3>';
 		benchmarkemaillite_api::$client->query(
@@ -97,7 +117,7 @@ class benchmarkemaillite_reports {
 		);
 		if ($response = benchmarkemaillite_api::$client->getResponse()) {
 			$data = array();
-			foreach ($response as $i => $row) {
+			foreach ($response as $row) {
 				benchmarkemaillite_api::$client->query(
 					'reportGetClickEmails', benchmarkemaillite_api::$token, self::$campaign, $row['URL'], 1, 100, 'date', 'desc'
 				);
