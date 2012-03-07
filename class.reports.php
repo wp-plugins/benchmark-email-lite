@@ -17,7 +17,9 @@ class benchmarkemaillite_reports {
 			$url = self::$url . '&amp;campaign=' . self::$campaign . "&amp;tokenindex={$tokenindex}&amp;show=";
 
 			// Show Detail Page
-			if (isset($_GET['show']) && $show = esc_attr($_GET['show'])) {
+			$show = isset($_GET['show']) ? strtolower(esc_attr($_GET['show'])) : false;
+			$show = isset($_POST['show']) ? strtolower(esc_attr($_POST['show'])) : $show;
+			if ($show) {
 				echo '<p><a href="' . $url . '" title="' . __('Back to Email Campaign Report', 'benchmark-email-lite')
 					. '">' . __('Back to Email Campaign Report', 'benchmark-email-lite') . '</a></p>';
 				benchmarkemaillite_api::connect();

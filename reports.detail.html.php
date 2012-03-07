@@ -1,10 +1,10 @@
-<h3><?php echo __('Email Summary Reports', 'benchmark-email-lite'); ?></h3>
+<h3><?php echo __('Email Summary', 'benchmark-email-lite'); ?></h3>
 <p>
 	<strong><?php echo __('Email name', 'benchmark-email-lite'); ?>:</strong> <?php echo $response['emailName']; ?>
 	<?php if (isset($response['communityurl'])) { ?>
-	(<a href="<?php echo $response['communityurl']; ?>">View Campaign</a>)<br />
+	(<a target="_blank" href="<?php echo $response['communityurl']; ?>"><?php echo __('View Campaign', 'benchmark-email-lite'); ?></a>)
 	<?php } ?>
-	<strong><?php echo __('Subject', 'benchmark-email-lite'); ?>:</strong> <?php echo $response['subject']; ?>
+	<br /><strong><?php echo __('Subject', 'benchmark-email-lite'); ?>:</strong> <?php echo $response['subject']; ?>
 </p>
 <!-- See http://code.google.com/apis/chart/interactive/docs/gallery/piechart.html -->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -17,16 +17,16 @@ function drawChart() {
 	data.addColumn('number', 'Number');
 	data.addRows([
 		['<?php echo __('Opened', 'benchmark-email-lite'); ?>', <?php echo $response['opens'];?>],
-		['<?php echo __('Unopened', 'benchmark-email-lite'); ?>', <?php echo $response['unopens'];?>],
 		['<?php echo __('Bounced', 'benchmark-email-lite'); ?>', <?php echo $response['bounces'];?>],
+		['<?php echo __('Unopened', 'benchmark-email-lite'); ?>', <?php echo $response['unopens'];?>],
 	]);
 	var options = {
-		chartArea:{width:500,height:350},
+		chartArea:{width:500,height:365},
 		width:500,
 		height:400,
 		is3D:true,
 		legend:{position:'bottom'},
-		colors:['green','blue','orange'],
+		colors:['77D9A1','F2A81D','1C8DDE'],
 	};
 	var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 	chart.draw(data, options);
@@ -34,9 +34,22 @@ function drawChart() {
 </script>
 <div style="float:left;width:500px;">
 	<div id="chart_div"></div>
-	<p style="text-align:center;">
-		<strong><?php echo __('Click rate', 'benchmark-email-lite'); ?>:</strong>
-		<?php echo number_format(100 * $response['clicks'] / $response['opens'], 1); ?>%
+	<h3><?php echo __('Email Reports', 'benchmark-email-lite'); ?></h3>
+	<p>
+		<form method="post" action="">
+		<input type="submit" class="button-primary" name="show" value="<?php echo __('Opens', 'benchmark-email-lite'); ?>"
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+		<input type="submit" class="button-primary" name="show" value="<?php echo __('Clicks', 'benchmark-email-lite'); ?>"
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+		<input type="submit" class="button-primary" name="show" value="<?php echo __('Bounces', 'benchmark-email-lite'); ?>"
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+		<input type="submit" class="button-primary" name="show" value="<?php echo __('Unsubscribes', 'benchmark-email-lite'); ?>"
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+		<input type="submit" class="button-primary" name="show" value="<?php echo __('Forwards', 'benchmark-email-lite'); ?>"
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+		<input type="submit" class="button-primary" name="show" value="<?php echo __('Unopens', 'benchmark-email-lite'); ?>"
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+		</form>
 	</p>
 </div>
 <div style="float:left;">
