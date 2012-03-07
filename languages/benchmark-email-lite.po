@@ -1,0 +1,276 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Benchmark Email Lite v2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-06 20:23-0800\n"
+"PO-Revision-Date: 2012-03-06 20:23-0800\n"
+"Last-Translator: Sean Conklin <sean@beautomated.com>\n"
+"Language-Team: beAutomated <info@beautomated.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: benchmark-email-lite.php:71
+msgid "Contact Developer"
+msgstr ""
+
+#: benchmark-email-lite.php:73
+msgid "Free 30 Day Benchmark Email Trial"
+msgstr ""
+
+#: benchmark-email-lite.php:85
+msgid "Valid API key and API server connection."
+msgstr ""
+
+#: benchmark-email-lite.php:90
+msgid "Invalid API key or API server connection problem."
+msgstr ""
+
+#: class.api.php:64
+msgid "A verification email has been sent."
+msgstr ""
+
+#: class.api.php:72
+msgid "Successfully updated subscription."
+msgstr ""
+
+#: class.api.php:96
+#: class.posts.php:105
+msgid "preexists"
+msgstr ""
+
+#: class.api.php:104
+msgid "updated"
+msgstr ""
+
+#: class.api.php:110
+msgid "created"
+msgstr ""
+
+#: class.posts.php:108
+msgid "This campaign was previously sent, therefore it cannot be updated nor sent again. Please choose another email name."
+msgstr ""
+
+#: class.posts.php:114
+msgid "There was a problem creating or updating your email campaign. Please try again later."
+msgstr ""
+
+#: class.posts.php:116
+msgid "Benchmark Email response code: "
+msgstr ""
+
+#: class.posts.php:127
+#: class.posts.php:135
+msgid "Your campaign"
+msgstr ""
+
+#: class.posts.php:128
+msgid "was successfully"
+msgstr ""
+
+#: class.posts.php:136
+msgid "was successfully sent"
+msgstr ""
+
+#: class.settings.php:12
+msgid "Please configure your API key(s) on the"
+msgstr ""
+
+#: class.settings.php:14
+msgid "Benchmark Email Lite settings page"
+msgstr ""
+
+#: class.settings.php:99
+msgid "Benchmark Email Credentials"
+msgstr ""
+
+#: class.settings.php:100
+msgid "New Email Campaign Preferences"
+msgstr ""
+
+#: class.settings.php:101
+msgid "API Key(s) from your Benchmark Email account(s)"
+msgstr ""
+
+#: class.settings.php:102
+msgid "Webpage version"
+msgstr ""
+
+#: class.settings.php:121
+msgid "Settings"
+msgstr ""
+
+#: class.settings.php:143
+#: metabox.html.php:35
+#: widget.admin.html.php:111
+msgid "Need help? Please call Benchmark Email at 800.430.4095."
+msgstr ""
+
+#: class.settings.php:149
+msgid "The API Key(s) connect your WordPress site with your Benchmark Email account(s)."
+msgstr ""
+
+#: class.settings.php:150
+msgid "Only one key is required per Benchmark Email account."
+msgstr ""
+
+#: class.settings.php:151
+msgid "API Key(s) may expire after one year."
+msgstr ""
+
+#: class.settings.php:153
+msgid "Signup for a 30-day FREE Trial"
+msgstr ""
+
+#: class.settings.php:153
+msgid "or"
+msgstr ""
+
+#: class.settings.php:155
+msgid "log in to Benchmark Email to get your API key"
+msgstr ""
+
+#: class.settings.php:183
+msgid "Include the sentence &quot;Having trouble viewing this email? <u>click here</u>.&quot; in the top of emails?"
+msgstr ""
+
+#: class.widget.php:26
+msgid "Create a Benchmark Email newsletter widget in WordPress."
+msgstr ""
+
+#: class.widget.php:44
+msgid "Subscribe to Newsletter"
+msgstr ""
+
+#: class.widget.php:45
+msgid "Subscribe"
+msgstr ""
+
+#: class.widget.php:46
+msgid "Get the latest news and information direct from us to you!"
+msgstr ""
+
+#: class.widget.php:183
+msgid "Error: Please enter a valid email address."
+msgstr ""
+
+#: class.widget.php:205
+msgid "Successfully queued subscription."
+msgstr ""
+
+#: metabox.html.php:2
+msgid "Select a list for this campaign"
+msgstr ""
+
+#: metabox.html.php:6
+msgid "Email name"
+msgstr ""
+
+#: metabox.html.php:11
+msgid "From name"
+msgstr ""
+
+#: metabox.html.php:16
+msgid "Subject"
+msgstr ""
+
+#: metabox.html.php:23
+msgid "Send a test email"
+msgstr ""
+
+#: metabox.html.php:26
+msgid "Test email address"
+msgstr ""
+
+#: metabox.html.php:32
+msgid "Send immediately"
+msgstr ""
+
+#: metabox.html.php:33
+msgid "Your email will be sent within the next 15 minutes."
+msgstr ""
+
+#: metabox.html.php:46
+msgid "Please enter an email name."
+msgstr ""
+
+#: metabox.html.php:51
+msgid "Please enter a from name."
+msgstr ""
+
+#: metabox.html.php:57
+msgid "Please enter a subject."
+msgstr ""
+
+#: metabox.html.php:64
+msgid "Please enter a test email address."
+msgstr ""
+
+#: widget.admin.html.php:2
+msgid "Benchmark Email contact list name"
+msgstr ""
+
+#: widget.admin.html.php:6
+msgid "Signup form title"
+msgstr ""
+
+#: widget.admin.html.php:11
+msgid "Signup form introduction"
+msgstr ""
+
+#: widget.admin.html.php:16
+msgid "Automatically add paragraphs"
+msgstr ""
+
+#: widget.admin.html.php:19
+msgid "Limit to page"
+msgstr ""
+
+#: widget.admin.html.php:25
+msgid "Show Everywhere"
+msgstr ""
+
+#: widget.admin.html.php:31
+msgid "Submit button text"
+msgstr ""
+
+#: widget.admin.html.php:38
+msgid "Field Name"
+msgstr ""
+
+#: widget.admin.html.php:39
+msgid "Label"
+msgstr ""
+
+#: widget.admin.html.php:40
+msgid "Required"
+msgstr ""
+
+#: widget.admin.html.php:41
+msgid "Tools"
+msgstr ""
+
+#: widget.admin.html.php:59
+msgid "Email address"
+msgstr ""
+
+#: widget.admin.html.php:74
+msgid "Please select"
+msgstr ""
+
+#: widget.admin.html.php:109
+msgid "Add new field"
+msgstr ""
+
+#: widget.frontend.html.php:33
+msgid "Loading - Please wait"
+msgstr ""
+
+#: widget.frontend.html.php:49
+msgid "Please complete the field(s):"
+msgstr ""
+
