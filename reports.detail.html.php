@@ -14,17 +14,23 @@
 	<p>
 		<form method="post" action="">
 		<input type="submit" class="button-primary" name="show" value="<?php echo __('Opens', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+			<?php if (!$response['opens']) { echo ' disabled="disabled"';} ?> />
 		<input type="submit" class="button-primary" name="show" value="<?php echo __('Clicks', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+			<?php if (!$response['clicks']) { echo ' disabled="disabled"';} ?> />
 		<input type="submit" class="button-primary" name="show" value="<?php echo __('Bounces', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+			<?php if (!$response['bounces']) { echo ' disabled="disabled"';} ?> />
 		<input type="submit" class="button-primary" name="show" value="<?php echo __('Unsubscribes', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+			<?php if (!$response['unsubscribes']) { echo ' disabled="disabled"';} ?> />
 		<input type="submit" class="button-primary" name="show" value="<?php echo __('Forwards', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+			<?php if (!$response['forwards']) { echo ' disabled="disabled"';} ?> />
 		<input type="submit" class="button-primary" name="show" value="<?php echo __('Unopens', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>" />
+			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+			<?php if (!$response['unopens']) { echo ' disabled="disabled"';} ?> />
 		</form>
 	</p>
 </div>
