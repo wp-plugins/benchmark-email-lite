@@ -91,6 +91,10 @@ There is an optional setting to limit the Plugin to a single page, if desired. T
 
 The signup form uses standard HTML list items so it can be manipulated by CSS within your theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
 
+= How can I customize the email template? =
+
+You may edit the HTML and CSS code within the `templates/simple.html.php` file. Be sure to keep a backup of your changes in the event that file gets overwritten in a future plugin update.
+
 = I want to put the widget somewhere that widgets aren't currently allowed! =
 
 The Benchmark Email Lite Plugin does not currently support a shortcode for inclusion in a page body. We might be adding this capability down the road. The good news is that you can still use the Plugin without needing a sidebar, if you can customize your theme! You can add a little code to the theme to allow the widget wherever you wish it to be - even inside the page body if you want it there. In order to enable the widget where you want it to go, add the following code to your theme files:
@@ -120,11 +124,12 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 == Screenshots ==
 
-1. This is the default widget on Twenty Eleven theme.
-2. This is the widget control panel.
-3. This is the page/post publish section.
-4. This is a sample email generated from a post.
-5. This is the Plugin settings panel.
+1. This is the default widget on Twenty Ten theme.
+2. This is the default widget on Twenty Eleven theme.
+3. This is the signup form widget control panel.
+4. This is the page/post metabox control panel.
+5. This is a sample email generated from a post.
+6. This is the Plugin settings panel.
 
 == Changelog ==
 
