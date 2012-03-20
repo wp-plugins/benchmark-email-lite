@@ -62,7 +62,7 @@ class benchmarkemaillite_reports {
 	// Specific Reports
 	function showLocations() {
 		echo '<h3>' . __('Opens by Location', 'benchmark-email-lite') . '</h3>';
-		benchmarkemaillite_api::$client->query(
+		benchmarkemaillite_api::query(
 			'reportGetOpenCountry', benchmarkemaillite_api::$token, self::$campaign
 		);
 		if ($response = benchmarkemaillite_api::$client->getResponse()) {
@@ -79,13 +79,13 @@ class benchmarkemaillite_reports {
 	}
 	function showClicks() {
 		echo '<h3>' . __('Email Clicks Report', 'benchmark-email-lite') . '</h3>';
-		benchmarkemaillite_api::$client->query(
+		benchmarkemaillite_api::query(
 			'reportGetClicks', benchmarkemaillite_api::$token, self::$campaign
 		);
 		if ($response = benchmarkemaillite_api::$client->getResponse()) {
 			$data = array();
 			foreach ($response as $row) {
-				benchmarkemaillite_api::$client->query(
+				benchmarkemaillite_api::query(
 					'reportGetClickEmails', benchmarkemaillite_api::$token, self::$campaign, $row['URL'], 1, 100, 'date', 'desc'
 				);
 				if ($response2 = benchmarkemaillite_api::$client->getResponse()) {
@@ -104,7 +104,7 @@ class benchmarkemaillite_reports {
 	}
 	function showOpens() {
 		echo '<h3>' . __('Email Opens Report', 'benchmark-email-lite') . '</h3>';
-		benchmarkemaillite_api::$client->query(
+		benchmarkemaillite_api::query(
 			'reportGetOpens', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
 		);
 		if ($response = benchmarkemaillite_api::$client->getResponse()) {
@@ -121,7 +121,7 @@ class benchmarkemaillite_reports {
 	}
 	function showUnopens() {
 		echo '<h3>' . __('Email Unopened Report', 'benchmark-email-lite') . '</h3>';
-		benchmarkemaillite_api::$client->query(
+		benchmarkemaillite_api::query(
 			'reportGetUnopens', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
 		);
 		if ($response = benchmarkemaillite_api::$client->getResponse()) {
@@ -137,11 +137,11 @@ class benchmarkemaillite_reports {
 	}
 	function showBounces() {
 		echo '<h3>' . __('Email Bounce Report', 'benchmark-email-lite') . '</h3>';
-		benchmarkemaillite_api::$client->query(
+		benchmarkemaillite_api::query(
 			'reportGetHardBounces', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
 		);
 		$response1 = benchmarkemaillite_api::$client->getResponse();
-		benchmarkemaillite_api::$client->query(
+		benchmarkemaillite_api::query(
 			'reportGetSoftBounces', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
 		);
 		$response2 = benchmarkemaillite_api::$client->getResponse();
@@ -160,7 +160,7 @@ class benchmarkemaillite_reports {
 	}
 	function showUnsubscribes() {
 		echo '<h3>' . __('Email Unsubscribes Report', 'benchmark-email-lite') . '</h3>';
-		benchmarkemaillite_api::$client->query(
+		benchmarkemaillite_api::query(
 			'reportGetUnsubscribes', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
 		);
 		if ($response = benchmarkemaillite_api::$client->getResponse()) {
@@ -177,7 +177,7 @@ class benchmarkemaillite_reports {
 	}
 	function showForwards() {
 		echo '<h3>' . __('Email Forwards Report', 'benchmark-email-lite') . '</h3>';
-		benchmarkemaillite_api::$client->query(
+		benchmarkemaillite_api::query(
 			'reportGetForwards', benchmarkemaillite_api::$token, self::$campaign, 1, 100, 'date', 'desc'
 		);
 		if ($response = benchmarkemaillite_api::$client->getResponse()) {
