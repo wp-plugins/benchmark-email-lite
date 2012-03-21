@@ -84,17 +84,16 @@ class benchmarkemaillite_settings {
 		if ($changed) { update_option('widget_benchmarkemaillite_widget', $widgets); }
 	}
 
-	// Admin Settings Notice
-	function notices() {
-		$options = get_option('benchmark-email-lite_group');
-		if (!isset($options[1][0]) || !$options[1][0]) {
-			echo '<div class="fade updated"><p><strong>Benchmark Email Lite</strong>'
-				. self::badconfig_message() . '</p></div>';
-		}
-	}
-
 	// Admin Load
 	function initialize() {
+
+		// Admin Settings Notice
+		$options = get_option('benchmark-email-lite_group');
+		if (!isset($options[1][0]) || !$options[1][0]) {
+			set_transient('benchmark-email-lite_errors', self::badconfig_message(), 5);
+		}
+
+		// Load Settings API
 		register_setting('benchmark-email-lite_group', 'benchmark-email-lite_group', array('benchmarkemaillite_settings', 'validate'));
 		add_settings_section('benchmark-email-lite_section1', __('Benchmark Email Credentials', 'benchmark-email-lite'), array('benchmarkemaillite_settings', 'section1'), __FILE__);
 		add_settings_section('benchmark-email-lite_section2', __('New Email Campaign Preferences', 'benchmark-email-lite'), array('benchmarkemaillite_settings', 'section2'), __FILE__);

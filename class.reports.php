@@ -22,7 +22,6 @@ class benchmarkemaillite_reports {
 			if ($show) {
 				echo '<p><a href="' . $url . '" title="' . __('Back to Email Campaign Report', 'benchmark-email-lite')
 					. '">' . __('Back to Email Campaign Report', 'benchmark-email-lite') . '</a></p>';
-				benchmarkemaillite_api::connect();
 				switch ($show) {
 					case 'clicks': self::showClicks(); break;
 					case 'opens': self::showOpens(); break;
@@ -50,9 +49,14 @@ class benchmarkemaillite_reports {
 				if (!$key) { continue; }
 				benchmarkemaillite_api::$token = $key;
 				$response = benchmarkemaillite_api::campaigns();
-				foreach ($response as $email) {
-					$emails[] = $email;
-					set_transient("benchmarkemaillite_{$email['id']}", $email);
+				if (sizeof($response) > 0) {
+					$message = '';
+					foreach ($response as $email) {
+						$emails[] = $email;
+						set_transient("benchmarkemaillite_{$email['id']}", $email);
+					}
+				} else {
+					$message = '<p><strong>' . __('No results found', 'benchmark-email-lite') . '</strong></p>';
 				}
 			}
 			require_once('reports.overview.html.php');

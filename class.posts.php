@@ -118,17 +118,19 @@ class benchmarkemaillite_posts {
 
 		// Handle Error Conditions
 		if ($result == __('preexists', 'benchmark-email-lite')) {
-			update_option(
+			set_transient(
 				'benchmark-email-lite_errors',
-				__('This campaign was previously sent, therefore it cannot be updated nor sent again. Please choose another email name.', 'benchmark-email-lite')
+				__('This campaign was previously sent, therefore it cannot be updated nor sent again. Please choose another email name.', 'benchmark-email-lite'),
+				5
 			);
 			return;
 		} else if (!is_numeric(benchmarkemaillite_api::$campaignid)) {
-			update_option(
+			set_transient(
 				'benchmark-email-lite_errors',
 				__('There was a problem creating or updating your email campaign. Please try again later.', 'benchmark-email-lite')
 				. (isset(benchmarkemaillite_api::$campaignid['faultString'])
-					? ' ' . __('Benchmark Email response code: ', 'benchmark-email-lite') . benchmarkemaillite_api::$campaignid['faultCode'] : '')
+					? ' ' . __('Benchmark Email response code: ', 'benchmark-email-lite') . benchmarkemaillite_api::$campaignid['faultCode'] : ''),
+				5
 			);
 			return;
 		}
@@ -137,18 +139,20 @@ class benchmarkemaillite_posts {
 		switch ($bmeaction) {
 			case '1':
 				benchmarkemaillite_api::campaign_test($bmetestto);
-				update_option(
+				set_transient(
 					'benchmark-email-lite_errors',
 					__('Your campaign', 'benchmark-email-lite') . " <em>{$bmetitle}</em>&nbsp; "
-					. __('was successfully', 'benchmark-email-lite') . " {$result}."
+					. __('was successfully', 'benchmark-email-lite') . " {$result}.",
+					5
 				);
 				break;
 			case '2':
 				benchmarkemaillite_api::campaign_now();
-				update_option(
+				set_transient(
 					'benchmark-email-lite_errors',
 					__('Your campaign', 'benchmark-email-lite') . " <em>{$bmetitle}</em>&nbsp; "
-					. __('was successfully sent', 'benchmark-email-lite') . '.'
+					. __('was successfully sent', 'benchmark-email-lite') . '.',
+					5
 				);
 				break;
 			case '3':
@@ -158,19 +162,12 @@ class benchmarkemaillite_posts {
 					? esc_attr($_POST['bmetime']) : date('H:i', current_time('timestamp'));
 				$when = "$bmedate $bmetime";
 				benchmarkemaillite_api::campaign_later($when);
-				update_option(
+				set_transient(
 					'benchmark-email-lite_errors',
 					__('Your campaign', 'benchmark-email-lite') . ' <em>' . $bmetitle . '</em>&nbsp; '
-					. __('was successfully scheduled for', 'benchmark-email-lite') . " <em>{$when}</em>."
+					. __('was successfully scheduled for', 'benchmark-email-lite') . " <em>{$when}</em>.",
+					5
 				);
-		}
-	}
-
-	// For Printing Custom Admin Notices
-	function custom_errors() {
-		if ($val = get_option('benchmark-email-lite_errors')) {
-			update_option('benchmark-email-lite_errors', '');
-			echo "<div class='fade updated'><p><strong>Benchmark Email Lite</strong></p><p>{$val}</p></div>";
 		}
 	}
 }

@@ -29,10 +29,10 @@ require_once('class.widget.php');
 // Plugin API Hooks
 add_action('wp_init', array('benchmarkemaillite', 'initialize'));
 add_filter('plugin_row_meta', array('benchmarkemaillite', 'pluginlinks'), 10, 2);
+add_action('admin_notices', array('benchmarkemaillite', 'notices'));
 
 // Posts API Hooks
 add_action('save_post', array('benchmarkemaillite_posts', 'save_post'));
-add_action('admin_notices', array('benchmarkemaillite_posts', 'custom_errors'));
 add_action('admin_init', array('benchmarkemaillite_posts', 'post_metabox'));
 
 // Widget API Hooks
@@ -47,7 +47,6 @@ add_action('init', array('benchmarkemaillite_settings', 'upgrade1'));
 add_action('init', array('benchmarkemaillite_settings', 'upgrade2'));
 add_action('admin_init', array('benchmarkemaillite_settings', 'initialize'));
 add_action('admin_menu', array('benchmarkemaillite_settings', 'menu'));
-add_action('admin_notices', array('benchmarkemaillite_settings', 'notices'));
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), array('benchmarkemaillite_settings', 'links'));
 
 class benchmarkemaillite {
@@ -94,6 +93,13 @@ class benchmarkemaillite {
 	/*******
 	 UTILITY
 	 *******/
+
+	// Admmin Area Notices
+	function notices() {
+		if ($val = get_transient('benchmark-email-lite_errors')) {
+			echo "<div class='fade updated'><p><strong>Benchmark Email Lite</strong></p><p>{$val}</p></div>";
+		}
+	}
 
 	// Makes Drop Down Lists From API Keys
 	function print_lists($keys, $selected='') {

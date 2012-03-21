@@ -14,15 +14,27 @@ class benchmarkemaillite_api {
 
 	// Executes Query with Time Tracking
 	function query() {
+
+		// Skip This Request If Temporarily Disabled
 		$disabled = get_transient('benchmark-email-lite_serverdown');
 		if ($disabled) { return; }
+
+		// Connect and Communicate
 		self::connect();
 		$args = func_get_args();
 		$time = time();
 		self::$client->query($args);
+
+		// If Over Limit, Disable for Five Minutes And Produce Warning
 		$time = (time() - $time);
 		if ($time >= self::$timeout) {
 			set_transient('benchmark-email-lite_serverdown', true, 300);
+			set_transient(
+				'benchmark-email-lite_errors',
+				__('Error connecting to Benchmark Email API server. The next attempt will be at:', 'benchmark-email-lite')
+				. ' ' . date('H:i:s', (current_time('timestamp') + 300)),
+				300
+			);
 			return false;
 		}
 		return true;
@@ -167,7 +179,7 @@ class benchmarkemaillite_api {
 		if (self::query('reportGet', self::$token, '', 1, 100, 'date', 'desc')) {
 			return self::$client->getResponse();
 		}
-		return false;
+		return array();
 	}
 
 	// Get Email Campaign Report Summary

@@ -23,3 +23,4 @@
 		<?php } ?>
 	</tbody>
 </table>
+<?php echo $message; ?>
