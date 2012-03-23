@@ -122,6 +122,7 @@ class benchmarkemaillite_api {
 
 		// Create New Campaign
 		if ($response = self::query('emailCreate', self::$token, $data)) {
+			self::$campaignid = $response;
 			return (!$response) ? false : __('created', 'benchmark-email-lite');
 		}
 		return false;
