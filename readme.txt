@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 3.2
 Tested up to: 3.3.1
-Stable tag: 2.1
+Stable tag: 2.2
 
 Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your blog posts.
 
@@ -20,7 +20,7 @@ Place the widget in any compatible area of your theme, and use administrative co
 
 Controls within the page / post editor interface let you email a simple version of your blog posts (including images) the moment you finish them. Customize the email and from name as well as the subject line for each email you send. Achieve perfection, the Plugin allows you to send yourself test emails before actually sending the blog post to your subscribers.
 
-Once your done testing the email, select one of your lists from the Benchmark Email Lite Plugin and click send! A formatted email will be sent to your subscribers right away!
+Once your done testing the email, select one of your lists from the Benchmark Email Lite plugin and click send! A formatted email will be sent to your subscribers right away! You may also schedule your email delivery at a later time if needed.
 
 To get started, sign up for a Benchmark Email [30-day free trial](http://www.benchmarkemail.com/Register "Try Benchmark Email 30 days free"). With a free trial, you can use the Plugin and get a full experience of what Benchmark Email has to offer, including our Surveys, Polls and Autoresponders. We know you'll love what you see, so once you upgrade your plan you can still use the Plugin free of charge for as long as you’d like. The Plugin is integrated via API with your Benchmark Email account. You may control up to 5 Benchmark Email accounts from a single WordPress site.
 
@@ -133,6 +133,11 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 == Changelog ==
 
+= 2.2 on 2012-03-26 =
+
+* Added: Scheduling capabilities for post to campaigns feature.
+* Added: Prevents admin area slowdowns by detecting API server connections over 5 seconds and disabling communications for 5 minutes.
+
 = 2.1 on 2012-03-12 =
 
 * Added: All additional fields supported by BME onto widget signup form administration.
@@ -222,6 +227,10 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: Initial Plugin release.
 
 == Upgrade Notice ==
+
+= 2.2 =
+
+* Added scheduling capabilities for post to campaign feature. Also added API server speed detection/maneuvering.
 
 = 2.1 =
 
