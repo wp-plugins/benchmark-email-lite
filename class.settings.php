@@ -198,8 +198,10 @@ class benchmarkemaillite_settings {
 	}
 	function field5() {
 		$options = get_option('benchmark-email-lite_group');
-		echo "<input id='benchmark-email-lite_group_5' type='text' size='2' maxlength='2'
-			name='benchmark-email-lite_group[5]' value='{$options[5]}' />";
+		echo __('If the connection with the Benchmark Email server takes', 'benchmark-email-lite')
+			. " <input id='benchmark-email-lite_group_5' type='text' size='2' maxlength='2'
+			name='benchmark-email-lite_group[5]' value='{$options[5]}' /> "
+			. __('seconds or longer, disable connections for 5 minutes to prevent site administration from becomming sluggish. (Default: 5)', 'benchmark-email-lite');
 	}
 	function validate($values) {
 		foreach ($values as $key => $val) {
