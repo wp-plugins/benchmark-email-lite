@@ -64,9 +64,9 @@ New Manual Installation
 
 Please call Benchmark Email at 800.430.4095.
 
-= Why aren't the Extra 1 and Extra 2 fields available anymore? =
+= Why are the Extra 1 and Extra 2 fields no longer available? =
 
-Benchmark Email changed the default fields associated with newly created lists in mid 2011. The fields Extra 1 and Extra 2 became Date 1 and Date 2 on new lists created after that date. Users are able to change their list's field titles and types by clicking the Edit link on any list, then clicking Advanced. However, this plugin does not currently support non default settings. We had to eliminate the Extra 1, Extra 2, Date 1, Date 2 options in order to comply with default settings before and after said change to the defaults.
+Benchmark Email changed the default fields associated with newly created lists in mid 2011. The fields Extra 1 and Extra 2 became Date 1 and Date 2 on new lists created after that date. Users are able to change their list's field titles and types by clicking the Edit link on any list, then clicking Advanced. However, this plugin does not currently support non-default settings. We had to eliminate the Extra 1, Extra 2, Date 1, Date 2 options in order to comply with default settings before and after said change to the defaults.
 
 = Why did the widget suddenly stop connecting with Benchmark Email? =
 
