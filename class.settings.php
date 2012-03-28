@@ -162,7 +162,7 @@ class benchmarkemaillite_settings {
 	}
 	function section2() { }
 	function section3() {
-		echo '<p>' . __('This section is for troubleshooting purposes only. Only change the below if you know what you are doing!', 'benchmark-email-lite') . '</p>';
+		echo '<p style="color:red;">' . __('This section is for troubleshooting purposes only.', 'benchmark-email-lite') . '</p>';
 	}
 	function field1() {
 		$options = get_option('benchmark-email-lite_group');
