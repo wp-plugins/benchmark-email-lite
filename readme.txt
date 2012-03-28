@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 3.2
 Tested up to: 3.3.1
-Stable tag: 2.2
+Stable tag: 2.2.1
 
 Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your blog posts.
 
@@ -64,9 +64,17 @@ New Manual Installation
 
 Please call Benchmark Email at 800.430.4095.
 
+= Why aren't the Extra 1 and Extra 2 fields available anymore? =
+
+Benchmark Email changed the default fields associated with newly created lists in mid 2011. The fields Extra 1 and Extra 2 became Date 1 and Date 2 on new lists created after that date. Users are able to change their list's field titles and types by clicking the Edit link on any list, then clicking Advanced. However, this plugin does not currently support non default settings. We had to eliminate the Extra 1, Extra 2, Date 1, Date 2 options in order to comply with default settings before and after said change to the defaults.
+
 = Why did the widget suddenly stop connecting with Benchmark Email? =
 
 Please check your API key. We observed on 11/09/2011 that our own API key was deleted/reset on Benchmark Email's server. We had to generate a new one and place the new key code into our widget settings. To generate a new API key, log into Benchmark Email via their website and go to My Account, then Account Settings, then scroll towards the bottom of the page.
+
+= Why am I seeing "Error Connecting..." in the admin area? =
+
+To combat occasional Benchmark Email API server slowdowns causing sluggish behavior in the WordPress admin area on pages containing this plugin's features, we added a feature to disable connectivity if the plugin detects a 5 second or greater delay in any given connection attempt. Disablement lasts for 5 minutes. The connection timeout can be customized to a value greater than 5 seconds via the plugin settings page. This error can also be triggered by your web host providing slow outbound connectivity, or your web host throttling your PHP processing speed due to other problems with your site, such as memory leaks or heavy traffic. Despite delays, subscriptions are never lost thanks to our queueing system.
 
 = What happens if a subscriber resubmits their subscription? =
 
@@ -132,6 +140,11 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 6. This is the Plugin settings panel.
 
 == Changelog ==
+
+= 2.2.1 on 2012-03-28 =
+
+* Added: Setting for connection timeout to be customized for diagnostic purposes. See FAQ.
+* Fixed: Removed Extra 1 and Extra 2 widget field options due to newer defaults. See FAQ. 
 
 = 2.2 on 2012-03-26 =
 
@@ -227,6 +240,10 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: Initial Plugin release.
 
 == Upgrade Notice ==
+
+= 2.2.1 =
+
+* Fixes for connection timeout setting, and Extra 1 and Extra 2 widget fields.
 
 = 2.2 =
 
