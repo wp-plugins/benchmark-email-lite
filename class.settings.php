@@ -207,7 +207,9 @@ class benchmarkemaillite_settings {
 			. __('seconds or longer, disable connections for 5 minutes to prevent site administration from becoming sluggish. (Default: 5)', 'benchmark-email-lite');
 	}
 	function validate($values) {
-		foreach ($values as $key => $val) {
+		$options = get_option('benchmark-email-lite_group');
+		foreach ($options as $key => $val) {
+			$val = isset($values[$key]) ? $values[$key] : '';
 
 			// Process Saving Of API Keys
 			if ($key == '1') {
