@@ -36,7 +36,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 			'Address','City','State','Zip','Country','Phone','Fax','Cell Phone',
 			'Company Name','Job Title','Business Phone','Business Fax',
 			'Business Address','Business City','Business State','Business Zip','Business Country',
-			'Notes','Extra 1','Extra 2','Extra 3','Extra 4','Extra 5','Extra 6',
+			'Notes','Extra 3','Extra 4','Extra 5','Extra 6',
 		);
 
 		// Prepare Default Values

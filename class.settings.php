@@ -18,9 +18,17 @@ class benchmarkemaillite_settings {
 	// Triggered By Front And Back Ends - Try To Upgrade Plugin and Widget Settings
 	// This Exists Because WordPress Sadly Doesn't Fire Activation Hook Upon Upgrade Reactivation
 	function upgrade1() {
+		$options = get_option('benchmark-email-lite_group');
+
+		// Check And Set Defaults
+		if (!isset($options[1])) { $options[1] = array(); }
+		if (!isset($options[2])) { $options[2] = 'yes'; }
+		if (!isset($options[3])) { $options[3] = 'simple'; }
+		if (!isset($options[4])) { $options[4] = ''; }
+		if (!isset($options[5])) { $options[5] = 5; }
+		update_option('benchmark-email-lite_group', $options);
 
 		// Exit If Already Configured
-		$options = get_option('benchmark-email-lite_group');
 		if (isset($options[1][0]) && $options[1][0]) { return; }
 
 		// Search For v1.x Widgets, Gather API Keys For Plugin Settings
@@ -37,7 +45,8 @@ class benchmarkemaillite_settings {
 					if (!is_array($lists)) { continue; }
 					foreach ($lists as $list) {
 						if ($list['listname'] == $widget['list']) {
-							$widgets[$instance]['list'] = "{$widget['token']}|{$widget['list']}|{$list['id']}";
+							$widgets[$instance]['list']
+								= "{$widget['token']}|{$widget['list']}|{$list['id']}";
 						}
 					}
 				}
@@ -50,12 +59,7 @@ class benchmarkemaillite_settings {
 		$tokens = array_unique($tokens);
 		update_option(
 			'benchmark-email-lite_group', array(
-				1 => $tokens,
-
-				// Set Default Values
-				2 => isset($options[2]) ? $options[2] : 'yes',
-				3 => isset($options[3]) ? $options[3] : 'simple',
-				4 => isset($options[4]) ? $options[4] : '',
+				1 => $tokens, 2 => $options[2], 3 => $options[3], 4 => $options[4], 5 => $options[5],
 			)
 		);
 
@@ -97,10 +101,12 @@ class benchmarkemaillite_settings {
 		register_setting('benchmark-email-lite_group', 'benchmark-email-lite_group', array('benchmarkemaillite_settings', 'validate'));
 		add_settings_section('benchmark-email-lite_section1', __('Benchmark Email Credentials', 'benchmark-email-lite'), array('benchmarkemaillite_settings', 'section1'), __FILE__);
 		add_settings_section('benchmark-email-lite_section2', __('New Email Campaign Preferences', 'benchmark-email-lite'), array('benchmarkemaillite_settings', 'section2'), __FILE__);
+		add_settings_section('benchmark-email-lite_section3', __('Diagnostics', 'benchmark-email-lite'), array('benchmarkemaillite_settings', 'section3'), __FILE__);
 		add_settings_field('benchmark-email-lite_1', __('API Key(s) from your Benchmark Email account(s)', 'benchmark-email-lite'), array('benchmarkemaillite_settings', 'field1'), __FILE__, 'benchmark-email-lite_section1');
 		add_settings_field('benchmark-email-lite_2', __('Webpage version', 'benchmark-email-lite'), array('benchmarkemaillite_settings', 'field2'), __FILE__, 'benchmark-email-lite_section2');
 		add_settings_field('benchmark-email-lite_4', '', array('benchmarkemaillite_settings', 'field4'), __FILE__, 'benchmark-email-lite_section2');
 		add_settings_field('benchmark-email-lite_3', '', array('benchmarkemaillite_settings', 'field3'), __FILE__, 'benchmark-email-lite_section2');
+		add_settings_field('benchmark-email-lite_5', __('Connection Timeout (seconds)', 'benchmark-email-lite'), array('benchmarkemaillite_settings', 'field5'), __FILE__, 'benchmark-email-lite_section3');
 	}
 
 	// Admin Menu
@@ -149,6 +155,9 @@ class benchmarkemaillite_settings {
 			. __('log in to Benchmark Email to get your API key', 'benchmark-email-lite') . '</a>.</p>';
 	}
 	function section2() { }
+	function section3() {
+		echo '<p style="color:red;">' . __('This section is for troubleshooting purposes only.', 'benchmark-email-lite') . '</p>';
+	}
 	function field1() {
 		$options = get_option('benchmark-email-lite_group');
 		$results = array();
@@ -173,21 +182,28 @@ class benchmarkemaillite_settings {
 	}
 	function field2() {
 		$options = get_option('benchmark-email-lite_group');
-		echo "<input id='benchmark-email-lite_group_2' type='checkbox' name='benchmark-email-lite_group[2]' value='yes'" . checked('yes', $options[2], false) . " /> "
+		echo "<input id='benchmark-email-lite_group_2' type='checkbox' name='benchmark-email-lite_group[2]'
+			value='yes'" . checked('yes', $options[2], false) . " /> "
 			. __("Include the sentence &quot;Having trouble viewing this email? <u>click here</u>.&quot; in the top of emails?", 'benchamrk-email-lite');
 	}
 	function field3() { // Design Template - This Field Is Disabled
-		$options = get_option('benchmark-email-lite_group');
 		echo "<input id='benchmark-email-lite_group_3' type='hidden' name='benchmark-email-lite_group[3]'
 			value='simple' checked='checked' />";
 	}
 	function field4() { // Permission Reminder - This Field Is Disabled
-		$options = get_option('benchmark-email-lite_group');
 		echo "<input id='benchmark-email-lite_group_4' type='hidden' name='benchmark-email-lite_group[4]'
 			value='' checked='checked' />";
 	}
+	function field5() {
+		$options = get_option('benchmark-email-lite_group');
+		echo __('If the connection with the Benchmark Email server takes', 'benchmark-email-lite')
+			. " <input id='benchmark-email-lite_group_5' type='text' size='2' maxlength='2' name='benchmark-email-lite_group[5]' value='{$options[5]}' /> "
+			. __('seconds or longer, disable connections for 5 minutes to prevent site administration from becoming sluggish. (Default: 5)', 'benchmark-email-lite');
+	}
 	function validate($values) {
-		foreach ($values as $key => $val) {
+		$options = get_option('benchmark-email-lite_group');
+		foreach ($options as $key => $val) {
+			$val = isset($values[$key]) ? $values[$key] : '';
 
 			// Process Saving Of API Keys
 			if ($key == '1') {

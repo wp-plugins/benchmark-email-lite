@@ -1,18 +1,20 @@
 <?php
 
 class benchmarkemaillite_api {
-	static $token, $listid, $campaignid, $timeout = 7;
+	static $token, $listid, $campaignid;
 
 	// Executes Query with Time Tracking
 	function query() {
-		ini_set('default_socket_timeout', self::$timeout);
+		$options = get_option('benchmark-email-lite_group');
+		$timeout = (isset($options[5]) && $options[5] > 5) ? $options[5] : 5;
+		ini_set('default_socket_timeout', $timeout);
 		require_once(ABSPATH . WPINC . '/class-IXR.php');
 
 		// Skip This Request If Temporarily Disabled
 		if ($disabled = get_transient('benchmark-email-lite_serverdown')) { return; }
 
 		// Connect and Communicate
-		$client = new IXR_Client(benchmarkemaillite::$apiurl, false, 443, self::$timeout);
+		$client = new IXR_Client(benchmarkemaillite::$apiurl, false, 443, $timeout);
 		$time = time();
 		$args = func_get_args();
 		call_user_func_array(array($client, 'query'), $args);
@@ -20,13 +22,16 @@ class benchmarkemaillite_api {
 
 		// If Over Limit, Disable for Five Minutes And Produce Warning
 		$time = (time() - $time);
-		if ($time >= self::$timeout) {
+		if ($time >= $timeout) {
 			set_transient('benchmark-email-lite_serverdown', true, 300);
 			set_transient(
 				'benchmark-email-lite_errors',
 				__('Error connecting to Benchmark Email API server. Connection throttled until', 'benchmark-email-lite')
 				. ' ' . date('H:i:s', (current_time('timestamp') + 300))
-				. ' ' . __('to prevent sluggish behavior.', 'benchmark-email-lite'),
+				. ' ' . __('to prevent sluggish behavior.', 'benchmark-email-lite')
+				. ' ' . __('If this occurs frequently, try increasing your' , 'benchmark-email-lite')
+				. ' <a href="options-general.php?page=benchmark-email-lite">'
+				. __('Connection Timeout setting.', 'benchmark-email-lite') . '</a>',
 				300
 			);
 			return false;
