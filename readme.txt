@@ -6,7 +6,7 @@ Requires at least: 3.2
 Tested up to: 3.3.1
 Stable tag: 2.2.1
 
-Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your posts and pages.
+Benchmark Email Lite lets you build an email list from your WordPress site, and easily send your subscribers email versions of your posts and pages.
 
 == Description ==
 
