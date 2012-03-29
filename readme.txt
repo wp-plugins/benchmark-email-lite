@@ -6,11 +6,11 @@ Requires at least: 3.2
 Tested up to: 3.3.1
 Stable tag: 2.2.1
 
-Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your blog posts.
+Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your posts and pages.
 
 == Description ==
 
-If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite WordPress Plugin lets you build an email list right from the pages of your WordPress site, and send your subscribers email versions of your blog posts in a flash.
+If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite WordPress Plugin lets you build an email list right from the pages of your WordPress site, and send your subscribers email versions of your posts and pages in a flash.
 
 With an integrated easy to use signup form widget, subscribers can sign up for your blog posts with just their email address. If you want more from your subscribers, you can ask for up to 27 additional fields (e.g, First Name, Last Name, Address, Phone Number, et cetera). If someone signs up and they’re already a subscriber, the widget will automatically update the person’s data in your email list.
 
@@ -18,7 +18,7 @@ You want a signup form that looks like your blog, right? The Benchmark Email Lit
 
 Place the widget in any compatible area of your theme, and use administrative controls to fully customize the signup form. Because organization is key, choose the list these new subscribers will be added to. You can post the signup widget on one page of your blog, or every page.
 
-Controls within the page / post editor interface let you email a simple version of your blog posts (including images) the moment you finish them. Customize the email and from name as well as the subject line for each email you send. Achieve perfection, the Plugin allows you to send yourself test emails before actually sending the blog post to your subscribers.
+Controls within the post / page editor interface let you email a simple version of your posts and pages (including images) the moment you finish them. Customize the email and from name as well as the subject line for each email you send. Achieve perfection, the Plugin allows you to send yourself test emails before actually sending content to your subscribers.
 
 Once your done testing the email, select one of your lists from the Benchmark Email Lite plugin and click send! A formatted email will be sent to your subscribers right away! You may also schedule your email delivery at a later time if needed.
 
