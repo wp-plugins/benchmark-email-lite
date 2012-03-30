@@ -39,9 +39,9 @@ class benchmarkemaillite_posts {
 		$options = get_option('benchmark-email-lite_group');
 		if (!isset($options[1][0]) || !$options[1][0]) {
 			echo benchmarkemaillite_settings::badconfig_message();
-			return;
+		} else {
+			$dropdown = benchmarkemaillite::print_lists($options[1], $bmelist);
 		}
-		$dropdown = benchmarkemaillite::print_lists($options[1], $bmelist);
 
 		// Round Time To Nearest Quarter Hours
 		$localtime = current_time('timestamp');
@@ -75,14 +75,12 @@ class benchmarkemaillite_posts {
 		$bmetestto = isset($_POST['bmetestto']) ? sanitize_email($_POST['bmetestto']) : false;
 
 		// Handle Prepopulation Loading
-		if ($bmeaction == '1') {
-			set_transient('bmelist', $bmelist, 15);
-			set_transient('bmeaction', $bmeaction, 15);
-			set_transient('bmetitle', $bmetitle, 15);
-			set_transient('bmefrom', $bmefrom, 15);
-			set_transient('bmesubject', $bmesubject, 15);
-			set_transient('bmetestto', $bmetestto, 15);
-		}
+		set_transient('bmelist', $bmelist, 15);
+		set_transient('bmeaction', $bmeaction, 15);
+		set_transient('bmetitle', $bmetitle, 15);
+		set_transient('bmefrom', $bmefrom, 15);
+		set_transient('bmesubject', $bmesubject, 15);
+		set_transient('bmetestto', $bmetestto, 15);
 
 		// Don't Work With Post Revisions Or Other Post Actions
 		if (wp_is_post_revision($postID) || !isset($_POST['bmesubmit']) || $_POST['bmesubmit'] != 'yes') { return; }
@@ -135,13 +133,23 @@ class benchmarkemaillite_posts {
 			return;
 		}
 
+		// Clear Fields After Successful Send
+		if (in_array($bmeaction, array(2, 3))) {
+			delete_transient('bmelist');
+			delete_transient('bmeaction');
+			delete_transient('bmetitle');
+			delete_transient('bmefrom');
+			delete_transient('bmesubject');
+			delete_transient('bmetestto');
+		}
+
 		// Schedule Campaign
 		switch ($bmeaction) {
 			case '1':
 				benchmarkemaillite_api::campaign_test($bmetestto);
 				set_transient(
 					'benchmark-email-lite_errors',
-					__('Your campaign', 'benchmark-email-lite') . " <em>{$bmetitle}</em>&nbsp; "
+					__('Your campaign', 'benchmark-email-lite') . " <q>{$bmetitle}</q> "
 					. __('was successfully', 'benchmark-email-lite') . " {$result}.",
 					5
 				);
@@ -150,7 +158,7 @@ class benchmarkemaillite_posts {
 				benchmarkemaillite_api::campaign_now();
 				set_transient(
 					'benchmark-email-lite_errors',
-					__('Your campaign', 'benchmark-email-lite') . " <em>{$bmetitle}</em>&nbsp; "
+					__('Your campaign', 'benchmark-email-lite') . " <q>{$bmetitle}</q> "
 					. __('was successfully sent', 'benchmark-email-lite') . '.',
 					5
 				);
@@ -164,7 +172,7 @@ class benchmarkemaillite_posts {
 				benchmarkemaillite_api::campaign_later($when);
 				set_transient(
 					'benchmark-email-lite_errors',
-					__('Your campaign', 'benchmark-email-lite') . ' <em>' . $bmetitle . '</em>&nbsp; '
+					__('Your campaign', 'benchmark-email-lite') . ' <q>' . $bmetitle . '</q> '
 					. __('was successfully scheduled for', 'benchmark-email-lite') . " <em>{$when}</em>.",
 					5
 				);

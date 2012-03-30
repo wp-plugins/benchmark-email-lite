@@ -16,7 +16,7 @@
 	?>
 	<li>
 		<label for="<?php echo $id; ?>" style="display:block;"><?php echo $label; ?></label>
-		<input type="text" maxlength="100" id="<?php echo $id; ?>"
+		<input type="text" maxlength="200" id="<?php echo $id; ?>"
 			name="<?php echo $id; ?>" value="<?php echo $value; ?>" />
 	</li>
 	<?php } ?>
