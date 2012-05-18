@@ -43,23 +43,22 @@ class benchmarkemaillite_reports {
 
 		// Get Sent Campaigns
 		else {
-			echo '<p>' . __('Please select a campaign to view the report.', 'benchmark-email-lite') . '</p>';
-			$emails = array();
 			foreach ($options[1] as $tokenindex => $key) {
+				$emails = array();
 				if (!$key) { continue; }
 				benchmarkemaillite_api::$token = $key;
 				$response = benchmarkemaillite_api::campaigns();
 				if (sizeof($response) > 0) {
-					$message = '';
 					foreach ($response as $email) {
+						$email['toListName'] = isset($email['toListName']) ? $email['toListName'] : '[none]';
 						$emails[] = $email;
 						set_transient("benchmarkemaillite_{$email['id']}", $email);
 					}
-				} else {
-					$message = '<p><strong>' . __('No results found', 'benchmark-email-lite') . '</strong></p>';
+					require('reports.overview.html.php');
+					continue;
 				}
+				echo '<p><strong>' . __('No results found for API key: ', 'benchmark-email-lite') . "</strong> {$key}</p>";
 			}
-			require_once('reports.overview.html.php');
 		}
 	}
 

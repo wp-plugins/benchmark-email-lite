@@ -1,6 +1,7 @@
 <div class="wrap">
-	<?php echo screen_icon(); ?>
-	<h2 class="nav-tab-wrapper">
+	<?php echo get_screen_icon('plugins'); ?>
+	<h2>Benchmark Email Lite</h2>
+	<h2 class="nav-tab-wrapper">&nbsp;
 	<?php
 	foreach ($tabs as $tab => $name) {
 		$class = ($tab == $current) ? ' nav-tab-active' : '';

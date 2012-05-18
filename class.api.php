@@ -30,7 +30,7 @@ class benchmarkemaillite_api {
 				. ' ' . date('H:i:s', (current_time('timestamp') + 300))
 				. ' ' . __('to prevent sluggish behavior.', 'benchmark-email-lite')
 				. ' ' . __('If this occurs frequently, try increasing your' , 'benchmark-email-lite')
-				. ' <a href="options-general.php?page=benchmark-email-lite">'
+				. ' <a href="options-general.php?page=benchmark-email-lite&amp;tab=settings">'
 				. __('Connection Timeout setting.', 'benchmark-email-lite') . '</a>',
 				300
 			);
