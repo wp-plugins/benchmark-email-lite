@@ -12,7 +12,7 @@ Benchmark Email Lite lets you build an email list from your WordPress site, and 
 
 If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite WordPress Plugin lets you build an email list right from the pages of your WordPress site, and send your subscribers email versions of your posts and pages in a flash.
 
-With an integrated easy to use signup form widget, subscribers can sign up for your blog posts with just their email address. If you want more from your subscribers, you can ask for up to 27 additional fields (e.g, First Name, Last Name, Address, Phone Number, et cetera). If someone signs up and they’re already a subscriber, the widget will automatically update the person’s data in your email list.
+With an integrated easy to use signup form widget, subscribers can sign up for your blog posts with just their email address. If you want more from your subscribers, you can ask for up to 27 additional fields (e.g., First Name, Last Name, Address, Phone Number, et cetera). If someone signs up and they’re already a subscriber, the widget will automatically update the person’s data in your email list.
 
 You want a signup form that looks like your blog, right? The Benchmark Email Lite widget uses standard HTML list items so you can code your CSS to make the widget match your blog’s design. Most themes will automatically match your signup form to the style of your blog.
 
