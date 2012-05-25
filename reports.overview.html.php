@@ -1,15 +1,11 @@
 <h3><?php echo __('Email Reports', 'benchmark-email-lite'); ?></h3>
-<p>
-	<?php echo __('Please select a campaign to view the report.', 'benchmark-email-lite'); ?>
-	(API key: <?php echo $key; ?>)
-</p>
+<p>For API key: <?php echo $key; ?></p>
+<p><?php echo __('Please select a campaign to view the report.', 'benchmark-email-lite'); ?></p>
 <table class="widefat" cellspacing="0">
 	<thead>
 		<tr>
 			<th><?php echo __('Email Name', 'benchmark-email-lite'); ?></th>
-			<th><?php echo __('Status', 'benchmark-email-lite'); ?></th>
-			<th><?php echo __('Date Modified', 'benchmark-email-lite'); ?></th>
-			<th><?php echo __('Date Scheduled', 'benchmark-email-lite'); ?></th>
+			<th><?php echo __('Date Sent', 'benchmark-email-lite'); ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -23,8 +19,6 @@
 					<?php echo $email['toListName'] ?>
 				</small>
 			</td>
-			<td><?php echo $email['status']; ?></td>
-			<td><?php echo $email['modifiedDate']; ?></td>
 			<td><?php echo $email['scheduleDate']; ?></td>
 		</tr>
 		<?php } ?>

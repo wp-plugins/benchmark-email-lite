@@ -2,9 +2,6 @@
 	<h3><?php echo __('Email Summary', 'benchmark-email-lite'); ?></h3>
 	<p>
 		<strong><?php echo __('Email name', 'benchmark-email-lite'); ?>:</strong> <?php echo $response['emailName']; ?>
-		<?php if (isset($response['communityurl'])) { ?>
-		(<a target="_blank" href="<?php echo $response['communityurl']; ?>"><?php echo __('View Campaign', 'benchmark-email-lite'); ?></a>)
-		<?php } ?>
 		<br /><strong><?php echo __('Subject', 'benchmark-email-lite'); ?>:</strong> <?php echo $response['subject']; ?>
 	</p>
 	<div style="height:400px;">
