@@ -122,12 +122,12 @@ function drawChart() {
 		['<?php echo __('Unopened', 'benchmark-email-lite'); ?>', <?php echo $response['unopens'];?>],
 	]);
 	var options = {
-		animation:{duration:1000,easing:'out'},
-		chartArea:{width:500,height:365},
+		//animation:{duration:1000,easing:'out'},
+		chartArea:{width:400,height:365},
 		width:500,
 		height:400,
 		is3D:true,
-		legend:{position:'bottom'},
+		//legend:{position:'bottom'},
 		colors:['77D9A1','F2A81D','1C8DDE'],
 	};
 	var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
