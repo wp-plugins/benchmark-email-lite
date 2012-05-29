@@ -40,7 +40,7 @@ class benchmarkemaillite_reports {
 					</p>
 				';
 				$response = benchmarkemaillite_api::campaign_summary(self::$campaign);
-				$response['unopens'] = intval($response['mailSent']) - intval($response['opens']);
+				$response['unopens'] = intval($response['mailSent']) - intval($response['opens']) - intval($response['bounces']);
 				$response = array_merge($response, get_transient('benchmarkemaillite_' . self::$campaign));
 				require_once('reports.detail.html.php');
 			}

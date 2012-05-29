@@ -96,7 +96,7 @@
 					<?php echo ($response['unopens']) ? "<a href='{$url}unopens' title='" . __('Click to view report', 'benchmark-email-lite') . "'>{$response['unopens']}</a>" : 0; ?>
 				</td>
 				<td>
-					<?php echo number_format(100*$response['unopens']/($response['mailSent']-$response['bounces']), 1); ?>%
+					<?php echo number_format(100*$response['unopens']/($response['mailSent']), 1); ?>%
 				</td>
 			</tr>
 			<tr>

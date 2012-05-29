@@ -1,6 +1,6 @@
 <p>
 	<?php echo __('Benchmark Email contact list name', 'benchmark-email-lite'); ?>:
-	<select name="<?php echo $this->get_field_name('list'); ?>"><?php echo $dropdown; ?></select>
+	<select style="width:100%;" name="<?php echo $this->get_field_name('list'); ?>"><?php echo $dropdown; ?></select>
 </p>
 <p>
 	<?php echo __('Signup form title', 'benchmark-email-lite'); ?>:
