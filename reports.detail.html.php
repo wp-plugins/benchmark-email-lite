@@ -5,7 +5,7 @@
 		<br /><strong><?php echo __('Subject', 'benchmark-email-lite'); ?>:</strong> <?php echo $response['subject']; ?>
 	</p>
 	<div style="height:400px;">
-		<div id="chart_div" style="display:none;"></div>
+		<div id="chart_div"></div>
 	</div>
 	<h3><?php echo __('Email Reports', 'benchmark-email-lite'); ?></h3>
 	<p>
@@ -111,29 +111,24 @@
 <div style="clear:both;"> </div>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-// http://code.google.com/apis/chart/interactive/docs/gallery/piechart.html
+google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart);
 function drawChart() {
-	var data = new google.visualization.DataTable();
-	data.addColumn('string', 'Statistic');
-	data.addColumn('number', 'Number');
-	data.addRows([
+	var data = google.visualization.arrayToDataTable([
+		['Item', 'Quantity'],
 		['<?php echo __('Opened', 'benchmark-email-lite'); ?>', <?php echo $response['opens'];?>],
 		['<?php echo __('Bounced', 'benchmark-email-lite'); ?>', <?php echo $response['bounces'];?>],
-		['<?php echo __('Unopened', 'benchmark-email-lite'); ?>', <?php echo $response['unopens'];?>],
+		['<?php echo __('Unopened', 'benchmark-email-lite'); ?>', <?php echo $response['unopens'];?>]
 	]);
 	var options = {
-		//animation:{duration:1000,easing:'out'},
-		chartArea:{width:400,height:365},
-		width:500,
-		height:400,
-		is3D:true,
-		//legend:{position:'bottom'},
-		colors:['77D9A1','F2A81D','1C8DDE'],
+		chartArea: { width: 400, height: 365 },
+		width: 500,
+		height: 400,
+		is3D: true,
+		legend: { position: 'bottom' },
+		colors: ['77D9A1', 'F2A81D', '1C8DDE']
 	};
 	var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 	chart.draw(data, options);
-	jQuery('#chart_div').fadeIn(2500);
 }
-google.load('visualization', '1.0', {'packages':['corechart']});
-google.setOnLoadCallback(drawChart);
 </script>
