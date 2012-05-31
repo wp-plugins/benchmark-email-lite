@@ -153,7 +153,7 @@ class benchmarkemaillite_api {
 
 	// Get Email Campaigns
 	function campaigns() {
-		return self::query('reportGet', self::$token, '', 1, 100, 'date', 'desc');
+		return self::query('reportGet', self::$token, '', 1, 25, 'date', 'desc');
 	}
 
 	// Get Email Campaign Report Summary
