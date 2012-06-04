@@ -3,26 +3,37 @@ Contributors: beautomated, seanconklin, randywsandberg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 3.2
-Tested up to: 3.3.1
-Stable tag: 2.2.1
+Tested up to: 3.3.2
+Stable tag: 2.3
+License: GPLv2
 
 Benchmark Email Lite lets you build an email list from your WordPress site, and easily send your subscribers email versions of your posts and pages.
 
 == Description ==
 
-If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite WordPress Plugin lets you build an email list right from the pages of your WordPress site, and send your subscribers email versions of your posts and pages in a flash.
+If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite WordPress Plugin builds an email list right from the pages of your WordPress site, and sends your subscribers email versions of your posts and pages in a flash. See when, where, and who opens or clicks on links or unsubscribes–all live from your Wordpress dashboard!
 
-With an integrated easy to use signup form widget, subscribers can sign up for your blog posts with just their email address. If you want more from your subscribers, you can ask for up to 27 additional fields (e.g., First Name, Last Name, Address, Phone Number, et cetera). If someone signs up and they’re already a subscriber, the widget will automatically update the person’s data in your email list.
+With this version you can:
 
-You want a signup form that looks like your blog, right? The Benchmark Email Lite widget uses standard HTML list items so you can code your CSS to make the widget match your blog’s design. Most themes will automatically match your signup form to the style of your blog.
+* Build your list of subscribers with a custom signup form Widget.
+* Automatically send a formatted email version of your blog posts to your subscribers.
+* Send test emails of your blog post before deciding on the final send.
+* Control up to 5 separate Benchmark Email accounts.
+* View Live Reports of who has opened your emails, clicked on links, bounces and much more!
 
-Place the widget in any compatible area of your theme, and use administrative controls to fully customize the signup form. Because organization is key, choose the list these new subscribers will be added to. You can post the signup widget on one page of your blog, or every page.
+**From Blog to Email**–Available as an easy-to-integrate widget, this signup form allows subscribers to sign up for email versions of your blog posts with just their email address. You can further customize the signup form with 27 additional fields (e.g., First Name, Last Name, Address, Phone, etc.). If a user signs up and they're already a subscriber, the widget automatically updates the person's data in your email list.
 
-Controls within the post / page editor interface let you email a simple version of your posts and pages (including images) the moment you finish them. Customize the email and from name as well as the subject line for each email you send. Achieve perfection, the Plugin allows you to send yourself test emails before actually sending content to your subscribers.
+Themes to Match Your Blog–You want a signup form that looks like your blog, right? The Benchmark Email Lite widget uses standard HTML list items so you can code your CSS to make the widget match your blog’s design. Most themes will automatically match your signup form to the style of your blog.
 
-Once your done testing the email, select one of your lists from the Benchmark Email Lite plugin and click send! A formatted email will be sent to your subscribers right away! You may also schedule your email delivery at a later time if needed.
+Fully Customizable, Anywhere on Your Blog–Administrative controls allow you to fully customize the signup form. Choose which email list you want signups to be added to. Best of all, the signup widget can be placed on any page you want–or even every page of your site.
 
-To get started, sign up for a Benchmark Email [30-day free trial](http://www.benchmarkemail.com/Register "Try Benchmark Email 30 days free"). With a free trial, you can use the Plugin and get a full experience of what Benchmark Email has to offer, including our Surveys, Polls and Autoresponders. We know you'll love what you see, so once you upgrade your plan you can still use the Plugin free of charge for as long as you’d like. The Plugin is integrated via API with your Benchmark Email account. You may control up to 5 Benchmark Email accounts from a single WordPress site.
+**Test Versions of Your Email**–Send yourself a test email before sending the content to your subscribers. The Plugin's interface inside your post/page editor enables you to email a simple version of your posts (including images) the moment that you finish creating them on your site. Customize the email, From name and subject line when you send to achieve email marketing perfection.
+
+Formatted Email Versions of Your Blog–Once you're done testing, select a contact list from the Benchmark Email Lite Plugin and click send! The formatted email version of your blog will be sent to your subscribers right away. You can also schedule your email to be sent at a later date and time.
+
+**View Live Reports**–Once an email is sent, you can see the live reports of its success from within your WordPress dashboard. Learn who opens your emails, clicks on links, unsubscribes and forwards your blogs to friends–even see which email contacts bounce and where your subscribers are reading from.
+
+To get started, sign up for a Benchmark Email [30-day free trial](http://www.benchmarkemail.com/Register "Try Benchmark Email 30 days free"). With a free trial, you can use the Plugin and fully experience what Benchmark Email has to offer, including our Mobile Marketing iPhone App, Surveys, Polls and Autoresponders. We know you'll love what you see, so once you upgrade your plan you can still use the Plugin free of charge for as long as you’d like. The Plugin is integrated via API with your Benchmark Email account. You may control up to 5 Benchmark Email accounts from a single WordPress site.
 
 Need help? Please call Benchmark Email at 800.430.4095.
 
@@ -141,6 +152,11 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 == Changelog ==
 
+= 2.3 on 2012-06-04 =
+
+* Added: Full email campaign reporting capabilities.
+* Updated: Moved menu item from the Settings section to a top level item with icon.
+
 = 2.2.1 on 2012-03-28 =
 
 * Added: Setting for connection timeout to be customized for diagnostic purposes. See FAQ.
@@ -240,6 +256,10 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: Initial Plugin release.
 
 == Upgrade Notice ==
+
+= 2.3 =
+
+* Added full email campaign reporting capabilities.
 
 = 2.2.1 =
 
