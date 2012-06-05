@@ -149,6 +149,8 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 4. This is the page/post metabox control panel.
 5. This is a sample email generated from a post.
 6. This is the Plugin settings panel.
+7. This is the sent email campaigns listing.
+8. This is a sample email campaign report overview.
 
 == Changelog ==
 
