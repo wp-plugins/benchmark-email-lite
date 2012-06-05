@@ -11,27 +11,27 @@ Benchmark Email Lite lets you build an email list from your WordPress site, and 
 
 == Description ==
 
-If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite WordPress Plugin builds an email list right from the pages of your WordPress site, and sends your subscribers email versions of your posts and pages in a flash. See when, where, and who opens or clicks on links or unsubscribes–all live from your Wordpress dashboard!
+If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite WordPress Plugin builds an email list right from the pages of your WordPress site, and sends your subscribers email versions of your posts and pages in a flash. See when, where, and who opens or clicks on links or unsubscribes—all live from your Wordpress dashboard!
 
 With this version you can:
 
-* Build your list of subscribers with a custom signup form Widget.
-* Automatically send a formatted email version of your blog posts to your subscribers.
-* Send test emails of your blog post before deciding on the final send.
 * Control up to 5 separate Benchmark Email accounts.
-* View Live Reports of who has opened your emails, clicked on links, bounces and much more!
+* Build your list of subscribers with a custom signup form widget.
+* Send test emails of your blog post before deciding on the final send.
+* Easily send or schedule a formatted email version of your blog posts.
+* View live reports of opened, bounced, unsubscribed, forwarded, and unopened email as well as clicked links.
 
-**From Blog to Email**–Available as an easy-to-integrate widget, this signup form allows subscribers to sign up for email versions of your blog posts with just their email address. You can further customize the signup form with 27 additional fields (e.g., First Name, Last Name, Address, Phone, etc.). If a user signs up and they're already a subscriber, the widget automatically updates the person's data in your email list.
+**From Blog to Email:** Available as an easy-to-integrate widget, this signup form allows subscribers to sign up for email versions of your blog posts with just their email address. You can further customize the signup form with 27 additional fields (e.g., First Name, Last Name, Address, Phone, etc.). If a user signs up and they're already a subscriber, the widget automatically updates the person's data in your email list.
 
-Themes to Match Your Blog–You want a signup form that looks like your blog, right? The Benchmark Email Lite widget uses standard HTML list items so you can code your CSS to make the widget match your blog’s design. Most themes will automatically match your signup form to the style of your blog.
+**Themes to Match Your Blog:** You want a signup form that looks like your blog, right? The Benchmark Email Lite widget uses standard HTML list items so you can code your CSS to make the widget match your blog’s design. Most themes will automatically match your signup form to the style of your blog.
 
-Fully Customizable, Anywhere on Your Blog–Administrative controls allow you to fully customize the signup form. Choose which email list you want signups to be added to. Best of all, the signup widget can be placed on any page you want–or even every page of your site.
+**Fully Customizable, Anywhere on Your Blog:** Administrative controls allow you to fully customize the signup form. Choose which email list you want signups to be added to. Best of all, the signup widget can be placed on any page you want—or even every page of your site.
 
-**Test Versions of Your Email**–Send yourself a test email before sending the content to your subscribers. The Plugin's interface inside your post/page editor enables you to email a simple version of your posts (including images) the moment that you finish creating them on your site. Customize the email, From name and subject line when you send to achieve email marketing perfection.
+**Test Versions of Your Email:** Send yourself a test email before sending the content to your subscribers. The Plugin's interface inside your post/page editor enables you to email a simple version of your posts (including images) the moment that you finish creating them on your site. Customize the email, From name and subject line when you send to achieve email marketing perfection.
 
-Formatted Email Versions of Your Blog–Once you're done testing, select a contact list from the Benchmark Email Lite Plugin and click send! The formatted email version of your blog will be sent to your subscribers right away. You can also schedule your email to be sent at a later date and time.
+**Formatted Email Versions of Your Blog:** Once you're done testing, select a contact list from the Benchmark Email Lite Plugin and click send! The formatted email version of your blog will be sent to your subscribers right away. You can also schedule your email to be sent at a later date and time.
 
-**View Live Reports**–Once an email is sent, you can see the live reports of its success from within your WordPress dashboard. Learn who opens your emails, clicks on links, unsubscribes and forwards your blogs to friends–even see which email contacts bounce and where your subscribers are reading from.
+**View Live Reports:** Once an email is sent, you can see the live reports of its success from within your WordPress dashboard. Learn who opens your emails, clicks on links, unsubscribes and forwards your blogs to friends—even see which email contacts bounce and where your subscribers are reading from.
 
 To get started, sign up for a Benchmark Email [30-day free trial](http://www.benchmarkemail.com/Register "Try Benchmark Email 30 days free"). With a free trial, you can use the Plugin and fully experience what Benchmark Email has to offer, including our Mobile Marketing iPhone App, Surveys, Polls and Autoresponders. We know you'll love what you see, so once you upgrade your plan you can still use the Plugin free of charge for as long as you’d like. The Plugin is integrated via API with your Benchmark Email account. You may control up to 5 Benchmark Email accounts from a single WordPress site.
 
