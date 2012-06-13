@@ -42,9 +42,8 @@ Need help? Please call Benchmark Email at 800.430.4095.
 Update Instructions
 
 1. Click to have the Plugin updated.
-1. Click Benchmark Email Lite under the Settings menu and ensure your API keys are properly configured.
-1. Expand the Widget options for any existing widgets. Verify that the settings are all correct. Click Save when you're all done.
-1. Now you can setup any number of signup form widgets and save any number of posts and pages to email campaigns!
+1. Click Benchmark Email Lite on the administration sidebar menu. Click the Settings tab. Check to ensure that your API keys are properly configured.
+1. Navigate to Appearance, Widgets. Expand the Widget options for any existing sign-up form widgets. Verify that the settings are all correct. Click Save when you're all done.
 
 New Automatic Installation
 
@@ -55,9 +54,9 @@ New Automatic Installation
 1. (sometimes required) Enter your FTP or FTPS username and password, as provided by your web host.
 1. Click Activate Plugin link.
 1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/Register](http://www.benchmarkemail.com/Register "Try Benchmark Email").
-1. Obtain your Benchmark Email API Key by logging into Benchmark Email, click My Account, click My Account Settings, scroll to the big yellow box towards the bottom of the page and copy the API Key code.
-1. Back on your site, click Benchmark Email Lite under the Settings menu and ensure your API key is properly configured.
-1. Now you can setup any number of signup form widgets and save any number of posts and pages to email campaigns!
+1. Obtain your Benchmark Email API Key by logging into Benchmark Email, click My Account, click My Account Settings, scroll to the big yellow box towards the bottom of the page and copy the API Key code. If the yellow box is missing, click the link to "generate your API key" first.
+1. Back on your site, click Benchmark Email Lite on the administration sidebar menu. Click the Settings tab. Check to ensure that your API key is properly configured.
+1. Now you can setup any number of signup form widgets on the Appearance, Widgets administration page, plus you can save any number of posts and pages to email campaigns right from the post or page editor!
 
 New Manual Installation
 
@@ -65,9 +64,9 @@ New Manual Installation
 1. Upload the `benchmark-email-lite` folder to your `wp-content/plugins/` directory.
 1. Activate the Plugin through the Plugins menu in WordPress.
 1. If you are creating a new Benchmark Email account, please use the link [http://www.benchmarkemail.com/Register](http://www.benchmarkemail.com/Register "Try Benchmark Email").
-1. Obtain your Benchmark Email API Key by logging into Benchmark Email, click My Account, click My Account Settings, scroll to the big yellow box towards the bottom of the page and copy the API Key code.
-1. Back on your site, click Benchmark Email Lite under the Settings menu and ensure your API key is properly configured.
-1. Now you can setup any number of signup form widgets and save any number of posts and pages to email campaigns!
+1. Obtain your Benchmark Email API Key by logging into Benchmark Email, click My Account, click My Account Settings, scroll to the big yellow box towards the bottom of the page and copy the API Key code. If the yellow box is missing, click the link to "generate your API key" first.
+1. Back on your site, click Benchmark Email Lite click Benchmark Email Lite on the administration sidebar menu. Click the Settings tab. Check to ensure that your API key is properly configured.
+1. Now you can setup any number of signup form widgets on the Appearance, Widgets administration page, plus you can save any number of posts and pages to email campaigns right from the post or page editor!
 
 == Frequently Asked Questions ==
 
