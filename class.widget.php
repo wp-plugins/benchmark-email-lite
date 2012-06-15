@@ -104,7 +104,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		global $post;
 		extract($args);
 		$widgetid = explode('-', $widget_id);
-		$widgetid = $widgetid[1];
+		$widgetid = isset($widgetid[1]) ? $widgetid[1] : $widgetid[0];
 		$before_widget .= '<div id="benchmark-email-lite-' . $widgetid . '" class="benchmark-email-lite">';
 		$after_widget = '</div>' . $after_widget;
 		$printresponse = '';

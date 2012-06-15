@@ -108,6 +108,13 @@
 <p style="padding:5px 0 0 10px;">
 	<a href="#" class="bmeadd">[<?php echo __('Add new field', 'benchmark-email-lite'); ?>]</a>
 </p>
+<p>
+	<?php echo __('Optional Shortcode', 'benchmark-email-lite'); ?>:
+	<strong>[benchmark-email-lite widget_id="<?php echo $key; ?>"]</strong><br />
+	<small>
+		<?php echo __('To optionally use this widget inside of any post or page content, copy and paste this shortcode where you would like the signup form to be placed. You may also drag this widget into the Inactive Widgets section to prevent sidebar placement.', 'benchmark-email-lite'); ?>
+	</small>
+</p>
 <p><?php echo __('Need help? Please call Benchmark Email at 800.430.4095.', 'benchmark-email-lite'); ?></p>
 <script type="text/javascript">
 jQuery('[id$=<?php echo esc_attr($instance['id']); ?>]').find('.in-widget-title').html(': <?php echo esc_attr($instance['title']); ?>');

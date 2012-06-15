@@ -25,6 +25,7 @@ require_once('class.posts.php');
 require_once('class.reports.php');
 require_once('class.settings.php');
 require_once('class.widget.php');
+require_once('class.shortcode.php');
 
 // Plugin API Hooks
 add_action('wp_init', array('benchmarkemaillite', 'initialize'));
@@ -41,6 +42,9 @@ add_action('widgets_init', array('benchmarkemaillite_widget', 'widgetfrontendsub
 add_action('benchmarkemaillite_queue', array('benchmarkemaillite_widget', 'queue_upload'));
 add_action('widgets_init', 'benchmarkemaillite_register_widget');
 function benchmarkemaillite_register_widget() { register_widget('benchmarkemaillite_widget'); }
+
+// Shortcode API Hooks
+add_shortcode('benchmark-email-lite', array('benchmarkemaillite_shortcode', 'shortcode'));
 
 // Settings API Hooks
 add_action('init', array('benchmarkemaillite_settings', 'upgrade1'));
