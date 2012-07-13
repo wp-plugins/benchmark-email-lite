@@ -55,12 +55,12 @@ class benchmarkemaillite_widget extends WP_Widget {
 		// Get Widget ID And Saved Values
 		$instance = wp_parse_args((array) $instance, $defaults);
 		$instance['id'] = $this->id;
+		$instance['widget_id'] = $this->number;
 
 		// Get Drop Down Values
 		$options = get_option('benchmark-email-lite_group');
 		if (!isset($options[1][0]) || !$options[1][0]) {
 			echo benchmarkemaillite_settings::badconfig_message();
-			//return;
 		}
 		$dropdown = benchmarkemaillite::print_lists($options[1], $instance['list']);
 
