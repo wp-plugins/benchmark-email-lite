@@ -4,7 +4,7 @@
 </p>
 <p>
 	<?php echo __('Signup form title', 'benchmark-email-lite'); ?>:
-	<input class="widefat" name="<?php echo $this->get_field_name('title'); ?>" type="text"
+	<input class="widefat" id="<?php echo $this->get_field_name('title'); ?>-title" name="<?php echo $this->get_field_name('title'); ?>" type="text"
 		value="<?php echo esc_attr($instance['title']); ?>" />
 </p>
 <p>
@@ -121,6 +121,5 @@
 </p>
 <p><?php echo __('Need help? Please call Benchmark Email at 800.430.4095.', 'benchmark-email-lite'); ?></p>
 <script type="text/javascript">
-jQuery('[id$=<?php echo esc_attr($instance['id']); ?>]').find('.in-widget-title').html(': <?php echo esc_attr($instance['title']); ?>');
 bmebinding();
 </script>
