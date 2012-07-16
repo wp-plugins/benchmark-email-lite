@@ -110,10 +110,14 @@
 </p>
 <p>
 	<?php echo __('Optional Shortcode', 'benchmark-email-lite'); ?>:
+	<?php if (is_numeric($instance['widget_id'])) { ?>
 	<strong>[benchmark-email-lite widget_id="<?php echo $instance['widget_id']; ?>"]</strong><br />
 	<small>
 		<?php echo __('To optionally use this widget inside of any post or page content, copy and paste this shortcode where you would like the signup form to be placed. You may also drag this widget into the Inactive Widgets section to prevent sidebar placement.', 'benchmark-email-lite'); ?>
 	</small>
+	<?php } else { ?>
+	<small><?php echo __('Click the Save button to generate a shortcode for this widget.', 'benchmark-email-lite'); ?></small>
+	<?php } ?>
 </p>
 <p><?php echo __('Need help? Please call Benchmark Email at 800.430.4095.', 'benchmark-email-lite'); ?></p>
 <script type="text/javascript">
