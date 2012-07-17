@@ -1,0 +1,517 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Benchmark Email Lite v2.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-06 20:37-0800\n"
+"PO-Revision-Date: 2012-03-06 20:37-0800\n"
+"Last-Translator: Sean Conklin <sean@beautomated.com>\n"
+"Language-Team: beAutomated <info@beautomated.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin.html.php:19
+#: metabox.html.php:65
+#: widget.admin.html.php:111
+msgid "Need help? Please call Benchmark Email at 800.430.4095."
+msgstr ""
+
+#: benchmark-email-lite.php:72
+msgid "Contact Developer"
+msgstr ""
+
+#: benchmark-email-lite.php:74
+msgid "Free 30 Day Benchmark Email Trial"
+msgstr ""
+
+#: benchmark-email-lite.php:86
+msgid "Valid API key and API server connection."
+msgstr ""
+
+#: benchmark-email-lite.php:91
+msgid "Invalid API key or API server connection problem."
+msgstr ""
+
+#: class.api.php:64
+msgid "A verification email has been sent."
+msgstr ""
+
+#: class.api.php:72
+msgid "Successfully updated subscription."
+msgstr ""
+
+#: class.api.php:96
+#: class.posts.php:120
+msgid "preexists"
+msgstr ""
+
+#: class.api.php:104
+msgid "updated"
+msgstr ""
+
+#: class.api.php:110
+msgid "created"
+msgstr ""
+
+#: class.posts.php:123
+msgid "This campaign was previously sent, therefore it cannot be updated nor sent again. Please choose another email name."
+msgstr ""
+
+#: class.posts.php:129
+msgid "There was a problem creating or updating your email campaign. Please try again later."
+msgstr ""
+
+#: class.posts.php:131
+msgid "Benchmark Email response code: "
+msgstr ""
+
+#: class.posts.php:142
+#: class.posts.php:150
+#: class.posts.php:163
+msgid "Your campaign"
+msgstr ""
+
+#: class.posts.php:143
+msgid "was successfully"
+msgstr ""
+
+#: class.posts.php:151
+msgid "was successfully sent"
+msgstr ""
+
+#: class.posts.php:164
+msgid "was successfully scheduled for"
+msgstr ""
+
+#: class.reports.php:12
+#: class.reports.php:13
+msgid "Back to Email Reports"
+msgstr ""
+
+#: class.reports.php:23
+#: class.reports.php:24
+msgid "Back to Email Campaign Report"
+msgstr ""
+
+#: class.reports.php:47
+msgid "Please select a campaign to view the report."
+msgstr ""
+
+#: class.reports.php:64
+msgid "Opens by Location"
+msgstr ""
+
+#: class.reports.php:73
+msgid "Country"
+msgstr ""
+
+#: class.reports.php:74
+#: reports.detail.html.php:40
+msgid "Opens"
+msgstr ""
+
+#: class.reports.php:81
+msgid "Email Clicks Report"
+msgstr ""
+
+#: class.reports.php:94
+#: class.reports.php:114
+#: class.reports.php:131
+#: class.reports.php:153
+#: class.reports.php:170
+#: class.reports.php:187
+msgid "Name"
+msgstr ""
+
+#: class.reports.php:95
+#: class.reports.php:115
+#: class.reports.php:132
+#: class.reports.php:154
+#: class.reports.php:171
+#: class.reports.php:188
+msgid "Email"
+msgstr ""
+
+#: class.reports.php:96
+msgid "URL"
+msgstr ""
+
+#: class.reports.php:97
+#: class.reports.php:116
+#: class.reports.php:172
+#: class.reports.php:189
+msgid "Date"
+msgstr ""
+
+#: class.reports.php:106
+msgid "Email Opens Report"
+msgstr ""
+
+#: class.reports.php:123
+msgid "Email Unopened Report"
+msgstr ""
+
+#: class.reports.php:139
+msgid "Email Bounce Report"
+msgstr ""
+
+#: class.reports.php:155
+msgid "Bounce Type"
+msgstr ""
+
+#: class.reports.php:162
+msgid "Email Unsubscribes Report"
+msgstr ""
+
+#: class.reports.php:179
+msgid "Email Forwards Report"
+msgstr ""
+
+#: class.settings.php:12
+msgid "Please configure your API key(s) on the"
+msgstr ""
+
+#: class.settings.php:14
+msgid "Benchmark Email Lite settings page"
+msgstr ""
+
+#: class.settings.php:99
+msgid "Benchmark Email Credentials"
+msgstr ""
+
+#: class.settings.php:100
+msgid "New Email Campaign Preferences"
+msgstr ""
+
+#: class.settings.php:101
+msgid "API Key(s) from your Benchmark Email account(s)"
+msgstr ""
+
+#: class.settings.php:102
+msgid "Webpage version"
+msgstr ""
+
+#: class.settings.php:121
+msgid "Settings"
+msgstr ""
+
+#: class.settings.php:144
+msgid "The API Key(s) connect your WordPress site with your Benchmark Email account(s)."
+msgstr ""
+
+#: class.settings.php:145
+msgid "Only one key is required per Benchmark Email account."
+msgstr ""
+
+#: class.settings.php:146
+msgid "API Key(s) may expire after one year."
+msgstr ""
+
+#: class.settings.php:148
+msgid "Signup for a 30-day FREE Trial"
+msgstr ""
+
+#: class.settings.php:148
+msgid "or"
+msgstr ""
+
+#: class.settings.php:150
+msgid "log in to Benchmark Email to get your API key"
+msgstr ""
+
+#: class.settings.php:178
+msgid "Include the sentence &quot;Having trouble viewing this email? <u>click here</u>.&quot; in the top of emails?"
+msgstr ""
+
+#: class.widget.php:26
+msgid "Create a Benchmark Email newsletter widget in WordPress."
+msgstr ""
+
+#: class.widget.php:44
+msgid "Subscribe to Newsletter"
+msgstr ""
+
+#: class.widget.php:45
+msgid "Subscribe"
+msgstr ""
+
+#: class.widget.php:46
+msgid "Get the latest news and information direct from us to you!"
+msgstr ""
+
+#: class.widget.php:183
+msgid "Error: Please enter a valid email address."
+msgstr ""
+
+#: class.widget.php:205
+msgid "Successfully queued subscription."
+msgstr ""
+
+#: metabox.html.php:2
+msgid "Select a list for this campaign"
+msgstr ""
+
+#: metabox.html.php:6
+#: reports.detail.html.php:3
+msgid "Email name"
+msgstr ""
+
+#: metabox.html.php:8
+msgid "For your personal use (not displayed in your emails)."
+msgstr ""
+
+#: metabox.html.php:11
+msgid "From name"
+msgstr ""
+
+#: metabox.html.php:13
+msgid "Use something they'll instantly recognize, like your company name."
+msgstr ""
+
+#: metabox.html.php:16
+#: reports.detail.html.php:7
+msgid "Subject"
+msgstr ""
+
+#: metabox.html.php:18
+msgid "Interesting, non-spammy subject lines help your open rates."
+msgstr ""
+
+#: metabox.html.php:23
+msgid "Send a test email"
+msgstr ""
+
+#: metabox.html.php:26
+msgid "Test email address"
+msgstr ""
+
+#: metabox.html.php:28
+msgid "Send a test version of your email."
+msgstr ""
+
+#: metabox.html.php:32
+msgid "Send immediately"
+msgstr ""
+
+#: metabox.html.php:33
+msgid "Your email will be sent within the next 15 minutes."
+msgstr ""
+
+#: metabox.html.php:37
+msgid "Schedule delivery"
+msgstr ""
+
+#: metabox.html.php:58
+msgid "To schedule in a different timezone, set your"
+msgstr ""
+
+#: metabox.html.php:59
+msgid "WordPress"
+msgstr ""
+
+#: metabox.html.php:60
+msgid "and"
+msgstr ""
+
+#: metabox.html.php:62
+msgid "Benchmark Email"
+msgstr ""
+
+#: metabox.html.php:63
+msgid "timezones"
+msgstr ""
+
+#: metabox.html.php:76
+msgid "Please enter an email name."
+msgstr ""
+
+#: metabox.html.php:81
+msgid "Please enter a from name."
+msgstr ""
+
+#: metabox.html.php:87
+msgid "Please enter a subject."
+msgstr ""
+
+#: metabox.html.php:94
+msgid "Please enter a test email address."
+msgstr ""
+
+#: reports.detail.html.php:1
+msgid "Email Summary"
+msgstr ""
+
+#: reports.detail.html.php:5
+msgid "View Campaign"
+msgstr ""
+
+#: reports.detail.html.php:19
+msgid "Opened"
+msgstr ""
+
+#: reports.detail.html.php:20
+msgid "Bounced"
+msgstr ""
+
+#: reports.detail.html.php:21
+#: reports.detail.html.php:98
+msgid "Unopened"
+msgstr ""
+
+#: reports.detail.html.php:37
+#: reports.overview.html.php:1
+msgid "Email Reports"
+msgstr ""
+
+#: reports.detail.html.php:41
+#: reports.detail.html.php:43
+#: reports.detail.html.php:45
+#: reports.detail.html.php:47
+#: reports.detail.html.php:49
+#: reports.detail.html.php:51
+#: reports.detail.html.php:66
+#: reports.detail.html.php:73
+#: reports.detail.html.php:80
+#: reports.detail.html.php:86
+#: reports.detail.html.php:93
+#: reports.detail.html.php:100
+msgid "Click to view report"
+msgstr ""
+
+#: reports.detail.html.php:42
+msgid "Clicks"
+msgstr ""
+
+#: reports.detail.html.php:44
+msgid "Bounces"
+msgstr ""
+
+#: reports.detail.html.php:46
+#: reports.detail.html.php:91
+msgid "Unsubscribes"
+msgstr ""
+
+#: reports.detail.html.php:48
+msgid "Forwards"
+msgstr ""
+
+#: reports.detail.html.php:50
+msgid "Unopens"
+msgstr ""
+
+#: reports.detail.html.php:56
+msgid "Email Statistics"
+msgstr ""
+
+#: reports.detail.html.php:60
+msgid "Total Emails Sent"
+msgstr ""
+
+#: reports.detail.html.php:64
+msgid "Opened Emails"
+msgstr ""
+
+#: reports.detail.html.php:71
+msgid "Links Clicked"
+msgstr ""
+
+#: reports.detail.html.php:78
+msgid "Emails Forwarded"
+msgstr ""
+
+#: reports.detail.html.php:84
+msgid "Emails Bounced"
+msgstr ""
+
+#: reports.detail.html.php:105
+msgid "Abuse Reports"
+msgstr ""
+
+#: reports.overview.html.php:5
+msgid "Email Name"
+msgstr ""
+
+#: reports.overview.html.php:6
+msgid "Status"
+msgstr ""
+
+#: reports.overview.html.php:7
+msgid "Date Modified"
+msgstr ""
+
+#: reports.overview.html.php:8
+msgid "Date Scheduled"
+msgstr ""
+
+#: reports.overview.html.php:17
+msgid "List"
+msgstr ""
+
+#: widget.admin.html.php:2
+msgid "Benchmark Email contact list name"
+msgstr ""
+
+#: widget.admin.html.php:6
+msgid "Signup form title"
+msgstr ""
+
+#: widget.admin.html.php:11
+msgid "Signup form introduction"
+msgstr ""
+
+#: widget.admin.html.php:16
+msgid "Automatically add paragraphs"
+msgstr ""
+
+#: widget.admin.html.php:19
+msgid "Limit to page"
+msgstr ""
+
+#: widget.admin.html.php:25
+msgid "Show Everywhere"
+msgstr ""
+
+#: widget.admin.html.php:31
+msgid "Submit button text"
+msgstr ""
+
+#: widget.admin.html.php:38
+msgid "Field Name"
+msgstr ""
+
+#: widget.admin.html.php:39
+msgid "Label"
+msgstr ""
+
+#: widget.admin.html.php:40
+msgid "Required"
+msgstr ""
+
+#: widget.admin.html.php:41
+msgid "Tools"
+msgstr ""
+
+#: widget.admin.html.php:59
+msgid "Email address"
+msgstr ""
+
+#: widget.admin.html.php:74
+msgid "Please select"
+msgstr ""
+
+#: widget.admin.html.php:109
+msgid "Add new field"
+msgstr ""
+
+#: widget.frontend.html.php:33
+msgid "Loading - Please wait"
+msgstr ""
+
+#: widget.frontend.html.php:49
+msgid "Please complete the field(s):"
+msgstr ""
+
