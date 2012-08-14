@@ -21,10 +21,14 @@ class benchmarkemaillite_shortcode {
 		// Ensure Widget Id Is Found
 		if (!isset($widgets[$atts['widget_id']])) { return; }
 
-		// Temporarily Disable Page Filtering And Output Widget
+		// Temporarily Disable Page Filtering And Return Widget Output
 		benchmarkemaillite_widget::$pagefilter = false;
+		ob_start();
 		benchmarkemaillite_widget::widget($atts, $widgets[$atts['widget_id']]);
+		$result = ob_get_contents();
+		ob_end_clean();
 		benchmarkemaillite_widget::$pagefilter = true;
+		return $result;
 	}
 }
 
