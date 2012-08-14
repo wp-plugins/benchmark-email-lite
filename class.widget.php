@@ -2,6 +2,7 @@
 
 class benchmarkemaillite_widget extends WP_Widget {
 	static $response = array();
+	static $pagefilter = true;
 
 	// Load JavaScript Into Header On Widgets Page
 	function loadjs() {
@@ -116,7 +117,11 @@ class benchmarkemaillite_widget extends WP_Widget {
 		$email = ($user->ID) ? $user->user_email : '';
 
 		// Exclude from Pages/Posts Per Setting
-		if ($instance['page'] && $instance['page'] != $post->ID) { return; }
+		if (
+			self::$pagefilter
+			&& $instance['page']
+			&& (!isset($post->ID) || $instance['page'] != $post->ID)
+		) { return; }
 
 		// Skip Output If Widget Is Not Yet Setup
 		if (empty($instance['list'])) { return; }
