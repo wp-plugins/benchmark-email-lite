@@ -146,7 +146,7 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 == Screenshots ==
 
-1. This is the default widget on Twenty Ten theme.
+1. This is the default shortcode on Twenty Eleven theme.
 2. This is the default widget on Twenty Eleven theme.
 3. This is the signup form widget control panel.
 4. This is the page/post metabox control panel.
