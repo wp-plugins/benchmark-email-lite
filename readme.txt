@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 3.2
 Tested up to: 3.4.1
-Stable tag: 2.3.1
+Stable tag: 2.4
 License: GPLv2
 
 Benchmark Email Lite lets you build an email list from your WordPress site, and easily send your subscribers email versions of your posts and pages.
@@ -16,7 +16,7 @@ If you want your blog to reach every reader, you have to use email. The Benchmar
 With this version you can:
 
 * Control up to 5 separate Benchmark Email accounts.
-* Build your list of subscribers with a custom signup form widget.
+* Build your list of subscribers with a custom signup form widget or shortcode.
 * Send test emails of your blog post before deciding on the final send.
 * Easily send or schedule a formatted email version of your blog posts.
 * View live reports of opened, bounced, unsubscribed, forwarded, and unopened email as well as clicked links.
@@ -69,6 +69,10 @@ New Manual Installation
 1. Now you can setup any number of signup form widgets on the Appearance, Widgets administration page, plus you can save any number of posts and pages to email campaigns right from the post or page editor!
 
 == Frequently Asked Questions ==
+
+= How do I get the signup form shortcode to use on pages or posts? =
+
+Open a new or existing signup form widget instance by dragging onto any sidebar of your theme or the "inactive widgets" sidebar. Dink down (open) the widget contents and copy the shortcode provided at the bottom of the widget. Paste the shortcode onto any page or post for the signup form to appear inline.
 
 = Where do I go for help with any issues? =
 
@@ -152,6 +156,10 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 8. This is a sample email campaign report overview.
 
 == Changelog ==
+
+= 2.4 on 2012-08-15 =
+
+* Added: Shortcode that allows any sign up form widget to be used within pages and posts.
 
 = 2.3.1 on 2012-07-18 =
 
@@ -261,6 +269,10 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: Initial Plugin release.
 
 == Upgrade Notice ==
+
+= 2.4 =
+
+* Added signup form shortcodes.
 
 = 2.3.1 =
 
