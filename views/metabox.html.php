@@ -23,9 +23,8 @@
 	<label for="bmeaction_1"><?php echo __('Send a test email', 'benchmark-email-lite'); ?></label>
 </p>
 <p>
-	<label for="bmetestto"><?php echo __('Test email address', 'benchmark-email-lite'); ?></label><br />
-	<input style="width:100%;" type="text" maxlength="75" id="bmetestto" name="bmetestto" value="<?php echo $email; ?>" /><br />
-	<small><?php echo __('Send a test version of your email.', 'benchmark-email-lite'); ?></small>
+	<input style="width:100%;" type="text" maxlength="200" id="bmetestto" name="bmetestto" value="<?php echo $email; ?>" /><br />
+	<small><?php echo __('Send a test version of your email. Enter up to 5 email addresses separated by a comma.', 'benchmark-email-lite'); ?></small>
 </p>
 <p>
 	<input type="radio" name="bmeaction" value="2" id="bmeaction_2" />
@@ -52,15 +51,15 @@
 		echo '<option value="' . date('H:i', $inc) . '">' . date('H:i', $inc) . '</option>';
 	}
 	?>
-	</select> <?php echo $localtime_zone; ?>
-</p>
-<p>
+	</select> <?php echo $localtime_zone; ?><br />
+	<small>
 	<?php echo __('To schedule in a different timezone, set your', 'benchmark-email-lite'); ?>
 	<a href="options-general.php"><?php echo __('WordPress', 'benchmark-email-lite'); ?></a>
 	<?php echo __('and', 'benchmark-email-lite'); ?>
 	<a href="http://ui.benchmarkemail.com/EditSetting#_ctl0_ContentPlaceHolder1_UC_ClientSettings1_lblTimeZone">
 	<?php echo __('Benchmark Email', 'benchmark-email-lite'); ?></a>
 	<?php echo __('timezones', 'benchmark-email-lite'); ?>.
+	</small>
 </p>
 <p><?php echo __('Need help? Please call Benchmark Email at 800.430.4095.', 'benchmark-email-lite'); ?></p>
 <input type="hidden" name="bmesubmit" id="bmesubmit" value="" />

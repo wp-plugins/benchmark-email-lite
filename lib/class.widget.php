@@ -71,7 +71,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		array_unshift($instance['fields_required'], 0);
 
 		// Print Widget
-		require('widget.admin.html.php');
+		require( dirname( __FILE__ ) . '/../views/widget.admin.html.php');
 	}
 
 	// Save the Widget Settings
@@ -147,7 +147,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		$description = ($instance['filter'] == 1)
 			? wpautop($instance['description']) : $instance['description'];
 		echo $before_widget;
-		require('widget.frontend.html.php');
+		require( dirname( __FILE__ ) . '/../views/widget.frontend.html.php');
 		echo $after_widget;
 	}
 

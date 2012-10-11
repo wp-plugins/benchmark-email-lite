@@ -117,7 +117,7 @@ class benchmarkemaillite_settings {
 			'manage_options',
 			'benchmark-email-lite',
 			array('benchmarkemaillite_settings', 'page'),
-			plugin_dir_url(__FILE__) . 'favicon.png'
+			plugin_dir_url( __FILE__ ) . '../favicon.png'
 		);
 	}
 
@@ -141,7 +141,7 @@ class benchmarkemaillite_settings {
 			'settings' => __('Settings', 'benchmark-email-lite'),
 		);
 		$current = isset($_GET['tab']) ? esc_attr($_GET['tab']) : 'reports';
- 		require_once('admin.html.php');
+		require( dirname( __FILE__ ) . '/../views/settings.html.php');
 	}
 	function print_settings() {
 		echo '<form action="options.php" method="post">';

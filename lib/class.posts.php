@@ -33,7 +33,7 @@ class benchmarkemaillite_posts {
 		$title = ($val = get_transient('bmetitle')) ? esc_attr($val) : '';
 		$from = ($val = get_transient('bmefrom')) ? esc_attr($val) : '';
 		$subject = ($val = get_transient('bmesubject')) ? esc_attr($val) : '';
-		$email = ($val = get_transient('bmetestto')) ? sanitize_email($val) : $email;
+		$email = ($val = get_transient('bmetestto')) ? implode( ', ', $val ) : $email;
 
 		// Open Benchmark Email Connection and Locate List
 		$options = get_option('benchmark-email-lite_group');
@@ -56,7 +56,7 @@ class benchmarkemaillite_posts {
 		$localtime_zone = $dateTime->format('T');
 
 		// Output Form
-		require('metabox.html.php');
+		require( dirname( __FILE__ ) . '/../views/metabox.html.php');
 	}
 
 	// Called when Adding, Creating or Updating any Page+Post
@@ -72,7 +72,7 @@ class benchmarkemaillite_posts {
 		$bmefrom = isset($_POST['bmefrom']) ? stripslashes(strip_tags($_POST['bmefrom'])) : false;
 		$bmesubject = isset($_POST['bmesubject']) ? stripslashes(strip_tags($_POST['bmesubject'])) : false;
 		$bmeaction = isset($_POST['bmeaction']) ? esc_attr($_POST['bmeaction']) : false;
-		$bmetestto = isset($_POST['bmetestto']) ? sanitize_email($_POST['bmetestto']) : false;
+		$bmetestto = isset($_POST['bmetestto']) ? explode( ',', $_POST['bmetestto']) : array();
 
 		// Handle Prepopulation Loading
 		set_transient('bmelist', $bmelist, 15);
@@ -103,7 +103,7 @@ class benchmarkemaillite_posts {
 		$options = get_option('benchmark-email-lite_group');
 		switch ($options[3]) {
 			case 'theme': $themefile = get_permalink($postID); break;
-			default: $themefile = 'templates/simple.html.php';
+			default: $themefile = dirname( __FILE__ ) . '/../templates/simple.html.php';
 		}
 		$body = benchmarkemaillite::require_to_var($data, $themefile, true);
 		$webpageVersion = ($options[2] == 'yes') ? true : false;
@@ -146,7 +146,10 @@ class benchmarkemaillite_posts {
 		// Schedule Campaign
 		switch ($bmeaction) {
 			case '1':
-				benchmarkemaillite_api::campaign_test($bmetestto);
+				foreach ( $bmetestto as $bmetest ) {
+					$bmetest = sanitize_email( trim( $bmetest ) );
+					benchmarkemaillite_api::campaign_test( $bmetest );
+				}
 				set_transient(
 					'benchmark-email-lite_errors',
 					__('Your campaign', 'benchmark-email-lite') . " <q>{$bmetitle}</q> "

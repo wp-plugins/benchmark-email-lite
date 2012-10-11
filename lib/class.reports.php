@@ -42,7 +42,7 @@ class benchmarkemaillite_reports {
 				$response = benchmarkemaillite_api::campaign_summary(self::$campaign);
 				$response['unopens'] = intval($response['mailSent']) - intval($response['opens']) - intval($response['bounces']);
 				$response = array_merge($response, get_transient('benchmarkemaillite_' . self::$campaign));
-				require_once('reports.detail.html.php');
+				require( dirname( __FILE__ ) . '/../views/reports.detail.html.php');
 			}
 		}
 
@@ -60,7 +60,7 @@ class benchmarkemaillite_reports {
 						$emails[] = $email;
 						set_transient("benchmarkemaillite_{$email['id']}", $email);
 					}
-					require('reports.overview.html.php');
+					require( dirname( __FILE__ ) . '/../views/reports.overview.html.php');
 					continue;
 				}
 			}
