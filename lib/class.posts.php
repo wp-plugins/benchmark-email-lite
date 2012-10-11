@@ -146,19 +146,35 @@ class benchmarkemaillite_posts {
 		// Schedule Campaign
 		switch ($bmeaction) {
 			case '1':
-				foreach ( $bmetestto as $bmetest ) {
+
+				// Send Test Emails
+				foreach ( $bmetestto as $i => $bmetest ) {
+
+					// Limit To 5 Recipients
+					$overage = ( $i >= 5 ) ? true : false;
+					if( $i >= 5 ) { continue; }
+
+					// Send
 					$bmetest = sanitize_email( trim( $bmetest ) );
 					benchmarkemaillite_api::campaign_test( $bmetest );
 				}
+
+				// Report
+				$overage = ($overage) ? __( 'Sending was capped at the first 5 test addresses.', 'benchmark-email-lite' ) : '';
 				set_transient(
 					'benchmark-email-lite_errors',
 					__('Your campaign', 'benchmark-email-lite') . " <q>{$bmetitle}</q> "
-					. __('was successfully', 'benchmark-email-lite') . " {$result}.",
+					. __('was successfully', 'benchmark-email-lite') . " {$result}. {$overage}",
 					5
 				);
 				break;
+
 			case '2':
+
+				// Send Campaign
 				benchmarkemaillite_api::campaign_now();
+
+				// Report
 				set_transient(
 					'benchmark-email-lite_errors',
 					__('Your campaign', 'benchmark-email-lite') . " <q>{$bmetitle}</q> "
@@ -166,13 +182,18 @@ class benchmarkemaillite_posts {
 					5
 				);
 				break;
+
 			case '3':
+
+				// Schedule Campaign For Sending
 				$bmedate = isset($_POST['bmedate'])
 					? esc_attr($_POST['bmedate']) : date('d M Y', current_time('timestamp'));
 				$bmetime = isset($_POST['bmetime'])
 					? esc_attr($_POST['bmetime']) : date('H:i', current_time('timestamp'));
 				$when = "$bmedate $bmetime";
 				benchmarkemaillite_api::campaign_later($when);
+
+				// Report
 				set_transient(
 					'benchmark-email-lite_errors',
 					__('Your campaign', 'benchmark-email-lite') . ' <q>' . $bmetitle . '</q> '

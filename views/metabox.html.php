@@ -23,7 +23,7 @@
 	<label for="bmeaction_1"><?php echo __('Send a test email', 'benchmark-email-lite'); ?></label>
 </p>
 <p>
-	<input style="width:100%;" type="text" maxlength="200" id="bmetestto" name="bmetestto" value="<?php echo $email; ?>" /><br />
+	<input style="width:100%;" type="text" id="bmetestto" name="bmetestto" value="<?php echo $email; ?>" /><br />
 	<small><?php echo __('Send a test version of your email. Enter up to 5 email addresses separated by a comma.', 'benchmark-email-lite'); ?></small>
 </p>
 <p>
