@@ -1,7 +1,7 @@
 <?php
 
 class benchmarkemaillite_reports {
-	static $url = 'options-general.php?page=benchmark-email-lite&amp;tab=reports';
+	static $url = 'admin.php?page=benchmark-email-lite';
 	static $campaign = false;
 
 	// Show a Report

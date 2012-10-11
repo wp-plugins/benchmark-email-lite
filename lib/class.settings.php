@@ -10,7 +10,7 @@ class benchmarkemaillite_settings {
 	function badconfig_message() {
 		return '<br /><strong style="color:red;">'
 			. __('Please configure your API key(s) on the', 'benchmark-email-lite')
-			. ' <a href="options-general.php?page=benchmark-email-lite&amp;tab=settings">'
+			. ' <a href="admin.php?page=benchmark-email-lite-settings">'
 			. __('Benchmark Email Lite settings page', 'benchmark-email-lite')
 			. '.</a></strong>';
 	}
@@ -113,18 +113,34 @@ class benchmarkemaillite_settings {
 	function menu() {
 		add_menu_page(
 			'Benchmark Email Lite',
-			'Benchmark Email',
+			'BenchmarkEmail',
 			'manage_options',
 			'benchmark-email-lite',
-			array('benchmarkemaillite_settings', 'page'),
+			'',
 			plugin_dir_url( __FILE__ ) . '../favicon.png'
+		);
+		add_submenu_page(
+			'benchmark-email-lite',
+			'Benchmark Email Lite Reports',
+			'Reports',
+			'manage_options',
+			'benchmark-email-lite',
+			array('benchmarkemaillite_settings', 'page')
+		);
+		add_submenu_page(
+			'benchmark-email-lite',
+			'Benchmark Email Lite Settings',
+			'Settings',
+			'manage_options',
+			'benchmark-email-lite-settings',
+			array('benchmarkemaillite_settings', 'page')
 		);
 	}
 
 	// Plugins Page Settings Link
 	function links($links) {
 		return array(
-			'settings' => '<a href="options-general.php?page=benchmark-email-lite&amp;tab=settings">' . __('Settings', 'benchmark-email-lite') . '</a>',
+			'settings' => '<a href="admin.php?page=benchmark-email-lite-settings">' . __('Settings', 'benchmark-email-lite') . '</a>',
 			'deactivate' => $links['deactivate'],
 			'edit' => $links['edit'],
 		);
@@ -137,10 +153,10 @@ class benchmarkemaillite_settings {
 	function page() {
 		$options = get_option('benchmark-email-lite_group');
 		$tabs = array(
-			'reports' => __('Reports', 'benchmark-email-lite'),
-			'settings' => __('Settings', 'benchmark-email-lite'),
+			'benchmark-email-lite' => __('Reports', 'benchmark-email-lite'),
+			'benchmark-email-lite-settings' => __('Settings', 'benchmark-email-lite'),
 		);
-		$current = isset($_GET['tab']) ? esc_attr($_GET['tab']) : 'reports';
+		$current = isset( $_GET['page'] ) ? esc_attr( $_GET['page'] ) : 'benchmark-email-lite';
 		require( dirname( __FILE__ ) . '/../views/settings.html.php');
 	}
 	function print_settings() {

@@ -3,16 +3,20 @@
 	<h2>Benchmark Email Lite</h2>
 	<h2 class="nav-tab-wrapper">&nbsp;
 	<?php
-	foreach ($tabs as $tab => $name) {
-		$class = ($tab == $current) ? ' nav-tab-active' : '';
-		echo "<a class='nav-tab{$class}' href='options-general.php?page=benchmark-email-lite&amp;tab={$tab}'>{$name}</a>";
+	foreach( $tabs as $tab => $name ) {
+		$class = ( $tab == $current ) ? ' nav-tab-active' : '';
+		echo "<a class='nav-tab{$class}' href='admin.php?page={$tab}'>{$name}</a>";
 	}
 	?>
 	</h2>
 	<?php
-	switch($current) {
-		case 'reports': benchmarkemaillite_reports::show(); break;
-		default: benchmarkemaillite_settings::print_settings();
+	switch( $current ) {
+		case 'benchmark-email-lite':
+			benchmarkemaillite_reports::show();
+			break;
+		case 'benchmark-email-lite-settings':
+			benchmarkemaillite_settings::print_settings();
+			break;
 	}
 	?>
 	<br />
