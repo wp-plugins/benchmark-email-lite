@@ -4,20 +4,21 @@ class benchmarkemaillite_reports {
 	static $url = 'options-general.php?page=benchmark-email-lite&amp;tab=reports';
 	static $campaign = false;
 
+	// Show a Report
 	function show() {
 		$options = get_option('benchmark-email-lite_group');
 
-		// Handle Requests
-		if (isset($_GET['tokenindex']) && isset($_GET['campaign'])) {
+		// Showing Requested Report
+		if( isset( $_GET['tokenindex'] ) && isset( $_GET['campaign'] ) ) {
 			$tokenindex = intval($_GET['tokenindex']);
 			benchmarkemaillite_api::$token = $options[1][$tokenindex];
 			self::$campaign = (string)intval($_GET['campaign']);
 			$url = self::$url . '&amp;campaign=' . self::$campaign . "&amp;tokenindex={$tokenindex}&amp;show=";
-
-			// Show Detail Page
 			$show = isset($_GET['show']) ? strtolower(esc_attr($_GET['show'])) : false;
 			$show = isset($_POST['show']) ? strtolower(esc_attr($_POST['show'])) : $show;
-			if ($show) {
+
+			// Show Detail Page
+			if( $show ) {
 				echo '<p><a href="' . $url . '" title="' . __('Back to Email Summary', 'benchmark-email-lite')
 					. '">' . __('Back to Email Summary', 'benchmark-email-lite') . '</a></p>';
 				switch ($show) {
@@ -30,7 +31,7 @@ class benchmarkemaillite_reports {
 				}
 			}
 
-			// Campaign Summary
+			// Show Campaign Summary Page
 			else {
 				echo '
 					<p>
@@ -46,7 +47,7 @@ class benchmarkemaillite_reports {
 			}
 		}
 
-		// Get Sent Campaigns
+		// Showing Campaign Listings
 		else {
 			foreach ($options[1] as $tokenindex => $key) {
 				$emails = array();
@@ -64,6 +65,14 @@ class benchmarkemaillite_reports {
 					continue;
 				}
 			}
+
+			// Handle No Sent Campaigns
+			if( !$emails ) {
+				echo '<p>' . __(
+					'Data will start appearing only after your emails have been sent.',
+					'benchmark-email-lite'
+				) . '</p>';
+			}
 		}
 	}
 
@@ -79,7 +88,10 @@ class benchmarkemaillite_reports {
 		";
 	}
 
-	// Specific Reports
+	/********************************
+	 Specific Report Functions Follow
+	 ********************************/
+
 	function showLocations() {
 		$response = benchmarkemaillite_api::query(
 			'reportGetOpenCountry', benchmarkemaillite_api::$token, self::$campaign
