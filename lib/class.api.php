@@ -157,8 +157,8 @@ class benchmarkemaillite_api {
 	}
 
 	// Get Email Campaign Report Summary
-	function campaign_summary($id) {
-		return self::query('reportGetSummary', self::$token, $id);
+	function campaign_summary( $id ) {
+		return self::query( 'reportGetSummary', self::$token, (string) $id );
 	}
 }
 

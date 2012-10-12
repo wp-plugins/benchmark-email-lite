@@ -9,7 +9,10 @@
 	</div>
 	<h3><?php echo __('Email Reports', 'benchmark-email-lite'); ?></h3>
 	<p>
-		<form method="post" action="">
+		<form method="get" action="">
+		<input type="hidden" name="page" value="benchmark-email-lite" />
+		<input type="hidden" name="campaign" value="<?php echo $meta->campaign; ?>" />
+		<input type="hidden" name="tokenindex" value="<?php echo $meta->tokenindex; ?>" />
 		<input type="submit" class="button-primary" name="show" value="<?php echo __('Opens', 'benchmark-email-lite'); ?>"
 			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
 			<?php if (!$response['opens']) { echo ' disabled="disabled"';} ?> />
@@ -106,6 +109,7 @@
 			</tr>
 		</tbody>
 	</table>
+	<h3><?php echo __('Opens by Location', 'benchmark-email-lite'); ?></h3>
 	<?php self::showLocations(); ?>
 </div>
 <div style="clear:both;"> </div>

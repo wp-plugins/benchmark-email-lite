@@ -1,6 +1,7 @@
-<h3><?php echo __('Email Reports', 'benchmark-email-lite'); ?></h3>
-<p>For API key: <?php echo $key; ?></p>
-<p><?php echo __('Please select a campaign to view the report.', 'benchmark-email-lite'); ?></p>
+<p>
+	<?php echo __('Please select a campaign to view the report for API key', 'benchmark-email-lite'); ?>:
+	<?php echo $key; ?>
+</p>
 <table class="widefat" cellspacing="0">
 	<thead>
 		<tr>
@@ -12,7 +13,7 @@
 		<?php foreach ($emails as $email) { ?>
 		<tr>
 			<td>
-				<a href="<?php echo self::$url . "&amp;campaign={$email['id']}&amp;tokenindex={$tokenindex}"; ?>">
+				<a href="<?php echo $email['report_url']; ?>">
 				<?php echo $email['emailName']; ?></a><br />
 				<small>
 					<?php echo __('List', 'benchmark-email-lite'); ?>:
