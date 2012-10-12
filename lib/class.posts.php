@@ -2,6 +2,18 @@
 
 class benchmarkemaillite_posts {
 
+	// Load JavaScript Into Header On Posts Page
+	function loadjs() {
+		global $pagenow;
+		if ($pagenow == 'post.php') {
+			wp_enqueue_script(
+				'benchmarkemaillite_metabox',
+				plugins_url( 'js/metabox.js', dirname( __FILE__ ) ),
+				array(), false, true
+			);
+		}
+	}
+
 	// Create Pages+Posts Metaboxes
 	function post_metabox() {
 		add_meta_box(

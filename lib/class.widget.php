@@ -7,10 +7,10 @@ class benchmarkemaillite_widget extends WP_Widget {
 	// Load JavaScript Into Header On Widgets Page
 	function loadjs() {
 		global $pagenow;
-		if ($pagenow == 'widgets.php') {
+		if ($pagenow == 'widget.php') {
 			wp_enqueue_script(
 				'benchmarkemaillite_widgetadmin',
-				plugins_url('widget.admin.js', __FILE__),
+				plugins_url( 'js/widget.admin.js', dirname( __FILE__ ) ),
 				array(), false, false
 			);
 		}

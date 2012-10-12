@@ -33,14 +33,15 @@ add_filter('plugin_row_meta', array('benchmarkemaillite', 'pluginlinks'), 10, 2)
 add_action('admin_notices', array('benchmarkemaillite', 'notices'));
 
 // Posts API Hooks
-add_action('save_post', array('benchmarkemaillite_posts', 'save_post'));
+add_action('admin_init', array('benchmarkemaillite_posts', 'loadjs'));
 add_action('admin_init', array('benchmarkemaillite_posts', 'post_metabox'));
+add_action('save_post', array('benchmarkemaillite_posts', 'save_post'));
 
 // Widget API Hooks
 add_action('admin_init', array('benchmarkemaillite_widget', 'loadjs'));
 add_action('widgets_init', array('benchmarkemaillite_widget', 'widgetfrontendsubmission'));
-add_action('benchmarkemaillite_queue', array('benchmarkemaillite_widget', 'queue_upload'));
 add_action('widgets_init', 'benchmarkemaillite_register_widget');
+add_action('benchmarkemaillite_queue', array('benchmarkemaillite_widget', 'queue_upload'));
 function benchmarkemaillite_register_widget() { register_widget('benchmarkemaillite_widget'); }
 
 // Shortcode API Hooks
