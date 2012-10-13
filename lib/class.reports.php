@@ -8,16 +8,14 @@ class benchmarkemaillite_reports {
 		return (object) array(
 			'campaign' => isset( $_GET['campaign'] ) ? intval( $_GET['campaign'] ) : '',
 			'tokenindex' => isset( $_GET['tokenindex'] ) ? intval( $_GET['tokenindex'] ) : 0,
-			'show' => isset( $_GET['show'] ) ? esc_attr( $_GET['show'] ) : '',
+			'show' => isset( $_GET['show'] ) ? strtolower( esc_attr( $_GET['show'] ) ) : '',
 		);
 	}
 
 	// Generates Internal URLs	
 	function url( $args=array() ) {
 		$meta = self::meta();
-		foreach( $args as $key => $val ) {
-			$meta->$key = $val;
-		}
+		foreach( $args as $key => $val ) { $meta->$key = $val; }
 		return self::$base_url . http_build_query( $meta );
 	}
 
@@ -47,35 +45,19 @@ class benchmarkemaillite_reports {
 	function showListings() {
 		$options = get_option('benchmark-email-lite_group');
 		$url = self::url();
-
-		// Print Header
-		echo '<h3>' . __('Email Reports', 'benchmark-email-lite') . "</h3>\n";
+		$data = array();
 
 		// Loop API Tokens
 		foreach ($options[1] as $tokenindex => $key) {
 			if (!$key) { continue; }
-
-			// Set API To Iterated Token
-			benchmarkemaillite_api::$token = $key;
+			$data[$key] = array();
 
 			// Get Email Campaigns For Token
+			benchmarkemaillite_api::$token = $key;
 			$response = benchmarkemaillite_api::campaigns();
 
-			// Error When Found 0 Email Campaigns
-			if ( !$response ) {
-				echo "
-					<p>
-						<strong>
-							" . __('No results found for API key', 'benchmark-email-lite') . ":
-							{$key}
-						</strong>
-					</p>
-				";
-				continue;
-			}
-
-			$emails = array();
-			foreach ( $response as $email ) {
+			// Loop Email Campaigns For Token
+			foreach( $response as $email ) {
 
 				// Only Show Sent Email Campaigns
 				if ( $email['status'] != 'Sent' ) { continue; }
@@ -90,19 +72,11 @@ class benchmarkemaillite_reports {
 				);
 
 				// Save Data For Template Reference
-				$emails[] = $email;
-				set_transient("benchmarkemaillite_{$email['id']}", $email);
+				$data[$key][] = $email['id'];
+				set_transient( "benchmarkemaillite_{$email['id']}", $email );
 			}
-			require( dirname( __FILE__ ) . '/../views/reports.level1.html.php' );
 		}
-
-		// Handle No Sent Campaigns
-		if( !$emails ) {
-			echo '<p>' . __(
-				'Data will start appearing only after your emails have been sent.',
-				'benchmark-email-lite'
-			) . '</p>';
-		}
+		require( dirname( __FILE__ ) . '/../views/reports.level1.html.php' );
 	}
 
 	// Show Email Campaign Summary
@@ -121,44 +95,16 @@ class benchmarkemaillite_reports {
 			intval( $response['mailSent'] )
 			- intval( $response['opens'] )
 			- intval( $response['bounces'] );
-		$response = array_merge( $response, get_transient( 'benchmarkemaillite_' . $meta->campaign ) );
+		$response = array_merge( $response, get_transient( "benchmarkemaillite_{$meta->campaign}" ) );
+		set_transient( "benchmarkemaillite_{$meta->campaign}", $response );
 		require( dirname( __FILE__ ) . '/../views/reports.level2.html.php' );
-	}
-
-	// Show Requested Detail
-	function showDetail( $show ) {
-		$meta = self::meta();
-		$url = self::url( array( 'show' => '' ) );
-		echo '<p><a href="' . $url . '" title="' . __('Back to Email Summary', 'benchmark-email-lite')
-			. '">' . __('Back to Email Summary', 'benchmark-email-lite') . '</a></p>';
-		switch ( $show ) {
-			case 'clicks': self::showClicks(); break;
-			case 'opens': self::showOpens(); break;
-			case 'unopens': self::showUnopens(); break;
-			case 'bounces': self::showBounces(); break;
-			case 'unsubscribes': self::showUnsubscribes(); break;
-			case 'forwards': self::showForwards(); break;
-		}
-	}
-
-	// Header For Specific Reports
-	function showReportHeading($title) {
-		$meta = self::meta();
-		$response = benchmarkemaillite_api::campaign_summary( $meta->campaign );
-		echo "
-			<h3>{$title}</h3>
-			<p>
-				<strong>" . __('Email name', 'benchmark-email-lite') . ":</strong> {$response['emailName']}
-				<br /><strong>" . __('Subject', 'benchmark-email-lite') . ":</strong> {$response['subject']}
-			</p>
-		";
 	}
 
 	// Show Opens By Location Table
 	function showLocations() {
 		$meta = self::meta();
 		$response = benchmarkemaillite_api::query(
-			'reportGetOpenCountry', benchmarkemaillite_api::$token, (string)$meta->campaign
+			'reportGetOpenCountry', benchmarkemaillite_api::$token, (string) $meta->campaign
 		);
 		$data = array();
 		foreach ($response as $row) {
@@ -171,114 +117,110 @@ class benchmarkemaillite_reports {
 		benchmarkemaillite::maketable($data);
 	}
 
-	/********************************
-	 Specific Report Functions Follow
-	 ********************************/
+	// Show Requested Detail Report
+	function showDetail( $show ) {
+		$meta = self::meta();
+		$data = array();
+		switch ( $show ) {
 
-	function showClicks() {
-		$meta = self::meta();
-		self::showReportHeading(__('Email Clicks Report', 'benchmark-email-lite'));
-		$response = benchmarkemaillite_api::query(
-			'reportGetClicks', benchmarkemaillite_api::$token, (string)$meta->campaign
-		);
-		$data = array();
-		foreach ($response as $row) {
-			$response2 = benchmarkemaillite_api::query(
-				'reportGetClickEmails', benchmarkemaillite_api::$token, (string)$meta->campaign, $row['URL'], 1, 100, 'date', 'desc'
-			);
-			foreach ($response2 as $row2) {
-				$data[] = array(
-					__('Name', 'benchmark-email-lite') => $row2['name'],
-					__('Email', 'benchmark-email-lite') => $row2['email'],
-					__('URL', 'benchmark-email-lite') => $row['URL'],
-					__('Date', 'benchmark-email-lite') => $row2['logdate'],
+			case 'clicks':
+				$title = __( 'Emails Clicked Report', 'benchmark-email-lite' );
+				$response = benchmarkemaillite_api::query(
+					'reportGetClicks', benchmarkemaillite_api::$token, (string) $meta->campaign
 				);
-			}
+				foreach ($response as $row) {
+					$response2 = benchmarkemaillite_api::query(
+						'reportGetClickEmails', benchmarkemaillite_api::$token, (string) $meta->campaign, $row['URL'], 1, 100, 'date', 'desc'
+					);
+					foreach ($response2 as $row2) {
+						$data[] = array(
+							__('Name', 'benchmark-email-lite') => $row2['name'],
+							__('Email', 'benchmark-email-lite') => $row2['email'],
+							__('URL', 'benchmark-email-lite') => $row['URL'],
+							__('Date', 'benchmark-email-lite') => $row2['logdate'],
+						);
+					}
+				}
+				break;
+
+			case 'opens':
+				$title = __( 'Emails Opened Report', 'benchmark-email-lite' );
+				$response = benchmarkemaillite_api::query(
+					'reportGetOpens', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
+				);
+				foreach ($response as $row) {
+					$data[] = array(
+						__('Name', 'benchmark-email-lite') => $row['name'],
+						__('Email', 'benchmark-email-lite') => $row['email'],
+						__('Date', 'benchmark-email-lite') => $row['logdate'],
+					);
+				}
+				break;
+
+			case 'unopens':
+				$title = __( 'Emails Unopened Report', 'benchmark-email-lite' );
+				$response = benchmarkemaillite_api::query(
+					'reportGetUnopens', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
+				);
+				foreach ($response as $row) {
+					$data[] = array(
+						__('Name', 'benchmark-email-lite') => $row['name'],
+						__('Email', 'benchmark-email-lite') => $row['email'],
+					);
+				}
+				break;
+
+			case 'bounces':
+				$title = __( 'Emails Bounced Report', 'benchmark-email-lite' );
+				$response1 = benchmarkemaillite_api::query(
+					'reportGetHardBounces', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
+				);
+				$response2 = benchmarkemaillite_api::query(
+					'reportGetSoftBounces', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
+				);
+				$response = array_merge($response1, $response2);
+				foreach ($response as $row) {
+					$data[] = array(
+						__('Name', 'benchmark-email-lite') => $row['name'],
+						__('Email', 'benchmark-email-lite') => $row['email'],
+						__('Bounce Type', 'benchmark-email-lite') => $row['type'],
+					);
+				}
+				break;
+
+			case 'unsubscribes':
+				$title = __( 'Emails Unsubscribed Report', 'benchmark-email-lite' );
+				$response = benchmarkemaillite_api::query(
+					'reportGetUnsubscribes', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
+				);
+				foreach ($response as $row) {
+					$data[] = array(
+						__('Name', 'benchmark-email-lite') => $row['name'],
+						__('Email', 'benchmark-email-lite') => $row['email'],
+						__('Date', 'benchmark-email-lite') => $row['logdate'],
+					);
+				}
+				break;
+
+			case 'forwards':
+				$title = __( 'Emails Forwarded Report', 'benchmark-email-lite' );
+				$response = benchmarkemaillite_api::query(
+					'reportGetForwards', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
+				);
+				foreach ($response as $row) {
+					$data[] = array(
+						__('Name', 'benchmark-email-lite') => $row['name'],
+						__('Email', 'benchmark-email-lite') => $row['email'],
+						__('Date', 'benchmark-email-lite') => $row['logdate'],
+					);
+				}
+				break;
 		}
-		benchmarkemaillite::maketable($data);
-	}
-	function showOpens() {
-		$meta = self::meta();
-		self::showReportHeading(__('Email Opens Report', 'benchmark-email-lite'));
-		$response = benchmarkemaillite_api::query(
-			'reportGetOpens', benchmarkemaillite_api::$token, (string)$meta->campaign, 1, 100, 'date', 'desc'
-		);
-		$data = array();
-		foreach ($response as $row) {
-			$data[] = array(
-				__('Name', 'benchmark-email-lite') => $row['name'],
-				__('Email', 'benchmark-email-lite') => $row['email'],
-				__('Date', 'benchmark-email-lite') => $row['logdate'],
-			);
-		}
-		benchmarkemaillite::maketable($data);
-	}
-	function showUnopens() {
-		$meta = self::meta();
-		self::showReportHeading(__('Email Unopened Report', 'benchmark-email-lite'));
-		$response = benchmarkemaillite_api::query(
-			'reportGetUnopens', benchmarkemaillite_api::$token, (string)$meta->campaign, 1, 100, 'date', 'desc'
-		);
-		$data = array();
-		foreach ($response as $row) {
-			$data[] = array(
-				__('Name', 'benchmark-email-lite') => $row['name'],
-				__('Email', 'benchmark-email-lite') => $row['email'],
-			);
-		}
-		benchmarkemaillite::maketable($data);
-	}
-	function showBounces() {
-		$meta = self::meta();
-		self::showReportHeading(__('Email Bounce Report', 'benchmark-email-lite'));
-		$response1 = benchmarkemaillite_api::query(
-			'reportGetHardBounces', benchmarkemaillite_api::$token, (string)$meta->campaign, 1, 100, 'date', 'desc'
-		);
-		$response2 = benchmarkemaillite_api::query(
-			'reportGetSoftBounces', benchmarkemaillite_api::$token, (string)$meta->campaign, 1, 100, 'date', 'desc'
-		);
-		$response = array_merge($response1, $response2);
-		$data = array();
-		foreach ($response as $row) {
-			$data[] = array(
-				__('Name', 'benchmark-email-lite') => $row['name'],
-				__('Email', 'benchmark-email-lite') => $row['email'],
-				__('Bounce Type', 'benchmark-email-lite') => $row['type'],
-			);
-		}
-		benchmarkemaillite::maketable($data);
-	}
-	function showUnsubscribes() {
-		$meta = self::meta();
-		self::showReportHeading(__('Email Unsubscribes Report', 'benchmark-email-lite'));
-		$response = benchmarkemaillite_api::query(
-			'reportGetUnsubscribes', benchmarkemaillite_api::$token, (string)$meta->campaign, 1, 100, 'date', 'desc'
-		);
-		$data = array();
-		foreach ($response as $row) {
-			$data[] = array(
-				__('Name', 'benchmark-email-lite') => $row['name'],
-				__('Email', 'benchmark-email-lite') => $row['email'],
-				__('Date', 'benchmark-email-lite') => $row['logdate'],
-			);
-		}
-		benchmarkemaillite::maketable($data);
-	}
-	function showForwards() {
-		$meta = self::meta();
-		self::showReportHeading(__('Email Forwards Report', 'benchmark-email-lite'));
-		$response = benchmarkemaillite_api::query(
-			'reportGetForwards', benchmarkemaillite_api::$token, (string)$meta->campaign, 1, 100, 'date', 'desc'
-		);
-		$data = array();
-		foreach ($response as $row) {
-			$data[] = array(
-				__('Name', 'benchmark-email-lite') => $row['name'],
-				__('Email', 'benchmark-email-lite') => $row['email'],
-				__('Date', 'benchmark-email-lite') => $row['logdate'],
-			);
-		}
-		benchmarkemaillite::maketable($data);
+
+		// Output
+		$url = self::url( array( 'show' => '' ) );
+		$response = get_transient( "benchmarkemaillite_{$meta->campaign}" );
+		require( dirname( __FILE__ ) . '/../views/reports.level3.html.php' );
 	}
 }
 
