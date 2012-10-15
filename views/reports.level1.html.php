@@ -37,7 +37,7 @@ foreach( $data as $key => $emails ) {
 <?php } ?>
 
 <?php if( $errors ) { ?>
-<h4><?php echo __('No results found for API keys', 'benchmark-email-lite'); ?></h4>
+<h4><?php echo __('No results found for the following API key(s)', 'benchmark-email-lite'); ?>:</h4>
 <ul>
 	<?php foreach( $errors as $key ) { ?>
 	<li><?php echo $key; ?></li>
