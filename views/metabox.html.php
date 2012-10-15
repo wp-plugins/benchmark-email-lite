@@ -4,17 +4,17 @@
 </p>
 <p>
 	<label for="bmetitle"><?php echo __('Email name', 'benchmark-email-lite'); ?></label><br />
-	<input style="width:100%;" type="text" id="bmetitle" name="bmetitle" value="<?php echo $title; ?>" /><br />
+	<input style="width:100%;" maxlength="100" type="text" id="bmetitle" name="bmetitle" value="<?php echo $title; ?>" /><br />
 	<small><?php echo __('For your personal use (not displayed in your emails).', 'benchmark-email-lite'); ?></small>
 </p>
 <p>
 	<label for="bmefrom"><?php echo __('From name', 'benchmark-email-lite'); ?></label><br />
-	<input style="width:100%;" type="text" id="bmefrom" name="bmefrom" value="<?php echo $from; ?>" /><br />
+	<input style="width:100%;" maxlength="100" type="text" id="bmefrom" name="bmefrom" value="<?php echo $from; ?>" /><br />
 	<small><?php echo __('Use something they\'ll instantly recognize, like your company name.', 'benchmark-email-lite'); ?></small>
 </p>
 <p>
 	<label for="bmesubject"><?php echo __('Subject', 'benchmark-email-lite'); ?></label><br />
-	<input style="width:100%;" type="text" id="bmesubject" name="bmesubject" value="<?php echo $subject; ?>" /><br />
+	<input style="width:100%;" maxlength="500" type="text" id="bmesubject" name="bmesubject" value="<?php echo $subject; ?>" /><br />
 	<small><?php echo __('Interesting, non-spammy subject lines help your open rates.', 'benchmark-email-lite'); ?></small>
 </p>
 <p><strong>Email Delivery Options</strong></p>

@@ -21,7 +21,7 @@ foreach( $data as $key => $emails ) {
 			$email = get_transient( "benchmarkemaillite_{$id}" );
 		?>
 		<tr>
-			<td>
+			<td width="90%">
 				<a href="<?php echo $email['report_url']; ?>">
 				<?php echo $email['emailName']; ?></a><br />
 				<small>
@@ -29,7 +29,7 @@ foreach( $data as $key => $emails ) {
 					<?php echo $email['toListName'] ?>
 				</small>
 			</td>
-			<td><?php echo $email['scheduleDate']; ?></td>
+			<td width="10%"><?php echo $email['scheduleDate']; ?></td>
 		</tr>
 		<?php } ?>
 	</tbody>
