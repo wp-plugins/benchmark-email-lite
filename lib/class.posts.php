@@ -130,8 +130,7 @@ class benchmarkemaillite_posts {
 		if ($result == __('preexists', 'benchmark-email-lite')) {
 			set_transient(
 				'benchmark-email-lite_errors',
-				__('This campaign was previously sent, therefore it cannot be updated nor sent again. Please choose another email name.', 'benchmark-email-lite'),
-				5
+				__('This campaign was previously sent, therefore it cannot be updated nor sent again. Please choose another email name.', 'benchmark-email-lite')
 			);
 			return;
 		} else if (!is_numeric(benchmarkemaillite_api::$campaignid)) {
@@ -139,8 +138,7 @@ class benchmarkemaillite_posts {
 				'benchmark-email-lite_errors',
 				__('There was a problem creating or updating your email campaign. Please try again later.', 'benchmark-email-lite')
 				. (isset(benchmarkemaillite_api::$campaignid['faultString'])
-					? ' ' . __('Benchmark Email response code: ', 'benchmark-email-lite') . benchmarkemaillite_api::$campaignid['faultCode'] : ''),
-				5
+					? ' ' . __('Benchmark Email response code: ', 'benchmark-email-lite') . benchmarkemaillite_api::$campaignid['faultCode'] : '')
 			);
 			return;
 		}
@@ -176,8 +174,7 @@ class benchmarkemaillite_posts {
 				set_transient(
 					'benchmark-email-lite_errors',
 					__('Your campaign', 'benchmark-email-lite') . " <q>{$bmetitle}</q> "
-					. __('was successfully', 'benchmark-email-lite') . " {$result}. {$overage}",
-					5
+					. __('was successfully', 'benchmark-email-lite') . " {$result}. {$overage}"
 				);
 				break;
 
@@ -190,8 +187,7 @@ class benchmarkemaillite_posts {
 				set_transient(
 					'benchmark-email-lite_errors',
 					__('Your campaign', 'benchmark-email-lite') . " <q>{$bmetitle}</q> "
-					. __('was successfully sent', 'benchmark-email-lite') . '.',
-					5
+					. __('was successfully sent', 'benchmark-email-lite') . '.'
 				);
 				break;
 
@@ -209,8 +205,7 @@ class benchmarkemaillite_posts {
 				set_transient(
 					'benchmark-email-lite_errors',
 					__('Your campaign', 'benchmark-email-lite') . ' <q>' . $bmetitle . '</q> '
-					. __('was successfully scheduled for', 'benchmark-email-lite') . " <em>{$when}</em>.",
-					5
+					. __('was successfully scheduled for', 'benchmark-email-lite') . " <em>{$when}</em>."
 				);
 		}
 	}

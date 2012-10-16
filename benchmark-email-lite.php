@@ -101,8 +101,9 @@ class benchmarkemaillite {
 
 	// Admmin Area Notices
 	function notices() {
-		if ($val = get_transient('benchmark-email-lite_errors')) {
+		if ( $val = get_transient( 'benchmark-email-lite_errors' ) ) {
 			echo "<div class='fade updated'><p><strong>Benchmark Email Lite</strong></p><p>{$val}</p></div>";
+			delete_transient( 'benchmark-email-lite_errors' );
 		}
 	}
 

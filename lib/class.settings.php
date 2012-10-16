@@ -94,7 +94,7 @@ class benchmarkemaillite_settings {
 		// Admin Settings Notice
 		$options = get_option('benchmark-email-lite_group');
 		if (!isset($options[1][0]) || !$options[1][0]) {
-			set_transient('benchmark-email-lite_errors', self::badconfig_message(), 5);
+			set_transient('benchmark-email-lite_errors', self::badconfig_message());
 		}
 
 		// Load Settings API
