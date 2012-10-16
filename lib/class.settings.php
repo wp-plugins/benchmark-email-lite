@@ -205,7 +205,7 @@ class benchmarkemaillite_settings {
 		$options = get_option('benchmark-email-lite_group');
 		echo "<input id='benchmark-email-lite_group_2' type='checkbox' name='benchmark-email-lite_group[2]'
 			value='yes'" . checked('yes', $options[2], false) . " /> "
-			. __("Include the sentence &quot;Having trouble viewing this email? <u>click here</u>.&quot; in the top of emails?", 'benchamrk-email-lite');
+			. __("Include the sentence &quot;Having trouble viewing this email? <u>click here</u>&quot; in the top of emails?", 'benchamrk-email-lite');
 	}
 	function field3() { // Design Template - This Field Is Disabled
 		echo "<input id='benchmark-email-lite_group_3' type='hidden' name='benchmark-email-lite_group[3]'
