@@ -3,8 +3,8 @@ Contributors: beautomated, seanconklin, randywsandberg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 3.2
-Tested up to: 3.4.1
-Stable tag: 2.4
+Tested up to: 3.4.2
+Stable tag: 2.4.1
 License: GPLv2
 
 Benchmark Email Lite lets you build an email list from your WordPress site, and easily send your subscribers email versions of your posts and pages.
@@ -157,6 +157,18 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 == Changelog ==
 
+= 2.4.1 on 2012-10-17 =
+
+* Added: Ability to send test email copies to up to 5 addresses.
+* Added: Administration sidebar menu flyouts to match tabs.
+* Updated: Organized library, markup, and JS files into folders.
+* Updated: Reorganized reports code for better optimization.
+* Updated: Reports tab reporting when there are no reports, or no reports for specific keys.
+* Updated: Adjusted reports table column widths.
+* Updated: Set maxlength settings for posts/pages metabox text input fields.
+* Fixed: Error message window was persisting for 5 seconds, when it should just display once.
+* Fixed: Email template height 100% was causing extra space in footer of test emails.
+
 = 2.4 on 2012-08-15 =
 
 * Added: Shortcode that allows any sign up form widget to be used within pages and posts.
@@ -269,6 +281,10 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: Initial Plugin release.
 
 == Upgrade Notice ==
+
+= 2.4.1 =
+
+* Added ability to send to multiple test addresses. Many small updates included!
 
 = 2.4 =
 
