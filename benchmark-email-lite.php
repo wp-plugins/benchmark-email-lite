@@ -33,7 +33,6 @@ add_filter('plugin_row_meta', array('benchmarkemaillite', 'pluginlinks'), 10, 2)
 add_action('admin_notices', array('benchmarkemaillite', 'notices'));
 
 // Posts API Hooks
-add_action('admin_init', array('benchmarkemaillite_posts', 'loadjs'));
 add_action('admin_init', array('benchmarkemaillite_posts', 'post_metabox'));
 add_action('save_post', array('benchmarkemaillite_posts', 'save_post'));
 
