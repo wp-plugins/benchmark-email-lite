@@ -57,6 +57,7 @@ class benchmarkemaillite_reports {
 			$response = benchmarkemaillite_api::campaigns();
 
 			// Loop Email Campaigns For Token
+			if( ! $response ) { continue; }
 			foreach( $response as $email ) {
 
 				// Only Show Sent Email Campaigns
