@@ -91,6 +91,11 @@ class benchmarkemaillite_settings {
 	// Admin Load
 	function initialize() {
 
+		// Handle Force Reconnection
+		if( isset( $_POST['force_reconnect'] ) ) {
+			delete_transient( 'benchmark-email-lite_serverdown' );
+		}
+
 		// Admin Settings Notice
 		$options = get_option('benchmark-email-lite_group');
 		if (!isset($options[1][0]) || !$options[1][0]) {
@@ -219,7 +224,7 @@ class benchmarkemaillite_settings {
 		$options = get_option('benchmark-email-lite_group');
 		echo __('If the connection with the Benchmark Email server takes', 'benchmark-email-lite')
 			. " <input id='benchmark-email-lite_group_5' type='text' size='2' maxlength='2' name='benchmark-email-lite_group[5]' value='{$options[5]}' /> "
-			. __('seconds or longer, disable connections for 5 minutes to prevent site administration from becoming sluggish. (Default: 10)', 'benchmark-email-lite');
+			. __('seconds or longer, disable connections for 5 minutes to prevent site administration from becoming sluggish. (Default and Minimum: 10)', 'benchmark-email-lite');
 	}
 	function validate($values) {
 		$options = get_option('benchmark-email-lite_group');
