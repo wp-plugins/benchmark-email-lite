@@ -167,7 +167,7 @@ class benchmarkemaillite_reports {
 
 			case 'clicks_detail':
 				$title = __( 'Links Clicked Detail Report', 'benchmark-email-lite' );
-				$instructions = __( 'Displays the subscribers who clicked on the following link from the email:', 'benchmark-email-lite' );
+				$instructions = __( 'Displays the subscribers who clicked on the following email link:', 'benchmark-email-lite' );
 				$instructions .= '<br /><em>' . urldecode( $_GET['url'] ) . '</em>';
 				$response = self::reportQueryAllPages(
 					'reportGetClickEmails',
