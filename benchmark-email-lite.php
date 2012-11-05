@@ -145,39 +145,13 @@ class benchmarkemaillite {
 	}
 
 	// Provides Ability to Return Included File Output
-	function require_to_var($data, $file) {
+	function require_to_var( $data, $file ) {
 		ob_start();
-		require($file);
+		require( $file );
 		$result = ob_get_contents();
 		ob_end_clean();
 		return $result;
 		return ob_get_clean();
-	}
-
-	// HTML Table Generator
-	function maketable($data) {
-	?>
-	<table class="widefat" cellspacing="0">
-		<thead>
-			<tr>
-				<th>#</th>
-				<?php foreach ($data[0] as $i => $val) { ?>
-				<th><?php echo $i; ?></th>
-				<?php } ?>
-			</tr>
-		</thead>
-		<tbody>
-			<?php foreach($data as $i => $val) { ?>
-			<tr>
-				<td><?php echo ( $i + 1 ); ?></td>
-				<?php foreach ($val as $i2 => $val2) { ?>
-				<td><?php echo $val2; ?></td>
-				<?php } ?>
-			</tr>
-			<?php } ?>
-		</tbody>
-	</table>
-	<?php
 	}
 }
 

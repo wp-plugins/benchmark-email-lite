@@ -10,33 +10,30 @@
 	<h3><?php echo __('Email Reports', 'benchmark-email-lite'); ?></h3>
 	<p>
 		<form method="get" action="">
-		<input type="hidden" name="page" value="benchmark-email-lite" />
-		<input type="hidden" name="campaign" value="<?php echo $meta->campaign; ?>" />
-		<input type="hidden" name="tokenindex" value="<?php echo $meta->tokenindex; ?>" />
-		<input type="submit" class="button-primary" name="show" value="<?php echo __('Opens', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
-			<?php if (!$response['opens']) { echo ' disabled="disabled"';} ?> />
-		<input type="submit" class="button-primary" name="show" value="<?php echo __('Clicks', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
-			<?php if (!$response['clicks']) { echo ' disabled="disabled"';} ?> />
-		<input type="submit" class="button-primary" name="show" value="<?php echo __('Bounces', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
-			<?php if (!$response['bounces']) { echo ' disabled="disabled"';} ?> />
-		<input type="submit" class="button-primary" name="show" value="<?php echo __('Unsubscribes', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
-			<?php if (!$response['unsubscribes']) { echo ' disabled="disabled"';} ?> />
-		<input type="submit" class="button-primary" name="show" value="<?php echo __('Forwards', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
-			<?php if (!$response['forwards']) { echo ' disabled="disabled"';} ?> />
-		<input type="submit" class="button-primary" name="show" value="<?php echo __('Unopens', 'benchmark-email-lite'); ?>"
-			title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
-			<?php if (!$response['unopens']) { echo ' disabled="disabled"';} ?> />
+			<input type="hidden" name="page" value="benchmark-email-lite" />
+			<input type="hidden" name="campaign" value="<?php echo $meta->campaign; ?>" />
+			<input type="hidden" name="tokenindex" value="<?php echo $meta->tokenindex; ?>" />
+			<input type="submit" class="button-primary" name="show" value="<?php echo __('Opens', 'benchmark-email-lite'); ?>"
+				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+				<?php if (!$response['opens']) { echo ' disabled="disabled"';} ?> />
+			<input type="submit" class="button-primary" name="show" value="<?php echo __('Bounces', 'benchmark-email-lite'); ?>"
+				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+				<?php if (!$response['bounces']) { echo ' disabled="disabled"';} ?> />
+			<input type="submit" class="button-primary" name="show" value="<?php echo __('Unsubscribes', 'benchmark-email-lite'); ?>"
+				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+				<?php if (!$response['unsubscribes']) { echo ' disabled="disabled"';} ?> />
+			<input type="submit" class="button-primary" name="show" value="<?php echo __('Forwards', 'benchmark-email-lite'); ?>"
+				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+				<?php if (!$response['forwards']) { echo ' disabled="disabled"';} ?> />
+			<input type="submit" class="button-primary" name="show" value="<?php echo __('Unopens', 'benchmark-email-lite'); ?>"
+				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+				<?php if (!$response['unopens']) { echo ' disabled="disabled"';} ?> />
 		</form>
 	</p>
 </div>
 <div style="float:left;">
 	<h3><?php echo __('Email Statistics', 'benchmark-email-lite'); ?></h3>
-	<table class="widefat" cellspacing="0">
+	<table class="widefat">
 		<thead>
 			<tr>
 				<th><?php echo __('Statistic', 'benchmark-email-lite'); ?></th>
@@ -48,7 +45,7 @@
 			<tr>
 				<td><?php echo __('Total Emails Sent', 'benchmark-email-lite'); ?></td>
 				<td><?php echo $response['mailSent']; ?></td>
-				<td> </td>
+				<td></td>
 			</tr>
 			<tr>
 				<td><?php echo __('Opened Emails', 'benchmark-email-lite'); ?></td>
@@ -62,7 +59,7 @@
 			<tr>
 				<td><?php echo __('Links Clicked', 'benchmark-email-lite'); ?></td>
 				<td>
-					<?php echo ($response['clicks']) ? "<a href='{$url}clicks' title='" . __('Click to view report', 'benchmark-email-lite') . "'>{$response['clicks']}</a>" : 0; ?>
+					<?php echo ($response['clicks']) ? $response['clicks'] : 0; ?>
 				</td>
 				<td>
 					<?php echo number_format(100*$response['clicks']/$response['opens'], 1); ?>%
@@ -73,7 +70,7 @@
 				<td>
 					<?php echo ($response['forwards']) ? "<a href='{$url}forwards' title='" . __('Click to view report', 'benchmark-email-lite') . "'>{$response['forwards']}</a>" : 0; ?>
 				</td>
-				<td> </td>
+				<td></td>
 			</tr>
 			<tr>
 				<td><?php echo __('Emails Bounced', 'benchmark-email-lite'); ?></td>
@@ -105,14 +102,16 @@
 			<tr>
 				<td><?php echo __('Abuse Reports', 'benchmark-email-lite'); ?></td>
 				<td><?php echo $response['abuseReports']; ?></td>
-				<td> </td>
+				<td></td>
 			</tr>
 		</tbody>
 	</table>
-	<h3><?php echo __('Opens by Location', 'benchmark-email-lite'); ?></h3>
-	<?php self::showLocations(); ?>
 </div>
 <div style="clear:both;"> </div>
+<h3><?php echo __('Opens by Location', 'benchmark-email-lite'); ?></h3>
+<?php self::showDetail( 'locations' ); ?>
+<h3><?php echo __('Click Performance', 'benchmark-email-lite'); ?></h3>
+<?php self::showDetail( 'clicks' ); ?>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 google.load("visualization", "1", {packages:["corechart"]});

@@ -10,4 +10,4 @@
 	<strong><?php echo __('Subject', 'benchmark-email-lite'); ?>:</strong>
 	<?php echo $response['subject']; ?>
 </p>
-<?php benchmarkemaillite::maketable( $data ); ?>
+<?php benchmarkemaillite_reports::maketable( $data ); ?>

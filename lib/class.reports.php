@@ -101,23 +101,6 @@ class benchmarkemaillite_reports {
 		require( dirname( __FILE__ ) . '/../views/reports.level2.html.php' );
 	}
 
-	// Show Opens By Location Table
-	function showLocations() {
-		$meta = self::meta();
-		$response = benchmarkemaillite_api::query(
-			'reportGetOpenCountry', benchmarkemaillite_api::$token, (string) $meta->campaign
-		);
-		$data = array();
-		foreach ($response as $row) {
-			if (!$row['openCount']) { continue; }
-			$data[] = array(
-				__('Country', 'benchmark-email-lite') => ucwords(strtolower($row['country_name'])),
-				__('Opens', 'benchmark-email-lite') => $row['openCount'],
-			);
-		}
-		benchmarkemaillite::maketable($data);
-	}
-
 	// Used For All Reports
 	// Loops And Accumulates Page Content
 	function reportQueryAllPages() {
@@ -146,10 +129,23 @@ class benchmarkemaillite_reports {
 		$data = array();
 		switch ( $show ) {
 
+			case 'locations':
+				$response = self::reportQueryAllPages(
+					'reportGetOpenCountry',
+					benchmarkemaillite_api::$token,
+					(string) $meta->campaign
+				);
+				foreach ($response as $row) {
+					if ( ! $row['openCount'] ) { continue; }
+					$data[] = array(
+						__('Country', 'benchmark-email-lite') => ucwords( strtolower( $row['country_name'] ) ),
+						__('Opens', 'benchmark-email-lite') => $row['openCount'],
+					);
+				}
+				benchmarkemaillite_reports::maketable( $data );
+				return;
+
 			case 'clicks':
-				$title = __( 'Links Clicked Report', 'benchmark-email-lite' );
-				$instructions = __( 'Displays the links that were clicked from the email.', 'benchmark-email-lite' );
-				$instructions .= ' ' . __( 'Click on a link to view details.', 'benchmark-email-lite' );
 				$response = self::reportQueryAllPages(
 					'reportGetClicks',
 					benchmarkemaillite_api::$token,
@@ -163,7 +159,8 @@ class benchmarkemaillite_reports {
 						__('Percent', 'benchmark-email-lite') => $row['percent'] . '%',
 					);
 				}
-				break;
+				benchmarkemaillite_reports::maketable( $data );
+				return;
 
 			case 'clicks_detail':
 				$title = __( 'Links Clicked Detail Report', 'benchmark-email-lite' );
@@ -307,6 +304,32 @@ class benchmarkemaillite_reports {
 		$url = self::url( array( 'show' => '' ) );
 		$response = get_transient( "benchmarkemaillite_{$meta->campaign}" );
 		require( dirname( __FILE__ ) . '/../views/reports.level3.html.php' );
+	}
+
+	// HTML Table Generator
+	function maketable( $data ) {
+	?>
+	<table class="widefat" cellspacing="0">
+		<thead>
+			<tr>
+				<th width="5">#</th>
+				<?php foreach ( $data[0] as $i => $val ) { ?>
+				<th><?php echo $i; ?></th>
+				<?php } ?>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach( $data as $i => $val ) { ?>
+			<tr>
+				<td><?php echo ( $i + 1 ); ?></td>
+				<?php foreach ( $val as $i2 => $val2 ) { ?>
+				<td><?php echo $val2; ?></td>
+				<?php } ?>
+			</tr>
+			<?php } ?>
+		</tbody>
+	</table>
+	<?php
 	}
 }
 
