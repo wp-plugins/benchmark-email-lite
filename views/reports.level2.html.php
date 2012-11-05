@@ -50,19 +50,19 @@
 			<tr>
 				<td><?php echo __('Opened Emails', 'benchmark-email-lite'); ?></td>
 				<td>
-					<?php echo ($response['opens']) ? "<a href='{$url}opens' title='" . __('Click to view report', 'benchmark-email-lite') . "'>{$response['opens']}</a>" : 0; ?>
+					<?php echo ( $response['opens'] ) ? "<a href='{$url}opens' title='" . __('Click to view report', 'benchmark-email-lite') . "'>{$response['opens']}</a>" : 0; ?>
 				</td>
 				<td>
-					<?php echo number_format(100*$response['opens']/$response['mailSent'], 1); ?>%
+					<?php echo number_format( 100 * $response['opens'] / $response['mailSent'], 1 ); ?>%
 				</td>
 			</tr>
 			<tr>
 				<td><?php echo __('Links Clicked', 'benchmark-email-lite'); ?></td>
 				<td>
-					<?php echo ($response['clicks']) ? $response['clicks'] : 0; ?>
+					<?php echo ( $response['clicks'] ) ? $response['clicks'] : 0; ?>
 				</td>
 				<td>
-					<?php echo number_format(100*$response['clicks']/$response['opens'], 1); ?>%
+					<?php echo number_format( 100 * $response['clicks'] / $response['opens'], 1 ); ?>%
 				</td>
 			</tr>
 			<tr>
@@ -108,10 +108,23 @@
 	</table>
 </div>
 <div style="clear:both;"> </div>
-<h3><?php echo __('Opens by Location', 'benchmark-email-lite'); ?></h3>
-<?php self::showDetail( 'locations' ); ?>
-<h3><?php echo __('Click Performance', 'benchmark-email-lite'); ?></h3>
-<?php self::showDetail( 'clicks' ); ?>
+
+<?php
+
+// Show Opens By Location
+if( $response['opens'] ) {
+	echo '<h3>' . __( 'Opens by Location', 'benchmark-email-lite' ) . '</h3>';
+	self::showDetail( 'locations' );
+}
+
+// Show Click Performance
+if( $response['clicks'] ) {
+	echo '<h3>' . __( 'Click Performance', 'benchmark-email-lite' ) . '</h3>';
+	self::showDetail( 'clicks' );
+}
+
+?>
+
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 google.load("visualization", "1", {packages:["corechart"]});
