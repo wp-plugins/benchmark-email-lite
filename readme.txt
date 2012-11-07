@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 3.2
 Tested up to: 3.4.2
-Stable tag: 2.4.1
+Stable tag: 2.4.2
 License: GPLv2
 
 Benchmark Email Lite lets you build an email list from your WordPress site, and easily send your subscribers email versions of your posts and pages.
@@ -157,6 +157,17 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 == Changelog ==
 
+= 2.4.2 on 2012-11-07 =
+
+* Added: Looping of detailed report data requests, to present full table of data (over 100 limit).
+* Added: Line number counter to detailed reports.
+* Added: Connection timeout warning atop the settings and reports interfaces with button to reconnect.
+* Added: Descriptive text on the individual email detail reports.
+* Updated: Moved report under Links Clicked to the email campaign page as Click Performance to more closely mirror the BME interface.
+* Updated: Split email links report into parent and child reports per URL being referenced.
+* Removed: Lower limit on timeout. Was set at a minimum of 10 seconds.
+* Fixed: Changed the Opens By Country report on the main email campaign page to only show when there has been at least 1 recorded open.
+
 = 2.4.1 on 2012-10-17 =
 
 * Added: Ability to send test email copies to up to 5 addresses.
@@ -281,6 +292,10 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: Initial Plugin release.
 
 == Upgrade Notice ==
+
+= 2.4.2 =
+
+* Several more updates to the reports tab, and better handling of connection timeout situations.
 
 = 2.4.1 =
 
