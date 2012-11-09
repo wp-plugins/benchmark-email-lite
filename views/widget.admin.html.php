@@ -20,9 +20,12 @@
 	<?php
 	wp_dropdown_pages(
 		array(
-			'depth' => 0, 'child_of' => 0,
-			'selected' => esc_attr($instance['page']), 'echo' => 1, 'name' => $this->get_field_name('page'),
-			'show_option_none' => __('Show Everywhere', 'benchmark-email-lite'),
+			'depth' => 0,
+			'child_of' => 0,
+			'selected' => esc_attr($instance['page']),
+			'echo' => 1,
+			'name' => $this->get_field_name('page'),
+			//'show_option_none' => __('Show Everywhere', 'benchmark-email-lite'),
 		)
 	);
 	?>

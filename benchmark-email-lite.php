@@ -3,7 +3,7 @@
 Plugin Name: Benchmark Email Lite
 Plugin URI: http://www.beautomated.com/benchmark-email-lite/
 Description: Benchmark Email Lite lets you build an email list right from your WordPress site, and easily send your subscribers email versions of your blog posts.
-Version: 2.4.2
+Version: 2.4.3
 Author: beAutomated
 Author URI: http://www.beautomated.com/
 License: GPLv2
@@ -20,39 +20,44 @@ GNU General Public License for more details.
 */
 
 // Include Plugin Object Files
-require_once('lib/class.api.php');
-require_once('lib/class.posts.php');
-require_once('lib/class.reports.php');
-require_once('lib/class.settings.php');
-require_once('lib/class.widget.php');
-require_once('lib/class.shortcode.php');
+require_once( 'lib/class.api.php' );
+require_once( 'lib/class.posts.php' );
+require_once( 'lib/class.reports.php' );
+require_once( 'lib/class.settings.php' );
+require_once( 'lib/class.widget.php' );
+require_once( 'lib/class.shortcode.php' );
 
 // Plugin API Hooks
-add_action('wp_init', array('benchmarkemaillite', 'initialize'));
-add_filter('plugin_row_meta', array('benchmarkemaillite', 'pluginlinks'), 10, 2);
-add_action('admin_notices', array('benchmarkemaillite', 'notices'));
+add_action( 'wp_init', array( 'benchmarkemaillite', 'wp_init' ) );
+add_filter( 'plugin_row_meta', array( 'benchmarkemaillite', 'plugin_row_meta' ), 10, 2 );
+add_action( 'admin_notices', array( 'benchmarkemaillite', 'admin_notices' ) );
 
 // Posts API Hooks
-add_action('admin_init', array('benchmarkemaillite_posts', 'post_metabox'));
-add_action('save_post', array('benchmarkemaillite_posts', 'save_post'));
+add_action( 'admin_init', array( 'benchmarkemaillite_posts', 'admin_init' ) );
+add_action( 'save_post', array( 'benchmarkemaillite_posts', 'save_post' ) );
 
 // Widget API Hooks
-add_action('admin_init', array('benchmarkemaillite_widget', 'loadjs'));
-add_action('widgets_init', array('benchmarkemaillite_widget', 'widgetfrontendsubmission'));
-add_action('widgets_init', 'benchmarkemaillite_register_widget');
-add_action('benchmarkemaillite_queue', array('benchmarkemaillite_widget', 'queue_upload'));
-function benchmarkemaillite_register_widget() { register_widget('benchmarkemaillite_widget'); }
+add_action( 'admin_init', array( 'benchmarkemaillite_widget', 'admin_init' ) );
+add_action( 'widgets_init', array( 'benchmarkemaillite_widget', 'widgets_init' ) );
+add_action( 'widgets_init', 'benchmarkemaillite_register_widget' );
+add_action( 'benchmarkemaillite_queue', array( 'benchmarkemaillite_widget', 'queue_upload' ) );
+function benchmarkemaillite_register_widget() {
+	register_widget( 'benchmarkemaillite_widget' );
+}
 
 // Shortcode API Hooks
-add_shortcode('benchmark-email-lite', array('benchmarkemaillite_shortcode', 'shortcode'));
+add_shortcode( 'benchmark-email-lite', array( 'benchmarkemaillite_shortcode', 'shortcode' ) );
 
 // Settings API Hooks
-add_action('init', array('benchmarkemaillite_settings', 'upgrade1'));
-add_action('init', array('benchmarkemaillite_settings', 'upgrade2'));
-add_action('admin_init', array('benchmarkemaillite_settings', 'initialize'));
-add_action('admin_menu', array('benchmarkemaillite_settings', 'menu'));
-add_filter('plugin_action_links_' . plugin_basename(__FILE__), array('benchmarkemaillite_settings', 'links'));
+add_action( 'init', array( 'benchmarkemaillite_settings', 'init' ) );
+add_action( 'admin_init', array( 'benchmarkemaillite_settings', 'admin_init' ) );
+add_action( 'admin_menu', array( 'benchmarkemaillite_settings', 'admin_menu' ) );
+add_filter(
+	'plugin_action_links_' . plugin_basename( __FILE__ ),
+	array( 'benchmarkemaillite_settings', 'links' )
+);
 
+// Plugin Main Class
 class benchmarkemaillite {
 
 	// Variables Available Without Class Instantiation
@@ -60,18 +65,21 @@ class benchmarkemaillite {
 	static $linkaffiliate = 'http://www.benchmarkemail.com/Register';
 	static $linkcontact = 'http://www.beautomated.com/contact/';
 
+
 	/**********************
 	 WORDPRESS HOOK METHODS
 	 **********************/
 
 	// Load Localizations
-	function initialize() {
-		load_plugin_textdomain('benchmark-email-lite', false, basename(dirname(__FILE__)) . '/languages');
+	function wp_init() {
+		load_plugin_textdomain(
+			'benchmark-email-lite', false, basename( dirname( __FILE__ ) ) . '/languages'
+		);
 	}
 
 	// Administrative Links
-	function pluginlinks($links, $file) {
-		if (basename($file) == basename(__FILE__)) {
+	function plugin_row_meta( $links, $file ) {
+		if( basename( $file ) == basename( __FILE__ ) ) {
 			$link = '<a href="' . benchmarkemaillite::$linkcontact . '">' . __('Contact Developer', 'benchmark-email-lite') . '</a>';
 			array_unshift($links, $link);
 			$link = '<a href="' . benchmarkemaillite::$linkaffiliate . '">' . __('Free 30 Day Benchmark Email Trial', 'benchmark-email-lite') . '</a>';
@@ -79,6 +87,7 @@ class benchmarkemaillite {
 		}
 		return $links;
 	}
+
 
 	/********
 	 MESSAGES
@@ -94,15 +103,30 @@ class benchmarkemaillite {
 		return __('Invalid API key or API server connection problem.', 'benchmark-email-lite');
 	}
 
+
 	/*******
 	 UTILITY
 	 *******/
 
 	// Admmin Area Notices
-	function notices() {
-		if ( $val = get_transient( 'benchmark-email-lite_errors' ) ) {
-			echo "<div class='fade updated'><p><strong>Benchmark Email Lite</strong></p><p>{$val}</p></div>";
-			delete_transient( 'benchmark-email-lite_errors' );
+	function admin_notices() {
+		if ( $val = get_transient( 'benchmark-email-lite_error' ) ) {
+			echo "
+				<div class='error'>
+					<p><strong>Benchmark Email Lite</strong></p>
+					<p>{$val}</p>
+				</div>
+			";
+			delete_transient( 'benchmark-email-lite_error' );
+		}
+		if ( $val = get_transient( 'benchmark-email-lite_updated' ) ) {
+			echo "
+				<div class='updated fade'>
+					<p><strong>Benchmark Email Lite</strong></p>
+					<p>{$val}</p>
+				</div>
+			";
+			delete_transient( 'benchmark-email-lite_updated' );
 		}
 	}
 

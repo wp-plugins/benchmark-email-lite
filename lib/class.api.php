@@ -25,7 +25,7 @@ class benchmarkemaillite_api {
 		if ( $time >= $timeout ) {
 			set_transient( 'benchmark-email-lite_serverdown', true, 300 );
 			set_transient(
-				'benchmark-email-lite_errors',
+				'benchmark-email-lite_error',
 				__( 'Error connecting to Benchmark Email API server. Connection throttled until', 'benchmark-email-lite' )
 				. ' ' . date( 'H:i:s', ( current_time('timestamp') + 300 ) )
 				. ' ' . __( 'to prevent sluggish behavior.', 'benchmark-email-lite' )
@@ -95,10 +95,10 @@ class benchmarkemaillite_api {
 	}
 
 	// Create Email Campaign
-	function campaign($title, $from, $subject, $body, $webpageVersion, $permissionMessage) {
+	function campaign( $title, $from, $subject, $body, $webpageVersion, $permissionMessage ) {
 		$data = array(
 			'emailName' => $title,
-			'toListID' => (int)self::$listid,
+			'toListID' => (int) self::$listid,
 			'fromName' => $from,
 			'subject' => $subject,
 			'templateContent' => $body,
@@ -107,53 +107,53 @@ class benchmarkemaillite_api {
 		);
 
 		// Check For Preexistance
-		if ($response = self::query('emailGet', self::$token, $title, '', 1, 1, '', '')) {
-			self::$campaignid = isset($response[0]['id']) ? $response[0]['id'] : false;
+		if ( $response = self::query( 'emailGet', self::$token, $title, '', 1, 1, '', '' ) ) {
+			self::$campaignid = isset( $response[0]['id'] ) ? $response[0]['id'] : false;
 		}
 
 		// Handle Preexisting And Sent Campaign
-		if (self::$campaignid && $response[0]['status'] == 'Sent') {
+		if ( self::$campaignid && $response[0]['status'] == 'Sent' ) {
 			self::$campaignid = false;
-			return __('preexists', 'benchmark-email-lite');
+			return __( 'preexists', 'benchmark-email-lite' );
 		}
 
 		// Update Existing Campaign
-		if (self::$campaignid) {
+		if ( self::$campaignid ) {
 			$data['id'] = self::$campaignid;
-			if ($response = self::query('emailUpdate', self::$token, $data)) {
-				return (!$response) ? false : __('updated', 'benchmark-email-lite');
+			if ( $response = self::query( 'emailUpdate', self::$token, $data ) ) {
+				return ( ! $response ) ? false : __( 'updated', 'benchmark-email-lite' );
 			}
 		}
 
 		// Create New Campaign
-		if ($response = self::query('emailCreate', self::$token, $data)) {
+		if ( $response = self::query( 'emailCreate', self::$token, $data ) ) {
 			self::$campaignid = $response;
-			return (!$response) ? false : __('created', 'benchmark-email-lite');
+			return ( ! $response ) ? false : __( 'created', 'benchmark-email-lite' );
 		}
 		return false;
 	}
 
 	// Test Email Campaign
-	function campaign_test($to) {
+	function campaign_test( $to ) {
 		if (!is_numeric(self::$campaignid) || !$to) { return; }
 		return self::query('emailSendTest', self::$token, self::$campaignid, $to);
 	}
 
 	// Send Email Campaign
 	function campaign_now() {
-		if (!is_numeric(self::$campaignid)) { return; }
-		return self::query('emailSendNow', self::$token, self::$campaignid);
+		if ( ! is_numeric( self::$campaignid ) ) { return; }
+		return self::query( 'emailSendNow', self::$token, self::$campaignid );
 	}
 
 	// Schedule Email Campaign
-	function campaign_later($when) {
-		if (!is_numeric(self::$campaignid)) { return; }
-		return self::query('emailSchedule', self::$token, self::$campaignid, $when);
+	function campaign_later( $when ) {
+		if ( ! is_numeric( self::$campaignid ) ) { return; }
+		return self::query( 'emailSchedule', self::$token, self::$campaignid, $when );
 	}
 
 	// Get Email Campaigns
 	function campaigns() {
-		return self::query('reportGet', self::$token, '', 1, 25, 'date', 'desc');
+		return self::query( 'reportGet', self::$token, '', 1, 25, 'date', 'desc' );
 	}
 
 	// Get Email Campaign Report Summary

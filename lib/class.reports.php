@@ -43,13 +43,13 @@ class benchmarkemaillite_reports {
 
 	// Show Email Campaign Listings
 	function showListings() {
-		$options = get_option('benchmark-email-lite_group');
+		$options = get_option( 'benchmark-email-lite_group' );
 		$url = self::url();
 		$data = array();
 
 		// Loop API Tokens
-		foreach ($options[1] as $tokenindex => $key) {
-			if (!$key) { continue; }
+		foreach( $options[1] as $tokenindex => $key ) {
+			if( ! $key ) { continue; }
 			$data[$key] = array();
 
 			// Get Email Campaigns For Token
@@ -64,7 +64,8 @@ class benchmarkemaillite_reports {
 				if ( $email['status'] != 'Sent' ) { continue; }
 
 				// Append Data
-				$email['toListName'] = isset( $email['toListName'] ) ? $email['toListName'] : '[none]';
+				$email['toListName'] = isset( $email['toListName'] )
+					? $email['toListName'] : '[none]';
 				$email['report_url'] = self::url(
 					array(
 						'tokenindex' => $tokenindex,
@@ -101,8 +102,7 @@ class benchmarkemaillite_reports {
 		require( dirname( __FILE__ ) . '/../views/reports.level2.html.php' );
 	}
 
-	// Used For All Reports
-	// Loops And Accumulates Page Content
+	// Used For All Reports - Loops And Accumulates Page Content
 	function reportQueryAllPages() {
 		$args = func_get_args();
 		$data = array();
@@ -129,22 +129,24 @@ class benchmarkemaillite_reports {
 		$data = array();
 		switch ( $show ) {
 
+			// Opens By Location Report
 			case 'locations':
 				$response = self::reportQueryAllPages(
 					'reportGetOpenCountry',
 					benchmarkemaillite_api::$token,
 					(string) $meta->campaign
 				);
-				foreach ($response as $row) {
-					if ( ! $row['openCount'] ) { continue; }
+				foreach( $response as $row ) {
+					if( ! $row['openCount'] ) { continue; }
 					$data[] = array(
-						__('Country', 'benchmark-email-lite') => ucwords( strtolower( $row['country_name'] ) ),
-						__('Opens', 'benchmark-email-lite') => $row['openCount'],
+						__( 'Country', 'benchmark-email-lite' ) => ucwords( strtolower( $row['country_name'] ) ),
+						__( 'Opens', 'benchmark-email-lite' ) => $row['openCount'],
 					);
 				}
 				benchmarkemaillite_reports::maketable( $data );
 				return;
 
+			// Click Performance Report
 			case 'clicks':
 				$response = self::reportQueryAllPages(
 					'reportGetClicks',
@@ -154,14 +156,15 @@ class benchmarkemaillite_reports {
 				foreach ($response as $row) {
 					$link = self::url( array( 'show' => 'clicks_detail', 'url' => urlencode( $row['URL'] ) ) );
 					$data[] = array(
-						__('URL', 'benchmark-email-lite') => "<a href='{$link}'>{$row['URL']}</a>",
-						__('Clicks', 'benchmark-email-lite') => $row['clicks'],
-						__('Percent', 'benchmark-email-lite') => $row['percent'] . '%',
+						__( 'URL', 'benchmark-email-lite' ) => "<a href='{$link}'>{$row['URL']}</a>",
+						__( 'Clicks', 'benchmark-email-lite' ) => $row['clicks'],
+						__( 'Percent', 'benchmark-email-lite' ) => $row['percent'] . '%',
 					);
 				}
 				benchmarkemaillite_reports::maketable( $data );
 				return;
 
+			// Click Performance Sub Reports
 			case 'clicks_detail':
 				$title = __( 'Links Clicked Detail Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays the subscribers who clicked on the following email link:', 'benchmark-email-lite' );
@@ -176,15 +179,16 @@ class benchmarkemaillite_reports {
 					'date',
 					'desc'
 				);
-				foreach ($response as $row) {
+				foreach( $response as $row ) {
 					$data[] = array(
-						__('Name', 'benchmark-email-lite') => $row['name'],
-						__('Email', 'benchmark-email-lite') => $row['email'],
-						__('Date', 'benchmark-email-lite') => $row['logdate'],
+						__( 'Name', 'benchmark-email-lite' ) => $row['name'],
+						__( 'Email', 'benchmark-email-lite' ) => $row['email'],
+						__( 'Date', 'benchmark-email-lite' ) => $row['logdate'],
 					);
 				}
 				break;
 
+			// Email Opened Report
 			case 'opens':
 				$title = __( 'Emails Opened Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays the subscribers who opened the email in their email client.', 'benchmark-email-lite' );
@@ -197,15 +201,16 @@ class benchmarkemaillite_reports {
 					'date',
 					'desc'
 				);
-				foreach ($response as $row) {
+				foreach( $response as $row ) {
 					$data[] = array(
-						__('Name', 'benchmark-email-lite') => $row['name'],
-						__('Email', 'benchmark-email-lite') => $row['email'],
-						__('Date', 'benchmark-email-lite') => $row['logdate'],
+						__( 'Name', 'benchmark-email-lite' ) => $row['name'],
+						__( 'Email', 'benchmark-email-lite' ) => $row['email'],
+						__( 'Date', 'benchmark-email-lite' ) => $row['logdate'],
 					);
 				}
 				break;
 
+			// Email Unopened Report
 			case 'unopens':
 				$title = __( 'Emails Unopened Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays the subscribers who never opened the email.', 'benchmark-email-lite' );
@@ -218,14 +223,15 @@ class benchmarkemaillite_reports {
 					'date',
 					'desc'
 				);
-				foreach ($response as $row) {
+				foreach( $response as $row ) {
 					$data[] = array(
-						__('Name', 'benchmark-email-lite') => $row['name'],
-						__('Email', 'benchmark-email-lite') => $row['email'],
+						__( 'Name', 'benchmark-email-lite' ) => $row['name'],
+						__( 'Email', 'benchmark-email-lite' ) => $row['email'],
 					);
 				}
 				break;
 
+			// Email Bounced Report
 			case 'bounces':
 				$title = __( 'Emails Bounced Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays the subscribers whose email service provider rejected the email.', 'benchmark-email-lite' );
@@ -247,16 +253,17 @@ class benchmarkemaillite_reports {
 					'date',
 					'desc'
 				);
-				$response = array_merge($response1, $response2);
-				foreach ($response as $row) {
+				$response = array_merge( $response1, $response2 );
+				foreach( $response as $row ) {
 					$data[] = array(
-						__('Name', 'benchmark-email-lite') => $row['name'],
-						__('Email', 'benchmark-email-lite') => $row['email'],
-						__('Bounce Type', 'benchmark-email-lite') => $row['type'],
+						__( 'Name', 'benchmark-email-lite' ) => $row['name'],
+						__( 'Email', 'benchmark-email-lite' ) => $row['email'],
+						__( 'Bounce Type', 'benchmark-email-lite' ) => $row['type'],
 					);
 				}
 				break;
 
+			// Email Unsubscribed Report
 			case 'unsubscribes':
 				$title = __( 'Emails Unsubscribed Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays previous subscribers who unsubscribed from the list during this campaign.', 'benchmark-email-lite' );
@@ -269,15 +276,16 @@ class benchmarkemaillite_reports {
 					'date',
 					'desc'
 				);
-				foreach ($response as $row) {
+				foreach( $response as $row ) {
 					$data[] = array(
-						__('Name', 'benchmark-email-lite') => $row['name'],
-						__('Email', 'benchmark-email-lite') => $row['email'],
-						__('Date', 'benchmark-email-lite') => $row['logdate'],
+						__( 'Name', 'benchmark-email-lite' ) => $row['name'],
+						__( 'Email', 'benchmark-email-lite' ) => $row['email'],
+						__( 'Date', 'benchmark-email-lite' ) => $row['logdate'],
 					);
 				}
 				break;
 
+			// Emails Forwarded Report
 			case 'forwards':
 				$title = __( 'Emails Forwarded Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays the subscribers who successfully forwarded the email to others.', 'benchmark-email-lite' );
@@ -290,17 +298,17 @@ class benchmarkemaillite_reports {
 					'date',
 					'desc'
 				);
-				foreach ($response as $row) {
+				foreach( $response as $row ) {
 					$data[] = array(
-						__('Name', 'benchmark-email-lite') => $row['name'],
-						__('Email', 'benchmark-email-lite') => $row['email'],
-						__('Date', 'benchmark-email-lite') => $row['logdate'],
+						__( 'Name', 'benchmark-email-lite' ) => $row['name'],
+						__( 'Email', 'benchmark-email-lite' ) => $row['email'],
+						__( 'Date', 'benchmark-email-lite' ) => $row['logdate'],
 					);
 				}
 				break;
 		}
 
-		// Output
+		// Output Requested Report
 		$url = self::url( array( 'show' => '' ) );
 		$response = get_transient( "benchmarkemaillite_{$meta->campaign}" );
 		require( dirname( __FILE__ ) . '/../views/reports.level3.html.php' );
