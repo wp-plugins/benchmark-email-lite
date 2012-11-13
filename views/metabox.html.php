@@ -36,7 +36,7 @@
 	<label for="bmeaction_3"><?php echo __('Schedule delivery', 'benchmark-email-lite'); ?></label>
 </p>
 <p>
-	<select name="bmedate">
+	<select name="bmedate" id="bmedate">
 	<?php
 	for ($i = 0; $i <= 30; $i++) {
 		$inc = $localtime + (86400 * $i);
@@ -44,7 +44,7 @@
 	}
 	?>
 	</select> @
-	<select name="bmetime">
+	<select name="bmetime" id="bmetime">
 	<?php
 	for ($i = 0; $i <= 95; $i++) {
 		$inc = $localtime_quarterhour + (900 * $i);
@@ -67,6 +67,12 @@
 	type="submit" class="button-primary" value="Send" /><br />
 <div class="clear"> </div>
 <script type="text/javascript">
+jQuery('#bmetestto').click(function(){
+	jQuery('#bmeaction_1').attr('checked','checked');
+});
+jQuery('#bmedate, #bmetime').click(function(){
+	jQuery('#bmeaction_3').attr('checked','checked');
+});
 jQuery('#bmesubmitbtn').click(function(e) {
 	e.preventDefault();
 	if (jQuery('#bmetitle').val() == '') {
