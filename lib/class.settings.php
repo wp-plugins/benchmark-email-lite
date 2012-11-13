@@ -2,6 +2,7 @@
 
 class benchmarkemaillite_settings {
 
+
 	/***************
 	 WP Hook Methods
 	 ***************/
@@ -198,6 +199,7 @@ class benchmarkemaillite_settings {
 		);
 	}
 
+
 	/********************
 	 Settings API Methods
 	 ********************/
@@ -274,13 +276,13 @@ class benchmarkemaillite_settings {
 	}
 	function validate( $values ) {
 		$options = get_option( 'benchmark-email-lite_group' );
-		foreach ( $options as $key => $val ) {
+		foreach( $options as $key => $val ) {
 			$val = isset( $values[$key] ) ? $values[$key] : '';
 
 			// Process Saving Of API Keys
-			if ( $key == '1' ) {
+			if( $key == '1' ) {
 
-				// WordPress Sadly Pre-serializes This Array Setting
+				// Unserialize API Keys
 				$values[1] = maybe_unserialize( $val );
 
 				// Remove Empties
@@ -294,6 +296,16 @@ class benchmarkemaillite_settings {
 
 				// Vendor Handshake With Benchmark Email
 				benchmarkemaillite_api::handshake( $values[1] );
+
+				// Delete Widgets of Deleted API Keys
+				$widgets = get_option( 'widget_benchmarkemaillite_widget' );
+				if( ! is_array( $widgets ) ) { conntinue; }
+				foreach( $widgets as $instance => $widget ) {
+					if( ! is_array( $widget ) || ! isset( $widget['list'] ) ) { continue; }
+					$list = explode( '|', $widget['list'] );
+					if( ! in_array( $list[0], $values[1] ) ) { unset( $widgets[$instance] ); }
+				}
+				update_option( 'widget_benchmarkemaillite_widget', $widgets );
 			}
 
 			// Sanitize Non Array Settings
