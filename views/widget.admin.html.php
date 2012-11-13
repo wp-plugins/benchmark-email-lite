@@ -76,7 +76,6 @@
 			<?php } else { ?>
 			<td>
 				<select class="bmefields" name="<?php echo $this->get_field_name('fields'); ?>[<?php echo $key; ?>]">
-				<option value="" disabled="disabled"><?php echo __( 'Please select', 'benchmark-email-lite' ); ?></option>
 				<?php foreach ($fields as $field) { ?>
 				<option<?php if ($selected == $field) { echo ' selected="selected"'; } ?>><?php echo $field; ?></option>
 				<?php } ?>
