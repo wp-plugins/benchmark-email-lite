@@ -135,11 +135,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		if( ! empty( $title ) ) { echo $before_title . $title . $after_title; }
 
 		// Display Any Submission Response
-		if(
-			is_array( self::$response )
-			&& array_key_exists( $widgetid, self::$response )
-			&& is_array( self::$response[$widgetid] )
-		) {
+		if( isset( self::$response[$widgetid][0] ) ) {
 			$printresponse = ( self::$response[$widgetid][0] )
 				? '<p class="successmsg">' . self::$response[$widgetid][1] . '</p>'
 				: '<p class="errormsg">' . self::$response[$widgetid][1] . '</p>';
@@ -169,7 +165,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 
 		// Proceed Processing Upon Widget Form Submission
 		if(
-			array_key_exists( 'formid', $_POST )
+			isset( $_POST['formid'] )
 			&& strstr( $_POST['formid'], 'benchmark-email-lite' )
 		) {
 
@@ -193,28 +189,58 @@ class benchmarkemaillite_widget extends WP_Widget {
 
 	// Main Subscription Logic
 	function processsubscription( $bmelist, $data ) {
+
+		// Get List Info
 		list( benchmarkemaillite_api::$token, $listname, benchmarkemaillite_api::$listid )
 			= explode( '|', $bmelist );
-
-		// Check for Missing or Invalid Email Address
-		if( ! isset( $data['Email'] ) || ! is_email( $data['Email'] ) ) {
-			return array(
-				false, __( 'Error: Please enter a valid email address.', 'benchmark-email-lite' )
-			);
-		}
 
 		// Try to Run Live Subscription
 		$response = benchmarkemaillite_api::subscribe( $data );
 
-		// Failover to Queue
-		if( ! $response[0] ) { $response = self::queue_subscription( $bmelist, $data ); }
-		return $response;
+		// Handle Responses
+		switch( $response ) {
+			case 'fail-email':
+				return array(
+					false,
+					__( 'Please enter a valid email address.', 'benchmark-email-lite' )
+				);
+			case 'success-queue':
+				return array(
+					true,
+					__( 'Successfully queued subscription.', 'benchmark-email-lite' )
+				);
+			case 'fail-add':
+				return array(
+					false,
+					__( 'Failed to add subscription. Please try again later.', 'benchmark-email-lite' )
+				);
+			case 'success-add':
+				return array(
+					true,
+					__( 'A verification email has been sent.', 'benchmark-email-lite' )
+				);
+			case 'fail-update':
+				return array(
+					false,
+					__( 'Failed to update subscription. Please try again later.', 'benchmark-email-lite' )
+				);
+			case 'success-update':
+				return array(
+					true,
+					__( 'Successfully updated subscription.', 'benchmark-email-lite' )
+				);
+			default:
+				return array(
+					false,
+					__( 'Failed to communicate. Please try again later.', 'benchmark-email-lite' )
+				);
+		}
 	}
 
 	// Queue Subscription
 	function queue_subscription( $bmelist, $data ) {
 		$queue = get_option( 'benchmarkemaillite_queue' );
-		$data = is_serialized( $data ) ? $data : serialize( $data );
+		$data = maybe_unserialize( $data );
 		$queue .= "{$bmelist}||{$data}\n";
 		update_option( 'benchmarkemaillite_queue', $queue );
 
@@ -222,9 +248,6 @@ class benchmarkemaillite_widget extends WP_Widget {
 		if( ! wp_next_scheduled( 'benchmarkemaillite_queue' ) ) {
 			wp_schedule_single_event( time() + 300, 'benchmarkemaillite_queue' );
 		}
-		return array(
-			true, __( 'Successfully queued subscription.', 'benchmark-email-lite' )
-		);
 	}
 
 	// Process Subscription Queue Cron Request

@@ -50,48 +50,56 @@ class benchmarkemaillite_api {
 
 	// Lookup Lists For Account
 	function lists() {
-		if ($response = self::query('listGet', self::$token, '', 1, 100, 'name', 'asc')) {
-			return isset($response['faultCode']) ? $response['faultCode'] : $response;
-		}
-		return false;
+		$response = self::query( 'listGet', self::$token, '', 1, 100, 'name', 'asc' );
+		return isset( $response['faultCode'] ) ? $response['faultCode'] : $response;
 	}
 
 	// Get Existing Subscriber Data
-	function find($email) {
-		if ($response = self::query(
-				'listGetContacts', self::$token, self::$listid, $email, 1, 100, 'name', 'asc'
-			)
-		) {
-			return (
-				is_array($response) && array_key_exists(0, $response)
-				&& is_array($response[0]) && array_key_exists('id', $response[0])
-			) ? $response[0]['id'] : false;
-		}
-		return false;
+	function find( $email ) {
+		$response = self::query(
+			'listGetContacts', self::$token, self::$listid, $email, 1, 100, 'name', 'asc'
+		);
+		return isset( $response[0]['id'] ) ? $response[0]['id'] : false;
 	}
 
 	// Add or Update Subscriber
-	function subscribe($data) {
+	function subscribe( $data ) {
+
+		// Ensure Valid Email Address
+		if( ! isset( $data['Email'] ) || ! is_email( $data['Email'] ) ) {
+			return 'fail-email';
+		}
+
+		// Handle Communications Failure
+		$response = self::lists();
+		if( ! is_array( $response ) ) {
+
+			// Send to Queue
+			benchmarkemaillite_widget::queue_subscription( $bmelist, $data );
+			return 'success-queue';
+		}
 
 		// Check for Subscription Preexistance
-		if (!isset($data['Email'])) { return array(false, '[No Email Address]'); }
+		$contactID = self::find( $data['Email'] );
+
+		// Helper
 		$data['email'] = $data['Email'];
-		$contactID = self::find($data['Email']);
-		if (!is_numeric($contactID) && $contactID != false) { return $contactID; }
 
-		// Doesn't Pre-Exist, Add New Subscription
-		if (!is_numeric($contactID)) {
-			if (!self::query('listAddContactsOptin', self::$token, self::$listid, array($data), '1')) {
-				return array(false, '');
-			}
-			return array(true, __('A verification email has been sent.', 'benchmark-email-lite'));
+		// Add New Subscription
+		if ( ! is_numeric( $contactID ) ) {
+			return (
+				! self::query(
+					'listAddContactsOptin', self::$token, self::$listid, array( $data ), '1'
+				)
+			) ? 'fail-add' : 'success-add';
 		}
 
-		// Or Update Preexisting Subscription
-		if (!self::query('listUpdateContactDetails', self::$token, self::$listid, $contactID, $data)) {
-			return array(false, '');
-		}
-		return array(true, __('Successfully updated subscription.', 'benchmark-email-lite'));
+		// Update Preexisting Subscription
+		return (
+			! self::query(
+				'listUpdateContactDetails', self::$token, self::$listid, $contactID, $data
+			)
+		) ? 'fail-update' : 'success-update';
 	}
 
 	// Create Email Campaign

@@ -241,7 +241,7 @@ class benchmarkemaillite_settings {
 			if ( ! $key[$i] ) { $results[$i] = '<img style="vertical-align:middle;opacity:0;" src="images/yes.png" alt="" width="16" height="16" />'; }
 			else {
 				benchmarkemaillite_api::$token = $key[$i];
-				$results[$i] = (is_array(benchmarkemaillite_api::lists()))
+				$results[$i] = ( is_array( benchmarkemaillite_api::lists() ) )
 					? '<img style="vertical-align:middle;" src="images/yes.png" alt="Yes" title="'
 						. benchmarkemaillite::goodconnection_message() . '" width="16" height="16" />'
 					: '<img style="vertical-align:middle;" style="" src="images/no.png" alt="No" title="'
