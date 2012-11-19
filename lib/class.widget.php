@@ -171,14 +171,15 @@ class benchmarkemaillite_widget extends WP_Widget {
 
 			// Get Widget Options for this Instance
 			$instance = get_option( 'widget_benchmarkemaillite_widget' );
-			$widgetid = esc_attr( $_POST['subscribe_key'] );
+			$widgetid = esc_attr( $_POST['widgetid'] );
+			$uniqid = esc_attr( $_POST['uniqid'] );
 			$instance = $instance[$widgetid];
 
 			// Sanitize Submission
 			$data = array();
 			foreach( $instance['fields'] as $key => $field ) {
 				$fieldslug = sanitize_title( $field );
-				$id = "{$fieldslug}-{$key}-{$widgetid}";
+				$id = "{$fieldslug}-{$key}-{$widgetid}-{$uniqid}";
 				$data[$field] = isset( $_POST[$id] ) ? esc_attr( $_POST[$id] ) : '';
 			}
 
