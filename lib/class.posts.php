@@ -62,6 +62,7 @@ class benchmarkemaillite_posts {
 
 	// Called when Adding, Creating or Updating any Page+Post
 	function save_post( $postID ) {
+		$options = get_option( 'benchmark-email-lite_group' );
 
 		// Set Variables
 		$bmelist = isset( $_POST['bmelist'] ) ? esc_attr( $_POST['bmelist'] ) : false;
@@ -110,33 +111,34 @@ class benchmarkemaillite_posts {
 			'title' => $post->post_title,
 			'body' => apply_filters( 'the_content', $post->post_content ),
 		);
-		$options = get_option( 'benchmark-email-lite_group' );
-		switch ( $options[3] ) {
-			case 'theme': $themefile = get_permalink( $postID ); break;
-			default: $themefile = dirname( __FILE__ ) . '/../templates/simple.html.php';
-		}
-		$body = benchmarkemaillite::require_to_var( $data, $themefile, true );
+		$content = self::compile_email_theme( $data );
 		$webpageVersion = ( $options[2] == 'yes' ) ? true : false;
 		$permissionMessage = isset( $options[4] ) ? $options[4] : '';
 
 		// Create Campaign
 		$result = benchmarkemaillite_api::campaign(
-			$bmetitle, $bmefrom, $bmesubject, $body, $webpageVersion, $permissionMessage
+			$bmetitle, $bmefrom, $bmesubject, $content, $webpageVersion, $permissionMessage
 		);
 
-		// Handle Error Conditions
+		// Handle Error Condition: Preexists
 		if ( $result == __( 'preexists', 'benchmark-email-lite' ) ) {
 			set_transient(
 				'benchmark-email-lite_error',
-				__( 'This campaign was previously sent, therefore it cannot be updated nor sent again. Please choose another email name.', 'benchmark-email-lite' )
+				__( 'An email campaign by this name was previously sent and cannot be updated or sent again. Please choose another email name.', 'benchmark-email-lite' )
 			);
 			return;
+
+		// Handle Error Condition: Other
 		} else if ( ! is_numeric( benchmarkemaillite_api::$campaignid ) ) {
 			set_transient(
 				'benchmark-email-lite_error',
 				__( 'There was a problem creating or updating your email campaign. Please try again later.', 'benchmark-email-lite' )
-				. ( isset( benchmarkemaillite_api::$campaignid['faultString'] )
-					? ' ' . __( 'Benchmark Email response code: ', 'benchmark-email-lite' ) . benchmarkemaillite_api::$campaignid['faultCode'] : '' )
+				. (
+					isset( benchmarkemaillite_api::$campaignid['faultString'] )
+						? ' ' . __( 'Benchmark Email response code: ', 'benchmark-email-lite' )
+							. benchmarkemaillite_api::$campaignid['faultCode']
+						: ''
+					)
 			);
 			return;
 		}
@@ -168,11 +170,15 @@ class benchmarkemaillite_posts {
 				}
 
 				// Report
-				$overage = ($overage) ? __( 'Sending was capped at the first 5 test addresses.', 'benchmark-email-lite' ) : '';
+				$overage = ( $overage )
+					? __( 'Sending was capped at the first 5 test addresses.', 'benchmark-email-lite' )
+					: '';
 				set_transient(
 					'benchmark-email-lite_updated',
-					__('Your campaign', 'benchmark-email-lite') . " <q>{$bmetitle}</q> "
-					. __('was successfully sent', 'benchmark-email-lite') . ". {$overage}"
+					sprintf(
+						__( 'A test of your campaign %s was successfully sent.', 'benchmark-email-lite' ),
+						"<em>{$bmetitle}</em>"
+					) . $overage
 				);
 				break;
 
@@ -184,28 +190,74 @@ class benchmarkemaillite_posts {
 				// Report
 				set_transient(
 					'benchmark-email-lite_updated',
-					__('Your campaign', 'benchmark-email-lite') . " <q>{$bmetitle}</q> "
-					. __('was successfully sent', 'benchmark-email-lite') . '.'
+					sprintf(
+						__( 'Your campaign %s was successfully sent.', 'benchmark-email-lite' ),
+						"<em>{$bmetitle}</em>"
+					)
 				);
 				break;
 
 			case '3':
 
 				// Schedule Campaign For Sending
-				$bmedate = isset($_POST['bmedate'])
-					? esc_attr($_POST['bmedate']) : date('d M Y', current_time('timestamp'));
-				$bmetime = isset($_POST['bmetime'])
-					? esc_attr($_POST['bmetime']) : date('H:i', current_time('timestamp'));
+				$bmedate = isset( $_POST['bmedate'] )
+					? esc_attr( $_POST['bmedate'] ) : date( 'd M Y', current_time( 'timestamp' ) );
+				$bmetime = isset( $_POST['bmetime'] )
+					? esc_attr( $_POST['bmetime'] ) : date( 'H:i', current_time( 'timestamp' ) );
 				$when = "$bmedate $bmetime";
-				benchmarkemaillite_api::campaign_later($when);
+				benchmarkemaillite_api::campaign_later( $when );
 
 				// Report
 				set_transient(
 					'benchmark-email-lite_updated',
-					__('Your campaign', 'benchmark-email-lite') . ' <q>' . $bmetitle . '</q> '
-					. __('was successfully scheduled for', 'benchmark-email-lite') . " <em>{$when}</em>."
+					sprintf(
+						__( 'Your campaign %s was successfully scheduled for %s.', 'benchmark-email-lite' ),
+						"<em>{$bmetitle}</em>",
+						"<em>{$when}</em>"
+					)
 				);
+				break;
 		}
+	}
+
+	/*
+	Formats Email Body Into Email Template
+	This Can Be Customized EXTERNALLY Using This Approach:
+		add_filter( 'benchmarkemaillite_compile_email_theme', 'my_custom_function', 10, 1 );
+		function my_custom_function( $args ) {
+			return "
+				<html>
+					<head>
+						<title>{$args['title']}</title>
+					</head>
+					<body>
+						<div style='background-color: #eee; padding: 15px; margin: 15px; border: 1px double #ddd;'>
+							<h1>{$args['title']}</h1>
+							{$args['body']}
+						</div>
+					</body>
+				</html>
+			";
+		}
+	*/
+	function compile_email_theme( $data ) {
+		$options = get_option( 'benchmark-email-lite_group' );
+
+		// Apply User Customizations
+		if( has_filter( 'benchmarkemaillite_compile_email_theme' ) ) {
+			return apply_filters( 'benchmarkemaillite_compile_email_theme', $data );
+		}
+
+		// Not Customized
+		switch ( $options[3] ) {
+
+			// Use Site Theme As Email Template
+			case 'theme': $theme = get_permalink( $postID ); break;
+
+			// Use Included Sample Email Template
+			default: $theme = dirname( __FILE__ ) . '/../templates/simple.html.php';
+		}
+		return benchmarkemaillite::require_to_var( $data, $theme, true );
 	}
 }
 
