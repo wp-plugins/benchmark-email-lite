@@ -63,7 +63,7 @@ class benchmarkemaillite_api {
 	}
 
 	// Add or Update Subscriber
-	function subscribe( $data ) {
+	function subscribe( $bmelist, $data ) {
 
 		// Ensure Valid Email Address
 		if( ! isset( $data['Email'] ) || ! is_email( $data['Email'] ) ) {

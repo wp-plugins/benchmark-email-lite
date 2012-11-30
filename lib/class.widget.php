@@ -184,19 +184,19 @@ class benchmarkemaillite_widget extends WP_Widget {
 			}
 
 			// Run Subscription
-			self::$response[$widgetid] = self::processsubscription( $instance['list'], $data );
+			self::$response[$widgetid] = self::process_subscription( $instance['list'], $data );
 		}
 	}
 
 	// Main Subscription Logic
-	function processsubscription( $bmelist, $data ) {
+	function process_subscription( $bmelist, $data ) {
 
 		// Get List Info
 		list( benchmarkemaillite_api::$token, $listname, benchmarkemaillite_api::$listid )
 			= explode( '|', $bmelist );
 
 		// Try to Run Live Subscription
-		$response = benchmarkemaillite_api::subscribe( $data );
+		$response = benchmarkemaillite_api::subscribe( $bmelist, $data );
 
 		// Handle Responses
 		switch( $response ) {
@@ -241,7 +241,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 	// Queue Subscription
 	function queue_subscription( $bmelist, $data ) {
 		$queue = get_option( 'benchmarkemaillite_queue' );
-		$data = maybe_unserialize( $data );
+		$data = serialize( $data );
 		$queue .= "{$bmelist}||{$data}\n";
 		update_option( 'benchmarkemaillite_queue', $queue );
 
@@ -262,8 +262,8 @@ class benchmarkemaillite_widget extends WP_Widget {
 		$queue = explode( "\n", $queue );
 		foreach( $queue as $row ) {
 			$row = explode( '||', $row );
-			$row[1] = maybe_unserialize( $row[1] );
-			self::processsubscription( $row[0], $row[1] );
+			$row[1] = unserialize( $row[1] );
+			self::process_subscription( $row[0], $row[1] );
 		}
 	}
 }
