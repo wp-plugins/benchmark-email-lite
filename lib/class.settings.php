@@ -191,12 +191,9 @@ class benchmarkemaillite_settings {
 
 	// Plugins Page Settings Link
 	function links( $links ) {
-		return array(
-			'settings' => '<a href="admin.php?page=benchmark-email-lite-settings">'
-				. __( 'Settings', 'benchmark-email-lite' ) . '</a>',
-			'deactivate' => $links['deactivate'],
-			'edit' => $links['edit'],
-		);
+		$links['settings'] = '<a href="admin.php?page=benchmark-email-lite-settings">'
+			. __( 'Settings', 'benchmark-email-lite' ) . '</a>';
+		return $links;
 	}
 
 
