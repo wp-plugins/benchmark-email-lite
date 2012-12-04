@@ -322,6 +322,15 @@ class benchmarkemaillite_settings {
 							$sidebars_widgets['wp_inactive_widgets'][] = $widget_id;
 						}
 						update_option( 'sidebars_widgets', $sidebars_widgets );
+
+						// Inform About Deactivation
+						set_transient(
+							'benchmark-email-lite_updated',
+							sprintf(
+								__( 'We moved %d widget(s) of no longer existing API keys to your Inactive Widgets sidebar.', 'benchmark-email-lite' ),
+								sizeof( $delete )
+							)
+						);
 					}
 				}
 				update_option( 'widget_benchmarkemaillite_widget', $widgets );
