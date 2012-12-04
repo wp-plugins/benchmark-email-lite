@@ -291,6 +291,9 @@ class benchmarkemaillite_settings {
 				// Reset Keys
 				$values[1] = array_values( $values[1] );
 
+				// Remove Any Previous Errors
+				if( $values[1] ) { delete_transient( 'benchmark-email-lite_error' ); }
+
 				// Vendor Handshake With Benchmark Email
 				benchmarkemaillite_api::handshake( $values[1] );
 
