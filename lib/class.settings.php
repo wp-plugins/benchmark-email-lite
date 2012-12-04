@@ -310,7 +310,9 @@ class benchmarkemaillite_settings {
 						// Deactivate The Widget
 						$delete = array();
 						foreach( $sidebars_widgets as $index1 => $sidebar_widgets ) {
-							if( $index2 = array_search( $widget_id, $sidebar_widgets ) ) {
+							if( ! is_array( $sidebar_widgets ) ) { continue; }
+							$index2 = array_search( $widget_id, $sidebar_widgets );
+							if( $index2 !== false ) {
 								$delete[] = array( $index1, $index2 );
 							}
 						}
