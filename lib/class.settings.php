@@ -294,13 +294,30 @@ class benchmarkemaillite_settings {
 				// Vendor Handshake With Benchmark Email
 				benchmarkemaillite_api::handshake( $values[1] );
 
-				// Delete Widgets of Deleted API Keys
+				// Modify Widgets of Deleted API Keys
 				$widgets = get_option( 'widget_benchmarkemaillite_widget' );
+				$sidebars_widgets = get_option( 'sidebars_widgets' );
 				if( ! is_array( $widgets ) ) { conntinue; }
 				foreach( $widgets as $instance => $widget ) {
+					$widget_id = "benchmarkemaillite_widget-{$instance}";
 					if( ! is_array( $widget ) || ! isset( $widget['list'] ) ) { continue; }
 					$list = explode( '|', $widget['list'] );
-					if( ! in_array( $list[0], $values[1] ) ) { unset( $widgets[$instance] ); }
+					if( ! in_array( $list[0], $values[1] ) ) {
+
+						// Deactivate The Widget
+						$delete = array();
+						foreach( $sidebars_widgets as $index1 => $sidebar_widgets ) {
+							if( $index2 = array_search( $widget_id, $sidebar_widgets ) ) {
+								$delete[] = array( $index1, $index2 );
+							}
+						}
+						foreach( $delete as $todo ) {
+							list( $index1, $index2 ) = $todo;
+							unset( $sidebars_widgets[$index1][$index2] );
+							$sidebars_widgets['wp_inactive_widgets'][] = $widget_id;
+						}
+						update_option( 'sidebars_widgets', $sidebars_widgets );
+					}
 				}
 				update_option( 'widget_benchmarkemaillite_widget', $widgets );
 			}
