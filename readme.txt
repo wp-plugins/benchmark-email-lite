@@ -3,8 +3,8 @@ Contributors: beautomated, seanconklin, randywsandberg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 3.2
-Tested up to: 3.4.2
-Stable tag: 2.4.2
+Tested up to: 3.5
+Stable tag: 2.4.3
 License: GPLv2
 
 Benchmark Email Lite lets you build an email list from your WordPress site, and easily send your subscribers email versions of your posts and pages.
@@ -70,17 +70,13 @@ New Manual Installation
 
 == Frequently Asked Questions ==
 
-= How do I get the signup form shortcode to use on pages or posts? =
-
-Open a new or existing signup form widget instance by dragging onto any sidebar of your theme or the "inactive widgets" sidebar. Dink down (open) the widget contents and copy the shortcode provided at the bottom of the widget. Paste the shortcode onto any page or post for the signup form to appear inline.
-
 = Where do I go for help with any issues? =
 
 Please call Benchmark Email at 800.430.4095.
 
-= Why are the Extra 1 and Extra 2 fields no longer available? =
+= How do I get the signup form shortcode to use on pages or posts? =
 
-Benchmark Email changed the default fields associated with newly created lists in mid 2011. The fields Extra 1 and Extra 2 became Date 1 and Date 2 on new lists created after that date. Users are able to change their list's field titles and types by clicking the Edit link on any list, then clicking Advanced. However, this plugin does not currently support non-default settings. We had to eliminate the Extra 1, Extra 2, Date 1, Date 2 options in order to comply with default settings before and after said change to the defaults.
+Open a new or existing signup form widget instance by dragging onto any sidebar of your theme or the "inactive widgets" sidebar. Dink down (open) the widget contents and copy the shortcode provided at the bottom of the widget. Paste the shortcode onto any page or post for the signup form to appear inline.
 
 = Why did the widget suddenly stop connecting with Benchmark Email? =
 
@@ -90,13 +86,47 @@ Please check your API key. We observed on 11/09/2011 that our own API key was de
 
 To combat occasional Benchmark Email API server slowdowns causing sluggish behavior in the WordPress admin area on pages containing this plugin's features, we added a feature to disable connectivity if the plugin detects a 5 second or greater delay in any given connection attempt. Disablement lasts for 5 minutes. The connection timeout can be customized to a value greater than 5 seconds via the plugin settings page. This error can also be triggered by your web host providing slow outbound connectivity, or your web host throttling your PHP processing speed due to other problems with your site, such as memory leaks or heavy traffic. Despite delays, subscriptions are never lost thanks to our queueing system.
 
-= What happens if a subscriber resubmits their subscription? =
+= How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
-If the subscriber's email address preexists on the list, this will update the other fields, if enabled on your widget and populated by the user.
+There is an optional setting to limit the Plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme.
 
-= Why do I occasionally get "Successfully Queued Subscription"? =
+= How can I customize the email template? =
 
-This occurs when the Plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the Plugin folder, and automatically attempt to unload the queue every 5 minutes until successfull to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
+In version 2.4.3 we added a filter to permit email template customization using external code. This allows you to customize the email template while continuing to keep the Plugin up to date. Use the following code in a new Plugin file `wp-content/plugins/my_custom_plugin/my_custom_plugin.php`:
+
+`
+<?php
+/*
+Plugin Name: Customize Benchmark Email Lite Email Template
+Plugin URI: http://wordpress.org/extend/plugins/benchmark-email-lite/
+Description: Customizes the Benchmark Email Lite Plugin's email template.
+Version: 1.0
+Author: Myself
+Author URI: http://www.beautomated.com/contact/
+License: GPL2
+*/
+add_filter( 'benchmarkemaillite_compile_email_theme', 'benchmarkemaillite_theme', 10, 1 );
+function benchmarkemaillite_theme( $args ) {
+	return "
+		<html>
+			<head>
+				<title>{$args['title']}</title>
+			</head>
+			<body>
+				<div style='background-color: #eee; padding: 15px; margin: 15px; border: 1px double #ddd;'>
+					<h1>{$args['title']}</h1>
+					{$args['body']}
+				</div>
+			</body>
+		</html>
+	";
+}
+?>
+`
+
+= How do I make the form match my theme? =
+
+The signup form uses standard HTML list items so it can be manipulated by CSS within your theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
 
 = Where do I go to change the double opt-in confirmation email text? =
 
@@ -105,40 +135,17 @@ This occurs when the Plugin is not able to immediately connect with the Benchmar
 1. Either create a new signup form or click to edit the "Sample Signup Form".
 1. Complete the section titled "Opt-in Mail".
 
-= How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
+= What happens if a subscriber resubmits their subscription? =
 
-There is an optional setting to limit the Plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme.
+If the subscriber's email address preexists on the list, this will update the other fields, if enabled on your widget and populated by the user.
 
-= How do I make the form match my theme? =
+= Why do I occasionally get "Successfully Queued Subscription"? =
 
-The signup form uses standard HTML list items so it can be manipulated by CSS within your theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
+This occurs when the Plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the Plugin folder, and automatically attempt to unload the queue every 5 minutes until successfull to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
 
-= How can I customize the email template? =
+= Why are the Extra 1 and Extra 2 fields no longer available? =
 
-You may edit the HTML and CSS code within the `templates/simple.html.php` file. Be sure to keep a backup of your changes in the event that file gets overwritten in a future plugin update.
-
-= I want to put the widget somewhere that widgets aren't currently allowed! =
-
-The Benchmark Email Lite Plugin does not currently support a shortcode for inclusion in a page body. We might be adding this capability down the road. The good news is that you can still use the Plugin without needing a sidebar, if you can customize your theme! You can add a little code to the theme to allow the widget wherever you wish it to be - even inside the page body if you want it there. In order to enable the widget where you want it to go, add the following code to your theme files:
-
-functions.php
-`if ( function_exists('register_sidebar') ) {
-	register_sidebar(array(
-		'name' => '*my_custom_widget_bar*',
-		'before_widget' => '<div class="*MyCustomWidgetBarWidgetClass*">',
-		'after_widget' => '</div>',
-		'before_title' => '<h2>',
-		'after_title' => '</h2>',
-	));
-}`
-.
-
-footer.php or page.php
-(or another file where you want the widget to go within your theme's markup)
-`<!-- HTML markup that goes before the placement of the widget -->
-<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('my_custom_widget_bar') ) { } ?>
-<!-- HTML markup that goes after the placement of the widget -->`
-.
+Benchmark Email changed the default fields associated with newly created lists in mid 2011. The fields Extra 1 and Extra 2 became Date 1 and Date 2 on new lists created after that date. Users are able to change their list's field titles and types by clicking the Edit link on any list, then clicking Advanced. However, this plugin does not currently support non-default settings. We had to eliminate the Extra 1, Extra 2, Date 1, Date 2 options in order to comply with default settings before and after said change to the defaults.
 
 = Why did you switch to double opt-in starting in v1.0.4?  =
 
@@ -156,6 +163,21 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 8. This is a sample email campaign report overview.
 
 == Changelog ==
+
+= 2.4.3 on 2012-12-05 =
+
+* Added: Filter 'benchmarkemaillite_compile_email_theme' to allow external email template customization. See FAQ.
+* Added: Automatic radio button selection of sending type on the metabox when sub elements are chosen.
+* Added: Message when a widgets of deleted API keys are being deactivated.
+* Updated: Feedback responses on the post metabox, especially for the successful sending of test email campaigns.
+* Updated: Renamed some function names to match the WP hook they relate to.
+* Updated: Changed message on sent test email campaigns to say 'sent' instead of 'created'.
+* Updated: Updated WP admin notice box contents to look more normal, yellow or red based on status of message as error or update message.
+* Updated: Minor enhancement to settings links code.
+* Fixed: Bug regarding the Please Select option for widget administration.
+* Fixed: Bug on defaulting of the list selection, by deactivating widgets of deleted API keys.
+* Fixed: Bug with field validation when the same widget exists on a page in both a shortcode and a sidebar widget.
+* Fixed: Bug with the missing API key error persisting during the first refresh after putting in an API key.
 
 = 2.4.2 on 2012-11-07 =
 
@@ -292,6 +314,10 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: Initial Plugin release.
 
 == Upgrade Notice ==
+
+= 2.4.3 =
+
+* This is a bugfix release that also adds the ability to programmatically customize the email template.
 
 = 2.4.2 =
 
