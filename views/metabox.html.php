@@ -56,7 +56,7 @@
 	<?php echo __('To schedule in a different timezone, set your', 'benchmark-email-lite'); ?>
 	<a href="options-general.php"><?php echo __('WordPress', 'benchmark-email-lite'); ?></a>
 	<?php echo __('and', 'benchmark-email-lite'); ?>
-	<a href="http://ui.benchmarkemail.com/EditSetting#_ctl0_ContentPlaceHolder1_UC_ClientSettings1_lblTimeZone">
+	<a href="http://ui.benchmarkemail.com/EditSetting#ContentPlaceHolder1_UC_ClientSettings1_lblTimeZone">
 	<?php echo __('Benchmark Email', 'benchmark-email-lite'); ?></a>
 	<?php echo __('timezones', 'benchmark-email-lite'); ?>.
 	</small>
