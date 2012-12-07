@@ -38,7 +38,7 @@
 <p>
 	<select name="bmedate" id="bmedate">
 	<?php
-	for ($i = 0; $i <= 30; $i++) {
+	for ($i = 0; $i <= 365; $i++) {
 		$inc = $localtime + (86400 * $i);
 		echo '<option value="' . date('d M Y', $inc) . '">' . date('M d Y - D', $inc) . '</option>';
 	}
