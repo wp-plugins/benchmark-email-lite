@@ -76,7 +76,7 @@ Please call Benchmark Email at 800.430.4095.
 
 = Where can I view or submit bugs or feature requests? =
 
-You may use [the Support tab](http://wordpress.org/support/plugin/benchmark-email-lite "Open the Support tab"), or better yet [view current bugs and roadmap items](https://beautomated.repositoryhosting.com/trac/beautomated_trac-bugs/report "View Tickets"), and [submit your own ideas](https://beautomated.repositoryhosting.com/trac/beautomated_trac-bugs/newticket "New Ticket") using our issue tracking system. You may also email these request to `bugs@beautomated.repositoryhosting.com` and `roadmap@beautomated.repositoryhosting.com`.
+You may use [the Support tab](http://wordpress.org/support/plugin/benchmark-email-lite "Open the Support tab"), or better yet [view current bugs and roadmap items](https://beautomated.repositoryhosting.com/trac/beautomated_trac-bugs/report "View Tickets"), and [submit your own ideas](https://beautomated.repositoryhosting.com/trac/beautomated_trac-bugs/newticket "New Ticket") using our issue tracking system. You may also email these requests to bugs@beautomated.repositoryhosting.com or roadmap@beautomated.repositoryhosting.com, as appropriate.
 
 = How do I get the signup form shortcode to use on pages or posts? =
 
