@@ -74,6 +74,10 @@ New Manual Installation
 
 Please call Benchmark Email at 800.430.4095.
 
+= Where can I view or submit bugs or feature requests? =
+
+You may use [the Support tab](http://wordpress.org/support/plugin/benchmark-email-lite "Open the Support tab"), or better yet [view current bugs and roadmap items](https://beautomated.repositoryhosting.com/trac/beautomated_trac-bugs/report "View Tickets"), and [submit your own ideas](https://beautomated.repositoryhosting.com/trac/beautomated_trac-bugs/newticket "New Ticket") using our issue tracking system. You may also email these request to `bugs@beautomated.repositoryhosting.com` and `roadmap@beautomated.repositoryhosting.com`.
+
 = How do I get the signup form shortcode to use on pages or posts? =
 
 Open a new or existing signup form widget instance by dragging onto any sidebar of your theme or the "inactive widgets" sidebar. Dink down (open) the widget contents and copy the shortcode provided at the bottom of the widget. Paste the shortcode onto any page or post for the signup form to appear inline.
@@ -92,7 +96,7 @@ There is an optional setting to limit the Plugin to a single page, if desired. T
 
 = How can I customize the email template? =
 
-In version 2.4.3 we added a filter to permit email template customization using external code. This allows you to customize the email template while continuing to keep the Plugin up to date. Use the following code in a new Plugin file `wp-content/plugins/my_custom_plugin/my_custom_plugin.php`:
+In version 2.4.3 we added a filter to permit email template customization using external code. This allows you to customize the email template while continuing to keep the Plugin up to date. Use the following code in a new Plugin file `wp-content/plugins/my_custom_plugin/my_custom_plugin.php`. Put your own HTML within the area containing the sample HTML, being careful not to use any double quotes, or escaping any double quotes with a backslash. Activate the Plugin you've just created to have it automatically use your new template.
 
 `
 <?php
