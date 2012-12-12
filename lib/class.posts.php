@@ -41,7 +41,7 @@ class benchmarkemaillite_posts {
 			$val = benchmarkemaillite_settings::badconfig_message();
 			echo "<strong style='color:red;'>{$val}</strong>";
 		} else {
-			$dropdown = benchmarkemaillite::print_lists( $options[1], $bmelist );
+			$dropdown = benchmarkemaillite_display::print_lists( $options[1], $bmelist );
 		}
 
 		// Round Time To Nearest Quarter Hours
@@ -111,7 +111,7 @@ class benchmarkemaillite_posts {
 			'title' => $post->post_title,
 			'body' => apply_filters( 'the_content', $post->post_content ),
 		);
-		$content = self::compile_email_theme( $data );
+		$content = benchmarkemaillite_display::compile_email_theme( $data );
 		$webpageVersion = ( $options[2] == 'yes' ) ? true : false;
 		$permissionMessage = isset( $options[4] ) ? $options[4] : '';
 
@@ -218,46 +218,6 @@ class benchmarkemaillite_posts {
 				);
 				break;
 		}
-	}
-
-	/*
-	Formats Email Body Into Email Template
-	This Can Be Customized EXTERNALLY Using This Approach:
-		add_filter( 'benchmarkemaillite_compile_email_theme', 'my_custom_function', 10, 1 );
-		function my_custom_function( $args ) {
-			return "
-				<html>
-					<head>
-						<title>{$args['title']}</title>
-					</head>
-					<body>
-						<div style='background-color: #eee; padding: 15px; margin: 15px; border: 1px double #ddd;'>
-							<h1>{$args['title']}</h1>
-							{$args['body']}
-						</div>
-					</body>
-				</html>
-			";
-		}
-	*/
-	function compile_email_theme( $data ) {
-		$options = get_option( 'benchmark-email-lite_group' );
-
-		// Apply User Customizations
-		if( has_filter( 'benchmarkemaillite_compile_email_theme' ) ) {
-			return apply_filters( 'benchmarkemaillite_compile_email_theme', $data );
-		}
-
-		// Not Customized
-		switch ( $options[3] ) {
-
-			// Use Site Theme As Email Template
-			case 'theme': $theme = get_permalink( $postID ); break;
-
-			// Use Included Sample Email Template
-			default: $theme = dirname( __FILE__ ) . '/../templates/simple.html.php';
-		}
-		return benchmarkemaillite::require_to_var( $data, $theme, true );
 	}
 }
 

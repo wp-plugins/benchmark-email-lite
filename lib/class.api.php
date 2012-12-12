@@ -2,6 +2,7 @@
 
 class benchmarkemaillite_api {
 	static $token, $listid, $campaignid;
+	static $apiurl = 'https://api.benchmarkemail.com/1.0/';
 
 	// Executes Query with Time Tracking
 	function query() {
@@ -14,7 +15,7 @@ class benchmarkemaillite_api {
 		if ( $disabled = get_transient( 'benchmark-email-lite_serverdown' ) ) { return; }
 
 		// Connect and Communicate
-		$client = new IXR_Client( benchmarkemaillite::$apiurl, false, 443, $timeout );
+		$client = new IXR_Client( self::$apiurl, false, 443, $timeout );
 		$time = time();
 		$args = func_get_args();
 		call_user_func_array( array( $client, 'query' ), $args );

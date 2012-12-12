@@ -143,7 +143,7 @@ class benchmarkemaillite_reports {
 						__( 'Opens', 'benchmark-email-lite' ) => $row['openCount'],
 					);
 				}
-				benchmarkemaillite_reports::maketable( $data );
+				benchmarkemaillite_display::maketable( $data );
 				return;
 
 			// Click Performance Report
@@ -161,7 +161,7 @@ class benchmarkemaillite_reports {
 						__( 'Percent', 'benchmark-email-lite' ) => $row['percent'] . '%',
 					);
 				}
-				benchmarkemaillite_reports::maketable( $data );
+				benchmarkemaillite_display::maketable( $data );
 				return;
 
 			// Click Performance Sub Reports
@@ -312,32 +312,6 @@ class benchmarkemaillite_reports {
 		$url = self::url( array( 'show' => '' ) );
 		$response = get_transient( "benchmarkemaillite_{$meta->campaign}" );
 		require( dirname( __FILE__ ) . '/../views/reports.level3.html.php' );
-	}
-
-	// HTML Table Generator
-	function maketable( $data ) {
-	?>
-	<table class="widefat" cellspacing="0">
-		<thead>
-			<tr>
-				<th width="5">#</th>
-				<?php foreach ( $data[0] as $i => $val ) { ?>
-				<th><?php echo $i; ?></th>
-				<?php } ?>
-			</tr>
-		</thead>
-		<tbody>
-			<?php foreach( $data as $i => $val ) { ?>
-			<tr>
-				<td><?php echo ( $i + 1 ); ?></td>
-				<?php foreach ( $val as $i2 => $val2 ) { ?>
-				<td><?php echo $val2; ?></td>
-				<?php } ?>
-			</tr>
-			<?php } ?>
-		</tbody>
-	</table>
-	<?php
 	}
 }
 

@@ -1,11 +1,57 @@
 <?php
 
 class benchmarkemaillite_settings {
+	static $linkaffiliate = 'http://www.benchmarkemail.com/Register?p=68907';
+	static $linkcontact = 'http://www.beautomated.com/contact/';
 
+	// Good Key Or Connection Message
+	function goodconnection_message() {
+		return __( 'Valid API key and API server connection.', 'benchmark-email-lite' );
+	}
+
+	// Bad Key Or Connection Message
+	function badconnection_message() {
+		return __( 'Invalid API key or API server connection problem.', 'benchmark-email-lite' );
+	}
 
 	/***************
 	 WP Hook Methods
 	 ***************/
+
+	// Administrative Links
+	function plugin_row_meta( $links, $file ) {
+		if( basename( $file ) == basename( __FILE__ ) ) {
+			$link = '<a href="' . self::$linkcontact . '">'
+				. __( 'Contact Developer', 'benchmark-email-lite' ) . '</a>';
+			array_unshift( $links, $link );
+			$link = '<a href="' . self::$linkaffiliate . '">'
+				. __( 'Free 30 Day Benchmark Email Trial', 'benchmark-email-lite' ) . '</a>';
+			array_unshift( $links, $link );
+		}
+		return $links;
+	}
+
+	// Admin Area Notices
+	function admin_notices() {
+		if ( $val = get_transient( 'benchmark-email-lite_error' ) ) {
+			echo "
+				<div class='error'>
+					<p><strong>Benchmark Email Lite</strong></p>
+					<p>{$val}</p>
+				</div>
+			";
+			delete_transient( 'benchmark-email-lite_error' );
+		}
+		if ( $val = get_transient( 'benchmark-email-lite_updated' ) ) {
+			echo "
+				<div class='updated fade'>
+					<p><strong>Benchmark Email Lite</strong></p>
+					<p>{$val}</p>
+				</div>
+			";
+			delete_transient( 'benchmark-email-lite_updated' );
+		}
+	}
 
 	// Bad Configuration Message
 	function badconfig_message() {
@@ -190,7 +236,7 @@ class benchmarkemaillite_settings {
 	}
 
 	// Plugins Page Settings Link
-	function links( $links ) {
+	function plugin_action_links( $links ) {
 		$links['settings'] = '<a href="admin.php?page=benchmark-email-lite-settings">'
 			. __( 'Settings', 'benchmark-email-lite' ) . '</a>';
 		return $links;
@@ -220,7 +266,7 @@ class benchmarkemaillite_settings {
 		echo '<p>' . __( 'The API Key(s) connect your WordPress site with your Benchmark Email account(s).', 'benchmark-email-lite' ) . ' '
 			. __( 'Only one key is required per Benchmark Email account.', 'benchmark-email-lite' ) . ' '
 			. __( 'API Key(s) may expire after one year.', 'benchmark-email-lite' ) . '</p>'
-			. '<p><a href="' . benchmarkemaillite::$linkaffiliate . '" target="BenchmarkEmail">'
+			. '<p><a href="' . self::$linkaffiliate . '" target="BenchmarkEmail">'
 			. __( 'Signup for a 30-day FREE Trial', 'benchmark-email-lite') . '</a>, ' . __( 'or', 'benchmark-email-lite' )
 			. ' <a href="http://ui.benchmarkemail.com/EditSetting#_ctl0_ContentPlaceHolder1_UC_ClientSettings1_lnkGenerate" target="BenchmarkEmail">'
 			. __( 'log in to Benchmark Email to get your API key', 'benchmark-email-lite' ) . '</a>.</p>';
@@ -240,9 +286,9 @@ class benchmarkemaillite_settings {
 				benchmarkemaillite_api::$token = $key[$i];
 				$results[$i] = ( is_array( benchmarkemaillite_api::lists() ) )
 					? '<img style="vertical-align:middle;" src="images/yes.png" alt="Yes" title="'
-						. benchmarkemaillite::goodconnection_message() . '" width="16" height="16" />'
+						. self::goodconnection_message() . '" width="16" height="16" />'
 					: '<img style="vertical-align:middle;" style="" src="images/no.png" alt="No" title="'
-						. benchmarkemaillite::badconnection_message() . '" width="16" height="16" />';
+						. self::badconnection_message() . '" width="16" height="16" />';
 			}
 		}
 		echo "{$results[0]} <input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[0]}' /> Primary<br />

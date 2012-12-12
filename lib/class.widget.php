@@ -67,7 +67,9 @@ class benchmarkemaillite_widget extends WP_Widget {
 			$val = benchmarkemaillite_settings::badconfig_message();
 			echo "<strong style='color:red;'>{$val}</strong>";
 		}
-		$dropdown = benchmarkemaillite::print_lists( $options[1], $instance['list'] );
+		$dropdown = benchmarkemaillite_display::print_lists(
+			$options[1], $instance['list']
+		);
 
 		// Insert "Add New" Hidden Row
 		array_unshift( $instance['fields'], '' );
