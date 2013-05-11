@@ -84,7 +84,7 @@ Please check your API key. We observed on 11/09/2011 that our own API key was de
 
 = Why am I seeing "Error Connecting..." in the admin area? =
 
-To combat occasional Benchmark Email API server slowdowns causing sluggish behavior in the WordPress admin area on pages containing this plugin's features, we added a feature to disable connectivity if the plugin detects a 5 second or greater delay in any given connection attempt. Disablement lasts for 5 minutes. The connection timeout can be customized to a value greater than 5 seconds via the plugin settings page. This error can also be triggered by your web host providing slow outbound connectivity, or your web host throttling your PHP processing speed due to other problems with your site, such as memory leaks or heavy traffic. Despite delays, subscriptions are never lost thanks to our queueing system.
+To combat occasional Benchmark Email API server slowdowns causing sluggish behavior in the WordPress admin area on pages containing this plugin's features, we added a feature to disable connectivity if the plugin detects a 10 second or greater delay in any given connection attempt. Disablement lasts for 5 minutes. The connection timeout can be customized to a value greater than 10 seconds via the plugin settings page. This error can also be triggered by your web host providing slow outbound connectivity, or your web host throttling your PHP processing speed due to other problems with your site, such as memory leaks or heavy traffic. Despite delays, subscriptions are never lost thanks to our queueing system.
 
 = How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 

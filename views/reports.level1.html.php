@@ -1,26 +1,32 @@
-<?php
-$errors = array();
-foreach( $data as $key => $emails ) {
-	if( ! $emails ) { $errors[] = $key; continue; }
-?>
-<p>
-	<?php echo __('Please select a campaign to view the report for API key', 'benchmark-email-lite'); ?>:
-	<?php echo $key; ?>
-</p>
+<br />
 <table class="widefat" cellspacing="0">
 	<thead>
 		<tr>
-			<th><?php echo __('Email Name', 'benchmark-email-lite'); ?></th>
-			<th><?php echo __('Date Sent', 'benchmark-email-lite'); ?></th>
+			<th width="50"><?php echo __('API key', 'benchmark-email-lite'); ?></th>
+			<th width="*"><?php echo __('Email name', 'benchmark-email-lite'); ?></th>
+			<th width="75"><?php echo __('Date sent', 'benchmark-email-lite'); ?></th>
 		</tr>
 	</thead>
 	<tbody>
+
+		<?php
+		$errors = array();
+		foreach( $data as $key => $emails ) {
+			if( ! $emails ) { $errors[] = $key; continue; }
+		?>
+
+		<tr>
+			<th colspan="3"><small><?php echo $key; ?></small></th>
+		</tr>
+
 		<?php
 		foreach( $emails as $id ) {
 			$email = get_transient( "benchmarkemaillite_{$id}" );
 		?>
+
 		<tr>
-			<td width="90%">
+			<td></td>
+			<td>
 				<a href="<?php echo $email['report_url']; ?>">
 				<?php echo $email['emailName']; ?></a><br />
 				<small>
@@ -28,12 +34,15 @@ foreach( $data as $key => $emails ) {
 					<?php echo $email['toListName'] ?>
 				</small>
 			</td>
-			<td width="10%"><?php echo $email['scheduleDate']; ?></td>
+			<td><?php echo $email['scheduleDate']; ?></td>
 		</tr>
+
 		<?php } ?>
+
+		<?php } ?>
+
 	</tbody>
 </table>
-<?php } ?>
 
 <?php if( $errors ) { ?>
 <h4><?php echo __('No results found for the following API key(s)', 'benchmark-email-lite'); ?>:</h4>
