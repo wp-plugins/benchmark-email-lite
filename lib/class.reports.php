@@ -88,8 +88,8 @@ class benchmarkemaillite_reports {
 		echo '
 			<p>
 				<a href="' . self::$base_url . '"
-					title="' . __('Back to Email Reports', 'benchmark-email-lite') . '">
-					' . __('Back to Email Reports', 'benchmark-email-lite') . '</a>
+					title="' . __( 'Back to Emails', 'benchmark-email-lite' ) . '">
+					' . __( 'Back to Emails', 'benchmark-email-lite' ) . '</a>
 			</p>
 		';
 		$response = benchmarkemaillite_api::campaign_summary( $meta->campaign );

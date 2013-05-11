@@ -1,8 +1,9 @@
 <?php
 
 class benchmarkemaillite_settings {
-	static $linkaffiliate = 'http://www.benchmarkemail.com/Register?p=68907';
-	static $linkcontact = 'http://www.beautomated.com/contact/';
+	static
+		$linkaffiliate = 'http://www.benchmarkemail.com/Register?p=68907',
+		$linkcontact = 'http://www.beautomated.com/contact/';
 
 	// Good Key Or Connection Message
 	function goodconnection_message() {
@@ -219,8 +220,8 @@ class benchmarkemaillite_settings {
 		);
 		add_submenu_page(
 			'benchmark-email-lite',
-			'Benchmark Email Lite Reports',
-			'Reports',
+			'Benchmark Email Lite Emails',
+			'Emails',
 			'manage_options',
 			'benchmark-email-lite',
 			array( 'benchmarkemaillite_settings', 'page' )
@@ -250,7 +251,7 @@ class benchmarkemaillite_settings {
 	function page() {
 		$options = get_option( 'benchmark-email-lite_group' );
 		$tabs = array(
-			'benchmark-email-lite' => __( 'Reports', 'benchmark-email-lite' ),
+			'benchmark-email-lite' => __( 'Emails', 'benchmark-email-lite' ),
 			'benchmark-email-lite-settings' => __( 'Settings', 'benchmark-email-lite' ),
 		);
 		$current = isset( $_GET['page'] ) ? esc_attr( $_GET['page'] ) : 'benchmark-email-lite';

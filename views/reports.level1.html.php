@@ -1,4 +1,3 @@
-<h3><?php echo __('Email Reports', 'benchmark-email-lite'); ?></h3>
 <?php
 $errors = array();
 foreach( $data as $key => $emails ) {

@@ -1,8 +1,7 @@
 <?php
 
 class benchmarkemaillite_api {
-	static $token, $listid, $campaignid;
-	static $apiurl = 'https://api.benchmarkemail.com/1.0/';
+	static $token, $listid, $campaignid, $apiurl = 'https://api.benchmarkemail.com/1.0/';
 
 	// Executes Query with Time Tracking
 	function query() {
@@ -144,7 +143,7 @@ class benchmarkemaillite_api {
 
 	// Test Email Campaign
 	function campaign_test( $to ) {
-		if (!is_numeric(self::$campaignid) || !$to) { return; }
+		if ( ! is_numeric( self::$campaignid ) || !$to ) { return; }
 		return self::query('emailSendTest', self::$token, self::$campaignid, $to);
 	}
 

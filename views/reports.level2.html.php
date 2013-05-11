@@ -1,5 +1,4 @@
 <div style="float:left;width:500px;">
-	<h3><?php echo __('Email Summary', 'benchmark-email-lite'); ?></h3>
 	<p>
 		<strong><?php echo __('Email name', 'benchmark-email-lite'); ?>:</strong> <?php echo $response['emailName']; ?>
 		<br /><strong><?php echo __('Subject', 'benchmark-email-lite'); ?>:</strong> <?php echo $response['subject']; ?>

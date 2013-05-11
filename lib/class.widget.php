@@ -1,8 +1,7 @@
 <?php
 
 class benchmarkemaillite_widget extends WP_Widget {
-	static $response = array();
-	static $pagefilter = true;
+	static $response = array(), $pagefilter = true;
 
 	// Load JavaScript Into Header On Widgets Page
 	function admin_init() {
