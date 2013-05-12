@@ -2,9 +2,9 @@
 <table class="widefat" cellspacing="0">
 	<thead>
 		<tr>
-			<th width="50"><?php echo __('API key', 'benchmark-email-lite'); ?></th>
+			<th width="90"><?php echo __('API key', 'benchmark-email-lite'); ?></th>
 			<th width="*"><?php echo __('Email name', 'benchmark-email-lite'); ?></th>
-			<th width="75"><?php echo __('Date sent', 'benchmark-email-lite'); ?></th>
+			<th width="90"><?php echo __('Date Modified', 'benchmark-email-lite'); ?></th>
 		</tr>
 	</thead>
 	<tbody>

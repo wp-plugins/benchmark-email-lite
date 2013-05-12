@@ -1,43 +1,20 @@
-<div style="float:left;width:500px;">
+<div style="float: left; min-width: 500px; width: 50%;">
 	<p>
 		<strong><?php echo __('Email name', 'benchmark-email-lite'); ?>:</strong> <?php echo $response['emailName']; ?>
 		<br /><strong><?php echo __('Subject', 'benchmark-email-lite'); ?>:</strong> <?php echo $response['subject']; ?>
 	</p>
-	<div style="height:400px;">
+	<div style="height: 400px;">
 		<div id="chart_div"></div>
 	</div>
-	<h3><?php echo __('Email Reports', 'benchmark-email-lite'); ?></h3>
-	<p>
-		<form method="get" action="">
-			<input type="hidden" name="page" value="benchmark-email-lite" />
-			<input type="hidden" name="campaign" value="<?php echo $meta->campaign; ?>" />
-			<input type="hidden" name="tokenindex" value="<?php echo $meta->tokenindex; ?>" />
-			<input type="submit" class="button-primary" name="show" value="<?php echo __('Opens', 'benchmark-email-lite'); ?>"
-				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
-				<?php if (!$response['opens']) { echo ' disabled="disabled"';} ?> />
-			<input type="submit" class="button-primary" name="show" value="<?php echo __('Bounces', 'benchmark-email-lite'); ?>"
-				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
-				<?php if (!$response['bounces']) { echo ' disabled="disabled"';} ?> />
-			<input type="submit" class="button-primary" name="show" value="<?php echo __('Unsubscribes', 'benchmark-email-lite'); ?>"
-				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
-				<?php if (!$response['unsubscribes']) { echo ' disabled="disabled"';} ?> />
-			<input type="submit" class="button-primary" name="show" value="<?php echo __('Forwards', 'benchmark-email-lite'); ?>"
-				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
-				<?php if (!$response['forwards']) { echo ' disabled="disabled"';} ?> />
-			<input type="submit" class="button-primary" name="show" value="<?php echo __('Unopens', 'benchmark-email-lite'); ?>"
-				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
-				<?php if (!$response['unopens']) { echo ' disabled="disabled"';} ?> />
-		</form>
-	</p>
 </div>
-<div style="float:left;">
+<div style="float: right; width: 50%;">
 	<h3><?php echo __('Email Statistics', 'benchmark-email-lite'); ?></h3>
 	<table class="widefat">
 		<thead>
 			<tr>
-				<th><?php echo __('Statistic', 'benchmark-email-lite'); ?></th>
-				<th><?php echo __('Value', 'benchmark-email-lite'); ?></th>
-				<th><?php echo __('Percent', 'benchmark-email-lite'); ?></th>
+				<th width="*"><?php echo __('Statistic', 'benchmark-email-lite'); ?></th>
+				<th width="50"><?php echo __('Value', 'benchmark-email-lite'); ?></th>
+				<th width="50"><?php echo __('Percent', 'benchmark-email-lite'); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -105,6 +82,30 @@
 			</tr>
 		</tbody>
 	</table>
+
+	<h3><?php echo __('Email Reports', 'benchmark-email-lite'); ?></h3>
+	<p>
+		<form method="get" action="">
+			<input type="hidden" name="page" value="benchmark-email-lite" />
+			<input type="hidden" name="campaign" value="<?php echo $meta->campaign; ?>" />
+			<input type="hidden" name="tokenindex" value="<?php echo $meta->tokenindex; ?>" />
+			<input type="submit" class="button-primary" name="show" value="<?php echo __('Opens', 'benchmark-email-lite'); ?>"
+				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+				<?php if (!$response['opens']) { echo ' disabled="disabled"';} ?> />
+			<input type="submit" class="button-primary" name="show" value="<?php echo __('Bounces', 'benchmark-email-lite'); ?>"
+				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+				<?php if (!$response['bounces']) { echo ' disabled="disabled"';} ?> />
+			<input type="submit" class="button-primary" name="show" value="<?php echo __('Unsubscribes', 'benchmark-email-lite'); ?>"
+				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+				<?php if (!$response['unsubscribes']) { echo ' disabled="disabled"';} ?> />
+			<input type="submit" class="button-primary" name="show" value="<?php echo __('Forwards', 'benchmark-email-lite'); ?>"
+				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+				<?php if (!$response['forwards']) { echo ' disabled="disabled"';} ?> />
+			<input type="submit" class="button-primary" name="show" value="<?php echo __('Unopens', 'benchmark-email-lite'); ?>"
+				title="<?php echo __('Click to view report', 'benchmark-email-lite'); ?>"
+				<?php if (!$response['unopens']) { echo ' disabled="disabled"';} ?> />
+		</form>
+	</p>
 </div>
 <div style="clear:both;"> </div>
 

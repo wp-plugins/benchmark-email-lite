@@ -110,13 +110,26 @@ class benchmarkemaillite_display {
 
 	// HTML Table Generator
 	function maketable( $data ) {
+
+		// Table Column Widths By Title
+		$widths = array(
+			__( 'URL', 'benchmark-email-lite' ) => '*',
+			__( 'Country', 'benchmark-email-lite' ) => '*',
+			__( 'Opens', 'benchmark-email-lite' ) => 50,
+			__( 'Clicks', 'benchmark-email-lite' ) => 50,
+			__( 'Percent', 'benchmark-email-lite' ) => 50,
+			__( 'Name', 'benchmark-email-lite' ) => 200,
+			__( 'Email', 'benchmark-email-lite' ) => '*',
+			__( 'Date', 'benchmark-email-lite' ) => 150,
+			__( 'Bounce Type', 'benchmark-email-lite' ) => 100,
+		);
 	?>
 	<table class="widefat" cellspacing="0">
 		<thead>
 			<tr>
 				<th width="5">#</th>
 				<?php foreach ( $data[0] as $i => $val ) { ?>
-				<th><?php echo $i; ?></th>
+				<th width="<?php echo $widths[$i]; ?>"><?php echo $i; ?></th>
 				<?php } ?>
 			</tr>
 		</thead>

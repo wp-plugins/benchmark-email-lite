@@ -25,7 +25,7 @@ class benchmarkemaillite_reports {
 		$meta = self::meta();
 
 		// Showing Campaign Listings
-		if( !$meta->campaign ) { self::showListings(); }
+		if( ! $meta->campaign ) { self::showListings(); }
 
 		// Showing Requested Report
 		else {
@@ -60,9 +60,6 @@ class benchmarkemaillite_reports {
 			if( ! $response ) { continue; }
 			foreach( $response as $email ) {
 
-				// Only Show Sent Email Campaigns
-				if ( $email['status'] != 'Sent' ) { continue; }
-
 				// Append Data
 				$email['toListName'] = isset( $email['toListName'] )
 					? $email['toListName'] : '[none]';
@@ -75,7 +72,7 @@ class benchmarkemaillite_reports {
 
 				// Save Data For Template Reference
 				$data[$key][] = $email['id'];
-				set_transient( "benchmarkemaillite_{$email['id']}", $email );
+				set_transient( "benchmarkemaillite_{$email['id']}", $email, 3600 );
 			}
 		}
 		require( dirname( __FILE__ ) . '/../views/reports.level1.html.php' );
@@ -98,7 +95,7 @@ class benchmarkemaillite_reports {
 			- intval( $response['opens'] )
 			- intval( $response['bounces'] );
 		$response = array_merge( $response, get_transient( "benchmarkemaillite_{$meta->campaign}" ) );
-		set_transient( "benchmarkemaillite_{$meta->campaign}", $response );
+		set_transient( "benchmarkemaillite_{$meta->campaign}", $response, 3600 );
 		require( dirname( __FILE__ ) . '/../views/reports.level2.html.php' );
 	}
 
