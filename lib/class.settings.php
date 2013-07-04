@@ -347,7 +347,7 @@ class benchmarkemaillite_settings {
 				// Modify Widgets of Deleted API Keys
 				$widgets = get_option( 'widget_benchmarkemaillite_widget' );
 				$sidebars_widgets = get_option( 'sidebars_widgets' );
-				if( ! is_array( $widgets ) ) { conntinue; }
+				if( ! is_array( $widgets ) ) { continue; }
 				foreach( $widgets as $instance => $widget ) {
 					$widget_id = "benchmarkemaillite_widget-{$instance}";
 					if( ! is_array( $widget ) || ! isset( $widget['list'] ) ) { continue; }
