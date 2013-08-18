@@ -4,7 +4,7 @@ class benchmarkemaillite_api {
 	static $token, $listid, $campaignid, $apiurl = 'https://api.benchmarkemail.com/1.0/';
 
 	// Executes Query with Time Tracking
-	function query() {
+	static function query() {
 		$options = get_option( 'benchmark-email-lite_group' );
 		$timeout = ( isset( $options[5] ) ) ? $options[5] : 10;
 		ini_set( 'default_socket_timeout', $timeout );
@@ -40,7 +40,7 @@ class benchmarkemaillite_api {
 	}
 
 	// Register Vendor
-	function handshake( $tokens ) {
+	static function handshake( $tokens ) {
 		if ( ! $tokens || ! is_array( $tokens ) ) { return; }
 		foreach ( $tokens as $token ) {
 			if ( ! $token ) { continue; }
@@ -49,13 +49,13 @@ class benchmarkemaillite_api {
 	}
 
 	// Lookup Lists For Account
-	function lists() {
+	static function lists() {
 		$response = self::query( 'listGet', self::$token, '', 1, 100, 'name', 'asc' );
 		return isset( $response['faultCode'] ) ? $response['faultCode'] : $response;
 	}
 
 	// Get Existing Subscriber Data
-	function find( $email ) {
+	static function find( $email ) {
 		$response = self::query(
 			'listGetContacts', self::$token, self::$listid, $email, 1, 100, 'name', 'asc'
 		);
@@ -63,7 +63,7 @@ class benchmarkemaillite_api {
 	}
 
 	// Add or Update Subscriber
-	function subscribe( $bmelist, $data ) {
+	static function subscribe( $bmelist, $data ) {
 
 		// Ensure Valid Email Address
 		if( ! isset( $data['Email'] ) || ! is_email( $data['Email'] ) ) {
@@ -103,7 +103,7 @@ class benchmarkemaillite_api {
 	}
 
 	// Create Email Campaign
-	function campaign( $title, $from, $subject, $body, $webpageVersion, $permissionMessage ) {
+	static function campaign( $title, $from, $subject, $body, $webpageVersion, $permissionMessage ) {
 		$data = array(
 			'emailName' => $title,
 			'toListID' => (int) self::$listid,
@@ -142,30 +142,30 @@ class benchmarkemaillite_api {
 	}
 
 	// Test Email Campaign
-	function campaign_test( $to ) {
+	static function campaign_test( $to ) {
 		if ( ! is_numeric( self::$campaignid ) || !$to ) { return; }
 		return self::query('emailSendTest', self::$token, self::$campaignid, $to);
 	}
 
 	// Send Email Campaign
-	function campaign_now() {
+	static function campaign_now() {
 		if ( ! is_numeric( self::$campaignid ) ) { return; }
 		return self::query( 'emailSendNow', self::$token, self::$campaignid );
 	}
 
 	// Schedule Email Campaign
-	function campaign_later( $when ) {
+	static function campaign_later( $when ) {
 		if ( ! is_numeric( self::$campaignid ) ) { return; }
 		return self::query( 'emailSchedule', self::$token, self::$campaignid, $when );
 	}
 
 	// Get Email Campaigns
-	function campaigns() {
+	static function campaigns() {
 		return self::query( 'reportGet', self::$token, '', 1, 25, 'date', 'desc' );
 	}
 
 	// Get Email Campaign Report Summary
-	function campaign_summary( $id ) {
+	static function campaign_summary( $id ) {
 		return self::query( 'reportGetSummary', self::$token, (string) $id );
 	}
 }

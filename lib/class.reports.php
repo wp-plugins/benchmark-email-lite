@@ -4,7 +4,7 @@ class benchmarkemaillite_reports {
 	static $base_url = 'admin.php?page=benchmark-email-lite&amp;';
 
 	// Generates Internal Data/URLs
-	function meta() {
+	static function meta() {
 		return (object) array(
 			'campaign' => isset( $_GET['campaign'] ) ? intval( $_GET['campaign'] ) : '',
 			'tokenindex' => isset( $_GET['tokenindex'] ) ? intval( $_GET['tokenindex'] ) : 0,
@@ -13,14 +13,14 @@ class benchmarkemaillite_reports {
 	}
 
 	// Generates Internal URLs	
-	function url( $args=array() ) {
+	static function url( $args=array() ) {
 		$meta = self::meta();
 		foreach( $args as $key => $val ) { $meta->$key = $val; }
 		return self::$base_url . http_build_query( $meta );
 	}
 
 	// Page Controller
-	function show() {
+	static function show() {
 		$options = get_option('benchmark-email-lite_group');
 		$meta = self::meta();
 
@@ -42,7 +42,7 @@ class benchmarkemaillite_reports {
 	}
 
 	// Show Email Campaign Listings
-	function showListings() {
+	static function showListings() {
 		$options = get_option( 'benchmark-email-lite_group' );
 		$url = self::url();
 		$data = array();
@@ -79,7 +79,7 @@ class benchmarkemaillite_reports {
 	}
 
 	// Show Email Campaign Summary
-	function showCampaignSummary() {
+	static function showCampaignSummary() {
 		$meta = self::meta();
 		$url = self::$base_url . http_build_query( $meta );
 		echo '
@@ -100,7 +100,7 @@ class benchmarkemaillite_reports {
 	}
 
 	// Used For All Reports - Loops And Accumulates Page Content
-	function reportQueryAllPages() {
+	static function reportQueryAllPages() {
 		$args = func_get_args();
 		$data = array();
 		$run = true;
@@ -121,7 +121,7 @@ class benchmarkemaillite_reports {
 	}
 
 	// Show Requested Detail Report
-	function showDetail( $show ) {
+	static function showDetail( $show ) {
 		$meta = self::meta();
 		$data = array();
 		switch ( $show ) {

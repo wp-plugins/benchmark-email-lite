@@ -4,7 +4,7 @@
 class benchmarkemaillite_display {
 
 	// Display The Shortcode Output
-	function shortcode( $atts ) {
+	static function shortcode( $atts ) {
 
 		// Ensure Widget ID Is Specified
 		if( ! isset( $atts['widget_id'] ) ) { return; }
@@ -33,7 +33,7 @@ class benchmarkemaillite_display {
 	}
 
 	// Makes Drop Down Lists From API Keys
-	function print_lists( $keys, $selected='' ) {
+	static function print_lists( $keys, $selected='' ) {
 		$lists = array();
 		foreach( $keys as $key ) {
 			if( ! $key ) { continue; }
@@ -79,7 +79,7 @@ class benchmarkemaillite_display {
 	This Can Be Customized EXTERNALLY Using This Approach:
 	add_filter( 'benchmarkemaillite_compile_email_theme', 'my_custom_function', 10, 1 );
 	*/
-	function compile_email_theme( $data ) {
+	static function compile_email_theme( $data ) {
 		$options = get_option( 'benchmark-email-lite_group' );
 
 		// Apply User Customizations
@@ -109,7 +109,7 @@ class benchmarkemaillite_display {
 	}
 
 	// HTML Table Generator
-	function maketable( $data ) {
+	static function maketable( $data ) {
 
 		// Table Column Widths By Title
 		$widths = array(

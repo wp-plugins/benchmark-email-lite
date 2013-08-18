@@ -6,12 +6,12 @@ class benchmarkemaillite_settings {
 		$linkcontact = 'http://www.beautomated.com/contact/';
 
 	// Good Key Or Connection Message
-	function goodconnection_message() {
+	static function goodconnection_message() {
 		return __( 'Valid API key and API server connection.', 'benchmark-email-lite' );
 	}
 
 	// Bad Key Or Connection Message
-	function badconnection_message() {
+	static function badconnection_message() {
 		return __( 'Invalid API key or API server connection problem.', 'benchmark-email-lite' );
 	}
 
@@ -20,7 +20,7 @@ class benchmarkemaillite_settings {
 	 ***************/
 
 	// Administrative Links
-	function plugin_row_meta( $links, $file ) {
+	static function plugin_row_meta( $links, $file ) {
 		if( basename( $file ) == basename( __FILE__ ) ) {
 			$link = '<a href="' . self::$linkcontact . '">'
 				. __( 'Contact Developer', 'benchmark-email-lite' ) . '</a>';
@@ -33,7 +33,7 @@ class benchmarkemaillite_settings {
 	}
 
 	// Admin Area Notices
-	function admin_notices() {
+	static function admin_notices() {
 		if ( $val = get_transient( 'benchmark-email-lite_error' ) ) {
 			echo "
 				<div class='error'>
@@ -55,7 +55,7 @@ class benchmarkemaillite_settings {
 	}
 
 	// Bad Configuration Message
-	function badconfig_message() {
+	static function badconfig_message() {
 		return 
 			__( 'Please configure your API key(s) on the', 'benchmark-email-lite' )
 			. ' <a href="admin.php?page=benchmark-email-lite-settings">'
@@ -65,7 +65,7 @@ class benchmarkemaillite_settings {
 
 	// Triggered By Front And Back Ends - Try To Upgrade Plugin and Widget Settings
 	// This Exists Because WordPress Sadly Doesn't Fire Activation Hook Upon Upgrade Reactivation
-	function init() {
+	static function init() {
 		$options = get_option( 'benchmark-email-lite_group' );
 
 		// Check And Set Defaults
@@ -135,7 +135,7 @@ class benchmarkemaillite_settings {
 	}
 
 	// Admin Load
-	function admin_init() {
+	static function admin_init() {
 
 		// Handle Force Reconnection
 		if( isset( $_POST['force_reconnect'] ) ) {
@@ -209,7 +209,7 @@ class benchmarkemaillite_settings {
 	}
 
 	// Admin Menu
-	function admin_menu() {
+	static function admin_menu() {
 		add_menu_page(
 			'Benchmark Email Lite',
 			'BenchmarkEmail',
@@ -237,7 +237,7 @@ class benchmarkemaillite_settings {
 	}
 
 	// Plugins Page Settings Link
-	function plugin_action_links( $links ) {
+	static function plugin_action_links( $links ) {
 		$links['settings'] = '<a href="admin.php?page=benchmark-email-lite-settings">'
 			. __( 'Settings', 'benchmark-email-lite' ) . '</a>';
 		return $links;
@@ -248,7 +248,7 @@ class benchmarkemaillite_settings {
 	 Settings API Methods
 	 ********************/
 
-	function page() {
+	static function page() {
 		$options = get_option( 'benchmark-email-lite_group' );
 		$tabs = array(
 			'benchmark-email-lite' => __( 'Emails', 'benchmark-email-lite' ),
@@ -257,13 +257,13 @@ class benchmarkemaillite_settings {
 		$current = isset( $_GET['page'] ) ? esc_attr( $_GET['page'] ) : 'benchmark-email-lite';
 		require( dirname( __FILE__ ) . '/../views/settings.html.php');
 	}
-	function print_settings() {
+	static function print_settings() {
 		echo '<form action="options.php" method="post">';
 		settings_fields( 'benchmark-email-lite_group' );
 		do_settings_sections( __FILE__ );
 		echo '<p><input name="Submit" type="submit" class="button-primary" value="Save Changes" /></p></form>';
 	}
-	function section1() {
+	static function section1() {
 		echo '<p>' . __( 'The API Key(s) connect your WordPress site with your Benchmark Email account(s).', 'benchmark-email-lite' ) . ' '
 			. __( 'Only one key is required per Benchmark Email account.', 'benchmark-email-lite' ) . ' '
 			. __( 'API Key(s) may expire after one year.', 'benchmark-email-lite' ) . '</p>'
@@ -272,11 +272,11 @@ class benchmarkemaillite_settings {
 			. ' <a href="http://ui.benchmarkemail.com/EditSetting#_ctl0_ContentPlaceHolder1_UC_ClientSettings1_lnkGenerate" target="BenchmarkEmail">'
 			. __( 'log in to Benchmark Email to get your API key', 'benchmark-email-lite' ) . '</a>.</p>';
 	}
-	function section2() { }
-	function section3() {
+	static function section2() { }
+	static function section3() {
 		echo '<p style="color:red;">' . __( 'This section is for troubleshooting purposes only.', 'benchmark-email-lite' ) . '</p>';
 	}
-	function field1() {
+	static function field1() {
 		$options = get_option( 'benchmark-email-lite_group' );
 		$results = array();
 		$key = $options[1];
@@ -298,27 +298,27 @@ class benchmarkemaillite_settings {
 			{$results[3]} <input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[3]}' /> Optional<br />
 			{$results[4]} <input type='text' size='36' maxlength='50' name='benchmark-email-lite_group[1][]' value='{$key[4]}' /> Optional";
 	}
-	function field2() {
+	static function field2() {
 		$options = get_option( 'benchmark-email-lite_group' );
 		echo "<input id='benchmark-email-lite_group_2' type='checkbox' name='benchmark-email-lite_group[2]'
 			value='yes'" . checked( 'yes', $options[2], false ) . " /> "
 			. __("Include the sentence &quot;Having trouble viewing this email? <u>click here</u>&quot; in the top of emails?", 'benchamrk-email-lite');
 	}
-	function field3() { // Design Template - This Field Is Disabled
+	static function field3() { // Design Template - This Field Is Disabled
 		echo "<input id='benchmark-email-lite_group_3' type='hidden' name='benchmark-email-lite_group[3]'
 			value='simple' checked='checked' />";
 	}
-	function field4() { // Permission Reminder - This Field Is Disabled
+	static function field4() { // Permission Reminder - This Field Is Disabled
 		echo "<input id='benchmark-email-lite_group_4' type='hidden' name='benchmark-email-lite_group[4]'
 			value='' checked='checked' />";
 	}
-	function field5() {
+	static function field5() {
 		$options = get_option( 'benchmark-email-lite_group' );
 		echo __( 'If the connection with the Benchmark Email server takes', 'benchmark-email-lite' )
 			. " <input id='benchmark-email-lite_group_5' type='text' size='2' maxlength='2' name='benchmark-email-lite_group[5]' value='{$options[5]}' /> "
 			. __( 'seconds or longer, disable connections for 5 minutes to prevent site administration from becoming sluggish. (Default: 10)', 'benchmark-email-lite' );
 	}
-	function validate( $values ) {
+	static function validate( $values ) {
 		$options = get_option( 'benchmark-email-lite_group' );
 		foreach( $options as $key => $val ) {
 			$val = isset( $values[$key] ) ? $values[$key] : '';

@@ -3,7 +3,7 @@
 class benchmarkemaillite_posts {
 
 	// Create Pages+Posts Metaboxes
-	function admin_init() {
+	static function admin_init() {
 		add_meta_box(
 			'benchmark-email-lite',
 			'Benchmark Email Lite',
@@ -23,7 +23,7 @@ class benchmarkemaillite_posts {
 	}
 
 	// Page+Post Metabox Contents
-	function metabox() {
+	static function metabox() {
 		global $post;
 
 		// Get Values For Form Prepopulations
@@ -61,7 +61,7 @@ class benchmarkemaillite_posts {
 	}
 
 	// Called when Adding, Creating or Updating any Page+Post
-	function save_post( $postID ) {
+	static function save_post( $postID ) {
 		$options = get_option( 'benchmark-email-lite_group' );
 
 		// Set Variables

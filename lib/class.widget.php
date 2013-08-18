@@ -4,7 +4,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 	static $response = array(), $pagefilter = true;
 
 	// Load JavaScript Into Header On Widgets Page
-	function admin_init() {
+	static function admin_init() {
 		global $pagenow;
 		if ( $pagenow == 'widgets.php' ) {
 			wp_enqueue_script(
@@ -20,7 +20,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 	 WORDPRESS WIDGET METHODS
 	 ************************/
 
-	// Constructor
+	// Constructor - Cannot Be Static
 	function benchmarkemaillite_widget() {
 		$widget_ops = array(
 			'classname' => 'benchmarkemaillite_widget',
@@ -32,7 +32,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		);
 	}
 
-	// Build the Widget Settings Form
+	// Build the Widget Settings Form - Cannot Be Static
 	function form( $instance ) {
 		$fields = array(
 			'First Name','Last Name','Middle Name',
@@ -79,7 +79,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		require( dirname( __FILE__ ) . '/../views/widget.admin.html.php');
 	}
 
-	// Save the Widget Settings
+	// Save the Widget Settings - Cannot Be Static
 	function update( $submitted, $instance ) {
 
 		// Sanitize Admin Submitted Fields
@@ -103,7 +103,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		return $instance;
 	}
 
-	// Display the Widget
+	// Display the Widget - Cannot Be Static
 	function widget( $args, $instance ) {
 
 		// Widget Variables
@@ -162,7 +162,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 	 ******************/
 
 	// Process Form Submission
-	function widgets_init() {
+	static function widgets_init() {
 
 		// Proceed Processing Upon Widget Form Submission
 		if(
@@ -190,7 +190,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 	}
 
 	// Main Subscription Logic
-	function process_subscription( $bmelist, $data ) {
+	static function process_subscription( $bmelist, $data ) {
 
 		// Get List Info
 		list( benchmarkemaillite_api::$token, $listname, benchmarkemaillite_api::$listid )
@@ -240,7 +240,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 	}
 
 	// Queue Subscription
-	function queue_subscription( $bmelist, $data ) {
+	static function queue_subscription( $bmelist, $data ) {
 		$queue = get_option( 'benchmarkemaillite_queue' );
 		$data = serialize( $data );
 		$queue .= "{$bmelist}||{$data}\n";
@@ -253,7 +253,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 	}
 
 	// Process Subscription Queue Cron Request
-	function queue_upload() {
+	static function queue_upload() {
 
 		// Continue Only If Queue Exists
 		if( ! $queue = get_option( 'benchmarkemaillite_queue' ) ) { return; }
