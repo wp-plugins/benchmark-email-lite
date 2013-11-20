@@ -21,11 +21,13 @@ class benchmarkemaillite_display {
 
 		// Ensure Widget Id Is Found
 		if( ! isset( $widgets[$atts['widget_id']] ) ) { return; }
+		$instance = $widgets[$atts['widget_id']];
+		$instance['widgetid'] = $atts['widget_id'];
 
 		// Temporarily Disable Page Filtering And Return Widget Output
 		benchmarkemaillite_widget::$pagefilter = false;
 		ob_start();
-		benchmarkemaillite_widget::widget( $atts, $widgets[$atts['widget_id']] );
+		the_widget( 'benchmarkemaillite_widget', $instance );
 		$result = ob_get_contents();
 		ob_end_clean();
 		benchmarkemaillite_widget::$pagefilter = true;
