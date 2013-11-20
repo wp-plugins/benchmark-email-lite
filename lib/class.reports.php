@@ -94,6 +94,7 @@ class benchmarkemaillite_reports {
 			intval( $response['mailSent'] )
 			- intval( $response['opens'] )
 			- intval( $response['bounces'] );
+		$response['clicks_percent'] = ( $response['opens'] ) ? 100 * $response['clicks'] / $response['opens'] : 0;
 		$response = array_merge( $response, get_transient( "benchmarkemaillite_{$meta->campaign}" ) );
 		set_transient( "benchmarkemaillite_{$meta->campaign}", $response, 3600 );
 		require( dirname( __FILE__ ) . '/../views/reports.level2.html.php' );
