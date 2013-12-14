@@ -3,8 +3,8 @@ Contributors: beautomated, seanconklin, randywsandberg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 3.2
-Tested up to: 3.7.1
-Stable tag: 2.4.3
+Tested up to: 3.8
+Stable tag: 2.4.4
 License: GPLv2
 
 Benchmark Email Lite lets you build an email list from your WordPress site, and easily send your subscribers email versions of your posts and pages.
@@ -164,6 +164,23 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 == Changelog ==
 
+= 2.4.4 on 2013-12-14 =
+
+* Added: static function declarations for WP3.6 strict standards debug mode compatibility.
+* Updated: Tab name from Reports to Emails to make room for changes to the email listings format.
+* Updated: Moved some methods around for optimal OOP mojo.
+* Updated: Page anchor for the timezone selection on BME UI, as linked from the metabox timezone paragraph.
+* Updated: Date selector to show dates up to 365 days into the future, the limit of the BME interface as well.
+* Updated: Reports area table column widths to be more uniform and consistent. Set campaign caching timeout to 1 hour to expire old data.
+* Updated: URL to WP core arrow images for widget admin side due to 3.8 no longer having the arrows-vs.png file. Changed to arrows.png file that exists with both admin themes pre 3.8 and post 3.8. Trac references #2083
+* Removed: DIV wrapper of plugin as it was causing duplicate IDs and in T14 the response body was invisible. Trac references #2085
+* Fixed: Widget instances used within page shortcodes to prevent PHP strict standards notice about calling the widget class statically.
+* Fixed: PHP warning 'division by zero' for campaigns with 0 opens on the main campaign summary screens.
+* Fixed: Typo in the settings script.
+* Fixed: Printing of extra widget wrapper on forms and responses. Added code to track if widget is in shortcode mode. Trac references #2084 #2086
+* Fixed: Widget pre title html echo to be before title. Trac references #2081 and #2082
+* Fixed: Widget API key deletion to inactive sidebar disablement code to prevent action from recurring after the widget was disabled. Trac references #2080
+
 = 2.4.3 on 2012-12-05 =
 
 * Added: Filter 'benchmarkemaillite_compile_email_theme' to allow external email template customization. See FAQ.
@@ -314,6 +331,10 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: Initial Plugin release.
 
 == Upgrade Notice ==
+
+= 2.4.4 =
+
+* This is a bugfix release to bring us current to WP 3.8
 
 = 2.4.3 =
 
