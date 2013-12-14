@@ -344,49 +344,81 @@ class benchmarkemaillite_settings {
 				// Vendor Handshake With Benchmark Email
 				benchmarkemaillite_api::handshake( $values[1] );
 
-				// Modify Widgets of Deleted API Keys
-				$widgets = get_option( 'widget_benchmarkemaillite_widget' );
-				$sidebars_widgets = get_option( 'sidebars_widgets' );
-				if( ! is_array( $widgets ) ) { continue; }
-				foreach( $widgets as $instance => $widget ) {
-					$widget_id = "benchmarkemaillite_widget-{$instance}";
-					if( ! is_array( $widget ) || ! isset( $widget['list'] ) ) { continue; }
-					$list = explode( '|', $widget['list'] );
-					if( ! in_array( $list[0], $values[1] ) ) {
-
-						// Deactivate The Widget
-						$delete = array();
-						foreach( $sidebars_widgets as $index1 => $sidebar_widgets ) {
-							if( ! is_array( $sidebar_widgets ) ) { continue; }
-							$index2 = array_search( $widget_id, $sidebar_widgets );
-							if( $index2 !== false ) {
-								$delete[] = array( $index1, $index2 );
-							}
-						}
-						foreach( $delete as $todo ) {
-							list( $index1, $index2 ) = $todo;
-							unset( $sidebars_widgets[$index1][$index2] );
-							$sidebars_widgets['wp_inactive_widgets'][] = $widget_id;
-						}
-						update_option( 'sidebars_widgets', $sidebars_widgets );
-
-						// Inform About Deactivation
-						set_transient(
-							'benchmark-email-lite_updated',
-							sprintf(
-								__( 'We moved %d widget(s) of no longer existing API keys to your Inactive Widgets sidebar.', 'benchmark-email-lite' ),
-								sizeof( $delete )
-							)
-						);
-					}
-				}
-				update_option( 'widget_benchmarkemaillite_widget', $widgets );
+				// Deactivate Widgets of Deleted API Keys
+				self::cleanup_widgets( $values[1] );
 			}
 
 			// Sanitize Non Array Settings
 			else { $values[$key] = esc_attr( $val ); }
 		}
 		return $values;
+	}
+
+	// Deactivate Widgets of Deleted API Keys
+	static function cleanup_widgets( $api_keys ) {
+		$delete = array();
+
+		// Get All Widgets Of This Plugin
+		$my_widgets = get_option( 'widget_benchmarkemaillite_widget' );
+
+		// Only Proceed If There Are Widgets Of This Plugin
+		if( ! is_array( $my_widgets ) ) { continue; }
+
+		// Get All Widget Sidebars
+		$all_widget_sidebars = get_option( 'sidebars_widgets' );
+
+		// Loop Widgets Of This Plugin
+		foreach( $my_widgets as $instance => $widget ) {
+			$widget_id = "benchmarkemaillite_widget-{$instance}";
+
+			// Widget Must Have 'list' Property
+			if( ! is_array( $widget ) || ! isset( $widget['list'] ) ) { continue; }
+			$list = explode( '|', $widget['list'] );
+
+			// Widget API Key Isn't Current
+			if( ! in_array( $list[0], $api_keys ) ) {
+
+				// Loop All Widget Sidebars
+				foreach( $all_widget_sidebars as $sidebar_id => $sidebar_widgets ) {
+
+					// Must Not Be The Inactive Sidebar
+					if( $sidebar_id == 'wp_inactive_widgets' ) { continue; }
+
+					// Sidebar Must Have Widgets
+					if( ! is_array( $sidebar_widgets ) ) { continue; }
+
+					// Search For This Widget
+					$sidebar_widget_id = array_search( $widget_id, $sidebar_widgets );
+
+					// If Found, Add To Delete List
+					if( $sidebar_widget_id !== false ) {
+						$delete[] = array( $sidebar_id, $sidebar_widget_id, $widget_id );
+					}
+				}
+			}
+		}
+
+		// Continue Only If There Are Widgets To Delete
+		if( ! $delete ) { return; }
+
+		// Process Delete List
+		foreach( $delete as $todo ) {
+			list( $sidebar_id, $sidebar_widget_id, $widget_id ) = $todo;
+			unset( $all_widget_sidebars[$sidebar_id][$sidebar_widget_id] );
+			$all_widget_sidebars['wp_inactive_widgets'][] = $widget_id;
+		}
+
+		// Save Changes
+		update_option( 'sidebars_widgets', $all_widget_sidebars );
+
+		// Inform About Deactivation
+		set_transient(
+			'benchmark-email-lite_updated',
+			sprintf(
+				__( 'We moved %d widget(s) of no longer existing API keys to your Inactive Widgets sidebar.', 'benchmark-email-lite' ),
+				sizeof( $delete )
+			)
+		);
 	}
 }
 
