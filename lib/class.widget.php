@@ -1,7 +1,7 @@
 <?php
 
 class benchmarkemaillite_widget extends WP_Widget {
-	static $response = array(), $pagefilter = true;
+	static $response = array(), $pagefilter = true, $is_shortcode=false;
 
 	// Load JavaScript Into Header On Widgets Page
 	static function admin_init() {
@@ -109,15 +109,19 @@ class benchmarkemaillite_widget extends WP_Widget {
 		// Widget Variables
 		global $post;
 		extract( $args );
+
+		// Get Widget ID
 		if( isset( $widget_id ) ) {
 			$widgetid = explode( '-', $widget_id );
 			$widgetid = isset( $widgetid[1] ) ? $widgetid[1] : $widgetid[0];
 		} else {
 			$widgetid = $instance['widgetid'];
 		}
+
+		// Handle Widget Wrapper Code
+		if( self::$is_shortcode ) { $before_widget = ''; $after_widget = ''; }
 		$before_widget .= '<div id="benchmark-email-lite-' . $widgetid . '" class="benchmark-email-lite">';
 		$after_widget = '</div>' . $after_widget;
-		$printresponse = '';
 
 		// Prepopulate Standard Fields If Logged In
 		$user = wp_get_current_user();
@@ -141,6 +145,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		if( $title ) { echo $before_title . $title . $after_title; }
 
 		// Display Any Submission Response
+		$printresponse = '';
 		if( isset( self::$response[$widgetid][0] ) ) {
 			$printresponse = ( self::$response[$widgetid][0] )
 				? '<p class="successmsg">' . self::$response[$widgetid][1] . '</p>'
