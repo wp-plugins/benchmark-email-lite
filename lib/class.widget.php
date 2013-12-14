@@ -118,14 +118,8 @@ class benchmarkemaillite_widget extends WP_Widget {
 			$widgetid = $instance['widgetid'];
 		}
 
-		// Handle Widget Wrapper Code
+		// If Shortcode Mode, Remove Widget Wrapper Code
 		if( self::$is_shortcode ) { $before_widget = ''; $after_widget = ''; }
-
-		// Prepopulate Standard Fields If Logged In
-		$user = wp_get_current_user();
-		$first = ( $user->ID ) ? $user->user_firstname : '';
-		$last = ( $user->ID ) ? $user->user_lastname : '';
-		$email = ( $user->ID ) ? $user->user_email : '';
 
 		// Exclude from Pages/Posts Per Setting
 		if(
@@ -137,10 +131,17 @@ class benchmarkemaillite_widget extends WP_Widget {
 		// Skip Output If Widget Is Not Yet Setup
 		if( empty( $instance['list'] ) ) { return; }
 
-		// Output Widget Title, If Exists
-		echo $before_widget;
+		// Prepopulate Standard Fields If Logged In
+		$user = wp_get_current_user();
+		$first = ( $user->ID ) ? $user->user_firstname : '';
+		$last = ( $user->ID ) ? $user->user_lastname : '';
+		$email = ( $user->ID ) ? $user->user_email : '';
+
+		// Build Widget Title And Intro Text
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		if( $title ) { echo $before_title . $title . $after_title; }
+		$title = ( $title ) ? $before_title . $title . $after_title : '';
+		$description = ( $instance['filter'] == 1 )
+			? wpautop( $instance['description'] ) : $instance['description'];
 
 		// Display Any Submission Response
 		$printresponse = '';
@@ -151,16 +152,13 @@ class benchmarkemaillite_widget extends WP_Widget {
 
 			// If Submission Without Errors, Output Response Without Form
 			if( isset( self::$response[$widgetid][0] ) ) {
-				echo "{$before_widget}{$printresponse}{$after_widget}";
+				echo "{$before_widget}{$title}{$printresponse}{$after_widget}";
 				return;
 			}
 		}
 
 		// Output Widget
-		$description = ( $instance['filter'] == 1 )
-			? wpautop( $instance['description'] ) : $instance['description'];
 		require( dirname( __FILE__ ) . '/../views/widget.frontend.html.php');
-		echo $after_widget;
 	}
 
 
