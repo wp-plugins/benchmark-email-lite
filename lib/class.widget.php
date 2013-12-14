@@ -136,8 +136,9 @@ class benchmarkemaillite_widget extends WP_Widget {
 		if( empty( $instance['list'] ) ) { return; }
 
 		// Output Widget Title, If Exists
+		echo $before_widget;
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		if( ! empty( $title ) ) { echo $before_title . $title . $after_title; }
+		if( $title ) { echo $before_title . $title . $after_title; }
 
 		// Display Any Submission Response
 		if( isset( self::$response[$widgetid][0] ) ) {
@@ -155,7 +156,6 @@ class benchmarkemaillite_widget extends WP_Widget {
 		// Output Widget
 		$description = ( $instance['filter'] == 1 )
 			? wpautop( $instance['description'] ) : $instance['description'];
-		echo $before_widget;
 		require( dirname( __FILE__ ) . '/../views/widget.frontend.html.php');
 		echo $after_widget;
 	}
