@@ -92,10 +92,10 @@
 			<?php } ?>
 			<td>
 				<a href="#" class="bmemoveup" title="Move up" style="text-decoration:none;">
-					<div style="float:left;background:transparent url(images/arrows-dark-vs.png) no-repeat 0 -36px;width:15px;height:15px;"> </div>
+					<div style="float:left;background:transparent url(images/arrows.png) no-repeat 0 -36px;width:15px;height:15px;"> </div>
 				</a>
 				<a href="#" class="bmemovedown" title="Move down" style="text-decoration:none;">
-					<div style="float:left;background:transparent url(images/arrows-dark-vs.png) no-repeat 0 -2px;width:15px;height:15px;"> </div>
+					<div style="float:left;background:transparent url(images/arrows.png) no-repeat 0 -2px;width:15px;height:15px;"> </div>
 				</a>
 			</td>
 			<td>
