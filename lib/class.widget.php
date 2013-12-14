@@ -120,8 +120,6 @@ class benchmarkemaillite_widget extends WP_Widget {
 
 		// Handle Widget Wrapper Code
 		if( self::$is_shortcode ) { $before_widget = ''; $after_widget = ''; }
-		$before_widget .= '<div id="benchmark-email-lite-' . $widgetid . '" class="benchmark-email-lite">';
-		$after_widget = '</div>' . $after_widget;
 
 		// Prepopulate Standard Fields If Logged In
 		$user = wp_get_current_user();
