@@ -362,7 +362,7 @@ class benchmarkemaillite_settings {
 		$my_widgets = get_option( 'widget_benchmarkemaillite_widget' );
 
 		// Only Proceed If There Are Widgets Of This Plugin
-		if( ! is_array( $my_widgets ) ) { continue; }
+		if( ! is_array( $my_widgets ) ) { return; }
 
 		// Get All Widget Sidebars
 		$all_widget_sidebars = get_option( 'sidebars_widgets' );
