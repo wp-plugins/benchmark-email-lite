@@ -68,15 +68,21 @@ class benchmarkemaillite_settings {
 	// Triggered By Front And Back Ends - Try To Upgrade Plugin and Widget Settings
 	// This Exists Because WordPress Sadly Doesn't Fire Activation Hook Upon Upgrade Reactivation
 	static function init() {
-		$options = get_option( 'benchmark-email-lite_group' );
 
-		// Check And Set Defaults
+		// Check And Set Default Settings
+		$options = get_option( 'benchmark-email-lite_group' );
 		if( ! isset( $options[1] ) ) { $options[1] = array(); }
 		if( ! isset( $options[2] ) ) { $options[2] = 'yes'; }
 		if( ! isset( $options[3] ) ) { $options[3] = 'simple'; }
 		if( ! isset( $options[4] ) ) { $options[4] = ''; }
 		if( ! isset( $options[5] ) ) { $options[5] = 10; }
 		update_option( 'benchmark-email-lite_group', $options );
+
+		// Check And Set Defaults For Template Settings
+		$options_template = get_option( 'benchmark-email-lite_group_template' );
+		if( ! isset( $options_template['html'] ) ) {
+			$options_template['html'] = implode( '', dirname( __FILE__ ) . '/../templates/simple.html.php' );
+		}
 
 		// Exit If Already Configured
 		if( isset( $options[1][0] ) && $options[1][0] ) { return; }
@@ -246,7 +252,12 @@ class benchmarkemaillite_settings {
 		echo '<form method="post" action="options.php">';
 		settings_fields( $group );
 		do_settings_sections( $page );
-		submit_button();
+		submit_button( __( 'Save Changes', 'benchmark-email-lite' ), 'primary', 'submit', false );
+		echo '&nbsp; <input type="reset" class="button-secondary" value="' . __( 'Reset Changes', 'benchmark-email-lite' ) . '" />';
+		if( $page == 'benchmark-email-lite-settings-pg2' ) {
+			echo '&nbsp; <input name="submit" type="submit" class="button-secondary" value="' . __( 'Reset to Defaults', 'benchmark-email-lite' ) . '"
+				onclick="return confirm( \'' . __( 'Are you sure you wish to load the default values and lose your customizations?', 'benchmark-email-lite' ) . '\' );" />';
+		}
 		echo '</form>';
 	}
 
@@ -276,14 +287,26 @@ class benchmarkemaillite_settings {
 	static function section_template() {
 		echo '
 			<p>
-				' . __( 'The following is for <strong>advanced users</strong> to customize the HTML and CSS template applied to the post-to-email feature.', 'benchmark-email-lite' ) . '
-				' . __( 'There are also two deprecated methods for applying changes to this template:', 'benchmark-email-lite' ) . '
+				' . __( 'The following is for advanced users to customize the HTML and CSS template that wraps the output of the post-to-campaign feature.', 'benchmark-email-lite' ) . '
+			</p>
+			<p>
+				' . __( 'For example, one can place an IMG tag that brings their logo in from their Media Library URL, placing the code above the H1 TITLE_HERE line.', 'benchmark-email-lite' ) . '
+				' . __( 'One can also change the two color codes EEEEEE and FFFFFF to their desired background and foreground colors.', 'benchmark-email-lite' ) . '
+				' . __( 'One can also change their fonts by changing the font name priorities and sizing.', 'benchmark-email-lite' ) . '
+			</p>
+			<p>
+				' . __( 'There are two deprecated methods for applying changes to the template:', 'benchmark-email-lite' ) . '
 				' . __( 'the file in the `templates` folder of this plugin, used when the below is left empty,', 'benchmark-email-lite' ) . '
 				' . __( 'or an add-on plugin using the `benchmarkemaillite_compile_email_theme` filter as specified in this plugin\'s FAQ section.', 'benchmark-email-lite' ) . '
 			</p>
 			<p>
 				<a href="https://ui.benchmarkemail.com/help-support/help-FAQ-details?id=100">
 				' . __( 'Please review this helpdesk ticket for help with email template coding.', 'benchmark-email-lite' ) . '
+				</a>
+			</p>
+			<p>
+				<a href="http://www.w3schools.com/tags/ref_colorpicker.asp">
+				' . __( 'This is a good resource for getting hexidecimal color codes.', 'benchmark-email-lite' ) . '
 				</a>
 			</p>
 			<p>
@@ -344,6 +367,12 @@ class benchmarkemaillite_settings {
 	// Settings API Field Validations
 	static function validate( $values ) {
 		$options = get_option( 'benchmark-email-lite_group' );
+
+		// Handle Reset to Defaults
+		if( isset( $_REQUEST['submit'] ) && $_REQUEST['submit'] == 'Reset to Defaults' ) {
+			$values['html'] = implode( '', file( dirname( __FILE__ ) . '/../templates/simple.html.php' ) );
+		}
+
 		foreach( $options as $key => $val ) {
 			$val = isset( $values[$key] ) ? $values[$key] : '';
 
