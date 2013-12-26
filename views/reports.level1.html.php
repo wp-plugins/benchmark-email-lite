@@ -2,9 +2,9 @@
 <table class="widefat" cellspacing="0">
 	<thead>
 		<tr>
-			<th width="90"><?php echo __('API key', 'benchmark-email-lite'); ?></th>
-			<th width="*"><?php echo __('Email name', 'benchmark-email-lite'); ?></th>
-			<th width="90"><?php echo __('Date Modified', 'benchmark-email-lite'); ?></th>
+			<th width="90"><?php _e( 'API key', 'benchmark-email-lite' ); ?></th>
+			<th width="*"><?php _e( 'Email name', 'benchmark-email-lite' ); ?></th>
+			<th width="90"><?php _e( 'Date Modified', 'benchmark-email-lite' ); ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -30,7 +30,7 @@
 				<a href="<?php echo $email['report_url']; ?>">
 				<?php echo $email['emailName']; ?></a><br />
 				<small>
-					<?php echo __('List', 'benchmark-email-lite'); ?>:
+					<?php _e( 'List', 'benchmark-email-lite' ); ?>:
 					<?php echo $email['toListName'] ?>
 				</small>
 			</td>
@@ -45,7 +45,7 @@
 </table>
 
 <?php if( $errors ) { ?>
-<h4><?php echo __('No results found for the following API key(s)', 'benchmark-email-lite'); ?>:</h4>
+<h4><?php _e( 'No results found for the following API key(s)', 'benchmark-email-lite' ); ?>:</h4>
 <ul>
 	<?php foreach( $errors as $key ) { ?>
 	<li><?php echo $key; ?></li>
@@ -53,5 +53,5 @@
 </ul>
 
 <?php } else if( ! isset( $key ) ) { ?>
-<p><?php echo __('Data will start appearing only after your emails have been sent.', 'benchmark-email-lite'); ?></p>
+<p><?php _e( 'Data will start appearing only after your emails have been sent.', 'benchmark-email-lite' ); ?></p>
 <?php } ?>

@@ -67,19 +67,15 @@ class benchmarkemaillite_posts {
 		// Set Variables
 		$bmelist = isset( $_POST['bmelist'] ) ? esc_attr( $_POST['bmelist'] ) : false;
 		if ( $bmelist ) {
-			list( benchmarkemaillite_api::$token, $listname, benchmarkemaillite_api::$listid )
-				= explode( '|', $bmelist );
+			list(
+				benchmarkemaillite_api::$token, $listname, benchmarkemaillite_api::$listid
+			) = explode( '|', $bmelist );
 		}
-		$bmetitle = isset( $_POST['bmetitle'] )
-			? stripslashes( strip_tags( $_POST['bmetitle'] ) ) : false;
-		$bmefrom = isset( $_POST['bmefrom'] )
-			? stripslashes( strip_tags( $_POST['bmefrom'] ) ) : false;
-		$bmesubject = isset( $_POST['bmesubject'] )
-			? stripslashes( strip_tags( $_POST['bmesubject'] ) ) : false;
-		$bmeaction = isset( $_POST['bmeaction'] )
-			? esc_attr( $_POST['bmeaction'] ) : false;
-		$bmetestto = isset( $_POST['bmetestto'] )
-			? explode( ',', $_POST['bmetestto'] ) : array();
+		$bmetitle = isset( $_POST['bmetitle'] ) ? stripslashes( strip_tags( $_POST['bmetitle'] ) ) : false;
+		$bmefrom = isset( $_POST['bmefrom'] ) ? stripslashes( strip_tags( $_POST['bmefrom'] ) ) : false;
+		$bmesubject = isset( $_POST['bmesubject'] ) ? stripslashes( strip_tags( $_POST['bmesubject'] ) ) : false;
+		$bmeaction = isset( $_POST['bmeaction'] ) ? esc_attr( $_POST['bmeaction'] ) : false;
+		$bmetestto = isset( $_POST['bmetestto'] ) ? explode( ',', $_POST['bmetestto'] ) : array();
 
 		// Handle Prepopulation Loading
 		set_transient( 'bmelist', $bmelist, 15 );

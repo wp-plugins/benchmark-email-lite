@@ -15,6 +15,118 @@ class benchmarkemaillite_widget extends WP_Widget {
 		}
 	}
 
+	// Upgrade 1.x Widgets
+	static function upgrade_widgets_1() {
+		$tokens = array();
+		$widgets = get_option( 'widget_benchmarkemaillite_widget' );
+		if( is_array( $widgets ) ) {
+			foreach( $widgets as $instance => $widget ) {
+				if( isset( $widget['token'] ) && $widget['token'] != '' ) {
+					$tokens[] = $widget['token'];
+
+					// Update List Selection In Widget
+					benchmarkemaillite_api::$token = $widget['token'];
+					$lists = benchmarkemaillite_api::lists();
+					if( ! is_array( $lists ) ) { continue; }
+					foreach( $lists as $list ) {
+						if( $list['listname'] == $widget['list'] ) {
+							$widgets[$instance]['list'] = "{$widget['token']}|{$widget['list']}|{$list['id']}";
+						}
+					}
+				}
+			}
+			update_option( 'widget_benchmarkemaillite_widget', $widgets );
+		}
+	}
+
+	// Upgrade 2.0.x widgets
+	static function upgrade_widgets_2() {
+		$widgets = get_option( 'widget_benchmarkemaillite_widget' );
+		if( ! is_array( $widgets ) ) { return; }
+		$changed = false;
+		foreach ( $widgets as $instance => $widget ) {
+			if ( ! is_array( $widget ) || isset( $widget['fields'] ) ) { continue; }
+			$changed = true;
+			if ( isset( $widget['showname'] ) && $widget['showname'] != '1' ) {
+				$widgets[$instance]['fields'] = array( 'Email' );
+				$widgets[$instance]['fields_labels'] = array( 'Email' );
+				$widgets[$instance]['fields_required'] = array( 1 );
+			} else {
+				$widgets[$instance]['fields'] = array( 'First Name', 'Last Name', 'Email' );
+				$widgets[$instance]['fields_labels'] = array( 'First Name', 'Last Name', 'Email' );
+				$widgets[$instance]['fields_required'] = array( 0, 0, 1 );
+			}
+		}
+		if ( $changed ) { update_option( 'widget_benchmarkemaillite_widget', $widgets ); }
+	}
+
+	// Deactivate Widgets of Deleted API Keys
+	static function cleanup_widgets( $api_keys ) {
+		$delete = array();
+
+		// Get All Widgets Of This Plugin
+		$my_widgets = get_option( 'widget_benchmarkemaillite_widget' );
+
+		// Only Proceed If There Are Widgets Of This Plugin
+		if( ! is_array( $my_widgets ) ) { return; }
+
+		// Get All Widget Sidebars
+		$all_widget_sidebars = get_option( 'sidebars_widgets' );
+
+		// Loop Widgets Of This Plugin
+		foreach( $my_widgets as $instance => $widget ) {
+			$widget_id = "benchmarkemaillite_widget-{$instance}";
+
+			// Widget Must Have 'list' Property
+			if( ! is_array( $widget ) || ! isset( $widget['list'] ) ) { continue; }
+			$list = explode( '|', $widget['list'] );
+
+			// Widget API Key Isn't Current
+			if( ! in_array( $list[0], $api_keys ) ) {
+
+				// Loop All Widget Sidebars
+				foreach( $all_widget_sidebars as $sidebar_id => $sidebar_widgets ) {
+
+					// Must Not Be The Inactive Sidebar
+					if( $sidebar_id == 'wp_inactive_widgets' ) { continue; }
+
+					// Sidebar Must Have Widgets
+					if( ! is_array( $sidebar_widgets ) ) { continue; }
+
+					// Search For This Widget
+					$sidebar_widget_id = array_search( $widget_id, $sidebar_widgets );
+
+					// If Found, Add To Delete List
+					if( $sidebar_widget_id !== false ) {
+						$delete[] = array( $sidebar_id, $sidebar_widget_id, $widget_id );
+					}
+				}
+			}
+		}
+
+		// Continue Only If There Are Widgets To Delete
+		if( ! $delete ) { return; }
+
+		// Process Delete List
+		foreach( $delete as $todo ) {
+			list( $sidebar_id, $sidebar_widget_id, $widget_id ) = $todo;
+			unset( $all_widget_sidebars[$sidebar_id][$sidebar_widget_id] );
+			$all_widget_sidebars['wp_inactive_widgets'][] = $widget_id;
+		}
+
+		// Save Changes
+		update_option( 'sidebars_widgets', $all_widget_sidebars );
+
+		// Inform About Deactivation
+		set_transient(
+			'benchmark-email-lite_updated',
+			sprintf(
+				__( 'We moved %d widget(s) of no longer existing API keys to your Inactive Widgets sidebar.', 'benchmark-email-lite' ),
+				sizeof( $delete )
+			)
+		);
+	}
+
 
 	/************************
 	 WORDPRESS WIDGET METHODS

@@ -39,7 +39,7 @@
 
 <p id="subscribe_spinner-<?php echo $uniqid; ?>" style="display:none;text-align:center;">
 	<br /><img alt="Loading" src="<?php echo plugins_url(); ?>/benchmark-email-lite/loading.gif" />
-	<br /><?php echo __('Loading - Please wait', 'benchmark-email-lite'); ?>
+	<br /><?php _e( 'Loading - Please wait', 'benchmark-email-lite' ); ?>
 </p>
 
 <script type="text/javascript">
@@ -52,15 +52,15 @@ function benchmarkemaillite_<?php echo $uniqid; ?>(theForm) {
 		$id = "{$field}-{$key}-{$widgetid}-{$uniqid}";
 		if (isset($instance['fields_required'][$key]) && $instance['fields_required'][$key] == '1') {
 	?>
-	var elem = document.getElementById('<?php echo $id; ?>');
-	if (elem.value == '') { errors.push('<?php echo $label; ?>'); }
+	var elem = document.getElementById( '<?php echo $id; ?>' );
+	if (elem.value == '') { errors.push( '<?php echo $label; ?>' ); }
 	<?php } } ?>
 	if (errors.length > 0) {
-		alert('<?php echo __('Please complete the field(s):', 'benchmark-email-lite'); ?>\r' + errors.join('\r'));
+		alert( '<?php _e( 'Please complete the field(s):', 'benchmark-email-lite' ); ?>\r' + errors.join('\r') );
 		return false;
 	}
-	document.getElementById('subscribe_spinner-<?php echo $uniqid; ?>').style.display='block';
-	theForm.style.display='none';
+	document.getElementById( 'subscribe_spinner-<?php echo $uniqid; ?>' ).style.display = 'block';
+	theForm.style.display = 'none';
 	return true;
 }
 </script>

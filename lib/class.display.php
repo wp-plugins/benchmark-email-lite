@@ -84,29 +84,24 @@ class benchmarkemaillite_display {
 	add_filter( 'benchmarkemaillite_compile_email_theme', 'my_custom_function', 10, 1 );
 	*/
 	static function compile_email_theme( $data ) {
-		$options = get_option( 'benchmark-email-lite_group' );
+		$options = get_option( 'benchmark-email-lite_group_template' );
 
-		// Apply User Customizations
+		// Priority 1: Uses Child Plugin Customizations
 		if( has_filter( 'benchmarkemaillite_compile_email_theme' ) ) {
 			return apply_filters( 'benchmarkemaillite_compile_email_theme', $data );
 		}
 
-		// Not Customized
-		switch ( $options[3] ) {
-
-			// Use Site Theme As Email Template
-			case 'theme':
-				$theme = get_permalink( $postID );
-				break;
-
-			// Use Included Sample Email Template
-			default:
-				$theme = dirname( __FILE__ ) . '/../templates/simple.html.php';
+		// Priority 2: Uses Stored HTML
+		if ( isset( $options['html'] ) && $output = $options['html'] ) {
+			$output = str_replace( 'TITLE_HERE', $data['title'], $output );
+			$output = str_replace( 'BODY_HERE', $data['body'], $output );
+			return $output;
 		}
 
-		// Uses PHP Output Buffering
+		// Priority 3: Uses Template File
+		$themefile = dirname( __FILE__ ) . '/../templates/simple.html.php';
 		ob_start();
-		require( $theme );
+		require( $themefile );
 		$output = ob_get_contents();
 		ob_end_clean();
 		return $output;
