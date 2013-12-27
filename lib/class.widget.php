@@ -226,9 +226,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		if( isset( $widget_id ) ) {
 			$widgetid = explode( '-', $widget_id );
 			$widgetid = isset( $widgetid[1] ) ? $widgetid[1] : $widgetid[0];
-		} else {
-			$widgetid = $instance['widgetid'];
-		}
+		} else { $widgetid = $instance['widgetid']; }
 
 		// If Shortcode Mode, Remove Widget Wrapper Code
 		if( self::$is_shortcode ) { $before_widget = ''; $after_widget = ''; }
@@ -267,6 +265,32 @@ class benchmarkemaillite_widget extends WP_Widget {
 				echo "{$before_widget}{$title}{$printresponse}{$after_widget}";
 				return;
 			}
+		}
+
+		// Compile Fields
+		$fields = array();
+		$uniqid = ( self::$is_shortcode ) ? "{$widgetid}_shortcode" : "{$widgetid}_sidebar";
+		foreach( $instance['fields'] as $key => $field ) {
+
+			// Build Unique Identifier For Field
+			$id = sanitize_title( $field ) . "-{$key}-{$widgetid}-{$uniqid}";
+
+			// Build Field Label
+			$label = isset( $instance['fields_labels'][$key] ) ? $instance['fields_labels'][$key] : $field;
+
+			// Prepopulate WP Field Values
+			$value = '';
+			switch( $field ) {
+				case 'Email': $value = $email; break;
+				case 'First Name': $value = $first; break;
+				case 'Last Name': $value = $last; break;
+			}
+
+			// Repopulate Submitted Field Values
+			$value = isset( $_REQUEST[$id] ) ? esc_attr( $_REQUEST[$id] ) : $value;
+
+			// Store Field Data
+			$fields[] = array( 'id' => $id, 'label' => $label, 'value' => $value );
 		}
 
 		// Output Widget
