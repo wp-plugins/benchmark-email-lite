@@ -22,9 +22,9 @@ class benchmarkemaillite_settings {
 	// Administrative Links
 	static function plugin_row_meta( $links, $file ) {
 		if( basename( $file ) == basename( __FILE__ ) ) {
-			$link = '<a href="' . self::$linkcontact . '">' . __( 'Contact Developer', 'benchmark-email-lite' ) . '</a>';
+			$link = '<a target="_blank" href="' . self::$linkcontact . '">' . __( 'Contact Developer', 'benchmark-email-lite' ) . '</a>';
 			array_unshift( $links, $link );
-			$link = '<a href="' . self::$linkaffiliate . '">' . __( 'Free 30 Day Benchmark Email Trial', 'benchmark-email-lite' ) . '</a>';
+			$link = '<a target="_blank" href="' . self::$linkaffiliate . '">' . __( 'Free 30 Day Benchmark Email Trial', 'benchmark-email-lite' ) . '</a>';
 			array_unshift( $links, $link );
 		}
 		return $links;
@@ -35,32 +35,35 @@ class benchmarkemaillite_settings {
 
 		// Print Errors
 		if ( $val = get_transient( 'benchmark-email-lite_error' ) ) {
-			echo "
-				<div class='error'>
-					<p><strong>Benchmark Email Lite</strong></p>
-					<p>{$val}</p>
-				</div>
-			";
+			add_settings_error(
+				'benchmark-email-lite-notice',
+				esc_attr( 'settings_updated' ),
+				"<p>Benchmark Email Lite</p><p>{$val}</p>",
+				'error'
+			);
 			delete_transient( 'benchmark-email-lite_error' );
 		}
 
 		// Print Updates
 		if ( $val = get_transient( 'benchmark-email-lite_updated' ) ) {
-			echo "
-				<div class='updated'>
-					<p><strong>Benchmark Email Lite</strong></p>
-					<p>{$val}</p>
-				</div>
-			";
+			add_settings_error(
+				'benchmark-email-lite-notice',
+				esc_attr( 'settings_updated' ),
+				"<p>Benchmark Email Lite</p><p>{$val}</p>",
+				'updated'
+			);
 			delete_transient( 'benchmark-email-lite_updated' );
 		}
+
+		// Settings API Notices
+		settings_errors( 'benchmark-email-lite-notice' );
 	}
 
 	// Bad Configuration Message
 	static function badconfig_message() {
 		return 
 			__( 'Please configure your API key(s) on the', 'benchmark-email-lite' )
-			. ' <a href="admin.php?page=benchmark-email-lite-settings">'
+			. ' <a target="_blank" href="admin.php?page=benchmark-email-lite-settings">'
 			. __( 'Benchmark Email Lite settings page', 'benchmark-email-lite' )
 			. '.</a>';
 	}
@@ -80,8 +83,9 @@ class benchmarkemaillite_settings {
 
 		// Check And Set Defaults For Template Settings
 		$options_template = get_option( 'benchmark-email-lite_group_template' );
-		if( ! isset( $options_template['html'] ) ) {
-			$options_template['html'] = implode( '', dirname( __FILE__ ) . '/../templates/simple.html.php' );
+		if( ! isset( $options_template['html'] ) || ! strstr( $options_template['html'], 'BODY_HERE' ) ) {
+			$options_template['html'] = implode( '', file( dirname( __FILE__ ) . '/../templates/simple.html.php' ) );
+			update_option( 'benchmark-email-lite_group_template', $options_template );
 		}
 
 		// Exit If Already Configured
@@ -92,7 +96,7 @@ class benchmarkemaillite_settings {
 
 		// Gather Preexisting API Keys
 		if( isset( $options[1][0] ) ) { $tokens = array_merge( $tokens, $options[1] ); }
-		$tokens = array_unique($tokens);
+		$tokens = array_unique( $tokens );
 		update_option(
 			'benchmark-email-lite_group', array(
 				1 => $tokens, 2 => $options[2], 3 => $options[3], 4 => $options[4], 5 => $options[5],
@@ -271,11 +275,11 @@ class benchmarkemaillite_settings {
 				' . __( 'API Key(s) may expire after one year.', 'benchmark-email-lite' ) . '
 			</p>
 			<p>
-				<a href="' . self::$linkaffiliate . '" target="BenchmarkEmail">
+				<a target="_blank" href="' . self::$linkaffiliate . '" target="BenchmarkEmail">
 				' . __( 'Signup for a 30-day FREE Trial', 'benchmark-email-lite') . '
 				</a>,
 				' . __( 'or', 'benchmark-email-lite' ) . '
-				<a href="http://ui.benchmarkemail.com/EditSetting#_ctl0_ContentPlaceHolder1_UC_ClientSettings1_lnkGenerate" target="BenchmarkEmail">
+				<a target="_blank" href="http://ui.benchmarkemail.com/EditSetting#_ctl0_ContentPlaceHolder1_UC_ClientSettings1_lnkGenerate" target="BenchmarkEmail">
 				' . __( 'log in to Benchmark Email to get your API key', 'benchmark-email-lite' ) . '
 				</a>.
 			</p>
@@ -290,22 +294,22 @@ class benchmarkemaillite_settings {
 				' . __( 'The following is for advanced users to customize the HTML and CSS template that wraps the output of the post-to-campaign feature.', 'benchmark-email-lite' ) . '
 			</p>
 			<p>
-				' . __( 'For example, one can place an IMG tag that brings their logo in from their Media Library URL, placing the code above the H1 TITLE_HERE line.', 'benchmark-email-lite' ) . '
-				' . __( 'One can also change the two color codes EEEEEE and FFFFFF to their desired background and foreground colors.', 'benchmark-email-lite' ) . '
-				' . __( 'One can also change their fonts by changing the font name priorities and sizing.', 'benchmark-email-lite' ) . '
+				' . __( 'For example, one can place an IMG tag that brings their logo URL in from their Media Library by placing code above the `H1` line.', 'benchmark-email-lite' ) . '
+				' . __( 'One can also change the two color codes `EEEEEE` and `FFFFFF` to their desired background and foreground colors.', 'benchmark-email-lite' ) . '
+				' . __( 'One can also change their fonts by changing the `font-family` priorities and `font-size` sizing.', 'benchmark-email-lite' ) . '
 			</p>
 			<p>
 				' . __( 'There are two deprecated methods for applying changes to the template:', 'benchmark-email-lite' ) . '
 				' . __( 'the file in the `templates` folder of this plugin, used when the below is left empty,', 'benchmark-email-lite' ) . '
-				' . __( 'or an add-on plugin using the `benchmarkemaillite_compile_email_theme` filter as specified in this plugin\'s FAQ section.', 'benchmark-email-lite' ) . '
+				' . __( 'or an external custom plugin using the `benchmarkemaillite_compile_email_theme` filter.', 'benchmark-email-lite' ) . '
 			</p>
 			<p>
-				<a href="https://ui.benchmarkemail.com/help-support/help-FAQ-details?id=100">
-				' . __( 'Please review this helpdesk ticket for help with email template coding.', 'benchmark-email-lite' ) . '
+				<a target="_blank" href="https://ui.benchmarkemail.com/help-support/help-FAQ-details?id=100">
+				' . __( 'Please review this article for help with email template coding.', 'benchmark-email-lite' ) . '
 				</a>
 			</p>
 			<p>
-				<a href="http://www.w3schools.com/tags/ref_colorpicker.asp">
+				<a target="_blank" href="http://www.w3schools.com/tags/ref_colorpicker.asp">
 				' . __( 'This is a good resource for getting hexidecimal color codes.', 'benchmark-email-lite' ) . '
 				</a>
 			</p>
@@ -407,6 +411,12 @@ class benchmarkemaillite_settings {
 			// Sanitize Non Array Settings
 			else { $values[$key] = esc_attr( $val ); }
 		}
+		add_settings_error(
+			'benchmark-email-lite-notice',
+			esc_attr( 'settings_updated' ),
+			__( 'Settings saved.', 'benchmark-email-lite' ),
+			'updated'
+		);
 		return $values;
 	}
 }
