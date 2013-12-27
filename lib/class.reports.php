@@ -56,18 +56,16 @@ class benchmarkemaillite_reports {
 			benchmarkemaillite_api::$token = $key;
 			$response = benchmarkemaillite_api::campaigns();
 
+			// Skip If Errors
+			if( ! $response || isset( $response['faultCode'] ) ) { continue; }
+
 			// Loop Email Campaigns For Token
-			if( ! $response ) { continue; }
 			foreach( $response as $email ) {
 
 				// Append Data
-				$email['toListName'] = isset( $email['toListName'] )
-					? $email['toListName'] : '[none]';
+				$email['toListName'] = isset( $email['toListName'] ) ? $email['toListName'] : '[none]';
 				$email['report_url'] = self::url(
-					array(
-						'tokenindex' => $tokenindex,
-						'campaign' => $email['id'],
-					)
+					array( 'tokenindex' => $tokenindex, 'campaign' => $email['id'] )
 				);
 
 				// Save Data For Template Reference
