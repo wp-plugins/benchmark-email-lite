@@ -294,8 +294,8 @@ class benchmarkemaillite_settings {
 				' . __( 'The following is for advanced users to customize the HTML and CSS template that wraps the output of the post-to-campaign feature.', 'benchmark-email-lite' ) . '
 			</p>
 			<p>
-				' . __( 'For example, one can place an `IMG` tag that brings in their logo URL from their Media Library (place code just above the `H1` line).', 'benchmark-email-lite' ) . '
-				' . __( 'One can also change the two color codes `FFFFFF` to their desired background and foreground colors.', 'benchmark-email-lite' ) . '
+				' . __( 'For example, one can replace the `img` tag URL with their logo URL from their WP Media Library.', 'benchmark-email-lite' ) . '
+				' . __( 'One can also change the two color codes `ffffff` to their desired background and foreground colors.', 'benchmark-email-lite' ) . '
 				<a target="_blank" href="http://www.w3schools.com/tags/ref_colorpicker.asp">
 				' . __( 'Look up color codes here.', 'benchmark-email-lite' ) . '
 				</a>
@@ -347,15 +347,16 @@ class benchmarkemaillite_settings {
 		echo '
 			<textarea id="benchmark-email-template" name="benchmark-email-lite_group_template[html]"
 				style="width:100%;" cols="30" rows="20">' . $options['html'] . '</textarea><br />
-			<small>
-				<code>TITLE_HERE</code>' . __( 'will be replaced with the WP page title.', 'benchmark-email-lite' ) . '<br />
-				<code>BODY_HERE</code>' . __( 'will be replaced with the WP page body.', 'benchmark-email-lite' ) . '
-			</small>
-			<p>
-				<strong>
-				' . __( 'Be sure to send email tests after making changes to the email template!', 'benchmark-email-lite' ) . '
-				</strong>
-			</p>
+			<ul>
+				<li><code>TITLE_HERE</code>' . __( 'will be replaced with the WP page title.', 'benchmark-email-lite' ) . '</li>
+				<li><code>BODY_HERE</code>' . __( 'will be replaced with the WP page body.', 'benchmark-email-lite' ) . '</li>
+				<li><code>EMAIL_MD5_HERE</code>' . __( 'will be replaced with the WP site admin email hash (for Gravatar).', 'benchmark-email-lite' ) . '</li>
+				<li>
+					<strong>
+					' . __( 'Be sure to send email tests after making changes to the email template!', 'benchmark-email-lite' ) . '
+					</strong>
+				</li>
+			</ul>
 		';
 	}
 

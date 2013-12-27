@@ -93,6 +93,8 @@ class benchmarkemaillite_display {
 
 		// Priority 2: Uses Stored HTML
 		if ( isset( $options['html'] ) && $output = $options['html'] ) {
+			$admin_email = md5( strtolower( get_option( 'admin_email' ) ) );
+			$output = str_replace( 'EMAIL_MD5_HERE', $admin_email, $output );
 			$output = str_replace( 'TITLE_HERE', $data['title'], $output );
 			$output = str_replace( 'BODY_HERE', $data['body'], $output );
 			return $output;

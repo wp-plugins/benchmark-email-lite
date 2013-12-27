@@ -19,13 +19,16 @@
 	.wp-caption p.wp-caption-text { font-size: 11px; line-height: 17px; margin:0; padding: 0 4px 5px; }
 </style>
 
-<table border="0" width="100%" style="background-color: #FFFFFF;">
+<table border="0" width="100%" style="background-color: #ffffff;">
 	<tr>
 		<td align="center">
-			<table border="0" width="650" style="background-color: #FFFFFF;">
+			<table border="0" width="650" style="background-color: #ffffff;">
 				<tr>
 					<td style="border-bottom: 1px solid #000000; font-family: Arial Black;">
-						<h1>TITLE_HERE</h1>
+						<p>
+							<h1 class="alignleft">TITLE_HERE</h1>
+							<img class="alignright" src="http://www.gravatar.com/avatar/EMAIL_MD5_HERE?s=40" />
+						</p>
 					</td>
 				</tr>
 				<tr>
