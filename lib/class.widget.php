@@ -259,11 +259,11 @@ class benchmarkemaillite_widget extends WP_Widget {
 		$printresponse = '';
 		if( isset( self::$response[$widgetid][0] ) ) {
 			$printresponse = ( self::$response[$widgetid][0] )
-				? '<p class="successmsg">' . self::$response[$widgetid][1] . '</p>'
-				: '<p class="errormsg">' . self::$response[$widgetid][1] . '</p>';
+				? '<p style="font-weight:bold;color:green;">' . self::$response[$widgetid][1] . '</p>'
+				: '<p style="font-weight:bold;color:red;">' . self::$response[$widgetid][1] . '</p>';
 
 			// If Submission Without Errors, Output Response Without Form
-			if( isset( self::$response[$widgetid][0] ) ) {
+			if( self::$response[$widgetid][0] ) {
 				echo "{$before_widget}{$title}{$printresponse}{$after_widget}";
 				return;
 			}
