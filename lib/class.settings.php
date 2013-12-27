@@ -294,29 +294,15 @@ class benchmarkemaillite_settings {
 				' . __( 'The following is for advanced users to customize the HTML and CSS template that wraps the output of the post-to-campaign feature.', 'benchmark-email-lite' ) . '
 			</p>
 			<p>
-				' . __( 'For example, one can place an IMG tag that brings their logo URL in from their Media Library by placing code above the `H1` line.', 'benchmark-email-lite' ) . '
-				' . __( 'One can also change the two color codes `EEEEEE` and `FFFFFF` to their desired background and foreground colors.', 'benchmark-email-lite' ) . '
-				' . __( 'One can also change their fonts by changing the `font-family` priorities and `font-size` sizing.', 'benchmark-email-lite' ) . '
-			</p>
-			<p>
-				' . __( 'There are two deprecated methods for applying changes to the template:', 'benchmark-email-lite' ) . '
-				' . __( 'the file in the `templates` folder of this plugin, used when the below is left empty,', 'benchmark-email-lite' ) . '
-				' . __( 'or an external custom plugin using the `benchmarkemaillite_compile_email_theme` filter.', 'benchmark-email-lite' ) . '
-			</p>
-			<p>
-				<a target="_blank" href="https://ui.benchmarkemail.com/help-support/help-FAQ-details?id=100">
-				' . __( 'Please review this article for help with email template coding.', 'benchmark-email-lite' ) . '
-				</a>
-			</p>
-			<p>
+				' . __( 'For example, one can place an `IMG` tag that brings in their logo URL from their Media Library (place code just above the `H1` line).', 'benchmark-email-lite' ) . '
+				' . __( 'One can also change the two color codes `FFFFFF` to their desired background and foreground colors.', 'benchmark-email-lite' ) . '
 				<a target="_blank" href="http://www.w3schools.com/tags/ref_colorpicker.asp">
-				' . __( 'This is a good resource for getting hexidecimal color codes.', 'benchmark-email-lite' ) . '
+				' . __( 'Look up color codes here.', 'benchmark-email-lite' ) . '
 				</a>
-			</p>
-			<p>
-				<strong>
-				' . __( 'Be sure to send an email test after making any changes to the email template.', 'benchmark-email-lite' ) . '
-				</strong>
+				' . __( 'One can also change their fonts by changing the `font-family` priorities and `font-size` sizing.', 'benchmark-email-lite' ) . '
+				<a target="_blank" href="https://ui.benchmarkemail.com/help-support/help-FAQ-details?id=100">
+				' . __( 'This article helps you with email template coding.', 'benchmark-email-lite' ) . '
+				</a>
 			</p>
 		';
 	}
@@ -358,14 +344,19 @@ class benchmarkemaillite_settings {
 	}
 	static function field_template() {
 		$options = get_option( 'benchmark-email-lite_group_template' );
-		echo "
-			<textarea id='benchmark-email-template' name='benchmark-email-lite_group_template[html]'
-				style='width:100%;' cols='30' rows='20'>{$options['html']}</textarea><br />
+		echo '
+			<textarea id="benchmark-email-template" name="benchmark-email-lite_group_template[html]"
+				style="width:100%;" cols="30" rows="20">' . $options['html'] . '</textarea><br />
 			<small>
-				<code>TITLE_HERE</code>" . __( 'will be replaced with the WP page title.', 'benchmark-email-lite' ) . "<br />
-				<code>BODY_HERE</code>" . __( 'will be replaced with the WP page body.', 'benchmark-email-lite' ) . "
+				<code>TITLE_HERE</code>' . __( 'will be replaced with the WP page title.', 'benchmark-email-lite' ) . '<br />
+				<code>BODY_HERE</code>' . __( 'will be replaced with the WP page body.', 'benchmark-email-lite' ) . '
 			</small>
-		";
+			<p>
+				<strong>
+				' . __( 'Be sure to send email tests after making changes to the email template!', 'benchmark-email-lite' ) . '
+				</strong>
+			</p>
+		';
 	}
 
 	// Settings API Field Validations
