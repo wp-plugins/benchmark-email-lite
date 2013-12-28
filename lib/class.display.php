@@ -97,7 +97,7 @@ class benchmarkemaillite_display {
 			$output = str_replace( 'EMAIL_MD5_HERE', $admin_email, $output );
 			$output = str_replace( 'TITLE_HERE', $data['title'], $output );
 			$output = str_replace( 'BODY_HERE', $data['body'], $output );
-			return $output;
+			return self::normalize_html( $output );
 		}
 
 		// Priority 3: Uses Template File
@@ -106,7 +106,78 @@ class benchmarkemaillite_display {
 		require( $themefile );
 		$output = ob_get_contents();
 		ob_end_clean();
-		return $output;
+		return self::normalize_html( $output );
+	}
+
+	// Convert WP Core CSS To Embedded
+	static function normalize_html( $html ) {
+
+		// Proceed Only When Possible
+		if( ! class_exists( 'DOMDocument' ) ) { return $html; }
+
+		// Rules To Apply
+		$rules = array(
+			'alignnone' => 'margin: 5px 20px 20px 0; ',
+			'aligncenter' => 'display: block; margin: 5px auto 5px auto; ',
+			'alignright' => 'float: right; margin: 5px 0 20px 20px; ',
+			'alignleft' => 'float: left; margin: 5px 20px 20px 0; ',
+			'wp-caption' => 'background: #fff; border: 1px solid #f0f0f0; max-width: 96%; padding: 5px 3px 10px; text-align: center; ',
+			'wp-caption-text' => 'font-size: 11px; line-height: 17px; margin:0; padding: 0 4px 5px; ',
+			//'wp-caption img' => 'border: 0 none; height: auto; margin: 0; max-width: 98.5%; padding: 0; width: auto;',
+		);
+
+		// Tags To Process
+		$searchtags = array( 'p', 'span', 'img', 'div', 'h1', 'h2', 'h3', 'h4' );
+
+		// Suppress PHP Warnings
+		libxml_use_internal_errors( true );
+
+		// Open HTML
+		$doc = DOMDocument::loadHTML( $html );
+
+		// Loop Tags
+		foreach( $searchtags as $tag ) {
+
+			// Search For Matches
+			$foundtags = $doc->getElementsByTagName( $tag );
+			if( ! $foundtags ) { continue; }
+
+			// Loop Matching Tags
+			foreach( $foundtags as $para ) {
+
+				// Search For Classes
+				$classes = array();
+				if( $para->hasAttribute( 'class' ) ) {
+					$classes = $para->getAttribute( 'class' );
+					$para->removeAttribute( 'class' );
+					$classes = explode( ' ', $classes );
+				}
+
+				// Loop Classes
+				$style = '';
+				foreach( $classes as $class ) {
+
+					// Skip Non Conversion Classes
+					if( ! in_array( $class, array_keys( $rules ) ) ) { continue; }
+
+					// Accumulate Styling Rules To Apply
+					$style .= $rules[$class];
+				}
+
+				// Store Rules Into Tag
+				$para->setAttribute( 'style', $style );
+			}
+		}
+
+		// Assemble HTML
+		$newdoc = $doc->saveHTML();
+
+		// Handle Errors
+		//$errors = libxml_get_errors();
+		//if( $errors ) { print_r( $errors ); }
+
+		// Output
+		return $newdoc;
 	}
 
 	// HTML Table Generator
