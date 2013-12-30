@@ -127,7 +127,7 @@ if( $response['clicks'] ) {
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-google.load( "visualization", "1", { packages:["corechart"] } );
+google.load( 'visualization', '1', { packages:['corechart'] } );
 google.setOnLoadCallback( drawChart );
 function drawChart() {
 	var data = google.visualization.arrayToDataTable( [
@@ -137,6 +137,7 @@ function drawChart() {
 		['<?php _e( 'Unopened', 'benchmark-email-lite' ); ?>', <?php echo $response['unopens']; ?>]
 	]);
 	var options = {
+		backgroundColor: { fill: 'transparent' },
 		chartArea: { width: 400, height: 365 },
 		width: 500,
 		height: 400,
