@@ -45,34 +45,44 @@ class benchmarkemaillite_reports {
 	static function showListings() {
 		$options = get_option( 'benchmark-email-lite_group' );
 		$url = self::url();
-		$data = array();
 
-		// Loop API Tokens
-		foreach( $options[1] as $tokenindex => $key ) {
-			if( ! $key ) { continue; }
-			$data[$key] = array();
+		// Try To Load From Cache
+		$data = get_transient( "benchmarkemaillite_emails" );
+		if( ! $data ) {
 
-			// Get Email Campaigns For Token
-			benchmarkemaillite_api::$token = $key;
-			$response = benchmarkemaillite_api::campaigns();
+			// Loop API Tokens
+			$data = array();
+			foreach( $options[1] as $tokenindex => $key ) {
+				if( ! $key ) { continue; }
+				$data[$key] = array();
 
-			// Skip If Errors
-			if( ! $response || isset( $response['faultCode'] ) ) { continue; }
+				// Get Email Campaigns For Token
+				benchmarkemaillite_api::$token = $key;
+				$response = benchmarkemaillite_api::campaigns();
 
-			// Loop Email Campaigns For Token
-			foreach( $response as $email ) {
+				// Skip If Errors
+				if( ! $response || isset( $response['faultCode'] ) ) { continue; }
 
-				// Append Data
-				$email['toListName'] = isset( $email['toListName'] ) ? $email['toListName'] : '[none]';
-				$email['report_url'] = self::url(
-					array( 'tokenindex' => $tokenindex, 'campaign' => $email['id'] )
-				);
+				// Loop Email Campaigns For Token
+				foreach( $response as $email ) {
 
-				// Save Data For Template Reference
-				$data[$key][] = $email['id'];
-				set_transient( "benchmarkemaillite_{$email['id']}", $email, 3600 );
+					// Append Data
+					$email['toListName'] = isset( $email['toListName'] ) ? $email['toListName'] : '[none]';
+					$email['report_url'] = self::url(
+						array( 'tokenindex' => $tokenindex, 'campaign' => $email['id'] )
+					);
+
+					// Save Data For Template Reference
+					$data[$key][] = $email['id'];
+					set_transient( "benchmarkemaillite_{$email['id']}", $email, 3600 );
+				}
 			}
+
+			// Cache For 15 Minutes
+			set_transient( "benchmarkemaillite_emails", $data, 900 );
 		}
+
+		// Output
 		require( dirname( __FILE__ ) . '/../views/reports.level1.html.php' );
 	}
 
@@ -80,21 +90,31 @@ class benchmarkemaillite_reports {
 	static function showCampaignSummary() {
 		$meta = self::meta();
 		$url = self::$base_url . http_build_query( $meta );
+
+		// Output Back Link
 		echo '
 			<p>
-				<a href="' . self::$base_url . '"
-					title="' . __( 'Back to Emails', 'benchmark-email-lite' ) . '">
-					' . __( 'Back to Emails', 'benchmark-email-lite' ) . '</a>
+				<a href="' . self::$base_url . '" title="' . __( 'Back to Emails', 'benchmark-email-lite' ) . '">
+					' . __( 'Back to Emails', 'benchmark-email-lite' ) . '
+				</a>
 			</p>
 		';
-		$response = benchmarkemaillite_api::campaign_summary( $meta->campaign );
-		$response['unopens'] =
-			intval( $response['mailSent'] )
-			- intval( $response['opens'] )
-			- intval( $response['bounces'] );
-		$response['clicks_percent'] = ( $response['opens'] ) ? 100 * $response['clicks'] / $response['opens'] : 0;
-		$response = array_merge( $response, get_transient( "benchmarkemaillite_{$meta->campaign}" ) );
-		set_transient( "benchmarkemaillite_{$meta->campaign}", $response, 3600 );
+
+		// Try To Use Cache
+		$response = get_transient( "benchmarkemaillite_{$meta->campaign}" );
+		if( ! isset( $response['unopens'] ) ) {
+
+			// Get Campaign Stats
+			$response = benchmarkemaillite_api::campaign_summary( $meta->campaign );
+			$response['unopens'] = intval( $response['mailSent'] ) - intval( $response['opens'] ) - intval( $response['bounces'] );
+			$response['clicks_percent'] = ( $response['opens'] ) ? 100 * $response['clicks'] / $response['opens'] : 0;
+			$response = array_merge( $response, get_transient( "benchmarkemaillite_{$meta->campaign}" ) );
+
+			// Cache For 5 Minutes
+			set_transient( "benchmarkemaillite_{$meta->campaign}", $response, 300 );
+		}
+
+		// Output
 		require( dirname( __FILE__ ) . '/../views/reports.level2.html.php' );
 	}
 
