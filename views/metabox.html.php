@@ -34,32 +34,30 @@
 <p>
 	<input type="radio" name="bmeaction" value="3" id="bmeaction_3" />
 	<label for="bmeaction_3"><?php _e( 'Schedule delivery', 'benchmark-email-lite' ); ?></label>
-	<div style="text-align:center;">
-		<select name="bmedate" id="bmedate">
-		<?php
-		for( $i = 0; $i <= 365; $i++ ) {
-			$inc = $localtime + ( 86400 * $i );
-			echo '<option value="' . date( 'd M Y', $inc ) . '">' . date( 'M d Y - D', $inc ) . '</option>';
-		}
-		?>
-		</select><br />
-		@ <select name="bmetime" id="bmetime">
-		<?php
-		for( $i = 0; $i <= 95; $i++ ) {
-			$inc = $localtime_quarterhour + ( 900 * $i );
-			echo '<option value="' . date( 'H:i', $inc ) . '">' . date( 'h:i a', $inc ) . '</option>';
-		}
-		?>
-		</select> <?php echo $localtime_zone; ?><br />
-		<small>
-			<?php _e( 'To schedule in a different timezone, set your', 'benchmark-email-lite' ); ?>
-			<a target="_blank" href="options-general.php"><?php _e( 'WordPress', 'benchmark-email-lite' ); ?></a>
-			<?php _e( 'and', 'benchmark-email-lite' ); ?>
-			<a target="_blank" href="http://ui.benchmarkemail.com/EditSetting#ContentPlaceHolder1_UC_ClientSettings1_lblTimeZone">
-			<?php _e( 'Benchmark Email', 'benchmark-email-lite' ); ?></a>
-			<?php _e( 'timezones', 'benchmark-email-lite' ); ?>.
-		</small>
-	</div>
+	<select name="bmedate" id="bmedate">
+	<?php
+	for( $i = 0; $i <= 365; $i++ ) {
+		$inc = $localtime + ( 86400 * $i );
+		echo '<option value="' . date( 'd M Y', $inc ) . '">' . date( 'M d Y - D', $inc ) . '</option>';
+	}
+	?>
+	</select><br />
+	@ <select name="bmetime" id="bmetime">
+	<?php
+	for( $i = 0; $i <= 95; $i++ ) {
+		$inc = $localtime_quarterhour + ( 900 * $i );
+		echo '<option value="' . date( 'H:i', $inc ) . '">' . date( 'H:i', $inc ) . '</option>';
+	}
+	?>
+	</select> <?php echo $localtime_zone; ?><br />
+	<small>
+		<?php _e( 'To schedule in a different timezone, set your', 'benchmark-email-lite' ); ?>
+		<a target="_blank" href="options-general.php"><?php _e( 'WordPress', 'benchmark-email-lite' ); ?></a>
+		<?php _e( 'and', 'benchmark-email-lite' ); ?>
+		<a target="_blank" href="http://ui.benchmarkemail.com/EditSetting#ContentPlaceHolder1_UC_ClientSettings1_lblTimeZone">
+		<?php _e( 'Benchmark Email', 'benchmark-email-lite' ); ?></a>
+		<?php _e( 'timezones', 'benchmark-email-lite' ); ?>.
+	</small>
 </p>
 <p><?php _e( 'Need help? Please call Benchmark Email at 800.430.4095.', 'benchmark-email-lite' ); ?></p>
 <input type="hidden" name="bmesubmit" id="bmesubmit" value="" />

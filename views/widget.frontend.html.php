@@ -42,7 +42,7 @@ function benchmarkemaillite_<?php echo $uniqid; ?>(theForm) {
 	if (elem.value == '') { errors.push( '<?php echo $label; ?>' ); }
 	<?php } } ?>
 	if (errors.length > 0) {
-		alert( '<?php _e( 'Please complete the field(s):', 'benchmark-email-lite' ); ?>\r' + errors.join('\r') );
+		alert( '<?php _e( 'Please complete the field(s):', 'benchmark-email-lite' ); ?>\n' + errors.join( '\n' ) );
 		return false;
 	}
 	document.getElementById( 'subscribe_spinner-<?php echo $uniqid; ?>' ).style.display = 'block';
