@@ -47,7 +47,7 @@ class benchmarkemaillite_reports {
 		$url = self::url();
 
 		// Try To Load From Cache
-		$data = get_transient( "benchmarkemaillite_emails" );
+		$data = get_transient( 'benchmarkemaillite_emails' );
 		if( ! $data ) {
 
 			// Loop API Tokens
@@ -72,14 +72,14 @@ class benchmarkemaillite_reports {
 						array( 'tokenindex' => $tokenindex, 'campaign' => $email['id'] )
 					);
 
-					// Save Data For Template Reference
+					// Cache Email Specifics For 5 Minutes
 					$data[$key][] = $email['id'];
-					set_transient( "benchmarkemaillite_{$email['id']}", $email, 3600 );
+					set_transient( "benchmarkemaillite_{$email['id']}", $email, 300 );
 				}
 			}
 
-			// Cache For 15 Minutes
-			set_transient( "benchmarkemaillite_emails", $data, 900 );
+			// Cache Email List For 5 Minutes
+			set_transient( 'benchmarkemaillite_emails', $data, 300 );
 		}
 
 		// Output
@@ -110,7 +110,7 @@ class benchmarkemaillite_reports {
 			$response['clicks_percent'] = ( $response['opens'] ) ? 100 * $response['clicks'] / $response['opens'] : 0;
 			$response = array_merge( $response, get_transient( "benchmarkemaillite_{$meta->campaign}" ) );
 
-			// Cache For 5 Minutes
+			// Cache Email Specifics For 5 Minutes
 			set_transient( "benchmarkemaillite_{$meta->campaign}", $response, 300 );
 		}
 
