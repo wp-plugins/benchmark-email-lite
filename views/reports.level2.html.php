@@ -35,7 +35,7 @@
 			<tr>
 				<td><?php _e('Links Clicked', 'benchmark-email-lite'); ?></td>
 				<td>
-					<?php echo ( $response['clicks'] ) ? $response['clicks'] : 0; ?>
+					<?php echo ( $response['clicks'] ) ? "<a href='{$url}clicks_all' title='" . __( 'Click to view report', 'benchmark-email-lite') . "'>{$response['clicks']}</a>" : 0; ?>
 				</td>
 				<td>
 					<?php echo number_format( $response['clicks_percent'] , 1 ); ?>%
