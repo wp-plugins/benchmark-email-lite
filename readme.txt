@@ -92,37 +92,7 @@ There is an optional setting to limit the Plugin to a single page, if desired. T
 
 = How can I customize the email template? =
 
-In version 2.4.3 we added a filter to permit email template customization using external code. This allows you to customize the email template while continuing to keep the Plugin up to date. Use the following code in a new Plugin file `wp-content/plugins/my_custom_plugin/my_custom_plugin.php`. Put your own HTML within the area containing the sample HTML, being careful not to use any double quotes, or escaping any double quotes with a backslash. Activate the Plugin you've just created to have it automatically use your new template.
-
-`
-<?php
-/*
-Plugin Name: Customize Benchmark Email Lite Email Template
-Plugin URI: http://wordpress.org/extend/plugins/benchmark-email-lite/
-Description: Customizes the Benchmark Email Lite Plugin's email template.
-Version: 1.0
-Author: Myself
-Author URI: http://www.beautomated.com/contact/
-License: GPL2
-*/
-add_filter( 'benchmarkemaillite_compile_email_theme', 'benchmarkemaillite_theme', 10, 1 );
-function benchmarkemaillite_theme( $args ) {
-	return "
-		<html>
-			<head>
-				<title>{$args['title']}</title>
-			</head>
-			<body>
-				<div style='background-color: #eee; padding: 15px; margin: 15px; border: 1px double #ddd;'>
-					<h1>{$args['title']}</h1>
-					{$args['body']}
-				</div>
-			</body>
-		</html>
-	";
-}
-?>
-`
+In version 2.4.3 we added a filter `benchmarkemaillite_compile_email_theme` to permit email template customization using external code. In version 2.4.5 we added an email template editing interface for users who know enough HTML code to apply customizations. The code automatically embeds WP core CSS and applies HTML normalization.
 
 = How do I make the form match my theme? =
 
@@ -163,6 +133,29 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 8. This is a sample email campaign report overview.
 
 == Changelog ==
+
+= 2.4.5 on 2013-12-31 =
+
+* Added: Email Template tab with instructions for customizing the email template colors, fonts, and logo, with button to reset template to default values.
+* Added: HTML processing library to normalize the email template and body HTML and convert WP core classes to embedded CSS for GMail.
+* Added: Overall report of all links clicked and by whom, in addition to the click performance report and link detail report.
+* Added: Link to flush/refresh transients on reports level 1 and 2 screens now that we use the 5min caching.
+* Added: Auto flushing of report transients/cache at new campaign creation.
+* Added: Email template EMAIL_MD5_HERE anchor to bring in the Gravatar site admin email hash for logo sample purposes.
+* Added: Settings saved message to settings panels.
+* Added: Hook to prepopulate with the default values when setting is new on an installation, logic that resets the template to default to always run except when template contains BODY_HERE to ensure that no faulty template not containing the page body can be saved.
+* Updated: Default template HTML a bit and adjusted descriptive text on the template page editor as well as target=_blank linking.
+* Updated: JS error alert box linebreaks for FireFox compatibility. Put metabox date/time fields line break to separate them a bit.
+* Updated: Reports WP transients to store email list for 5mins (level 1) and campaign summaries (level 2) for 5mins. Campaign details (level 3) continue to be pulled in realtime. Improves performance when clicking around.
+* Updated: Pie chart background for transaprency for WP38 admin theming.
+* Updated: Widget and shortcode submission handling to return the form upon errors. Trac references #2103.
+* Updated: Metabox time drop down to display in North American standard.
+* Updated: Gettext i18n echoing for cleaner code.
+* Updated: Email rendering code to pull from the new admin setting for Email Template HTML prior to using the previous template file.
+* Updated: Settings API structuring to accomodate the second settings page.
+* Fixed: Bug in the code that deactivates widgets of disabled API keys. Thanks to kris0499 for the issue report.
+* Fixed: Repopulation of widget after submission errors occur. Trac references #2104
+* Fixed: FaultCode detection to level 1 reports page. Trac references #2101
 
 = 2.4.4 on 2013-12-14 =
 
@@ -331,6 +324,10 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: Initial Plugin release.
 
 == Upgrade Notice ==
+
+= 2.4.5 =
+
+* This adds an email template editing interface and contains several other updates and fixes.
 
 = 2.4.4 =
 
