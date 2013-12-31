@@ -153,8 +153,10 @@ class benchmarkemaillite_display {
 					$classes = explode( ' ', $classes );
 				}
 
+				// Preserve Any Existing Styles
+				$style = $para->hasAttribute( 'style' ) ? $para->getAttribute( 'style' ) . ' ' : '';
+
 				// Loop Classes
-				$style = '';
 				foreach( $classes as $class ) {
 
 					// Skip Non Conversion Classes
