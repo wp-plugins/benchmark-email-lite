@@ -1,8 +1,5 @@
 <p>
-	<?php _e( 'This information is cached for 5 minutes to improve performance.', 'benchmark-email-lite' ); ?>
-	<a href="<?php echo $url; ?>&amp;flush=1">
-	<?php _e( 'Click to refresh with realtime data.', 'benchmark-email-lite' ); ?>
-	</a>
+	<a href="<?php echo $url; ?>&amp;flush=1"><?php _e( 'Refresh Data', 'benchmark-email-lite' ); ?></a>
 </p>
 
 <div style="float: left; min-width: 500px; width: 50%;">
