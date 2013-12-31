@@ -1,4 +1,10 @@
-<br />
+<p>
+	<?php _e( 'This information is cached for 5 minutes to improve performance.', 'benchmark-email-lite' ); ?>
+	<a href="<?php echo $url; ?>&amp;flush=1">
+	<?php _e( 'Click to refresh with realtime data.', 'benchmark-email-lite' ); ?>
+	</a>
+</p>
+
 <table class="widefat" cellspacing="0">
 	<thead>
 		<tr>

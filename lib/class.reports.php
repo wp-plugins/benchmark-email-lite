@@ -45,10 +45,11 @@ class benchmarkemaillite_reports {
 	static function showListings() {
 		$options = get_option( 'benchmark-email-lite_group' );
 		$url = self::url();
+		$flush = ( isset( $_REQUEST['flush'] ) && $_REQUEST['flush'] == '1' ) ? true : false;
 
 		// Try To Load From Cache
 		$data = get_transient( 'benchmarkemaillite_emails' );
-		if( ! $data ) {
+		if( ! $data || $flush ) {
 
 			// Loop API Tokens
 			$data = array();
@@ -90,6 +91,7 @@ class benchmarkemaillite_reports {
 	static function showCampaignSummary() {
 		$meta = self::meta();
 		$url = self::$base_url . http_build_query( $meta );
+		$flush = ( isset( $_REQUEST['flush'] ) && $_REQUEST['flush'] == '1' ) ? true : false;
 
 		// Output Back Link
 		echo '
@@ -102,7 +104,7 @@ class benchmarkemaillite_reports {
 
 		// Try To Use Cache
 		$response = get_transient( "benchmarkemaillite_{$meta->campaign}" );
-		if( ! isset( $response['unopens'] ) ) {
+		if( ! isset( $response['unopens'] ) || $flush ) {
 
 			// Get Campaign Stats
 			$response = benchmarkemaillite_api::campaign_summary( $meta->campaign );

@@ -291,7 +291,7 @@ class benchmarkemaillite_settings {
 	static function section_template() {
 		echo '
 			<p>
-				' . __( 'The following is for advanced users to customize the HTML and CSS template that wraps the output of the post-to-campaign feature.', 'benchmark-email-lite' ) . '
+				' . __( 'The following is for advanced users to customize the HTML template that wraps the output of the post-to-campaign feature.', 'benchmark-email-lite' ) . '
 			</p>
 			<p>
 				' . __( 'For example, one can replace the `img` tag URL with their logo URL from their WP Media Library.', 'benchmark-email-lite' ) . '
@@ -351,12 +351,12 @@ class benchmarkemaillite_settings {
 				<li><code>TITLE_HERE</code>' . __( 'will be replaced with the WP page title.', 'benchmark-email-lite' ) . '</li>
 				<li><code>BODY_HERE</code>' . __( 'will be replaced with the WP page body.', 'benchmark-email-lite' ) . '</li>
 				<li><code>EMAIL_MD5_HERE</code>' . __( 'will be replaced with the WP site admin email hash (for Gravatar).', 'benchmark-email-lite' ) . '</li>
-				<li>
-					<strong>
-					' . __( 'Be sure to send email tests after making changes to the email template!', 'benchmark-email-lite' ) . '
-					</strong>
-				</li>
 			</ul>
+			<p>
+				<strong>
+				' . __( 'Be sure to send email tests after making changes to the email template!', 'benchmark-email-lite' ) . '
+				</strong>
+			</p>
 		';
 	}
 

@@ -147,6 +147,7 @@ class benchmarkemaillite_posts {
 			delete_transient( 'bmefrom' );
 			delete_transient( 'bmesubject' );
 			delete_transient( 'bmetestto' );
+			delete_transient( 'benchmarkemaillite_emails' );
 		}
 
 		// Schedule Campaign

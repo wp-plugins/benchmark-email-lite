@@ -1,3 +1,10 @@
+<p>
+	<?php _e( 'This information is cached for 5 minutes to improve performance.', 'benchmark-email-lite' ); ?>
+	<a href="<?php echo $url; ?>&amp;flush=1">
+	<?php _e( 'Click to refresh with realtime data.', 'benchmark-email-lite' ); ?>
+	</a>
+</p>
+
 <div style="float: left; min-width: 500px; width: 50%;">
 	<p>
 		<strong><?php _e( 'Email name', 'benchmark-email-lite' ); ?>:</strong> <?php echo $response['emailName']; ?>
@@ -7,6 +14,7 @@
 		<div id="chart_div"></div>
 	</div>
 </div>
+
 <div style="float: right; width: 50%;">
 	<h3><?php _e( 'Email Statistics', 'benchmark-email-lite' ); ?></h3>
 	<table class="widefat">
