@@ -33,7 +33,9 @@
 </p>
 <p>
 	<input type="radio" name="bmeaction" value="3" id="bmeaction_3" />
-	<label for="bmeaction_3"><?php _e( 'Schedule delivery', 'benchmark-email-lite' ); ?></label>
+	<label for="bmeaction_3"><?php _e( 'Schedule delivery', 'benchmark-email-lite' ); ?></label><br />
+	
+	<!--
 	<select name="bmedate" id="bmedate">
 	<?php
 	for( $i = 0; $i <= 365; $i++ ) {
@@ -41,15 +43,52 @@
 		echo '<option value="' . date( 'd M Y', $inc ) . '">' . date( 'M d Y - D', $inc ) . '</option>';
 	}
 	?>
-	</select><br />
-	@ <select name="bmetime" id="bmetime">
+	</select>
+	-->
+	
+	<input type="text" class="datepicker" size="10" maxlength="10" id="bmedate" name="bmedate" value="<?php echo date( 'm/d/Y', $localtime_quarterhour ); ?>" />
+	
+	@
+	
+	<!--
+	<select name="bmetime" id="bmetime">
 	<?php
 	for( $i = 0; $i <= 95; $i++ ) {
 		$inc = $localtime_quarterhour + ( 900 * $i );
 		echo '<option value="' . date( 'H:i', $inc ) . '">' . date( 'H:i', $inc ) . '</option>';
 	}
 	?>
-	</select> <?php echo $localtime_zone; ?><br />
+	</select>
+	-->
+
+	<label for="bmetime">at</label>
+	<input type="text" size="5" maxlength="5" id="bmetime" name="bmetime" value="<?php echo date( 'H:i', $localtime_quarterhour ); ?>" />
+	<?php echo $localtime_zone; ?>
+	<div id="bmetime-slider"></div>
+
+	<script type="text/javascript">
+	jQuery( document ).ready( function() {
+		jQuery( '#bmetime-slider' ).slider( {
+			value: <?php
+						$minutes = explode( ':', date( 'H:i', $localtime_quarterhour ) );
+						echo $minutes[0] * 60 + $minutes[1];
+					?>,
+			min: 0,
+			max: 1440,
+			step: 15,
+			slide: function( event, ui ) {
+				var hours = Math.floor( ui.value / 60 );
+				var minutes = ui.value - ( hours * 60 );
+				hours = ( hours < 10 ) ? '0' + hours : hours;
+				minutes = ( minutes < 10 ) ? '0' + minutes : minutes;
+				jQuery( '#bmetime' ).val( hours + ':' + minutes );
+			}
+		} );
+		//jQuery( '#bmetime' ).val( jQuery( '#slider' ).slider( 'value' ) );
+	} );
+	</script>
+</p>
+<p>
 	<small>
 		<?php _e( 'To schedule in a different timezone, set your', 'benchmark-email-lite' ); ?>
 		<a target="_blank" href="options-general.php"><?php _e( 'WordPress', 'benchmark-email-lite' ); ?></a>

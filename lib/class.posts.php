@@ -4,6 +4,8 @@ class benchmarkemaillite_posts {
 
 	// Create Pages+Posts Metaboxes
 	static function admin_init() {
+		wp_enqueue_script( 'jquery-ui-slider' );
+		wp_enqueue_script( 'jquery-ui-datepicker' );
 		add_meta_box(
 			'benchmark-email-lite',
 			'Benchmark Email Lite',

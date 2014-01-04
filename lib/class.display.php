@@ -133,7 +133,7 @@ class benchmarkemaillite_display {
 		libxml_use_internal_errors( true );
 
 		// Open HTML
-		$doc = DOMDocument::loadHTML( $html );
+		$doc = @DOMDocument::loadHTML( $html );
 
 		// Loop Tags
 		foreach( $searchtags as $tag ) {

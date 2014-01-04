@@ -3,32 +3,30 @@
 </p>
 
 <table class="widefat" cellspacing="0">
+
+	<?php
+	$errors = array();
+	foreach( $data as $key => $emails ) {
+		if( ! $emails ) { $errors[] = $key; continue; }
+	?>
 	<thead>
 		<tr>
-			<th width="90"><?php _e( 'API key', 'benchmark-email-lite' ); ?></th>
-			<th width="*"><?php _e( 'Email name', 'benchmark-email-lite' ); ?></th>
-			<th width="90"><?php _e( 'Date Modified', 'benchmark-email-lite' ); ?></th>
+			<th width="*">
+				<?php _e( 'Email Name', 'benchmark-email-lite' ); ?>
+				<small>
+					(<?php _e( 'Emails for API key', 'benchmark-email-lite' ); ?>: <?php echo $key; ?>)
+				</small>
+			</th>
+			<th width="100"><?php _e( 'Date Modified', 'benchmark-email-lite' ); ?></th>
 		</tr>
 	</thead>
 	<tbody>
 
 		<?php
-		$errors = array();
-		foreach( $data as $key => $emails ) {
-			if( ! $emails ) { $errors[] = $key; continue; }
-		?>
-
-		<tr>
-			<th colspan="3"><small><?php echo $key; ?></small></th>
-		</tr>
-
-		<?php
 		foreach( $emails as $id ) {
 			$email = get_transient( "benchmarkemaillite_{$id}" );
 		?>
-
 		<tr>
-			<td></td>
 			<td>
 				<a href="<?php echo $email['report_url']; ?>">
 				<?php echo $email['emailName']; ?></a><br />
@@ -39,12 +37,11 @@
 			</td>
 			<td><?php echo $email['scheduleDate']; ?></td>
 		</tr>
-
-		<?php } ?>
-
 		<?php } ?>
 
 	</tbody>
+	<?php } ?>
+
 </table>
 
 <?php if( $errors ) { ?>
