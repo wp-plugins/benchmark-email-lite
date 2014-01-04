@@ -154,7 +154,12 @@ class benchmarkemaillite_display {
 				}
 
 				// Preserve Any Existing Styles
-				$style = $para->hasAttribute( 'style' ) ? $para->getAttribute( 'style' ) . ' ' : '';
+				$style = '';
+				if( $para->hasAttribute( 'style' ) ) {
+					$style = trim( $para->getAttribute( 'style' ) );
+					if( ! strchr( $style, ';' ) ) { $style .= ';'; }
+					$style .= ' ';
+				}
 
 				// Loop Classes
 				foreach( $classes as $class ) {
@@ -167,7 +172,7 @@ class benchmarkemaillite_display {
 				}
 
 				// Store Rules Into Tag
-				$para->setAttribute( 'style', $style );
+				if( $style ) { $para->setAttribute( 'style', $style ); }
 			}
 		}
 
@@ -175,7 +180,7 @@ class benchmarkemaillite_display {
 		$newdoc = $doc->saveHTML();
 
 		// Handle Errors
-		//$errors = libxml_get_errors();
+		$errors = libxml_get_errors();
 		//if( $errors ) { print_r( $errors ); }
 
 		// Output
