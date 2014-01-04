@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 3.2
 Tested up to: 3.8
-Stable tag: 2.4.4
+Stable tag: 2.4.5
 License: GPLv2
 
 Benchmark Email Lite lets you build an email list from your WordPress site, and easily send your subscribers email versions of your posts and pages.
@@ -131,6 +131,7 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 6. This is the Plugin settings panel.
 7. This is the sent email campaigns listing.
 8. This is a sample email campaign report overview.
+9. This is the email template editor panel.
 
 == Changelog ==
 
