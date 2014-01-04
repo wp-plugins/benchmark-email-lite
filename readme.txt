@@ -92,11 +92,11 @@ There is an optional setting to limit the Plugin to a single page, if desired. T
 
 = How can I customize the email template? =
 
-In version 2.4.3 we added a filter `benchmarkemaillite_compile_email_theme` to permit email template customization using external code. In version 2.4.5 we added an email template editing interface for users who know enough HTML code to apply customizations. The code automatically embeds WP core CSS and applies HTML normalization.
+In version 2.4.3 we added a filter `benchmarkemaillite_compile_email_theme` to permit email template customization using external code, such as a theme or plugin. In version 2.4.5 we added an email template editing interface for users who know enough HTML code to apply their own customizations in the admin area Email Template tab. For earlier users of the filter technique or those who modified the sample template file directly, we recommend switching to the new tool by disabling or removing any external customizations and applying them with the new tool. The new tool automatically embeds WP core CSS and applies HTML normalization.
 
 = How do I make the form match my theme? =
 
-The signup form uses standard HTML list items so it can be manipulated by CSS within your theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS that styles the elements accordingly. The main classname value is `benchmarkemaillite_widget`.
+The signup form uses standard HTML list items so it can be manipulated by CSS within your theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS (or a plugin with a CSS editing feature, such as Jetpack) to custom style the elements. The main classname value is `benchmarkemaillite_widget`.
 
 = Where do I go to change the double opt-in confirmation email text? =
 
@@ -134,7 +134,7 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 == Changelog ==
 
-= 2.4.5 on 2013-12-31 =
+= 2.4.5 on 2014-01-04 =
 
 * Added: Email Template tab with instructions for customizing the email template colors, fonts, and logo, with button to reset template to default values.
 * Added: HTML processing library to normalize the email template and body HTML and convert WP core classes to embedded CSS for GMail.
