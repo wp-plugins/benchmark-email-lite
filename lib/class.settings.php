@@ -63,7 +63,7 @@ class benchmarkemaillite_settings {
 	static function badconfig_message() {
 		return 
 			__( 'Please configure your API key(s) on the', 'benchmark-email-lite' )
-			. ' <a target="_blank" href="admin.php?page=benchmark-email-lite-settings">'
+			. ' <a href="admin.php?page=benchmark-email-lite-settings">'
 			. __( 'Benchmark Email Lite settings page', 'benchmark-email-lite' )
 			. '.</a>';
 	}
