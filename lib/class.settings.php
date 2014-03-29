@@ -69,7 +69,7 @@ class benchmarkemaillite_settings {
 	}
 
 	// Triggered By Front And Back Ends - Try To Upgrade Plugin and Widget Settings
-	// This Exists Because WordPress Sadly Doesn't Fire Activation Hook Upon Upgrade Reactivation
+	// This Exists Because WordPress Doesn't Fire Activation Hook Upon Upgrade Reactivation
 	static function init() {
 
 		// Check And Set Default Settings
@@ -92,19 +92,27 @@ class benchmarkemaillite_settings {
 		if( isset( $options[1][0] ) && $options[1][0] ) { return; }
 
 		// Search For v1.x Widgets, Gather API Keys For Plugin Settings
-		benchmarkemaillite_widget::upgrade_widgets_1();
+		$tokens = benchmarkemaillite_widget::upgrade_widgets_1();
 
-		// Gather Preexisting API Keys
+		// Gather Any Configured API Keys
 		if( isset( $options[1][0] ) ) { $tokens = array_merge( $tokens, $options[1] ); }
-		$tokens = array_unique( $tokens );
+
+		// Actions When Tokens Are Found
+		if( $tokens ) {
+
+			// Remove Duplicate API Keys
+			$tokens = array_unique( $tokens );
+
+			// Vendor Handshake With Benchmark Email
+			benchmarkemaillite_api::handshake( $tokens );
+		}
+
+		// Save Initialized Settings
 		update_option(
 			'benchmark-email-lite_group', array(
 				1 => $tokens, 2 => $options[2], 3 => $options[3], 4 => $options[4], 5 => $options[5],
 			)
 		);
-
-		// Vendor Handshake With Benchmark Email
-		benchmarkemaillite_api::handshake( $tokens );
 
 		// Search For v2.0.x Widgets And Upgrade To 2.1
 		benchmarkemaillite_widget::upgrade_widgets_2();

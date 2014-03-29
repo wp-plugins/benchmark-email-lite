@@ -37,6 +37,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 			}
 			update_option( 'widget_benchmarkemaillite_widget', $widgets );
 		}
+		return $tokens;
 	}
 
 	// Upgrade 2.0.x widgets
