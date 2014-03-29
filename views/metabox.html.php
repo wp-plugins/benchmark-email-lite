@@ -47,9 +47,7 @@
 	-->
 	
 	<input type="text" class="datepicker" size="10" maxlength="10" id="bmedate" name="bmedate" value="<?php echo date( 'm/d/Y', $localtime_quarterhour ); ?>" />
-	
-	@
-	
+
 	<!--
 	<select name="bmetime" id="bmetime">
 	<?php
@@ -61,13 +59,14 @@
 	</select>
 	-->
 
-	<label for="bmetime">at</label>
+	<label for="bmetime">@</label>
 	<input type="text" size="5" maxlength="5" id="bmetime" name="bmetime" value="<?php echo date( 'H:i', $localtime_quarterhour ); ?>" />
 	<?php echo $localtime_zone; ?>
 	<div id="bmetime-slider"></div>
 
 	<script type="text/javascript">
 	jQuery( document ).ready( function() {
+		jQuery( '.datepicker' ).datepicker();
 		jQuery( '#bmetime-slider' ).slider( {
 			value: <?php
 						$minutes = explode( ':', date( 'H:i', $localtime_quarterhour ) );
@@ -84,7 +83,6 @@
 				jQuery( '#bmetime' ).val( hours + ':' + minutes );
 			}
 		} );
-		//jQuery( '#bmetime' ).val( jQuery( '#slider' ).slider( 'value' ) );
 	} );
 	</script>
 </p>

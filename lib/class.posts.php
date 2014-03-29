@@ -4,8 +4,9 @@ class benchmarkemaillite_posts {
 
 	// Create Pages+Posts Metaboxes
 	static function admin_init() {
-		wp_enqueue_script( 'jquery-ui-slider' );
-		wp_enqueue_script( 'jquery-ui-datepicker' );
+		wp_enqueue_style( 'jquery-ui-theme', '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css' );
+		wp_enqueue_script( 'jquery-ui-slider', '', array( 'jquery', 'jquery-ui' ), false, true );
+		wp_enqueue_script( 'jquery-ui-datepicker', '', array( 'jquery', 'jquery-ui' ), false, true );
 		add_meta_box(
 			'benchmark-email-lite',
 			'Benchmark Email Lite',
