@@ -3,7 +3,7 @@ Contributors: beautomated, seanconklin, randywsandberg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
 Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
 Requires at least: 3.2
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: 2.4.5
 License: GPLv2
 
@@ -70,54 +70,54 @@ New Manual Installation
 
 == Frequently Asked Questions ==
 
-= Where do I go for help with any issues? =
+= Q1: Where do I go for help with any issues? =
 
 Please call Benchmark Email at 800.430.4095.
 
-= How do I get the signup form shortcode to use on pages or posts? =
+= Q2: How do I get the signup form shortcode to use on pages or posts? =
 
 Open a new or existing signup form widget instance by dragging onto any sidebar of your theme or the "inactive widgets" sidebar. Dink down (open) the widget contents and copy the shortcode provided at the bottom of the widget. Paste the shortcode onto any page or post for the signup form to appear inline.
 
-= Why did the widget suddenly stop connecting with Benchmark Email? =
+= Q3: Why did the widget suddenly stop connecting with Benchmark Email? =
 
 Please check your API key. We observed on 11/09/2011 that our own API key was deleted/reset on Benchmark Email's server. We had to generate a new one and place the new key code into our widget settings. To generate a new API key, log into Benchmark Email via their website and go to My Account, then Account Settings, then scroll towards the bottom of the page.
 
-= Why am I seeing "Error Connecting..." in the admin area? =
+= Q4: Why am I seeing "Error Connecting..." in the admin area? =
 
 To combat occasional Benchmark Email API server slowdowns causing sluggish behavior in the WordPress admin area on pages containing this plugin's features, we added a feature to disable connectivity if the plugin detects a 10 second or greater delay in any given connection attempt. Disablement lasts for 5 minutes. The connection timeout can be customized to a value greater than 10 seconds via the plugin settings page. This error can also be triggered by your web host providing slow outbound connectivity, or your web host throttling your PHP processing speed due to other problems with your site, such as memory leaks or heavy traffic. Despite delays, subscriptions are never lost thanks to our queueing system.
 
-= How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
+= Q5: How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
 There is an optional setting to limit the Plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme.
 
-= How can I customize the email template? =
+= Q6: How can I customize the email template? =
 
 In version 2.4.3 we added a filter `benchmarkemaillite_compile_email_theme` to permit email template customization using external code, such as a theme or plugin. In version 2.4.5 we added an email template editing interface for users who know enough HTML code to apply their own customizations in the admin area Email Template tab. For earlier users of the filter technique or those who modified the sample template file directly, we recommend switching to the new tool by disabling or removing any external customizations and applying them with the new tool. The new tool automatically embeds WP core CSS and applies HTML normalization.
 
-= How do I make the form match my theme? =
+= Q7: How do I make the form match my theme? =
 
 The signup form uses standard HTML list items so it can be manipulated by CSS within your theme to match your site's design. Some themes will automatically style the widget to match the design. Contact the designer of your theme if you are having difficulties getting the form to match your theme, or add your own child theme with CSS (or a plugin with a CSS editing feature, such as Jetpack) to custom style the elements. The main classname value is `benchmarkemaillite_widget`.
 
-= Where do I go to change the double opt-in confirmation email text? =
+= Q8: Where do I go to change the double opt-in confirmation email text? =
 
 1. Log into your Benchmark Email account.
-1. Click on Lists tab, then Signup Forms sub-tab.
-1. Either create a new signup form or click to edit the "Sample Signup Form".
+1. Click on Emails, Contacts, then click on My Signup Forms.
+1. Either create a new signup form or click to edit an existing form for the list in question.
 1. Complete the section titled "Opt-in Mail".
 
-= What happens if a subscriber resubmits their subscription? =
+= Q9: What happens if a subscriber resubmits their subscription? =
 
 If the subscriber's email address preexists on the list, this will update the other fields, if enabled on your widget and populated by the user.
 
-= Why do I occasionally get "Successfully Queued Subscription"? =
+= Q10: Why do I occasionally get "Successfully Queued Subscription"? =
 
 This occurs when the Plugin is not able to immediately connect with the Benchmark Email API server at [http://api.benchmarkemail.com](http://api.benchmarkemail.com "Test Connection to Benchmark Email API"). To remedy this occasional problem, we built in a connection failover capability to queue subscriptions into a CSV file stored in the Plugin folder, and automatically attempt to unload the queue every 5 minutes until successfull to the Benchmark Email API server. We also created a [monitoring job via Pingdom](http://stats.pingdom.com/ta1roodo4tet/345893 "View Monitoring Status").
 
-= Why are the Extra 1 and Extra 2 fields no longer available? =
+= Q11: Why are the Extra 1 and Extra 2 fields no longer available? =
 
 Benchmark Email changed the default fields associated with newly created lists in mid 2011. The fields Extra 1 and Extra 2 became Date 1 and Date 2 on new lists created after that date. Users are able to change their list's field titles and types by clicking the Edit link on any list, then clicking Advanced. However, this plugin does not currently support non-default settings. We had to eliminate the Extra 1, Extra 2, Date 1, Date 2 options in order to comply with default settings before and after said change to the defaults.
 
-= Why did you switch to double opt-in starting in v1.0.4?  =
+= Q12: Why did you switch to double opt-in starting in v1.0.4?  =
 
 Two reasons. First, Benchmark Email requested that we use this method because it ensures list quality, which in effect keeps everyone out of trouble and keeps their prices down. Second, in the event somebody unsubscribes and chooses "Do Not Contact" checkbox and gets placed on the Master Unsubscribe List, they can only be removed from this list by the Benchmark Email customer opening a ticket for removal or the subscriber re-subscribing with a confirmed double opt-in method. This provides an easy way for somebody to re-subscribe.
 
