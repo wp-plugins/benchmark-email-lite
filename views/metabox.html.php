@@ -1,3 +1,9 @@
+<style type="text/css">
+.ui-datepicker {
+	z-index: 3!important;
+}
+</style>
+
 <p>
 	<label for="bmelist"><?php _e( 'Select a list for this campaign', 'benchmark-email-lite' ); ?></label><br />
 	<select style="width:100%;" name="bmelist" id="bmelist"><?php echo $dropdown; ?></select>
@@ -34,57 +40,11 @@
 <p>
 	<input type="radio" name="bmeaction" value="3" id="bmeaction_3" />
 	<label for="bmeaction_3"><?php _e( 'Schedule delivery', 'benchmark-email-lite' ); ?></label><br />
-	
-	<!--
-	<select name="bmedate" id="bmedate">
-	<?php
-	for( $i = 0; $i <= 365; $i++ ) {
-		$inc = $localtime + ( 86400 * $i );
-		echo '<option value="' . date( 'd M Y', $inc ) . '">' . date( 'M d Y - D', $inc ) . '</option>';
-	}
-	?>
-	</select>
-	-->
-	
 	<input type="text" class="datepicker" size="10" maxlength="10" id="bmedate" name="bmedate" value="<?php echo date( 'm/d/Y', $localtime_quarterhour ); ?>" />
-
-	<!--
-	<select name="bmetime" id="bmetime">
-	<?php
-	for( $i = 0; $i <= 95; $i++ ) {
-		$inc = $localtime_quarterhour + ( 900 * $i );
-		echo '<option value="' . date( 'H:i', $inc ) . '">' . date( 'H:i', $inc ) . '</option>';
-	}
-	?>
-	</select>
-	-->
-
 	<label for="bmetime">@</label>
 	<input type="text" size="5" maxlength="5" id="bmetime" name="bmetime" value="<?php echo date( 'H:i', $localtime_quarterhour ); ?>" />
 	<?php echo $localtime_zone; ?>
 	<div id="bmetime-slider"></div>
-
-	<script type="text/javascript">
-	jQuery( document ).ready( function() {
-		jQuery( '.datepicker' ).datepicker();
-		jQuery( '#bmetime-slider' ).slider( {
-			value: <?php
-						$minutes = explode( ':', date( 'H:i', $localtime_quarterhour ) );
-						echo $minutes[0] * 60 + $minutes[1];
-					?>,
-			min: 0,
-			max: 1440,
-			step: 15,
-			slide: function( event, ui ) {
-				var hours = Math.floor( ui.value / 60 );
-				var minutes = ui.value - ( hours * 60 );
-				hours = ( hours < 10 ) ? '0' + hours : hours;
-				minutes = ( minutes < 10 ) ? '0' + minutes : minutes;
-				jQuery( '#bmetime' ).val( hours + ':' + minutes );
-			}
-		} );
-	} );
-	</script>
 </p>
 <p>
 	<small>
@@ -98,10 +58,29 @@
 </p>
 <p><?php _e( 'Need help? Please call Benchmark Email at 800.430.4095.', 'benchmark-email-lite' ); ?></p>
 <input type="hidden" name="bmesubmit" id="bmesubmit" value="" />
-<input style="float:right;min-width:80px;font-weight:bold;" id="bmesubmitbtn"
-	type="submit" class="button-primary" value="Send" /><br />
+<input style="float:right;min-width:80px;font-weight:bold;" id="bmesubmitbtn" type="submit" class="button-primary" value="Send" /><br />
 <div class="clear"> </div>
+
 <script type="text/javascript">
+jQuery( document ).ready( function() {
+	jQuery( '.datepicker' ).datepicker();
+	jQuery( '#bmetime-slider' ).slider( {
+		value: <?php
+				$minutes = explode( ':', date( 'H:i', $localtime_quarterhour ) );
+				echo $minutes[0] * 60 + $minutes[1];
+				?>,
+		min: 0,
+		max: 1425,
+		step: 15,
+		slide: function( event, ui ) {
+			var hours = Math.floor( ui.value / 60 );
+			var minutes = ui.value - ( hours * 60 );
+			hours = ( hours < 10 ) ? '0' + hours : hours;
+			minutes = ( minutes < 10 ) ? '0' + minutes : minutes;
+			jQuery( '#bmetime' ).val( hours + ':' + minutes );
+		}
+	} );
+} );
 jQuery('#bmetestto').click(function(){
 	jQuery('#bmeaction_1').attr('checked','checked');
 });
