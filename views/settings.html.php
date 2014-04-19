@@ -39,10 +39,10 @@
 			benchmarkemaillite_reports::show();
 			break;
 		case 'benchmark-email-lite-settings':
-			benchmarkemaillite_settings::print_settings( 'benchmark-email-lite-settings-pg1', 'benchmark-email-lite_group' );
+			benchmarkemaillite_settings::print_settings( 'bmel-pg1', 'benchmark-email-lite_group' );
 			break;
 		case 'benchmark-email-lite-template':
-			benchmarkemaillite_settings::print_settings( 'benchmark-email-lite-settings-pg2', 'benchmark-email-lite_group_template' );
+			benchmarkemaillite_settings::print_settings( 'bmel-pg2', 'benchmark-email-lite_group_template' );
 			break;
 	}
 

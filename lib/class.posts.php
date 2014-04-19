@@ -7,22 +7,9 @@ class benchmarkemaillite_posts {
 		wp_enqueue_style( 'jquery-ui-theme', '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css' );
 		wp_enqueue_script( 'jquery-ui-slider', '', array( 'jquery', 'jquery-ui' ), false, true );
 		wp_enqueue_script( 'jquery-ui-datepicker', '', array( 'jquery', 'jquery-ui' ), false, true );
-		add_meta_box(
-			'benchmark-email-lite',
-			'Benchmark Email Lite',
-			array( 'benchmarkemaillite_posts', 'metabox' ),
-			'post',
-			'side',
-			'default'
-		);
-		add_meta_box(
-			'benchmark-email-lite',
-			'Benchmark Email Lite',
-			array( 'benchmarkemaillite_posts', 'metabox' ),
-			'page',
-			'side',
-			'default'
-		);
+		$metabox_fn = array( 'benchmarkemaillite_posts', 'metabox' );
+		add_meta_box( 'benchmark-email-lite', 'Benchmark Email Lite', $metabox_fn, 'post', 'side', 'default' );
+		add_meta_box( 'benchmark-email-lite', 'Benchmark Email Lite', $metabox_fn, 'page', 'side', 'default' );
 	}
 
 	// Page+Post Metabox Contents
@@ -70,9 +57,7 @@ class benchmarkemaillite_posts {
 		// Set Variables
 		$bmelist = isset( $_POST['bmelist'] ) ? esc_attr( $_POST['bmelist'] ) : false;
 		if ( $bmelist ) {
-			list(
-				benchmarkemaillite_api::$token, $listname, benchmarkemaillite_api::$listid
-			) = explode( '|', $bmelist );
+			list( benchmarkemaillite_api::$token, $listname, benchmarkemaillite_api::$listid ) = explode( '|', $bmelist );
 		}
 		$bmetitle = isset( $_POST['bmetitle'] ) ? stripslashes( strip_tags( $_POST['bmetitle'] ) ) : false;
 		$bmefrom = isset( $_POST['bmefrom'] ) ? stripslashes( strip_tags( $_POST['bmefrom'] ) ) : false;
@@ -89,11 +74,9 @@ class benchmarkemaillite_posts {
 		set_transient( 'bmetestto', $bmetestto, 15 );
 
 		// Don't Work With Post Revisions Or Other Post Actions
-		if (
-			wp_is_post_revision($postID)
-			|| !isset($_POST['bmesubmit'])
-			|| $_POST['bmesubmit'] != 'yes'
-		) { return; }
+		if ( wp_is_post_revision($postID) || !isset($_POST['bmesubmit']) || $_POST['bmesubmit'] != 'yes' ) {
+			return;
+		}
 
 		// Get User Info
 		if ( ! $user = wp_get_current_user() ) { return; }
@@ -106,18 +89,13 @@ class benchmarkemaillite_posts {
 		if ( ! $post = get_post( $postID ) ) { return; }
 
 		// Prepare Campaign Data
-		$data = array(
-			'title' => $post->post_title,
-			'body' => apply_filters( 'the_content', $post->post_content ),
-		);
+		$data = array( 'title' => $post->post_title, 'body' => apply_filters( 'the_content', $post->post_content ) );
 		$content = benchmarkemaillite_display::compile_email_theme( $data );
 		$webpageVersion = ( $options[2] == 'yes' ) ? true : false;
 		$permissionMessage = isset( $options[4] ) ? $options[4] : '';
 
 		// Create Campaign
-		$result = benchmarkemaillite_api::campaign(
-			$bmetitle, $bmefrom, $bmesubject, $content, $webpageVersion, $permissionMessage
-		);
+		$result = benchmarkemaillite_api::campaign( $bmetitle, $bmefrom, $bmesubject, $content, $webpageVersion, $permissionMessage );
 
 		// Handle Error Condition: Preexists
 		if ( $result == __( 'preexists', 'benchmark-email-lite' ) ) {
@@ -134,9 +112,7 @@ class benchmarkemaillite_posts {
 				__( 'There was a problem creating or updating your email campaign. Please try again later.', 'benchmark-email-lite' )
 				. (
 					isset( benchmarkemaillite_api::$campaignid['faultString'] )
-						? ' ' . __( 'Benchmark Email response code: ', 'benchmark-email-lite' )
-							. benchmarkemaillite_api::$campaignid['faultCode']
-						: ''
+						? ' ' . __( 'Benchmark Email response code: ', 'benchmark-email-lite' ) . benchmarkemaillite_api::$campaignid['faultCode'] : ''
 					)
 			);
 			return;
@@ -170,12 +146,9 @@ class benchmarkemaillite_posts {
 				}
 
 				// Report
-				$overage = ( $overage )
-					? __( 'Sending was capped at the first 5 test addresses.', 'benchmark-email-lite' )
-					: '';
+				$overage = ( $overage ) ? __( 'Sending was capped at the first 5 test addresses.', 'benchmark-email-lite' ) : '';
 				set_transient(
-					'benchmark-email-lite_updated',
-					sprintf(
+					'benchmark-email-lite_updated', sprintf(
 						__( 'A test of your campaign %s was successfully sent.', 'benchmark-email-lite' ),
 						"<em>{$bmetitle}</em>"
 					) . $overage
@@ -189,8 +162,7 @@ class benchmarkemaillite_posts {
 
 				// Report
 				set_transient(
-					'benchmark-email-lite_updated',
-					sprintf(
+					'benchmark-email-lite_updated', sprintf(
 						__( 'Your campaign %s was successfully sent.', 'benchmark-email-lite' ),
 						"<em>{$bmetitle}</em>"
 					)
@@ -200,17 +172,14 @@ class benchmarkemaillite_posts {
 			case '3':
 
 				// Schedule Campaign For Sending
-				$bmedate = isset( $_POST['bmedate'] )
-					? esc_attr( $_POST['bmedate'] ) : date( 'd M Y', current_time( 'timestamp' ) );
-				$bmetime = isset( $_POST['bmetime'] )
-					? esc_attr( $_POST['bmetime'] ) : date( 'H:i', current_time( 'timestamp' ) );
+				$bmedate = isset( $_POST['bmedate'] ) ? esc_attr( $_POST['bmedate'] ) : date( 'd M Y', current_time( 'timestamp' ) );
+				$bmetime = isset( $_POST['bmetime'] ) ? esc_attr( $_POST['bmetime'] ) : date( 'H:i', current_time( 'timestamp' ) );
 				$when = "$bmedate $bmetime";
 				benchmarkemaillite_api::campaign_later( $when );
 
 				// Report
 				set_transient(
-					'benchmark-email-lite_updated',
-					sprintf(
+					'benchmark-email-lite_updated', sprintf(
 						__( 'Your campaign %s was successfully scheduled for %s.', 'benchmark-email-lite' ),
 						"<em>{$bmetitle}</em>",
 						"<em>{$when}</em>"

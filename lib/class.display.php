@@ -69,8 +69,7 @@ class benchmarkemaillite_display {
 				$i++;
 				if( ! $selected && $i == 1 ) { $select = " selected='selected'"; }
 				else {
-					$select = ( $selected == $val )
-						? " selected='selected'" : '';
+					$select = ( $selected == $val ) ? " selected='selected'" : '';
 				}
 				$output .= "<option{$select} value='{$val}'>↳ {$list['listname']}</option>\n";
 			}

@@ -56,9 +56,7 @@ class benchmarkemaillite_api {
 
 	// Get Existing Subscriber Data
 	static function find( $email ) {
-		$response = self::query(
-			'listGetContacts', self::$token, self::$listid, $email, 1, 100, 'name', 'asc'
-		);
+		$response = self::query( 'listGetContacts', self::$token, self::$listid, $email, 1, 100, 'name', 'asc' );
 		return isset( $response[0]['id'] ) ? $response[0]['id'] : false;
 	}
 
@@ -87,19 +85,13 @@ class benchmarkemaillite_api {
 
 		// Add New Subscription
 		if ( ! is_numeric( $contactID ) ) {
-			return (
-				! self::query(
-					'listAddContactsOptin', self::$token, self::$listid, array( $data ), '1'
-				)
-			) ? 'fail-add' : 'success-add';
+			return self::query( 'listAddContactsOptin', self::$token, self::$listid, array( $data ), '1' )
+				? 'success-add' : 'fail-add';
 		}
 
 		// Update Preexisting Subscription
-		return (
-			! self::query(
-				'listUpdateContactDetails', self::$token, self::$listid, $contactID, $data
-			)
-		) ? 'fail-update' : 'success-update';
+		return self::query( 'listUpdateContactDetails', self::$token, self::$listid, $contactID, $data )
+			? 'success-update' : 'fail-update';
 	}
 
 	// Create Email Campaign
@@ -129,14 +121,14 @@ class benchmarkemaillite_api {
 		if ( self::$campaignid ) {
 			$data['id'] = self::$campaignid;
 			if ( $response = self::query( 'emailUpdate', self::$token, $data ) ) {
-				return ( ! $response ) ? false : __( 'updated', 'benchmark-email-lite' );
+				return ( $response ) ? __( 'updated', 'benchmark-email-lite' ) : false;
 			}
 		}
 
 		// Create New Campaign
 		if ( $response = self::query( 'emailCreate', self::$token, $data ) ) {
 			self::$campaignid = $response;
-			return ( ! $response ) ? false : __( 'created', 'benchmark-email-lite' );
+			return ( $response ) ? __( 'created', 'benchmark-email-lite' ) : false;
 		}
 		return false;
 	}

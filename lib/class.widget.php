@@ -7,11 +7,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 	static function admin_init() {
 		global $pagenow;
 		if ( $pagenow == 'widgets.php' ) {
-			wp_enqueue_script(
-				'benchmarkemaillite_widgetadmin',
-				plugins_url( 'js/widget.admin.js', dirname( __FILE__ ) ),
-				array(), false, false
-			);
+			wp_enqueue_script( 'bmel_widgetadmin', plugins_url( 'js/widget.admin.js', dirname( __FILE__ ) ), array(), false, false );
 		}
 	}
 
@@ -140,19 +136,17 @@ class benchmarkemaillite_widget extends WP_Widget {
 			'description' => __( 'Create a Benchmark Email newsletter widget in WordPress.', 'benchmark-email-lite' )
 		);
 		$control_ops = array( 'width' => 400 );
-		$this->WP_Widget(
-			'benchmarkemaillite_widget', 'Benchmark Email Lite', $widget_ops, $control_ops
-		);
+		$this->WP_Widget( 'benchmarkemaillite_widget', 'Benchmark Email Lite', $widget_ops, $control_ops );
 	}
 
 	// Build the Widget Settings Form - Cannot Be Static
 	function form( $instance ) {
 		$fields = array(
-			'First Name','Last Name','Middle Name',
-			'Address','City','State','Zip','Country','Phone','Fax','Cell Phone',
-			'Company Name','Job Title','Business Phone','Business Fax',
-			'Business Address','Business City','Business State','Business Zip','Business Country',
-			'Notes','Extra 3','Extra 4','Extra 5','Extra 6',
+			'First Name', 'Last Name', 'Middle Name',
+			'Address', 'City', 'State', 'Zip', 'Country', 'Phone', 'Fax', 'Cell Phone',
+			'Company Name', 'Job Title', 'Business Phone', 'Business Fax',
+			'Business Address', 'Business City', 'Business State', 'Business Zip', 'Business Country',
+			'Notes', 'Extra 3', 'Extra 4', 'Extra 5', 'Extra 6',
 		);
 
 		// Prepare Default Values
@@ -189,7 +183,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		array_unshift( $instance['fields_required'], 0 );
 
 		// Print Widget
-		require( dirname( __FILE__ ) . '/../views/widget.admin.html.php');
+		require( dirname( __FILE__ ) . '/../views/widget.admin.html.php' );
 	}
 
 	// Save the Widget Settings - Cannot Be Static
@@ -335,49 +329,20 @@ class benchmarkemaillite_widget extends WP_Widget {
 	static function process_subscription( $bmelist, $data ) {
 
 		// Get List Info
-		list( benchmarkemaillite_api::$token, $listname, benchmarkemaillite_api::$listid )
-			= explode( '|', $bmelist );
+		list( benchmarkemaillite_api::$token, $listname, benchmarkemaillite_api::$listid ) = explode( '|', $bmelist );
 
 		// Try to Run Live Subscription
 		$response = benchmarkemaillite_api::subscribe( $bmelist, $data );
 
 		// Handle Responses
 		switch( $response ) {
-			case 'fail-email':
-				return array(
-					false,
-					__( 'Please enter a valid email address.', 'benchmark-email-lite' )
-				);
-			case 'success-queue':
-				return array(
-					true,
-					__( 'Successfully queued subscription.', 'benchmark-email-lite' )
-				);
-			case 'fail-add':
-				return array(
-					false,
-					__( 'Failed to add subscription. Please try again later.', 'benchmark-email-lite' )
-				);
-			case 'success-add':
-				return array(
-					true,
-					__( 'A verification email has been sent.', 'benchmark-email-lite' )
-				);
-			case 'fail-update':
-				return array(
-					false,
-					__( 'Failed to update subscription. Please try again later.', 'benchmark-email-lite' )
-				);
-			case 'success-update':
-				return array(
-					true,
-					__( 'Successfully updated subscription.', 'benchmark-email-lite' )
-				);
-			default:
-				return array(
-					false,
-					__( 'Failed to communicate. Please try again later.', 'benchmark-email-lite' )
-				);
+			case 'fail-email': return array( false, __( 'Please enter a valid email address.', 'benchmark-email-lite' ) );
+			case 'success-queue': return array( true, __( 'Successfully queued subscription.', 'benchmark-email-lite' ) );
+			case 'fail-add': return array( false, __( 'Failed to add subscription. Please try again later.', 'benchmark-email-lite' ) );
+			case 'success-add': return array( true, __( 'A verification email has been sent.', 'benchmark-email-lite' ) );
+			case 'fail-update': return array( false, __( 'Failed to update subscription. Please try again later.', 'benchmark-email-lite' ) );
+			case 'success-update': return array( true, __( 'Successfully updated subscription.', 'benchmark-email-lite' ) );
+			default: return array( false, __( 'Failed to communicate. Please try again later.', 'benchmark-email-lite' ) );
 		}
 	}
 

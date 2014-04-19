@@ -69,9 +69,7 @@ class benchmarkemaillite_reports {
 
 					// Append Data
 					$email['toListName'] = isset( $email['toListName'] ) ? $email['toListName'] : '[none]';
-					$email['report_url'] = self::url(
-						array( 'tokenindex' => $tokenindex, 'campaign' => $email['id'] )
-					);
+					$email['report_url'] = self::url( array( 'tokenindex' => $tokenindex, 'campaign' => $email['id'] ) );
 
 					// Cache Email Specifics For 5 Minutes
 					$data[$key][] = $email['id'];
@@ -163,9 +161,7 @@ class benchmarkemaillite_reports {
 
 			// Click Performance Report
 			case 'clicks':
-				$response = self::reportQueryAllPages(
-					'reportGetClicks', benchmarkemaillite_api::$token, (string) $meta->campaign
-				);
+				$response = self::reportQueryAllPages( 'reportGetClicks', benchmarkemaillite_api::$token, (string) $meta->campaign );
 				foreach ($response as $row) {
 					$link = self::url( array( 'show' => 'clicks_detail', 'url' => urlencode( $row['URL'] ) ) );
 					$data[] = array(
@@ -182,9 +178,7 @@ class benchmarkemaillite_reports {
 				$title = __( 'Link Clicked Detail Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays the subscribers who clicked on the following email link:', 'benchmark-email-lite' );
 				$instructions .= '<br /><em>' . urldecode( $_GET['url'] ) . '</em>';
-				$response = self::reportQueryAllPages(
-					'reportGetClickEmails', benchmarkemaillite_api::$token, (string) $meta->campaign, $_GET['url'], 1, 100, 'date', 'desc'
-				);
+				$response = self::reportQueryAllPages( 'reportGetClickEmails', benchmarkemaillite_api::$token, (string) $meta->campaign, $_GET['url'], 1, 100, 'date', 'desc' );
 				foreach( $response as $row ) {
 					$data[] = array(
 						__( 'Name', 'benchmark-email-lite' ) => $row['name'],
@@ -198,14 +192,10 @@ class benchmarkemaillite_reports {
 			case 'clicks_all':
 				$title = __( 'Links Clicked Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays the subscribers who clicked on specific links in the email.', 'benchmark-email-lite' );
-				$response = self::reportQueryAllPages(
-					'reportGetClicks', benchmarkemaillite_api::$token, (string) $meta->campaign
-				);
+				$response = self::reportQueryAllPages( 'reportGetClicks', benchmarkemaillite_api::$token, (string) $meta->campaign );
 				foreach ($response as $row) {
 					$link = self::url( array( 'show' => 'clicks_detail', 'url' => urlencode( $row['URL'] ) ) );
-					$response2 = self::reportQueryAllPages(
-						'reportGetClickEmails', benchmarkemaillite_api::$token, (string) $meta->campaign, $row['URL'], 1, 100, 'date', 'desc'
-					);
+					$response2 = self::reportQueryAllPages( 'reportGetClickEmails', benchmarkemaillite_api::$token, (string) $meta->campaign, $row['URL'], 1, 100, 'date', 'desc' );
 					foreach( $response2 as $row2 ) {
 						$data[] = array(
 							__( 'URL', 'benchmark-email-lite' ) => "<a href='{$link}'>{$row['URL']}</a>",
@@ -220,9 +210,7 @@ class benchmarkemaillite_reports {
 			case 'opens':
 				$title = __( 'Emails Opened Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays the subscribers who opened the email in their email client.', 'benchmark-email-lite' );
-				$response =self::reportQueryAllPages(
-					'reportGetOpens', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
-				);
+				$response =self::reportQueryAllPages( 'reportGetOpens', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc' );
 				foreach( $response as $row ) {
 					$data[] = array(
 						__( 'Name', 'benchmark-email-lite' ) => $row['name'],
@@ -236,9 +224,7 @@ class benchmarkemaillite_reports {
 			case 'unopens':
 				$title = __( 'Emails Unopened Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays the subscribers who never opened the email.', 'benchmark-email-lite' );
-				$response =self::reportQueryAllPages(
-					'reportGetUnopens', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
-				);
+				$response =self::reportQueryAllPages( 'reportGetUnopens', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc' );
 				foreach( $response as $row ) {
 					$data[] = array(
 						__( 'Name', 'benchmark-email-lite' ) => $row['name'],
@@ -251,12 +237,8 @@ class benchmarkemaillite_reports {
 			case 'bounces':
 				$title = __( 'Emails Bounced Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays the subscribers whose email service provider rejected the email.', 'benchmark-email-lite' );
-				$response1 =self::reportQueryAllPages(
-					'reportGetHardBounces', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
-				);
-				$response2 =self::reportQueryAllPages(
-					'reportGetSoftBounces', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
-				);
+				$response1 = self::reportQueryAllPages( 'reportGetHardBounces', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc' );
+				$response2 = self::reportQueryAllPages( 'reportGetSoftBounces', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc' );
 				$response = array_merge( $response1, $response2 );
 				foreach( $response as $row ) {
 					$data[] = array(
@@ -271,9 +253,7 @@ class benchmarkemaillite_reports {
 			case 'unsubscribes':
 				$title = __( 'Emails Unsubscribed Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays previous subscribers who unsubscribed from the list during this campaign.', 'benchmark-email-lite' );
-				$response =self::reportQueryAllPages(
-					'reportGetUnsubscribes', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
-				);
+				$response =self::reportQueryAllPages( 'reportGetUnsubscribes', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc' );
 				foreach( $response as $row ) {
 					$data[] = array(
 						__( 'Name', 'benchmark-email-lite' ) => $row['name'],
@@ -287,9 +267,7 @@ class benchmarkemaillite_reports {
 			case 'forwards':
 				$title = __( 'Emails Forwarded Report', 'benchmark-email-lite' );
 				$instructions = __( 'Displays the subscribers who successfully forwarded the email to others.', 'benchmark-email-lite' );
-				$response =self::reportQueryAllPages(
-					'reportGetForwards', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc'
-				);
+				$response =self::reportQueryAllPages( 'reportGetForwards', benchmarkemaillite_api::$token, (string) $meta->campaign, 1, 100, 'date', 'desc' );
 				foreach( $response as $row ) {
 					$data[] = array(
 						__( 'Name', 'benchmark-email-lite' ) => $row['name'],
