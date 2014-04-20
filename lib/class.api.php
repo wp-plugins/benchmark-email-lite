@@ -23,17 +23,12 @@ class benchmarkemaillite_api {
 		// If Over Limit, Disable for Five Minutes And Produce Warning
 		$time = ( time() - $time );
 		if ( $time >= $timeout ) {
-			set_transient( 'benchmark-email-lite_serverdown', true, 300 );
-			set_transient(
-				'benchmark-email-lite_error',
-				__( 'Error connecting to Benchmark Email API server. Connection throttled until', 'benchmark-email-lite' )
-				. ' ' . date( 'H:i:s', ( current_time('timestamp') + 300 ) )
-				. ' ' . __( 'to prevent sluggish behavior.', 'benchmark-email-lite' )
-				. ' ' . __( 'If this occurs frequently, try increasing your' , 'benchmark-email-lite' )
-				. ' <a href="admin.php?page=benchmark-email-lite-settings">'
-				. __( 'Connection Timeout setting.', 'benchmark-email-lite' ) . '</a>',
-				300
+			$error = sprintf(
+				__( 'Error connecting to Benchmark Email API server. Connection throttled until %s to prevent sluggish behavior. If this occurs frequently, try increasing your %sConnection Timeout setting.%s', 'benchmark-email-lite' ),
+				date( 'H:i:s', ( current_time('timestamp') + 300 ) ), '<a href="admin.php?page=benchmark-email-lite-settings">', '</a>'
 			);
+			set_transient( 'benchmark-email-lite_serverdown', true, 300 );
+			set_transient( 'benchmark-email-lite_error', $error, 300 );
 			return false;
 		}
 		return $response;
@@ -52,6 +47,12 @@ class benchmarkemaillite_api {
 	static function lists() {
 		$response = self::query( 'listGet', self::$token, '', 1, 100, 'name', 'asc' );
 		return isset( $response['faultCode'] ) ? $response['faultCode'] : $response;
+	}
+
+	// Lookup Lists For Account
+	static function signup_forms() {
+		$response = self::query( 'listGetSignupForms', self::$token, 1, 100, 'name', 'asc' );
+		return isset( $response['faultCode'] ) ? $response['faultString'] : $response;
 	}
 
 	// Get Existing Subscriber Data
