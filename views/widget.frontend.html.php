@@ -4,27 +4,24 @@
 
 <?php echo $description; ?>
 
-<form method="post" action="#benchmark-email-lite-<?php echo $uniqid; ?>"
-	onsubmit="return benchmarkemaillite_<?php echo $uniqid; ?>(this);">
-	<ul style="list-style-type:none;margin:0;">
-		<?php foreach( $fields as $field ) { extract( $field ); ?>
-		<li>
-			<label for="<?php echo $id; ?>" style="display:block;"><?php echo $label; ?></label>
-			<input type="text" maxlength="200" id="<?php echo $id; ?>" name="<?php echo $id; ?>" value="<?php echo $value; ?>" />
-		</li>
-		<?php } ?>
-		<li>
-			<input type="hidden" name="formid" value="benchmark-email-lite-<?php echo $uniqid; ?>" />
-			<input type="hidden" name="widgetid" value="<?php echo $widgetid; ?>" />
-			<input type="hidden" name="uniqid" value="<?php echo $uniqid; ?>" />
-			<input type="submit" value="<?php echo $instance['button']; ?>" />
-		</li>
-		<li><?php echo $printresponse; ?></li>
-	</ul>
+<form class="benchmarkemaillite-subscribe" method="post" action="#benchmark-email-lite-<?php echo $uniqid; ?>" onsubmit="return benchmarkemaillite_<?php echo $uniqid; ?>(this);">
+	<input type="hidden" name="formid" value="benchmark-email-lite-<?php echo $uniqid; ?>" />
+	<input type="hidden" name="widgetid" value="<?php echo $widgetid; ?>" />
+	<input type="hidden" name="uniqid" value="<?php echo $uniqid; ?>" />
+
+	<?php foreach( $fields as $field ) { extract( $field ); ?>
+	<div>
+		<label for="<?php echo $id; ?>" style="display:block;"><?php echo $label; ?></label>
+		<input type="text" maxlength="200" id="<?php echo $id; ?>" name="<?php echo $id; ?>" value="<?php echo $value; ?>" />
+	</div>
+	<?php } ?>
+
+	<div><input type="submit" value="<?php echo $instance['button']; ?>" /></div>
+	<div><?php echo $printresponse; ?></div>
 </form>
 
-<p id="subscribe_spinner-<?php echo $uniqid; ?>" style="display:none;text-align:center;">
-	<br /><img alt="Loading" src="<?php echo plugins_url( 'loading.gif', dirname( __FILE__ ) ); ?>" />
+<p id="subscribe_spinner-<?php echo $uniqid; ?>" style="display: none; text-align: center;">
+	<br /><img alt="Loading" src="<?php echo includes_url( 'images/wpspin.gif' ); ?>" />
 	<br /><?php _e( 'Loading - Please wait', 'benchmark-email-lite' ); ?>
 </p>
 
