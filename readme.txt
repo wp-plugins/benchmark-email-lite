@@ -11,7 +11,7 @@ Benchmark Email Lite lets you build an email list from your WordPress site, and 
 
 == Description ==
 
-If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite WordPress Plugin builds an email list right from the pages of your WordPress site, and sends your subscribers email versions of your posts and pages in a flash. See when, where, and who opens or clicks on links or unsubscribes—all live from your Wordpress dashboard!
+If you want your blog to reach every reader, you have to use email. The Benchmark Email Lite WordPress Plugin builds an email list right from the pages of your WordPress site, and sends your subscribers email versions of your posts and pages in a flash. See when, where, and who opens or clicks on links or unsubscribes—all live from your WordPress dashboard!
 
 With this version you can:
 
@@ -33,7 +33,7 @@ With this version you can:
 
 **View Live Reports:** Once an email is sent, you can see the live reports of its success from within your WordPress dashboard. Learn who opens your emails, clicks on links, unsubscribes and forwards your blogs to friends—even see which email contacts bounce and where your subscribers are reading from.
 
-To get started, sign up for a Benchmark Email [30-day free trial](http://www.benchmarkemail.com/Register "Try Benchmark Email 30 days free"). With a free trial, you can use the Plugin and fully experience what Benchmark Email has to offer, including our Mobile Marketing iPhone App, Surveys, Polls and Autoresponders. We know you'll love what you see, so once you upgrade your plan you can still use the Plugin free of charge for as long as you’d like. The Plugin is integrated via API with your Benchmark Email account. You may control up to 5 Benchmark Email accounts from a single WordPress site.
+To get started, sign up for a [FREE Benchmark Email account](http://www.benchmarkemail.com/Register "Try Benchmark Email FREE"). This account will allow you to have up to 2,000 contacts and send up to 14,000 emails per month. You can use the Plugin and fully experience what Benchmark Email has to offer, including our Mobile Marketing iPhone App, Surveys, Polls and Autoresponders. We know you'll love what you see, so once you out-grow your free account you can still use the Plugin free of charge for as long as you’d like. The Plugin is integrated via API with your Benchmark Email account. You may control up to 5 Benchmark Email accounts from a single WordPress site.
 
 Need help? Please call Benchmark Email at 800.430.4095.
 
