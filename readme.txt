@@ -145,6 +145,7 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: Method in API class for downloading the list of signup forms, future use.
 * Updated: Misc code cleanup and optimizations.
 * Fixed: A PHP warning in admin_init hook widget upgrade code when no tokens are configured and debug mode is on. Credit to frenchbob for the bug report.
+* Fixed: A caching problem with reports not clickable a second time during 5min cache interval, removed tokenindex from reports area.
 
 = 2.4.5 on 2014-01-04 =
 
