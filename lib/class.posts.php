@@ -15,13 +15,14 @@ class benchmarkemaillite_posts {
 	// Page+Post Metabox Contents
 	static function metabox() {
 		global $post;
+		$localtime = current_time('timestamp');
 
 		// Get Values For Form Prepopulations
 		$user = wp_get_current_user();
 		$email = isset( $user->user_email ) ? $user->user_email : get_bloginfo( 'admin_email' );
 		$bmelist = ( $val = get_transient( 'bmelist' ) ) ? esc_attr( $val ) : '';
-		$title = ( $val = get_transient( 'bmetitle' ) ) ? esc_attr( $val ) : '';
-		$from = ( $val = get_transient( 'bmefrom' ) ) ? esc_attr( $val ) : '';
+		$title = ( $val = get_transient( 'bmetitle' ) ) ? esc_attr( $val ) : date( 'M d Y', $localtime ) . ' Email';
+		$from = ( $val = get_transient( 'bmefrom' ) ) ? esc_attr( $val ) : get_the_author_meta( 'display_name', get_current_user_id() );
 		$subject = ( $val = get_transient( 'bmesubject' ) ) ? esc_attr( $val ) : '';
 		$email = ( $val = get_transient( 'bmetestto' ) ) ? implode( ', ', $val ) : $email;
 
@@ -35,7 +36,6 @@ class benchmarkemaillite_posts {
 		}
 
 		// Round Time To Nearest Quarter Hours
-		$localtime = current_time('timestamp');
 		$minutes = date( 'i', $localtime );
 		$newminutes = ceil( $minutes / 15 ) * 15;
 		$localtime_quarterhour = $localtime + 60 * ( $newminutes - $minutes );
