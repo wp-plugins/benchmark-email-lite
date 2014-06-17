@@ -93,7 +93,6 @@
 		<form method="get" action="">
 			<input type="hidden" name="page" value="benchmark-email-lite" />
 			<input type="hidden" name="campaign" value="<?php echo $meta->campaign; ?>" />
-			<input type="hidden" name="tokenindex" value="<?php echo $meta->tokenindex; ?>" />
 			<input type="submit" class="button-primary" name="show" value="<?php _e( 'Opens', 'benchmark-email-lite' ); ?>"
 				title="<?php _e( 'Click to view report', 'benchmark-email-lite' ); ?>"
 				<?php if( ! $response['opens'] ) { echo ' disabled="disabled"'; } ?> />
