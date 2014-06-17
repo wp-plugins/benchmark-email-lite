@@ -135,6 +135,17 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 == Changelog ==
 
+= 2.5 on TBD =
+
+* Updated: Consolidated loading graphic to WP core image. Replaced subscribe form LIs with DIVs.
+
+= 2.4.6 on TBD =
+
+* Added: jQuery UI slider and datepicker elements for date and time selections.
+* Added: Method in API class for downloading the list of signup forms, future use.
+* Updated: Misc code cleanup and optimizations.
+* Fixed: A PHP warning in admin_init hook widget upgrade code when no tokens are configured and debug mode is on. Credit to frenchbob for the bug report.
+
 = 2.4.5 on 2014-01-04 =
 
 * Added: Email Template tab with instructions for customizing the email template colors, fonts, and logo, with button to reset template to default values.
