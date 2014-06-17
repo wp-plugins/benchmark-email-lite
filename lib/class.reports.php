@@ -7,7 +7,6 @@ class benchmarkemaillite_reports {
 	static function meta() {
 		return (object) array(
 			'campaign' => isset( $_GET['campaign'] ) ? intval( $_GET['campaign'] ) : '',
-			'tokenindex' => isset( $_GET['tokenindex'] ) ? intval( $_GET['tokenindex'] ) : 0,
 			'show' => isset( $_GET['show'] ) ? strtolower( esc_attr( $_GET['show'] ) ) : '',
 		);
 	}
@@ -25,19 +24,27 @@ class benchmarkemaillite_reports {
 		$meta = self::meta();
 
 		// Showing Campaign Listings
-		if( ! $meta->campaign ) { self::showListings(); }
+		if( ! $meta->campaign ) { self::showListings(); return; }
 
-		// Showing Requested Report
-		else {
+		// Lookup Campaign Cache
+		$data = get_transient( 'benchmarkemaillite_emails' );
 
-			// Set API To Selected Token
-			benchmarkemaillite_api::$token = $options[1][$meta->tokenindex];
+		// Cache Expired
+		if( ! $data ) { self::showListings(); return; }
 
-			// Show Detail Page
-			if( $meta->show ) { self::showDetail( $meta->show ); }
+		// Showing Campaign Specific Report
+		foreach( $data as $key => $emails ) {
+			if( in_array( $meta->campaign, $emails ) ) {
 
-			// Show Campaign Summary Page
-			else { self::showCampaignSummary(); }
+				// Set API To Selected Token
+				benchmarkemaillite_api::$token = $key;
+
+				// Show Detail Page
+				if( $meta->show ) { self::showDetail( $meta->show ); }
+
+				// Show Campaign Summary Page
+				else { self::showCampaignSummary(); }
+			}
 		}
 	}
 
@@ -53,7 +60,7 @@ class benchmarkemaillite_reports {
 
 			// Loop API Tokens
 			$data = array();
-			foreach( $options[1] as $tokenindex => $key ) {
+			foreach( $options[1] as $key ) {
 				if( ! $key ) { continue; }
 				$data[$key] = array();
 
@@ -69,7 +76,6 @@ class benchmarkemaillite_reports {
 
 					// Append Data
 					$email['toListName'] = isset( $email['toListName'] ) ? $email['toListName'] : '[none]';
-					$email['report_url'] = self::url( array( 'tokenindex' => $tokenindex, 'campaign' => $email['id'] ) );
 
 					// Cache Email Specifics For 5 Minutes
 					$data[$key][] = $email['id'];

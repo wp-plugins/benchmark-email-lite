@@ -13,22 +13,17 @@
 		<tr>
 			<th width="*">
 				<?php _e( 'Email Name', 'benchmark-email-lite' ); ?>
-				<small>
-					(<?php _e( 'Emails for API key', 'benchmark-email-lite' ); ?>: <?php echo $key; ?>)
-				</small>
+				<small>(<?php _e( 'Emails for API key', 'benchmark-email-lite' ); ?>: <?php echo $key; ?>)</small>
 			</th>
 			<th width="100"><?php _e( 'Date Modified', 'benchmark-email-lite' ); ?></th>
 		</tr>
 	</thead>
 	<tbody>
 
-		<?php
-		foreach( $emails as $id ) {
-			$email = get_transient( "benchmarkemaillite_{$id}" );
-		?>
+		<?php foreach( $emails as $id ) { $email = get_transient( "benchmarkemaillite_{$id}" ); ?>
 		<tr>
 			<td>
-				<a href="<?php echo $email['report_url']; ?>">
+				<a href="<?php echo benchmarkemaillite_reports::url( array( 'campaign' => $id ) ); ?>">
 				<?php echo $email['emailName']; ?></a><br />
 				<small>
 					<?php _e( 'List', 'benchmark-email-lite' ); ?>:
