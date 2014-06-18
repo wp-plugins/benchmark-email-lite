@@ -140,7 +140,7 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 * Added: prepopulation of Metabox Admin email name and from name fields.
 * Updated: Consolidated loading graphic to WP core image. Replaced subscribe form LIs with DIVs.
 
-= 2.4.6 on TBD =
+= 2.4.6 on 2014-06-17 =
 
 * Added: jQuery UI slider and datepicker elements for date and time selections.
 * Added: Method in API class for downloading the list of signup forms, future use.
