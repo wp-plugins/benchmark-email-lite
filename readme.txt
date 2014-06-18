@@ -88,7 +88,7 @@ To combat occasional Benchmark Email API server slowdowns causing sluggish behav
 
 = Q5: How do I control which page(s) the widget appears on, or subscribe to multiple lists? =
 
-There is an optional setting to limit the Plugin to a single page, if desired. The widget can be extended to allow subscriptions to multiple lists or even multiple Benchmark Email API accounts. This is accomplished by installing multiple instances of the widget in various widget compatible areas of your theme.
+The widget supports subscriptions to multiple lists or even multiple Benchmark Email API accounts. You may use our optional setting to limit the Plugin to a single page, or use the JetPack module "Widget Visibility" to create visibility rules for a single widget instance. You may also configure multiple instances of the widget and title each instance for the list it corresponds to.
 
 = Q6: How can I customize the email template? =
 
