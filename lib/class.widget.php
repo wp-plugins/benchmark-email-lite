@@ -141,6 +141,8 @@ class benchmarkemaillite_widget extends WP_Widget {
 
 	// Build the Widget Settings Form - Cannot Be Static
 	function form( $instance ) {
+
+		// Optional Fields List
 		$fields = array(
 			'First Name', 'Last Name', 'Middle Name',
 			'Address', 'City', 'State', 'Zip', 'Country', 'Phone', 'Fax', 'Cell Phone',
@@ -151,15 +153,16 @@ class benchmarkemaillite_widget extends WP_Widget {
 
 		// Prepare Default Values
 		$defaults = array(
-			'title' => __( 'Subscribe to Newsletter', 'benchmark-email-lite' ),
 			'button' => __( 'Subscribe', 'benchmark-email-lite' ),
 			'description' => __( 'Get the latest news and information direct from us to you!', 'benchmark-email-lite' ),
-			'page' => '',
-			'list' => '',
-			'filter' => 0,
-			'fields' => array( 'First Name', 'Last Name', 'Email' ),
 			'fields_labels' => array( 'First Name', 'Last Name', 'Email' ),
 			'fields_required' => array( 0, 0, 1 ),
+			'fields' => array( 'First Name', 'Last Name', 'Email' ),
+			'filter' => 0,
+			'form' => '',
+			'list' => '',
+			'page' => '',
+			'title' => __( 'Subscribe to Newsletter', 'benchmark-email-lite' ),
 		);
 
 		// Get Widget ID And Saved Values
@@ -173,9 +176,8 @@ class benchmarkemaillite_widget extends WP_Widget {
 			$val = benchmarkemaillite_settings::badconfig_message();
 			echo "<strong style='color:red;'>{$val}</strong>";
 		}
-		$dropdown = benchmarkemaillite_display::print_lists(
-			$options[1], $instance['list']
-		);
+		$contact_lists = benchmarkemaillite_display::print_lists( $options[1], $instance['list'] );
+		$signup_forms = benchmarkemaillite_display::print_lists( $options[1], $instance['form'], 'signup_forms' );
 
 		// Insert "Add New" Hidden Row
 		array_unshift( $instance['fields'], '' );
@@ -201,6 +203,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 		}
 
 		// Sanitize Other Admin Submissions
+		$instance['form'] = intval( $submitted['form'] );
 		$instance['title'] = esc_attr( $submitted['title'] );
 		$instance['page'] = absint( $submitted['page'] );
 		$instance['list'] = esc_attr( $submitted['list'] );

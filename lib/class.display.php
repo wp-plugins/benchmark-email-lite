@@ -37,12 +37,12 @@ class benchmarkemaillite_display {
 	}
 
 	// Makes Drop Down Lists From API Keys
-	static function print_lists( $keys, $selected='' ) {
+	static function print_lists( $keys, $select='', $command='lists' ) {
 		$lists = array();
 		foreach( $keys as $key ) {
 			if( ! $key ) { continue; }
 			benchmarkemaillite_api::$token = $key;
-			$response = benchmarkemaillite_api::lists();
+			$response = call_user_func( array( 'benchmarkemaillite_api', $command ) );
 			$lists[$key] = is_array( $response ) ? $response : '';
 		}
 
@@ -56,22 +56,40 @@ class benchmarkemaillite_display {
 			if( ! $list1 ) {
 				$i++;
 				$list1 = array();
-				$output .= "<option value=''"
-					. ( ( $i == 1 ) ? " selected='selected'" : '' )
-					. " disabled='disabled'>↳ "
-					. benchmarkemaillite_settings::badconnection_message()
-					. "</option>\n";
+				$output .= '
+					<option value=""' . ( ( $i == 1 ) ? ' selected="selected"' : '' ) . ' disabled="disabled">
+						↳ ' . benchmarkemaillite_settings::badconnection_message() . '
+					</option>
+				';
 				continue;
 			}
 			foreach( $list1 as $list ) {
-				if( $list['listname'] == 'Master Unsubscribe List' ) { continue; }
-				$val = "{$key}|{$list['listname']}|{$list['id']}";
-				$i++;
-				if( ! $selected && $i == 1 ) { $select = " selected='selected'"; }
-				else {
-					$select = ( $selected == $val ) ? " selected='selected'" : '';
+				switch( $command ) {
+
+					// Contact Lists
+					case 'lists':
+						$name = 'listname';
+						$val = "{$key}|{$list[$name]}|{$list['id']}";
+
+						// Handle Pre Selection Of First Choice When No Choice Exists
+						$i++;
+						$selected = ( $select == $val ) ? " selected='selected'" : '';
+						if( ! $select && $i == 1 ) { $selected = " selected='selected'"; }
+						break;
+
+					// Signup Forms
+					case 'signup_forms':
+						$name = 'name';
+						$val = $list['id'];
+						$selected = ( $select == $val ) ? " selected='selected'" : '';
+						break;
 				}
-				$output .= "<option{$select} value='{$val}'>↳ {$list['listname']}</option>\n";
+
+				// Skip Unsubscribe List
+				if( $list[$name] == 'Master Unsubscribe List' ) { continue; }
+
+				// Output
+				$output .= "<option{$selected} value='{$val}'>↳ {$list[$name]}</option>\n";
 			}
 		}
 		return $output;
