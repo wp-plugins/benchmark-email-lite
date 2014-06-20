@@ -7,6 +7,7 @@
 	</select>
 </p>
 <p>
+	- OR -<br />
 	<label for="<?php echo $this->get_field_id( 'form' ); ?>">
 		<?php _e( 'Signup form relationship', 'benchmark-email-lite' ); ?>:
 	</label>
@@ -14,7 +15,7 @@
 	<option value="">None</option>
 	<?php echo $signup_forms; ?>
 	</select><br />
-	<small><?php _e( 'Optionally choose a sign-up form from your Benchmark Email account for us to pull your Opt In confirmation email text from.', 'benchmark-email-lite' ); ?></small>
+	<small><?php _e( 'Optionally choose a sign-up form from your Benchmark Email account for us to pull your Opt In confirmation email text from. If you select a sign-up form, the contact list name (above) is ignored in favor of the sign-up form\'s list(s).', 'benchmark-email-lite' ); ?></small>
 </p>
 <p>
 	<label for="<?php echo $this->get_field_name( 'title' ); ?>-title">

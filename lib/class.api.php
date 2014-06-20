@@ -69,8 +69,10 @@ class benchmarkemaillite_api {
 			return 'fail-email';
 		}
 
-		// Handle Communications Failure
+		// Test Communications
 		$response = self::lists();
+
+		// Handle Communications Failure
 		if( ! is_array( $response ) ) {
 
 			// Send to Queue
@@ -84,8 +86,20 @@ class benchmarkemaillite_api {
 		// Helper
 		$data['email'] = $data['Email'];
 
+		// Determine List Versus Form
+		$form = true;
+		foreach( $response as $row ) { if( $row['id'] == self::$listid ) { $form = false; } }
+
+		// Sign Up Form Subscriptions
+		if( $form ) {
+			return self::query( 'listAddContactsForm', self::$token, self::$listid, $data )
+				? 'success-add' : 'fail-add';
+		}
+
 		// Add New Subscription
 		if ( ! is_numeric( $contactID ) ) {
+
+			// List Subscriptions
 			return self::query( 'listAddContactsOptin', self::$token, self::$listid, array( $data ), '1' )
 				? 'success-add' : 'fail-add';
 		}

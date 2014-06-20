@@ -203,13 +203,13 @@ class benchmarkemaillite_widget extends WP_Widget {
 		}
 
 		// Sanitize Other Admin Submissions
-		$instance['form'] = intval( $submitted['form'] );
-		$instance['title'] = esc_attr( $submitted['title'] );
-		$instance['page'] = absint( $submitted['page'] );
-		$instance['list'] = esc_attr( $submitted['list'] );
-		$instance['description'] = wp_kses_post( $submitted['description'] );
 		$instance['button'] = esc_attr( $submitted['button'] );
+		$instance['description'] = wp_kses_post( $submitted['description'] );
 		$instance['filter'] = ( $submitted['filter'] ) ? 1 : 0;
+		$instance['form'] = esc_attr( $submitted['form'] );
+		$instance['list'] = esc_attr( $submitted['list'] );
+		$instance['page'] = absint( $submitted['page'] );
+		$instance['title'] = esc_attr( $submitted['title'] );
 		return $instance;
 	}
 
@@ -324,7 +324,8 @@ class benchmarkemaillite_widget extends WP_Widget {
 			}
 
 			// Run Subscription
-			self::$response[$widgetid] = self::process_subscription( $instance['list'], $data );
+			$list_or_form = $instance['form'] ? $instance['form'] :  $instance['list'];
+			self::$response[$widgetid] = self::process_subscription( $list_or_form, $data );
 		}
 	}
 
