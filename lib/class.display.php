@@ -37,15 +37,35 @@ class benchmarkemaillite_display {
 	}
 
 	// Makes Drop Down Lists From API Keys
-	static function print_lists( $keys, $select='', $command='lists' ) {
+	static function print_lists( $apis, $select='', $command='lists' ) {
 
 		// Lookup Lists
 		$lists = array();
-		foreach( $keys as $key ) {
-			if( ! $key ) { continue; }
-			benchmarkemaillite_api::$token = $key;
-			$response = call_user_func( array( 'benchmarkemaillite_api', $command ) );
-			$lists[$key] = is_array( $response ) ? $response : '';
+
+		// Loop API Keys
+		foreach( $apis as $api ) {
+			if( ! $api ) { continue; }
+			$lists[$api] = array();
+			benchmarkemaillite_api::$token = $api;
+
+			// Different Requests
+			switch( $command ) {
+
+				// Get Signup Forms And Lists
+				case 'signup_forms':
+					$response = call_user_func( array( 'benchmarkemaillite_api', 'signup_forms' ) );
+					$lists[$api] = is_array( $response ) ? $response : array();
+
+				// Just Get Lists
+				case 'lists':
+					$response = call_user_func( array( 'benchmarkemaillite_api', 'lists' ) );
+					if( is_array( $response ) ) {
+						foreach( $response as $key => $val ) {
+							if( isset( $val['listname'] ) ) { $response[$key]['name'] = $val['listname']; }
+						}
+						$lists[$api] = array_merge( $lists[$api], $response );
+					}
+			}
 		}
 
 		// Generate Output
@@ -76,28 +96,13 @@ class benchmarkemaillite_display {
 			foreach( $list1 as $list ) {
 				$selected = false;
 				$id = $list['id'];
+				$name = $list['name'];
+				$val = "{$key}|{$name}|{$id}";
 
-				// Continue Based On List Type
-				switch( $command ) {
-
-					// Contact Lists
-					case 'lists':
-						$name = $list['listname'];
-						$val = "{$key}|{$name}|{$id}";
-
-						// Handle Pre Selection Of First Choice When No Choice Exists
-						$i++;
-						$selected = ( $select === $val ) ? " selected='selected'" : '';
-						if( ! $select && $i == 1 ) { $selected = " selected='selected'"; }
-						break;
-
-					// Signup Forms
-					case 'signup_forms':
-						$name = $list['name'];
-						$val = "{$key}|{$name}|{$id}";
-						$selected = ( $select === $val ) ? " selected='selected'" : '';
-						break;
-				}
+				// Handle Pre Selection Of First Choice When No Choice Exists
+				$i ++;
+				$selected = ( $select === $val ) ? " selected='selected'" : '';
+				if( ! $select && $i == 1 ) { $selected = " selected='selected'"; }
 
 				// Skip Unsubscribe List
 				if( $name == 'Master Unsubscribe List' ) { continue; }

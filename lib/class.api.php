@@ -69,7 +69,7 @@ class benchmarkemaillite_api {
 			return 'fail-email';
 		}
 
-		// Test Communications
+		// Test Communications And Get List IDs
 		$response = self::lists();
 
 		// Handle Communications Failure
@@ -86,7 +86,7 @@ class benchmarkemaillite_api {
 		// Helper
 		$data['email'] = $data['Email'];
 
-		// Determine List Versus Form
+		// Determine List Versus Signup Form
 		$form = true;
 		foreach( $response as $row ) { if( $row['id'] == self::$listid ) { $form = false; } }
 

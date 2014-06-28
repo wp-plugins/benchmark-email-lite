@@ -159,7 +159,6 @@ class benchmarkemaillite_widget extends WP_Widget {
 			'fields_required' => array( 0, 0, 1 ),
 			'fields' => array( 'First Name', 'Last Name', 'Email' ),
 			'filter' => 0,
-			'form' => '',
 			'list' => '',
 			'page' => '',
 			'title' => __( 'Subscribe to Newsletter', 'benchmark-email-lite' ),
@@ -176,8 +175,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 			$val = benchmarkemaillite_settings::badconfig_message();
 			echo "<strong style='color:red;'>{$val}</strong>";
 		}
-		$contact_lists = benchmarkemaillite_display::print_lists( $options[1], $instance['list'] );
-		$signup_forms = benchmarkemaillite_display::print_lists( $options[1], $instance['form'], 'signup_forms' );
+		$signup_forms = benchmarkemaillite_display::print_lists( $options[1], $instance['list'], 'signup_forms' );
 
 		// Insert "Add New" Hidden Row
 		array_unshift( $instance['fields'], '' );
@@ -206,7 +204,6 @@ class benchmarkemaillite_widget extends WP_Widget {
 		$instance['button'] = esc_attr( $submitted['button'] );
 		$instance['description'] = wp_kses_post( $submitted['description'] );
 		$instance['filter'] = ( $submitted['filter'] ) ? 1 : 0;
-		$instance['form'] = esc_attr( $submitted['form'] );
 		$instance['list'] = esc_attr( $submitted['list'] );
 		$instance['page'] = absint( $submitted['page'] );
 		$instance['title'] = esc_attr( $submitted['title'] );
@@ -324,8 +321,7 @@ class benchmarkemaillite_widget extends WP_Widget {
 			}
 
 			// Run Subscription
-			$list_or_form = $instance['form'] ? $instance['form'] :  $instance['list'];
-			self::$response[$widgetid] = self::process_subscription( $list_or_form, $data );
+			self::$response[$widgetid] = self::process_subscription( $instance['list'], $data );
 		}
 	}
 

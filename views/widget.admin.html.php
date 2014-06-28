@@ -1,21 +1,11 @@
 <p>
 	<label for="<?php echo $this->get_field_id( 'list' ); ?>">
-		<?php _e( 'Contact list name', 'benchmark-email-lite' ); ?>:
+		<?php _e( 'Contact list or signup form relationship', 'benchmark-email-lite' ); ?>:
 	</label>
 	<select style="width:100%;" name="<?php echo $this->get_field_name( 'list' ); ?>" id="<?php echo $this->get_field_id( 'list' ); ?>">
-	<?php echo $contact_lists; ?>
-	</select>
-</p>
-<p>
-	- OR -<br />
-	<label for="<?php echo $this->get_field_id( 'form' ); ?>">
-		<?php _e( 'Signup form relationship', 'benchmark-email-lite' ); ?>:
-	</label>
-	<select style="width:100%;" name="<?php echo $this->get_field_name( 'form' ); ?>" id="<?php echo $this->get_field_id( 'form' ); ?>">
-	<option value="">None</option>
 	<?php echo $signup_forms; ?>
 	</select><br />
-	<small><?php _e( 'Optionally choose a sign-up form from your Benchmark Email account for us to pull your Opt In confirmation email text from. If you select a sign-up form, the contact list name (above) is ignored in favor of the sign-up form\'s list(s).', 'benchmark-email-lite' ); ?></small>
+	<small><?php _e( 'Choose a single list or a sign-up form from your Benchmark Email account. Choosing a signup form means we use the Opt In confirmation email and subscription list(s) defined within the selected signup form.', 'benchmark-email-lite' ); ?></small>
 </p>
 <p>
 	<label for="<?php echo $this->get_field_name( 'title' ); ?>-title">
