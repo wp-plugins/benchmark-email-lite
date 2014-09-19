@@ -1,7 +1,7 @@
 <?php
 
 class benchmarkemaillite_api {
-	static $token, $listid, $campaignid, $apiurl = 'https://api.benchmarkemail.com/1.0/';
+	static $token, $listid, $formid=true, $campaignid, $apiurl = 'https://api.benchmarkemail.com/1.0/';
 
 	// Executes Query with Time Tracking
 	static function query() {
@@ -65,48 +65,69 @@ class benchmarkemaillite_api {
 	static function subscribe( $bmelist, $data ) {
 
 		// Ensure Valid Email Address
-		if( ! isset( $data['Email'] ) || ! is_email( $data['Email'] ) ) {
-			return 'fail-email';
-		}
+		if( ! isset( $data['Email'] ) || ! is_email( $data['Email'] ) ) { return 'fail-email'; }
+		$data['email'] = $data['Email'];
 
 		// Test Communications And Get List IDs
-		$response = self::lists();
+		$lists = self::lists();
 
-		// Handle Communications Failure
-		if( ! is_array( $response ) ) {
-
-			// Send to Queue
+		// Handle Communications Failure, To Queue
+		if( ! is_array( $lists ) ) {
 			benchmarkemaillite_widget::queue_subscription( $bmelist, $data );
 			return 'success-queue';
 		}
 
-		// Check for Subscription Preexistance
+		// Determine List Versus Signup Form Subscription
+		foreach( $lists as $list ) { if( $list['id'] == self::$listid ) { self::$formid = false; } }
+
+		// Sign Up Form Subscription
+		if( self::$formid ) {
+			self::$formid = self::$listid;
+			self::$listid = '';
+
+			// Get Applicable Signup Form
+			$forms = self::signup_forms();
+			foreach( $forms as $form ) {
+				if( $form['id'] == self::$formid ) {
+
+					// Get Lists Used In Signup Form
+					$listnames = explode( ', ', $form['toListName'] );
+					foreach( $listnames as $listname ) {
+						foreach( $lists as $list ) {
+							if( $list['listname'] == $listname ) {
+
+								// Check for List Subscription Preexistance
+								self::$listid = $list['id'];
+								$contactID = self::find( $data['Email'] );
+
+								// Update Preexisting List Subscription
+								if ( is_numeric( $contactID ) ) {
+									return self::query( 'listUpdateContactDetails', self::$token, self::$listid, $contactID, $data )
+										? 'success-update' : 'fail-update';
+								}
+							}
+						}					
+					}
+				}
+			}
+
+			// New Signup Form Subscription
+			return self::query( 'listAddContactsForm', self::$token, self::$formid, $data )
+				? 'success-add' : 'fail-add';
+		}
+
+		// Check for List Subscription Preexistance
 		$contactID = self::find( $data['Email'] );
 
-		// Helper
-		$data['email'] = $data['Email'];
-
-		// Determine List Versus Signup Form
-		$form = true;
-		foreach( $response as $row ) { if( $row['id'] == self::$listid ) { $form = false; } }
-
-		// Sign Up Form Subscriptions
-		if( $form ) {
-			return self::query( 'listAddContactsForm', self::$token, self::$listid, $data )
-				? 'success-add' : 'fail-add';
+		// Update Preexisting List Subscription
+		if ( is_numeric( $contactID ) ) {
+			return self::query( 'listUpdateContactDetails', self::$token, self::$listid, $contactID, $data )
+				? 'success-update' : 'fail-update';
 		}
 
-		// Add New Subscription
-		if ( ! is_numeric( $contactID ) ) {
-
-			// List Subscriptions
-			return self::query( 'listAddContactsOptin', self::$token, self::$listid, array( $data ), '1' )
-				? 'success-add' : 'fail-add';
-		}
-
-		// Update Preexisting Subscription
-		return self::query( 'listUpdateContactDetails', self::$token, self::$listid, $contactID, $data )
-			? 'success-update' : 'fail-update';
+		// New List Subscription
+		return self::query( 'listAddContactsOptin', self::$token, self::$listid, array( $data ), '1' )
+			? 'success-add' : 'fail-add';
 	}
 
 	// Create Email Campaign
