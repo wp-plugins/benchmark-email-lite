@@ -110,10 +110,7 @@ class benchmarkemaillite_posts {
 			set_transient(
 				'benchmark-email-lite_error',
 				__( 'There was a problem creating or updating your email campaign. Please try again later.', 'benchmark-email-lite' )
-				. (
-					isset( benchmarkemaillite_api::$campaignid['faultString'] )
-						? ' ' . __( 'Benchmark Email response code: ', 'benchmark-email-lite' ) . benchmarkemaillite_api::$campaignid['faultCode'] : ''
-					)
+				. ( isset( benchmarkemaillite_api::$campaignid['faultString'] ) ? ' ' . benchmarkemaillite_api::$campaignid['faultCode'] : '' )
 			);
 			return;
 		}

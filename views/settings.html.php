@@ -21,12 +21,14 @@
 	<br />
 	<div class="error">
 		<h3><?php _e( 'Connection Timeout', 'benchmark-email-lite' ); ?></h3>
-		<p><?php _e( 'Due to sluggish communications, the Benchmark Email connection is automatically suspended for up to 5 minutes.', 'benchmark-email-lite' ); ?></p>
-		<p><?php _e( 'You may click this button to retry communications now:', 'benchmark-email-lite' ); ?></p>
-		<form method="post" action="">
-		<input type="submit" class="button-primary" name="force_reconnect" value="<?php _e( 'Attempt to Reconnect', 'benchmark-email-lite' ); ?>" />
-		</form>
-		<p><?php _e( 'If you encounter this error often, you may set the Connection Timeout setting to a higher value.', 'benchmark-email-lite' ); ?></p>
+		<p><?php echo sprintf(
+			__( 'Due to sluggish communications, the Benchmark Email connection is automatically suspended for up to 5 minutes. If you encounter this error often, you may set the Connection Timeout setting to a higher value. %s', 'benchmark-email-lite' )
+		, '
+			<br /><br />
+			<form method="post" action="">
+			<input type="submit" class="button-primary" name="force_reconnect" value="' . __( 'Attempt to Reconnect', 'benchmark-email-lite' ) . '" />
+			</form>
+		' ); ?></p>
 	</div>
 	<?php
 
