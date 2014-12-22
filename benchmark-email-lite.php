@@ -7,6 +7,8 @@ Version: 2.5-devel
 Author: beAutomated
 Author URI: http://www.beautomated.com/
 License: GPLv2
+Text Domain: benchmark-email-lite
+Domain Path: /languages/
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -37,11 +39,11 @@ add_action( 'save_post', array( 'benchmarkemaillite_posts', 'save_post' ) );
 // Widget API Hooks
 add_action( 'admin_init', array( 'benchmarkemaillite_widget', 'admin_init' ) );
 add_action( 'widgets_init', array( 'benchmarkemaillite_widget', 'widgets_init' ) );
-add_action( 'widgets_init', 'benchmarkemaillite_register_widget' );
 add_action( 'benchmarkemaillite_queue', array( 'benchmarkemaillite_widget', 'queue_upload' ) );
 function benchmarkemaillite_register_widget() {
 	register_widget( 'benchmarkemaillite_widget' );
 }
+add_action( 'widgets_init', 'benchmarkemaillite_register_widget' );
 
 // Shortcode API Hooks
 add_shortcode( 'benchmark-email-lite', array( 'benchmarkemaillite_display', 'shortcode' ) );
@@ -53,5 +55,11 @@ add_action( 'admin_notices', array( 'benchmarkemaillite_settings', 'admin_notice
 add_action( 'init', array( 'benchmarkemaillite_settings', 'init' ) );
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( 'benchmarkemaillite_settings', 'plugin_action_links' ) );
 add_filter( 'plugin_row_meta', array( 'benchmarkemaillite_settings', 'plugin_row_meta' ), 10, 2 );
+
+// Internationalization
+function benchmarkemaillite_i18n() {
+	load_plugin_textdomain( 'benchmark-email-lite', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );        
+}
+add_action( 'plugins_loaded', 'benchmarkemaillite_i18n' );
 
 ?>
