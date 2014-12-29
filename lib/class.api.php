@@ -68,7 +68,7 @@ class benchmarkemaillite_api {
 		if( ! isset( $data['Email'] ) || ! is_email( $data['Email'] ) ) { return 'fail-email'; }
 		$data['email'] = $data['Email'];
 
-		// Test Communications And Get List IDs
+		// Test Communications And Get Contact List IDs
 		$lists = self::lists();
 
 		// Handle Communications Failure, To Queue
@@ -82,33 +82,42 @@ class benchmarkemaillite_api {
 
 		// Sign Up Form Subscription
 		if( self::$formid ) {
+
+			// List ID Field Really Contains A Form ID, Switch Back For Now
 			self::$formid = self::$listid;
 			self::$listid = '';
+			$updates = array();
 
 			// Get Applicable Signup Form
 			$forms = self::signup_forms();
 			foreach( $forms as $form ) {
-				if( $form['id'] == self::$formid ) {
+				if( $form['id'] != self::$formid ) { continue; }
 
-					// Get Lists Used In Signup Form
-					$listnames = explode( ', ', $form['toListName'] );
-					foreach( $listnames as $listname ) {
-						foreach( $lists as $list ) {
-							if( $list['listname'] == $listname ) {
+				// Get List(s) Used In The Signup Form
+				$listnames = explode( ', ', $form['toListName'] );
+				foreach( $listnames as $listname ) {
 
-								// Check for List Subscription Preexistance
-								self::$listid = $list['id'];
-								$contactID = self::find( $data['Email'] );
+					// Get Applicable Contact List
+					foreach( $lists as $list ) {
+						if( $list['listname'] != $listname ) { continue; }
 
-								// Update Preexisting List Subscription
-								if ( is_numeric( $contactID ) ) {
-									return self::query( 'listUpdateContactDetails', self::$token, self::$listid, $contactID, $data )
-										? 'success-update' : 'fail-update';
-								}
-							}
-						}					
+						// Check for List Subscription Preexistance
+						self::$listid = $list['id'];
+						$contactID = self::find( $data['Email'] );
+
+						// If Found, Update Preexisting List Subscription
+						if ( is_numeric( $contactID ) ) {
+							$updates[] = self::query( 'listUpdateContactDetails', self::$token, self::$listid, $contactID, $data )
+								? 'success-update' : 'fail-update';
+						}
 					}
 				}
+			}
+
+			// Return Any Update Results
+			if( $updates ) {
+				return in_array( 'fail-update', $updates )
+					? 'fail-update' : 'success-update';
 			}
 
 			// New Signup Form Subscription
@@ -119,7 +128,7 @@ class benchmarkemaillite_api {
 		// Check for List Subscription Preexistance
 		$contactID = self::find( $data['Email'] );
 
-		// Update Preexisting List Subscription
+		// Update Found Preexisting List Subscription
 		if ( is_numeric( $contactID ) ) {
 			return self::query( 'listUpdateContactDetails', self::$token, self::$listid, $contactID, $data )
 				? 'success-update' : 'fail-update';
