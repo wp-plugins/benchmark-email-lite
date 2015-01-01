@@ -8,7 +8,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-12-22 22:05-0800\n"
+"PO-Revision-Date: 2015-01-01 13:09-0800\n"
 "Last-Translator: Sean Conklin <support@benchmarkemail.com>\n"
 "Language-Team: Benchmark Email Support <support@benchmarkemail.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -78,7 +78,7 @@ msgstr "Fecha"
 
 #: lib/class.display.php:241 lib/class.reports.php:253
 msgid "Bounce Type"
-msgstr ""
+msgstr "Tipo de Rebote"
 
 #: lib/class.posts.php:104
 msgid ""
@@ -116,60 +116,71 @@ msgstr "Regresar a Emails"
 
 #: lib/class.reports.php:184
 msgid "Link Clicked Detail Report"
-msgstr ""
+msgstr "Enlaces de informe Detalle Seguido"
 
 #: lib/class.reports.php:185
 msgid "Displays the subscribers who clicked on the following email link:"
 msgstr ""
+"Muestra los suscriptores que han hecho clic en el siguiente enlace de correo "
+"electrónico:"
 
 #: lib/class.reports.php:199
 msgid "Links Clicked Report"
-msgstr ""
+msgstr "Enlaces Hicieron Click Reportar"
 
 #: lib/class.reports.php:200
 msgid "Displays the subscribers who clicked on specific links in the email."
 msgstr ""
+"Muestra los suscriptores que han hecho clic en los enlaces específicos en el correo "
+"electrónico."
 
 #: lib/class.reports.php:217
 msgid "Emails Opened Report"
-msgstr ""
+msgstr "Emails Abierto Reportar"
 
 #: lib/class.reports.php:218
 msgid "Displays the subscribers who opened the email in their email client."
 msgstr ""
+"Muestra los suscriptores que abrieron el correo electrónico en su cliente de correo "
+"electrónico."
 
 #: lib/class.reports.php:231
 msgid "Emails Unopened Report"
-msgstr ""
+msgstr "Emails Sin Abrir Reportar"
 
 #: lib/class.reports.php:232
 msgid "Displays the subscribers who never opened the email."
-msgstr ""
+msgstr "Muestra los suscriptores que nunca se abrieron el correo electrónico."
 
 #: lib/class.reports.php:244
 msgid "Emails Bounced Report"
-msgstr ""
+msgstr "Emails Devueltos Reportar"
 
 #: lib/class.reports.php:245
 msgid "Displays the subscribers whose email service provider rejected the email."
 msgstr ""
+"Muestra los suscriptores cuya dirección de correo electrónico del servicio "
+"proveedor rechazado el correo electrónico."
 
 #: lib/class.reports.php:260
 msgid "Emails Unsubscribed Report"
-msgstr ""
+msgstr "Emails No Suscribirse Reportar"
 
 #: lib/class.reports.php:261
 msgid ""
 "Displays previous subscribers who unsubscribed from the list during this campaign."
 msgstr ""
+"Muestra suscriptores anteriores que estar inscrita en la lista durante esta campaña."
 
 #: lib/class.reports.php:274
 msgid "Emails Forwarded Report"
-msgstr ""
+msgstr "Emails Remitió Reportar"
 
 #: lib/class.reports.php:275
 msgid "Displays the subscribers who successfully forwarded the email to others."
 msgstr ""
+"Muestra los suscriptores que transmitieron con éxito la dirección de correo "
+"electrónico a los demás."
 
 #: lib/class.settings.php:10
 msgid "Valid API key and API server connection."
@@ -181,11 +192,11 @@ msgstr "Clave API o problema con la conexión del servidor API inválidos."
 
 #: lib/class.settings.php:25
 msgid "Contact Developer"
-msgstr ""
+msgstr "Contacto Para Desarrolladores"
 
 #: lib/class.settings.php:27
 msgid "Free 30 Day Benchmark Email Trial"
-msgstr ""
+msgstr "Prueba Gratuita Benchmark Email"
 
 #: lib/class.settings.php:57
 msgid ""
@@ -244,7 +255,7 @@ msgstr "Restablecer Cambios"
 
 #: lib/class.settings.php:180
 msgid "Reset to Defaults"
-msgstr ""
+msgstr "Restablecer valores predeterminados"
 
 #: lib/class.settings.php:181
 msgid "Are you sure you wish to load the default values and lose your customizations?"
@@ -258,7 +269,7 @@ msgstr "Las claves API conectan su sitio WordPress con su cuenta de Benchmark Em
 
 #: lib/class.settings.php:192
 msgid "Only one key is required per Benchmark Email account."
-msgstr ""
+msgstr "Sólo se requiere una llave por cuenta Benchmark Email."
 
 #: lib/class.settings.php:193
 msgid "API Key(s) may expire after one year."
@@ -287,32 +298,41 @@ msgid ""
 "The following is for advanced users to customize the HTML template that wraps the "
 "output of the post-to-campaign feature."
 msgstr ""
+"Lo siguiente es para usuarios avanzados para personalizar la plantilla HTML que se "
+"envuelve la salida de la función de post -to- campaña."
 
 #: lib/class.settings.php:215
 msgid ""
 "For example, one can replace the `img` tag URL with their logo URL from their WP "
 "Media Library."
 msgstr ""
+"Por ejemplo, se puede sustituir la URL `img` con su logotipo de URL de su "
+"biblioteca de medios de WP."
 
 #: lib/class.settings.php:216
 msgid ""
 "One can also change the two color codes `ffffff` to their desired background and "
 "foreground colors."
 msgstr ""
+"Uno puede también cambiar los dos códigos de color `ffffff` a su fondo deseado y "
+"colores de primer plano."
 
 #: lib/class.settings.php:218
 msgid "Look up color codes here."
-msgstr ""
+msgstr "Busque los códigos de color aquí."
 
 #: lib/class.settings.php:220
 msgid ""
 "One can also change their fonts by changing the `font-family` priorities and `font-"
 "size` sizing."
 msgstr ""
+"Uno puede también cambiar sus fuentes cambiando las prioridades `font-family` y "
+"`font-size`."
 
 #: lib/class.settings.php:222
 msgid "This article helps you with email template coding."
 msgstr ""
+"En este artículo le ayuda con la codificación de la plantilla de correo electrónico."
 
 #: lib/class.settings.php:255
 msgid ""
@@ -334,19 +354,23 @@ msgstr ""
 
 #: lib/class.settings.php:270
 msgid "will be replaced with the WP page title."
-msgstr ""
+msgstr "será reemplazado por el título de la página WP."
 
 #: lib/class.settings.php:271
 msgid "will be replaced with the WP page body."
-msgstr ""
+msgstr "será reemplazado por el cuerpo de la página WP."
 
 #: lib/class.settings.php:272
 msgid "will be replaced with the WP site admin email hash (for Gravatar)."
 msgstr ""
+"será reemplazado por el sitio WP administrador de correo electrónico de hash (por "
+"Gravatar)."
 
 #: lib/class.settings.php:276
 msgid "Be sure to send email tests after making changes to the email template!"
 msgstr ""
+"Asegúrese de enviar pruebas de correo electrónico después de hacer cambios en la "
+"plantilla de correo electrónico!"
 
 #: lib/class.settings.php:325
 msgid "Settings saved."
@@ -362,7 +386,7 @@ msgstr ""
 
 #: lib/class.widget.php:136
 msgid "Create a Benchmark Email newsletter widget in WordPress."
-msgstr ""
+msgstr "Crear un widget de Benchmark Email boletín en WordPress."
 
 #: lib/class.widget.php:156
 msgid "Subscribe"
@@ -371,6 +395,7 @@ msgstr "Suscribirme"
 #: lib/class.widget.php:157
 msgid "Get the latest news and information direct from us to you!"
 msgstr ""
+"Recibe las últimas noticias y la información directamente de nosotros a usted!"
 
 #: lib/class.widget.php:164
 msgid "Subscribe to Newsletter"
@@ -530,7 +555,7 @@ msgstr "Total Emails enviados"
 
 #: views/reports.level2.html.php:32
 msgid "Opened Emails"
-msgstr ""
+msgstr "Los correos electrónicos abiertos"
 
 #: views/reports.level2.html.php:34 views/reports.level2.html.php:43
 #: views/reports.level2.html.php:52 views/reports.level2.html.php:59
@@ -539,7 +564,7 @@ msgstr ""
 #: views/reports.level2.html.php:103 views/reports.level2.html.php:106
 #: views/reports.level2.html.php:109
 msgid "Click to view report"
-msgstr ""
+msgstr "Haga clic para ver el informe"
 
 #: views/reports.level2.html.php:41
 msgid "Links Clicked"
@@ -621,7 +646,7 @@ msgstr "Intentar Reconexión"
 
 #: views/widget.admin.html.php:3
 msgid "Contact list or signup form relationship"
-msgstr ""
+msgstr "La lista de contactos o registra Relación de forma"
 
 #: views/widget.admin.html.php:8
 msgid ""
@@ -629,6 +654,10 @@ msgid ""
 "a signup form means we use the Opt In confirmation email and subscription list(s) "
 "defined within the selected signup form."
 msgstr ""
+"Elija una sola lista o un formulario de registro de su cuenta de Benchmark Email. "
+"La elección de un formulario de registro significa que usamos la OPT en correo "
+"electrónico de confirmación y suscripción de la lista (s) definido en el formulario "
+"de registro seleccionado."
 
 #: views/widget.admin.html.php:12
 msgid "Signup form title"
@@ -695,7 +724,7 @@ msgstr ""
 
 #: views/widget.admin.html.php:128
 msgid "Click the Save button to generate a shortcode for this widget."
-msgstr ""
+msgstr "Haga clic en el botón Guardar para generar un código corto para este widget."
 
 #: views/widget.frontend.html.php:25
 msgid "Loading - Please wait"
@@ -718,6 +747,9 @@ msgid ""
 "Benchmark Email Lite lets you build an email list right from your WordPress site, "
 "and easily send your subscribers email versions of your blog posts."
 msgstr ""
+"Benchmark Email Lite le permite crear una lista de correo electrónico directamente "
+"desde su sitio de WordPress, y fácilmente enviar sus suscriptores versiones de "
+"correo electrónico de su blog."
 
 #. Author of the plugin/theme
 msgid "beAutomated"
