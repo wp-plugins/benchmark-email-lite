@@ -8,7 +8,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-01-01 19:05-0800\n"
+"PO-Revision-Date: 2015-01-01 19:53-0800\n"
 "Last-Translator: Sean Conklin <support@benchmarkemail.com>\n"
 "Language-Team: Kunpeng Wang <support@benchmarkemail.com>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -62,7 +62,7 @@ msgstr "百分之"
 #: lib/class.reports.php:236 lib/class.reports.php:251 lib/class.reports.php:265
 #: lib/class.reports.php:279
 msgid "Name"
-msgstr "名稱（暫定翻譯）"
+msgstr "名子"
 
 #: lib/class.display.php:239 lib/class.reports.php:191 lib/class.reports.php:208
 #: lib/class.reports.php:223 lib/class.reports.php:237 lib/class.reports.php:252
@@ -307,11 +307,8 @@ msgid "This article helps you with email template coding."
 msgstr "這篇文章有助於您為電郵模板編代碼。"
 
 #: lib/class.settings.php:255
-msgid ""
-"Include the sentence &quot;Having trouble viewing this email? <u>click here</"
-"u>&quot; in the top of emails?"
-msgstr ""
-"是否在電郵頂端包含&quot;在閱讀此電郵時遇到麻煩？<u>click here</u>&quot;這句話？"
+msgid "Include the link to view a Webpage Version at the top of emails?"
+msgstr "是否要在電郵頂端包含閱讀網頁版的鏈接？"
 
 #: lib/class.settings.php:260
 msgid ""
@@ -487,7 +484,7 @@ msgstr "日期已更改"
 
 #: views/reports.level1.html.php:29
 msgid "List"
-msgstr "名單（暫定翻譯）"
+msgstr "名單"
 
 #: views/reports.level1.html.php:43
 msgid "No results found for the following API key(s)"

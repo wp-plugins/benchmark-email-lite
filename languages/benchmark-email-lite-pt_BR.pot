@@ -8,7 +8,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-01-01 13:37-0800\n"
+"PO-Revision-Date: 2015-01-01 19:40-0800\n"
 "Last-Translator: Sean Conklin <support@benchmarkemail.com>\n"
 "Language-Team: Benchmark Email Support <support@benchmarkemail.com>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -325,10 +325,8 @@ msgid "This article helps you with email template coding."
 msgstr "Este artigo ajuda você com a codificação do modelo de e-mail."
 
 #: lib/class.settings.php:255
-msgid ""
-"Include the sentence &quot;Having trouble viewing this email? <u>click here</"
-"u>&quot; in the top of emails?"
-msgstr "Incluir o texto &quot;Ver este email no navegador&quot; no topo do email?"
+msgid "Include the link to view a Webpage Version at the top of emails?"
+msgstr "Incluir o link para ver uma Versão Webpage no topo de emails?"
 
 #: lib/class.settings.php:260
 msgid ""

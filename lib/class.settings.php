@@ -143,9 +143,9 @@ class benchmarkemaillite_settings {
 		$favicon = plugin_dir_url( __FILE__ ) . '../favicon.png';
 		$page_fn = array( 'benchmarkemaillite_settings', 'page' );
 		add_menu_page( 'Benchmark Email Lite', 'BenchmarkEmail', 'manage_options', 'benchmark-email-lite', '', $favicon );
-		add_submenu_page( 'benchmark-email-lite', 'Benchmark Email Lite Emails', 'Emails', 'manage_options', 'benchmark-email-lite', $page_fn );
-		add_submenu_page( 'benchmark-email-lite', 'Benchmark Email Lite Settings', 'Settings', 'manage_options', 'benchmark-email-lite-settings', $page_fn );
-		add_submenu_page( 'benchmark-email-lite', 'Benchmark Email Lite Template', 'Email Template', 'manage_options', 'benchmark-email-lite-template', $page_fn );
+		add_submenu_page( 'benchmark-email-lite', 'Benchmark Email Lite Emails', __( 'Emails', 'benchmark-email-lite' ), 'manage_options', 'benchmark-email-lite', $page_fn );
+		add_submenu_page( 'benchmark-email-lite', 'Benchmark Email Lite Settings', __( 'Settings', 'benchmark-email-lite' ), 'manage_options', 'benchmark-email-lite-settings', $page_fn );
+		add_submenu_page( 'benchmark-email-lite', 'Benchmark Email Lite Template', __( 'Email Template', 'benchmark-email-lite' ), 'manage_options', 'benchmark-email-lite-template', $page_fn );
 	}
 
 	// Plugins Page Settings Link
@@ -252,7 +252,7 @@ class benchmarkemaillite_settings {
 		$options = get_option( 'benchmark-email-lite_group' );
 		$checked = checked( 'yes', $options[2], false );
 		echo "<input id='benchmark-email-lite_group_2' type='checkbox' name='benchmark-email-lite_group[2]' value='yes'{$checked} /> "
-			. __( 'Include the sentence &quot;Having trouble viewing this email? <u>click here</u>&quot; in the top of emails?', 'benchamrk-email-lite' );
+			. __( 'Include the link to view a Webpage Version at the top of emails?', 'benchmark-email-lite' );
 	}
 	static function field_connection_timeout() {
 		$options = get_option( 'benchmark-email-lite_group' );
