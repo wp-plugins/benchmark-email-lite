@@ -93,21 +93,16 @@
 		<form method="get" action="">
 			<input type="hidden" name="page" value="benchmark-email-lite" />
 			<input type="hidden" name="campaign" value="<?php echo $meta->campaign; ?>" />
-			<input type="submit" class="button-primary" name="show" value="<?php _e( 'Opens', 'benchmark-email-lite' ); ?>"
-				title="<?php _e( 'Click to view report', 'benchmark-email-lite' ); ?>"
-				<?php if( ! $response['opens'] ) { echo ' disabled="disabled"'; } ?> />
-			<input type="submit" class="button-primary" name="show" value="<?php _e( 'Bounces', 'benchmark-email-lite' ); ?>"
-				title="<?php _e( 'Click to view report', 'benchmark-email-lite' ); ?>"
-				<?php if( ! $response['bounces'] ) { echo ' disabled="disabled"'; } ?> />
-			<input type="submit" class="button-primary" name="show" value="<?php _e( 'Unsubscribes', 'benchmark-email-lite' ); ?>"
-				title="<?php _e( 'Click to view report', 'benchmark-email-lite' ); ?>"
-				<?php if( ! $response['unsubscribes'] ) { echo ' disabled="disabled"'; } ?> />
-			<input type="submit" class="button-primary" name="show" value="<?php _e( 'Forwards', 'benchmark-email-lite' ); ?>"
-				title="<?php _e( 'Click to view report', 'benchmark-email-lite' ); ?>"
-				<?php if( ! $response['forwards'] ) { echo ' disabled="disabled"'; } ?> />
-			<input type="submit" class="button-primary" name="show" value="<?php _e( 'Unopens', 'benchmark-email-lite' ); ?>"
-				title="<?php _e( 'Click to view report', 'benchmark-email-lite' ); ?>"
-				<?php if( ! $response['unopens'] ) { echo ' disabled="disabled"'; } ?> />
+			<button class="button-primary" type="submit" name="show" value="opens"
+				<?php if( ! $response['opens'] ) { echo 'disabled="disabled"'; } ?>><?php _e( 'Opens', 'benchmark-email-lite' ); ?></button>
+			<button class="button-primary" type="submit" name="show" value="bounces"
+				<?php if( ! $response['bounces'] ) { echo 'disabled="disabled"'; } ?>><?php _e( 'Bounces', 'benchmark-email-lite' ); ?></button>
+			<button class="button-primary" type="submit" name="show" value="unsubscribes"
+				<?php if( ! $response['unsubscribes'] ) { echo 'disabled="disabled"'; } ?>><?php _e( 'Unsubscribes', 'benchmark-email-lite' ); ?></button>
+			<button class="button-primary" type="submit" name="show" value="forwards"
+				<?php if( ! $response['forwards'] ) { echo 'disabled="disabled"'; } ?>><?php _e( 'Forwards', 'benchmark-email-lite' ); ?></button>
+			<button class="button-primary" type="submit" name="show" value="unopens"
+				<?php if( ! $response['unopens'] ) { echo 'disabled="disabled"'; } ?>><?php _e( 'Unopens', 'benchmark-email-lite' ); ?></button>
 		</form>
 	</p>
 </div>
