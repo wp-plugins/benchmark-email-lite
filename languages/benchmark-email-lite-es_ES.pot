@@ -8,12 +8,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-01-01 19:39-0800\n"
+"PO-Revision-Date: 2015-02-07 13:43-0800\n"
 "Last-Translator: Sean Conklin <support@benchmarkemail.com>\n"
 "Language-Team: Benchmark Email Support <support@benchmarkemail.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: es\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.7.4\n"
 
 #: lib/class.api.php:27
 msgid ""
@@ -269,7 +269,7 @@ msgstr "Las claves API conectan su sitio WordPress con su cuenta de Benchmark Em
 
 #: lib/class.settings.php:192
 msgid "Only one key is required per Benchmark Email account."
-msgstr "Sólo se requiere una llave por cuenta Benchmark Email."
+msgstr "Solamente se require una clave por cuenta de Benchmark Email."
 
 #: lib/class.settings.php:193
 msgid "API Key(s) may expire after one year."
@@ -278,8 +278,8 @@ msgstr "Las Claves API pueden expirar después de 1 año."
 #: lib/class.settings.php:197
 msgid "Signup for a 30-day FREE Trial"
 msgstr ""
-"Suscríbase a una Cuenta GRATIS de por vida, o ingrese a Benchmark Email para "
-"obtener su clave API."
+"Suscríbase a una Cuenta GRATIS de por vida o ingrese a Benchmark Email para obtener "
+"su clave API"
 
 #: lib/class.settings.php:199
 msgid "or"
@@ -298,23 +298,23 @@ msgid ""
 "The following is for advanced users to customize the HTML template that wraps the "
 "output of the post-to-campaign feature."
 msgstr ""
-"Lo siguiente es para usuarios avanzados para personalizar la plantilla HTML que se "
-"envuelve la salida de la función de post -to- campaña."
+"Lo siguiente es para usuarios avanzados para que puedan personalizar la plantilla "
+"HTML que envuelve la salida de la función de publicación de campaña."
 
 #: lib/class.settings.php:215
 msgid ""
 "For example, one can replace the `img` tag URL with their logo URL from their WP "
 "Media Library."
 msgstr ""
-"Por ejemplo, se puede sustituir la URL `img` con su logotipo de URL de su "
-"biblioteca de medios de WP."
+"Por ejemplo, se puede sustituir la etiqueta URL `img` con su URL de logotipo "
+"ubicada en su librería de medios de WP."
 
 #: lib/class.settings.php:216
 msgid ""
 "One can also change the two color codes `ffffff` to their desired background and "
 "foreground colors."
 msgstr ""
-"Uno puede también cambiar los dos códigos de color `ffffff` a su fondo deseado y "
+"También puede cambiar los dos códigos de color `ffffff` a su fondo deseado y "
 "colores de primer plano."
 
 #: lib/class.settings.php:218
@@ -326,18 +326,18 @@ msgid ""
 "One can also change their fonts by changing the `font-family` priorities and `font-"
 "size` sizing."
 msgstr ""
-"Uno puede también cambiar sus fuentes cambiando las prioridades `font-family` y "
-"`font-size`."
+"Uno puede también cambiar sus fuentes cambiando el tamaño de las prioridades `font-"
+"family` y `font-size`."
 
 #: lib/class.settings.php:222
 msgid "This article helps you with email template coding."
 msgstr ""
-"En este artículo le ayuda con la codificación de la plantilla de correo electrónico."
+"Este artículo le ayuda con la codificación de la plantilla de correo electrónico."
 
 #: lib/class.settings.php:255
 msgid "Include the link to view a Webpage Version at the top of emails?"
 msgstr ""
-"Incluya el enlace para ver la Versión para página Web en la parte superior de sus "
+"¿Incluir el enlace para ver la Versión en Página Web en la parte superior de sus "
 "emails?"
 
 #: lib/class.settings.php:260
@@ -393,7 +393,7 @@ msgstr "Suscribirme"
 #: lib/class.widget.php:157
 msgid "Get the latest news and information direct from us to you!"
 msgstr ""
-"Recibe las últimas noticias y la información directamente de nosotros a usted!"
+"¡Reciba las últimas noticias e información directamente de nosotros hacia usted!"
 
 #: lib/class.widget.php:164
 msgid "Subscribe to Newsletter"
@@ -644,7 +644,7 @@ msgstr "Intentar Reconexión"
 
 #: views/widget.admin.html.php:3
 msgid "Contact list or signup form relationship"
-msgstr "La lista de contactos o registra Relación de forma"
+msgstr "Lista de contactos o formulario de registro"
 
 #: views/widget.admin.html.php:8
 msgid ""
@@ -691,11 +691,11 @@ msgstr "Etiqueta"
 
 #: views/widget.admin.html.php:53
 msgid "Required"
-msgstr "Requeridas"
+msgstr "Activar"
 
 #: views/widget.admin.html.php:54
 msgid "Tools"
-msgstr "Herramientas"
+msgstr "Opción"
 
 #: views/widget.admin.html.php:73
 msgid "Email address"
