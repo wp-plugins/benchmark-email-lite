@@ -3,16 +3,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Benchmark Email Lite 2.5\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/benchmark-email-lite\n"
-"POT-Creation-Date: 2014-12-17 03:46:31+00:00\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/benchmark-email-lite\n"
+"POT-Creation-Date: 2015-02-08 02:14:16+00:00\n"
+"PO-Revision-Date: 2015-02-07 18:27-0800\n"
+"Last-Translator: Sean Conklin <support@benchmarkemail.com>\n"
+"Language-Team: Benchmark Email Support <support@benchmarkemail.com>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-02-07 13:43-0800\n"
-"Last-Translator: Sean Conklin <support@benchmarkemail.com>\n"
-"Language-Team: Benchmark Email Support <support@benchmarkemail.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: es\n"
 "X-Generator: Poedit 1.7.4\n"
 
 #: lib/class.api.php:27
@@ -25,15 +25,15 @@ msgstr ""
 "hasta %s para prevenir lentitud. Si esto ocurre con frecuencia, intente aumentar su "
 "%sConexión de Tiempo de Espera en configuraciones.%s"
 
-#: lib/class.api.php:153 lib/class.posts.php:101
+#: lib/class.api.php:162 lib/class.posts.php:101
 msgid "preexists"
 msgstr "preexiste"
 
-#: lib/class.api.php:160
+#: lib/class.api.php:169
 msgid "updated"
 msgstr "actualizado"
 
-#: lib/class.api.php:167
+#: lib/class.api.php:176
 msgid "created"
 msgstr "creado"
 
@@ -41,12 +41,12 @@ msgstr "creado"
 msgid "URL"
 msgstr "URL"
 
-#: lib/class.display.php:234 lib/class.reports.php:161
+#: lib/class.display.php:234 lib/class.reports.php:161 lib/class.widget.php:181
 msgid "Country"
 msgstr "País"
 
 #: lib/class.display.php:235 lib/class.reports.php:162
-#: views/reports.level2.html.php:96
+#: views/reports.level2.html.php:97
 msgid "Opens"
 msgstr "Abiertos"
 
@@ -67,7 +67,7 @@ msgstr "Nombre"
 
 #: lib/class.display.php:239 lib/class.reports.php:191 lib/class.reports.php:208
 #: lib/class.reports.php:223 lib/class.reports.php:237 lib/class.reports.php:252
-#: lib/class.reports.php:266 lib/class.reports.php:280
+#: lib/class.reports.php:266 lib/class.reports.php:280 lib/class.widget.php:205
 msgid "Email"
 msgstr "Email"
 
@@ -182,118 +182,116 @@ msgstr ""
 "Muestra los suscriptores que transmitieron con éxito la dirección de correo "
 "electrónico a los demás."
 
-#: lib/class.settings.php:10
+#: lib/class.settings.php:7
 msgid "Valid API key and API server connection."
 msgstr "Clave API y conexión del servidor API Validos."
 
-#: lib/class.settings.php:15
+#: lib/class.settings.php:12
 msgid "Invalid API key or API server connection problem."
 msgstr "Clave API o problema con la conexión del servidor API inválidos."
 
-#: lib/class.settings.php:25
+#: lib/class.settings.php:22
 msgid "Contact Developer"
 msgstr "Contacto Para Desarrolladores"
 
-#: lib/class.settings.php:27
-msgid "Free 30 Day Benchmark Email Trial"
-msgstr "Prueba Gratuita Benchmark Email"
+#: lib/class.settings.php:24 lib/class.settings.php:193
+msgid "http://www.benchmarkemail.com/Register?p=68907"
+msgstr "http://www.benchmarkemail.com/es/Register?p=68907"
 
-#: lib/class.settings.php:57
+#: lib/class.settings.php:24 lib/class.settings.php:194
+msgid "Sign up for a FREE lifetime account"
+msgstr "Suscríbase a una Cuenta GRATIS de por vida"
+
+#: lib/class.settings.php:54
 msgid ""
 "Please configure your API key(s) on the %sBenchmark Email Lite settings page.%s"
 msgstr ""
 "Por favor configurar su Clave(s) API en la página de configuración de %sBenchmark "
 "Email Lite.%s"
 
-#: lib/class.settings.php:129
+#: lib/class.settings.php:126
 msgid "Benchmark Email Credentials"
 msgstr "Credencial de Benchmark Email"
 
-#: lib/class.settings.php:130
+#: lib/class.settings.php:127
 msgid "New Email Campaign Preferences"
 msgstr "Preferencias de nueva campaña de email"
 
-#: lib/class.settings.php:131
+#: lib/class.settings.php:128
 msgid "Diagnostics"
 msgstr "Diagnostico"
 
-#: lib/class.settings.php:132 lib/class.settings.php:168
+#: lib/class.settings.php:129 lib/class.settings.php:145 lib/class.settings.php:165
 msgid "Email Template"
 msgstr "Plantilla de Email"
 
-#: lib/class.settings.php:135
+#: lib/class.settings.php:132
 msgid "API Key(s) from your Benchmark Email account(s)"
 msgstr "Claves API de su cuenta(s) de Benchmark Email"
 
-#: lib/class.settings.php:136
+#: lib/class.settings.php:133
 msgid "Webpage version"
 msgstr "Versión de página web"
 
-#: lib/class.settings.php:137
+#: lib/class.settings.php:134
 msgid "Connection Timeout (seconds)"
 msgstr "Conexión de tiempo de espera (segundos)"
 
-#: lib/class.settings.php:138
+#: lib/class.settings.php:135
 msgid "Email Template HTML"
 msgstr "Plantilla de email HTML"
 
-#: lib/class.settings.php:153 lib/class.settings.php:167
-msgid "Settings"
-msgstr "Configuraciones"
-
-#: lib/class.settings.php:166
+#: lib/class.settings.php:143 lib/class.settings.php:163
 msgid "Emails"
 msgstr "Emails"
 
-#: lib/class.settings.php:177
+#: lib/class.settings.php:144 lib/class.settings.php:150 lib/class.settings.php:164
+msgid "Settings"
+msgstr "Configuraciones"
+
+#: lib/class.settings.php:174
 msgid "Save Changes"
 msgstr "Guardar Cambios"
 
-#: lib/class.settings.php:178
+#: lib/class.settings.php:175
 msgid "Reset Changes"
 msgstr "Restablecer Cambios"
 
-#: lib/class.settings.php:180
+#: lib/class.settings.php:177
 msgid "Reset to Defaults"
 msgstr "Restablecer valores predeterminados"
 
-#: lib/class.settings.php:181
+#: lib/class.settings.php:178
 msgid "Are you sure you wish to load the default values and lose your customizations?"
 msgstr ""
 "¿Seguro que desea cargar los valores predeterminados y perder sus personalizaciones?"
 
-#: lib/class.settings.php:191
+#: lib/class.settings.php:188
 msgid ""
 "The API Key(s) connect your WordPress site with your Benchmark Email account(s)."
 msgstr "Las claves API conectan su sitio WordPress con su cuenta de Benchmark Email."
 
-#: lib/class.settings.php:192
+#: lib/class.settings.php:189
 msgid "Only one key is required per Benchmark Email account."
 msgstr "Solamente se require una clave por cuenta de Benchmark Email."
 
-#: lib/class.settings.php:193
+#: lib/class.settings.php:190
 msgid "API Key(s) may expire after one year."
 msgstr "Las Claves API pueden expirar después de 1 año."
 
-#: lib/class.settings.php:197
-msgid "Signup for a 30-day FREE Trial"
-msgstr ""
-"Suscríbase a una Cuenta GRATIS de por vida o ingrese a Benchmark Email para obtener "
-"su clave API"
-
-#: lib/class.settings.php:199
+#: lib/class.settings.php:196
 msgid "or"
 msgstr "o"
 
-#: lib/class.settings.php:201
+#: lib/class.settings.php:198
 msgid "log in to Benchmark Email to get your API key"
 msgstr "ingrese a Benchmark Email para obtener su clave API"
 
-#: lib/class.settings.php:207
+#: lib/class.settings.php:204
 msgid "This section is for troubleshooting purposes only."
 msgstr "Esta sección es solamente para solución de problemas."
 
-#: lib/class.settings.php:212
+#: lib/class.settings.php:209
 msgid ""
 "The following is for advanced users to customize the HTML template that wraps the "
 "output of the post-to-campaign feature."
@@ -301,7 +299,7 @@ msgstr ""
 "Lo siguiente es para usuarios avanzados para que puedan personalizar la plantilla "
 "HTML que envuelve la salida de la función de publicación de campaña."
 
-#: lib/class.settings.php:215
+#: lib/class.settings.php:212
 msgid ""
 "For example, one can replace the `img` tag URL with their logo URL from their WP "
 "Media Library."
@@ -309,7 +307,7 @@ msgstr ""
 "Por ejemplo, se puede sustituir la etiqueta URL `img` con su URL de logotipo "
 "ubicada en su librería de medios de WP."
 
-#: lib/class.settings.php:216
+#: lib/class.settings.php:213
 msgid ""
 "One can also change the two color codes `ffffff` to their desired background and "
 "foreground colors."
@@ -317,11 +315,11 @@ msgstr ""
 "También puede cambiar los dos códigos de color `ffffff` a su fondo deseado y "
 "colores de primer plano."
 
-#: lib/class.settings.php:218
+#: lib/class.settings.php:215
 msgid "Look up color codes here."
 msgstr "Busque los códigos de color aquí."
 
-#: lib/class.settings.php:220
+#: lib/class.settings.php:217
 msgid ""
 "One can also change their fonts by changing the `font-family` priorities and `font-"
 "size` sizing."
@@ -329,18 +327,24 @@ msgstr ""
 "Uno puede también cambiar sus fuentes cambiando el tamaño de las prioridades `font-"
 "family` y `font-size`."
 
-#: lib/class.settings.php:222
+#: lib/class.settings.php:218
+msgid "https://ui.benchmarkemail.com/help-support/help-FAQ-details?id=100"
+msgstr ""
+"https://ui.benchmarkemail.com/es/help-FAQ/answer/Errores-communes-de-codificacion-"
+"de-correo-HTML"
+
+#: lib/class.settings.php:219
 msgid "This article helps you with email template coding."
 msgstr ""
 "Este artículo le ayuda con la codificación de la plantilla de correo electrónico."
 
-#: lib/class.settings.php:255
+#: lib/class.settings.php:252
 msgid "Include the link to view a Webpage Version at the top of emails?"
 msgstr ""
 "¿Incluir el enlace para ver la Versión en Página Web en la parte superior de sus "
 "emails?"
 
-#: lib/class.settings.php:260
+#: lib/class.settings.php:257
 msgid ""
 "If the connection with the Benchmark Email server takes %s seconds or longer, "
 "disable connections for 5 minutes to prevent site administration from becoming "
@@ -350,27 +354,27 @@ msgstr ""
 "conexión por 5 minutos para prevenir que el sitio se vuelva lento. (Predeterminado: "
 "10)"
 
-#: lib/class.settings.php:270
+#: lib/class.settings.php:267
 msgid "will be replaced with the WP page title."
 msgstr "será reemplazado por el título de la página WP."
 
-#: lib/class.settings.php:271
+#: lib/class.settings.php:268
 msgid "will be replaced with the WP page body."
 msgstr "será reemplazado por el cuerpo de la página WP."
 
-#: lib/class.settings.php:272
+#: lib/class.settings.php:269
 msgid "will be replaced with the WP site admin email hash (for Gravatar)."
 msgstr ""
 "será reemplazado por el sitio WP administrador de correo electrónico de hash (por "
 "Gravatar)."
 
-#: lib/class.settings.php:276
+#: lib/class.settings.php:273
 msgid "Be sure to send email tests after making changes to the email template!"
 msgstr ""
 "Asegúrese de enviar pruebas de correo electrónico después de hacer cambios en la "
 "plantilla de correo electrónico!"
 
-#: lib/class.settings.php:325
+#: lib/class.settings.php:322
 msgid "Settings saved."
 msgstr "Configuraciones guardadas."
 
@@ -386,44 +390,140 @@ msgstr ""
 msgid "Create a Benchmark Email newsletter widget in WordPress."
 msgstr "Crear un widget de Benchmark Email boletín en WordPress."
 
-#: lib/class.widget.php:156
+#: lib/class.widget.php:174
+msgid "First Name"
+msgstr "Nombre"
+
+#: lib/class.widget.php:175
+msgid "Last Name"
+msgstr "Apellido"
+
+#: lib/class.widget.php:176
+msgid "Middle Name"
+msgstr "Segundo nombre"
+
+#: lib/class.widget.php:177
+msgid "Address"
+msgstr "Dirección"
+
+#: lib/class.widget.php:178
+msgid "City"
+msgstr "Ciudad"
+
+#: lib/class.widget.php:179
+msgid "State"
+msgstr "Estado"
+
+#: lib/class.widget.php:180
+msgid "Zip"
+msgstr "Zip"
+
+#: lib/class.widget.php:182
+msgid "Phone"
+msgstr "Teléfono"
+
+#: lib/class.widget.php:183
+msgid "Fax"
+msgstr "Fax"
+
+#: lib/class.widget.php:184
+msgid "Cell Phone"
+msgstr "Celular"
+
+#: lib/class.widget.php:185
+msgid "Company Name"
+msgstr "Nombre de empresa"
+
+#: lib/class.widget.php:186
+msgid "Job Title"
+msgstr "Profesión"
+
+#: lib/class.widget.php:187
+msgid "Business Phone"
+msgstr "Teléfono de negocio"
+
+#: lib/class.widget.php:188
+msgid "Business Fax"
+msgstr "Fax de negocio"
+
+#: lib/class.widget.php:189
+msgid "Business Address"
+msgstr "Dirección de negocio"
+
+#: lib/class.widget.php:190
+msgid "Business City"
+msgstr "Ciudad de negocio"
+
+#: lib/class.widget.php:191
+msgid "Business State"
+msgstr "Estado del negocio"
+
+#: lib/class.widget.php:192
+msgid "Business Zip"
+msgstr "Zip del negocio"
+
+#: lib/class.widget.php:193
+msgid "Business Country"
+msgstr "País del negocio"
+
+#: lib/class.widget.php:194
+msgid "Notes"
+msgstr "Notas"
+
+#: lib/class.widget.php:195
+msgid "Extra 3"
+msgstr "Otro 3"
+
+#: lib/class.widget.php:196
+msgid "Extra 4"
+msgstr "Otro 4"
+
+#: lib/class.widget.php:197
+msgid "Extra 5"
+msgstr "Otro 5"
+
+#: lib/class.widget.php:198
+msgid "Extra 6"
+msgstr "Otro 6"
+
+#: lib/class.widget.php:203
 msgid "Subscribe"
 msgstr "Suscribirme"
 
-#: lib/class.widget.php:157
+#: lib/class.widget.php:204
 msgid "Get the latest news and information direct from us to you!"
 msgstr ""
 "¡Reciba las últimas noticias e información directamente de nosotros hacia usted!"
 
-#: lib/class.widget.php:164
+#: lib/class.widget.php:211
 msgid "Subscribe to Newsletter"
 msgstr "Suscribirme al Boletín"
 
-#: lib/class.widget.php:339
+#: lib/class.widget.php:386
 msgid "Please enter a valid email address."
 msgstr "Por favor ingrese una dirección de email."
 
-#: lib/class.widget.php:340
+#: lib/class.widget.php:387
 msgid "Successfully queued subscription."
 msgstr "Suscripción ingresada correctamente."
 
-#: lib/class.widget.php:341
+#: lib/class.widget.php:388
 msgid "Failed to add subscription. Please try again later."
 msgstr "Error al agregar suscripción. Intente nuevamente."
 
-#: lib/class.widget.php:342
+#: lib/class.widget.php:389
 msgid "A verification email has been sent."
 msgstr "Email de verificación ha sido enviado."
 
-#: lib/class.widget.php:343
+#: lib/class.widget.php:390
 msgid "Failed to update subscription. Please try again later."
 msgstr "Error al actualizar suscripción. Inténtelo de nuevo."
 
-#: lib/class.widget.php:344
+#: lib/class.widget.php:391
 msgid "Successfully updated subscription."
 msgstr "Suscripción actualizada correctamente."
 
-#: lib/class.widget.php:345
+#: lib/class.widget.php:392
 msgid "Failed to communicate. Please try again later."
 msgstr "Error al comunicarse. Por favor inténtelo de nuevo."
 
@@ -558,9 +658,6 @@ msgstr "Los correos electrónicos abiertos"
 #: views/reports.level2.html.php:34 views/reports.level2.html.php:43
 #: views/reports.level2.html.php:52 views/reports.level2.html.php:59
 #: views/reports.level2.html.php:68 views/reports.level2.html.php:77
-#: views/reports.level2.html.php:97 views/reports.level2.html.php:100
-#: views/reports.level2.html.php:103 views/reports.level2.html.php:106
-#: views/reports.level2.html.php:109
 msgid "Click to view report"
 msgstr "Haga clic para ver el informe"
 
@@ -576,11 +673,11 @@ msgstr "Emails remitidos"
 msgid "Emails Bounced"
 msgstr "Emails rebotados"
 
-#: views/reports.level2.html.php:66 views/reports.level2.html.php:102
+#: views/reports.level2.html.php:66 views/reports.level2.html.php:101
 msgid "Unsubscribes"
 msgstr "Dados de baja"
 
-#: views/reports.level2.html.php:75 views/reports.level2.html.php:141
+#: views/reports.level2.html.php:75 views/reports.level2.html.php:136
 msgid "Unopened"
 msgstr "Sin abrir"
 
@@ -596,27 +693,27 @@ msgstr "Informes de email"
 msgid "Bounces"
 msgstr "Rebotes"
 
-#: views/reports.level2.html.php:105
+#: views/reports.level2.html.php:103
 msgid "Forwards"
 msgstr "Remitidos"
 
-#: views/reports.level2.html.php:108
+#: views/reports.level2.html.php:105
 msgid "Unopens"
 msgstr "Sin abrir"
 
-#: views/reports.level2.html.php:120
+#: views/reports.level2.html.php:115
 msgid "Opens by Location"
 msgstr "Abiertos por Ubicación"
 
-#: views/reports.level2.html.php:126
+#: views/reports.level2.html.php:121
 msgid "Click Performance"
 msgstr "Rendimiento de clics"
 
-#: views/reports.level2.html.php:139
+#: views/reports.level2.html.php:134
 msgid "Opened"
 msgstr "Abiertos"
 
-#: views/reports.level2.html.php:140
+#: views/reports.level2.html.php:135
 msgid "Bounced"
 msgstr "Rebotes"
 
@@ -697,7 +794,7 @@ msgstr "Activar"
 msgid "Tools"
 msgstr "Opción"
 
-#: views/widget.admin.html.php:73
+#: views/widget.admin.html.php:72
 msgid "Email address"
 msgstr "Dirección de email"
 
@@ -756,3 +853,11 @@ msgstr "beAutomated"
 #. Author URI of the plugin/theme
 msgid "http://www.beautomated.com/"
 msgstr "http://www.beautomated.com/"
+
+#~ msgid "Free 30 Day Benchmark Email Trial"
+#~ msgstr "Prueba Gratuita Benchmark Email"
+
+#~ msgid "Signup for a 30-day FREE Trial"
+#~ msgstr ""
+#~ "Suscríbase a una Cuenta GRATIS de por vida o ingrese a Benchmark Email para "
+#~ "obtener su clave API"
