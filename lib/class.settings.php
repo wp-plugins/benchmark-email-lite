@@ -1,9 +1,6 @@
 <?php
 
 class benchmarkemaillite_settings {
-	static
-		$linkaffiliate = 'http://www.benchmarkemail.com/Register?p=68907',
-		$linkcontact = 'http://www.beautomated.com/contact/';
 
 	// Good Key Or Connection Message
 	static function goodconnection_message() {
@@ -22,9 +19,9 @@ class benchmarkemaillite_settings {
 	// Administrative Links
 	static function plugin_row_meta( $links, $file ) {
 		if( basename( $file ) == basename( __FILE__ ) ) {
-			$link = '<a target="_blank" href="' . self::$linkcontact . '">' . __( 'Contact Developer', 'benchmark-email-lite' ) . '</a>';
+			$link = '<a target="_blank" href="http://www.beautomated.com/contact/">' . __( 'Contact Developer', 'benchmark-email-lite' ) . '</a>';
 			array_unshift( $links, $link );
-			$link = '<a target="_blank" href="' . self::$linkaffiliate . '">' . __( 'Free 30 Day Benchmark Email Trial', 'benchmark-email-lite' ) . '</a>';
+			$link = '<a target="_blank" href="' . __( 'http://www.benchmarkemail.com/Register?p=68907', 'benchmark-email-lite' ) . '">' . __( 'Sign up for a FREE lifetime account', 'benchmark-email-lite' ) . '</a>';
 			array_unshift( $links, $link );
 		}
 		return $links;
@@ -193,8 +190,8 @@ class benchmarkemaillite_settings {
 				' . __( 'API Key(s) may expire after one year.', 'benchmark-email-lite' ) . '
 			</p>
 			<p>
-				<a target="_blank" href="' . self::$linkaffiliate . '" target="BenchmarkEmail">
-				' . __( 'Signup for a 30-day FREE Trial', 'benchmark-email-lite') . '
+				<a target="_blank" href="' . __( 'http://www.benchmarkemail.com/Register?p=68907', 'benchmark-email-lite' ) . '" target="BenchmarkEmail">
+				' . __( 'Sign up for a FREE lifetime account', 'benchmark-email-lite') . '
 				</a>,
 				' . __( 'or', 'benchmark-email-lite' ) . '
 				<a target="_blank" href="http://ui.benchmarkemail.com/EditSetting#ContentPlaceHolder1_UC_ClientSettings1_lnkGenerate" target="BenchmarkEmail">
@@ -218,7 +215,7 @@ class benchmarkemaillite_settings {
 				' . __( 'Look up color codes here.', 'benchmark-email-lite' ) . '
 				</a>
 				' . __( 'One can also change their fonts by changing the `font-family` priorities and `font-size` sizing.', 'benchmark-email-lite' ) . '
-				<a target="_blank" href="https://ui.benchmarkemail.com/help-support/help-FAQ-details?id=100">
+				<a target="_blank" href="' . __( 'https://ui.benchmarkemail.com/help-support/help-FAQ-details?id=100', 'benchmark-email-lite' ) . '">
 				' . __( 'This article helps you with email template coding.', 'benchmark-email-lite' ) . '
 				</a>
 			</p>
