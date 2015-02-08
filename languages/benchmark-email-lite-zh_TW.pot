@@ -3,17 +3,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Benchmark Email Lite 2.5\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/benchmark-email-lite\n"
-"POT-Creation-Date: 2015-01-01 20:41:13+00:00\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/benchmark-email-lite\n"
+"POT-Creation-Date: 2015-02-08 02:14:16+00:00\n"
+"PO-Revision-Date: 2015-02-07 21:34-0800\n"
+"Last-Translator: Sean Conklin <support@benchmarkemail.com>\n"
+"Language-Team: Kunpeng Wang <support@benchmarkemail.com>\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-01-04 17:57-0800\n"
-"Last-Translator: Sean Conklin <support@benchmarkemail.com>\n"
-"Language-Team: Kunpeng Wang <support@benchmarkemail.com>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Language: zh_TW\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.7.4\n"
 
 #: lib/class.api.php:27
 msgid ""
@@ -40,14 +40,14 @@ msgstr "已創建"
 msgid "URL"
 msgstr "URL"
 
-#: lib/class.display.php:234 lib/class.reports.php:161
+#: lib/class.display.php:234 lib/class.reports.php:161 lib/class.widget.php:181
 msgid "Country"
 msgstr "國家"
 
 #: lib/class.display.php:235 lib/class.reports.php:162
-#: views/reports.level2.html.php:96
+#: views/reports.level2.html.php:97
 msgid "Opens"
-msgstr "已讀數"
+msgstr "已讀"
 
 #: lib/class.display.php:236 lib/class.reports.php:175
 msgid "Clicks"
@@ -66,7 +66,7 @@ msgstr "名子"
 
 #: lib/class.display.php:239 lib/class.reports.php:191 lib/class.reports.php:208
 #: lib/class.reports.php:223 lib/class.reports.php:237 lib/class.reports.php:252
-#: lib/class.reports.php:266 lib/class.reports.php:280
+#: lib/class.reports.php:266 lib/class.reports.php:280 lib/class.widget.php:205
 msgid "Email"
 msgstr "電子郵件"
 
@@ -109,7 +109,7 @@ msgstr "您的%s電郵宣傳活動已被成功定在%s。"
 
 #: lib/class.reports.php:103 lib/class.reports.php:104
 msgid "Back to Emails"
-msgstr "返回電郵"
+msgstr "返回電郵主頁"
 
 #: lib/class.reports.php:184
 msgid "Link Clicked Detail Report"
@@ -168,149 +168,153 @@ msgstr "轉發電郵報告"
 msgid "Displays the subscribers who successfully forwarded the email to others."
 msgstr "顯示把此電郵成功轉發給別人的訂閱者。"
 
-#: lib/class.settings.php:10
+#: lib/class.settings.php:7
 msgid "Valid API key and API server connection."
 msgstr "可用的API密鑰和API服務器連接。"
 
-#: lib/class.settings.php:15
+#: lib/class.settings.php:12
 msgid "Invalid API key or API server connection problem."
 msgstr "API密鑰不可用或API服務器連接有問題。"
 
-#: lib/class.settings.php:25
+#: lib/class.settings.php:22
 msgid "Contact Developer"
 msgstr "聯繫開發商"
 
-#: lib/class.settings.php:27
-msgid "Free 30 Day Benchmark Email Trial"
-msgstr "30天免費試用Benchmark Email"
+#: lib/class.settings.php:24 lib/class.settings.php:193
+msgid "http://www.benchmarkemail.com/Register?p=68907"
+msgstr "http://www.benchmarkemail.com/Register?p=68907"
 
-#: lib/class.settings.php:57
+#: lib/class.settings.php:24 lib/class.settings.php:194
+msgid "Sign up for a FREE lifetime account"
+msgstr "註冊一個免費的終身帳戶"
+
+#: lib/class.settings.php:54
 msgid ""
 "Please configure your API key(s) on the %sBenchmark Email Lite settings page.%s"
 msgstr "請在%sBenchmark Email設定頁面%s配置您的API密鑰。"
 
-#: lib/class.settings.php:129
+#: lib/class.settings.php:126
 msgid "Benchmark Email Credentials"
 msgstr "Benchmark Email登錄信息"
 
-#: lib/class.settings.php:130
+#: lib/class.settings.php:127
 msgid "New Email Campaign Preferences"
 msgstr "新電郵宣傳活動偏好設定"
 
-#: lib/class.settings.php:131
+#: lib/class.settings.php:128
 msgid "Diagnostics"
 msgstr "診斷"
 
-#: lib/class.settings.php:132 lib/class.settings.php:168
+#: lib/class.settings.php:129 lib/class.settings.php:145 lib/class.settings.php:165
 msgid "Email Template"
 msgstr "電郵模板"
 
-#: lib/class.settings.php:135
+#: lib/class.settings.php:132
 msgid "API Key(s) from your Benchmark Email account(s)"
-msgstr "您的Benchmark Email帳戶的API密鑰"
+msgstr "您Benchmark Email帳戶的API密鑰"
 
-#: lib/class.settings.php:136
+#: lib/class.settings.php:133
 msgid "Webpage version"
 msgstr "網頁版"
 
-#: lib/class.settings.php:137
+#: lib/class.settings.php:134
 msgid "Connection Timeout (seconds)"
 msgstr "連接超時（秒）"
 
-#: lib/class.settings.php:138
+#: lib/class.settings.php:135
 msgid "Email Template HTML"
 msgstr "電郵模板HTML"
 
-#: lib/class.settings.php:153 lib/class.settings.php:167
-msgid "Settings"
-msgstr "設定"
-
-#: lib/class.settings.php:166
+#: lib/class.settings.php:143 lib/class.settings.php:163
 msgid "Emails"
 msgstr "電郵"
 
-#: lib/class.settings.php:177
+#: lib/class.settings.php:144 lib/class.settings.php:150 lib/class.settings.php:164
+msgid "Settings"
+msgstr "設定"
+
+#: lib/class.settings.php:174
 msgid "Save Changes"
 msgstr "保存更改"
 
-#: lib/class.settings.php:178
+#: lib/class.settings.php:175
 msgid "Reset Changes"
 msgstr "重置更改"
 
-#: lib/class.settings.php:180
+#: lib/class.settings.php:177
 msgid "Reset to Defaults"
 msgstr "重置到默認值"
 
-#: lib/class.settings.php:181
+#: lib/class.settings.php:178
 msgid "Are you sure you wish to load the default values and lose your customizations?"
 msgstr "您確定要加載默認設置並失去您的自定義嗎？"
 
-#: lib/class.settings.php:191
+#: lib/class.settings.php:188
 msgid ""
 "The API Key(s) connect your WordPress site with your Benchmark Email account(s)."
-msgstr "此API密鑰連接您的WordPress網站和你的Benchmark Email帳戶。"
+msgstr "此API密鑰連接您的WordPress網站和您的Benchmark Email帳戶。"
 
-#: lib/class.settings.php:192
+#: lib/class.settings.php:189
 msgid "Only one key is required per Benchmark Email account."
 msgstr "每個Benchmark Email帳戶只需要一個密鑰。"
 
-#: lib/class.settings.php:193
+#: lib/class.settings.php:190
 msgid "API Key(s) may expire after one year."
 msgstr "API密鑰會在一年後失效。"
 
-#: lib/class.settings.php:197
-msgid "Signup for a 30-day FREE Trial"
-msgstr "註冊一個30天試用"
-
-#: lib/class.settings.php:199
+#: lib/class.settings.php:196
 msgid "or"
 msgstr "或"
 
-#: lib/class.settings.php:201
+#: lib/class.settings.php:198
 msgid "log in to Benchmark Email to get your API key"
 msgstr "請登錄Benchmark Email以獲得您的API密鑰"
 
-#: lib/class.settings.php:207
+#: lib/class.settings.php:204
 msgid "This section is for troubleshooting purposes only."
 msgstr "這部分內容僅用於故障排除。"
 
-#: lib/class.settings.php:212
+#: lib/class.settings.php:209
 msgid ""
 "The following is for advanced users to customize the HTML template that wraps the "
 "output of the post-to-campaign feature."
 msgstr "以下內容是用來讓高級用戶自定義post-to-campaign功能輸出的HTML模板。"
 
-#: lib/class.settings.php:215
+#: lib/class.settings.php:212
 msgid ""
 "For example, one can replace the `img` tag URL with their logo URL from their WP "
 "Media Library."
 msgstr "例如，您可以把 `img` 標簽URL換成您WP媒體文庫中您的商標的URL。"
 
-#: lib/class.settings.php:216
+#: lib/class.settings.php:213
 msgid ""
 "One can also change the two color codes `ffffff` to their desired background and "
 "foreground colors."
 msgstr "你可以把兩個`ffffff` 顏色代碼改成您想要的背景和前景顏色。"
 
-#: lib/class.settings.php:218
+#: lib/class.settings.php:215
 msgid "Look up color codes here."
 msgstr "請在此查看顏色代碼。"
 
-#: lib/class.settings.php:220
+#: lib/class.settings.php:217
 msgid ""
 "One can also change their fonts by changing the `font-family` priorities and `font-"
 "size` sizing."
 msgstr "您也可以通過改變 `font-family`優先權和 `font-size`字號來改變您的字體。"
 
-#: lib/class.settings.php:222
+#: lib/class.settings.php:218
+msgid "https://ui.benchmarkemail.com/help-support/help-FAQ-details?id=100"
+msgstr "https://ui.benchmarkemail.com/help-support/help-FAQ-details?id=100"
+
+#: lib/class.settings.php:219
 msgid "This article helps you with email template coding."
 msgstr "這篇文章有助於您為電郵模板編代碼。"
 
-#: lib/class.settings.php:255
+#: lib/class.settings.php:252
 msgid "Include the link to view a Webpage Version at the top of emails?"
 msgstr "是否要在電郵頂端包含閱讀網頁版的鏈接？"
 
-#: lib/class.settings.php:260
+#: lib/class.settings.php:257
 msgid ""
 "If the connection with the Benchmark Email server takes %s seconds or longer, "
 "disable connections for 5 minutes to prevent site administration from becoming "
@@ -319,23 +323,23 @@ msgstr ""
 "如果與Benchmark Email服務器的連接超過%s秒或更久，請斷開連接5分鐘以防止網站管理變得遲"
 "緩。（默認：10）"
 
-#: lib/class.settings.php:270
+#: lib/class.settings.php:267
 msgid "will be replaced with the WP page title."
 msgstr "將被WP頁面標題替換。"
 
-#: lib/class.settings.php:271
+#: lib/class.settings.php:268
 msgid "will be replaced with the WP page body."
 msgstr "將被WP頁面正文替換。"
 
-#: lib/class.settings.php:272
+#: lib/class.settings.php:269
 msgid "will be replaced with the WP site admin email hash (for Gravatar)."
 msgstr "將被WP網頁管理員的電郵hash（for Gravatar）替換。"
 
-#: lib/class.settings.php:276
+#: lib/class.settings.php:273
 msgid "Be sure to send email tests after making changes to the email template!"
 msgstr "請記住在更改電郵模板後試發郵件！"
 
-#: lib/class.settings.php:325
+#: lib/class.settings.php:322
 msgid "Settings saved."
 msgstr "設定已保存"
 
@@ -349,43 +353,139 @@ msgstr "我們將不復存在的API密鑰%d小工具移動到您的待用小工�
 msgid "Create a Benchmark Email newsletter widget in WordPress."
 msgstr "請在WordPress裏創建一個Benchmark Email通訊的小工具。"
 
-#: lib/class.widget.php:156
+#: lib/class.widget.php:174
+msgid "First Name"
+msgstr "名"
+
+#: lib/class.widget.php:175
+msgid "Last Name"
+msgstr "姓"
+
+#: lib/class.widget.php:176
+msgid "Middle Name"
+msgstr "中間名"
+
+#: lib/class.widget.php:177
+msgid "Address"
+msgstr "地址"
+
+#: lib/class.widget.php:178
+msgid "City"
+msgstr "城市"
+
+#: lib/class.widget.php:179
+msgid "State"
+msgstr "州"
+
+#: lib/class.widget.php:180
+msgid "Zip"
+msgstr "郵政編碼"
+
+#: lib/class.widget.php:182
+msgid "Phone"
+msgstr "座機"
+
+#: lib/class.widget.php:183
+msgid "Fax"
+msgstr "傳真"
+
+#: lib/class.widget.php:184
+msgid "Cell Phone"
+msgstr "手機"
+
+#: lib/class.widget.php:185
+msgid "Company Name"
+msgstr "公司名稱"
+
+#: lib/class.widget.php:186
+msgid "Job Title"
+msgstr "職稱"
+
+#: lib/class.widget.php:187
+msgid "Business Phone"
+msgstr "公司電話"
+
+#: lib/class.widget.php:188
+msgid "Business Fax"
+msgstr "公司傳真"
+
+#: lib/class.widget.php:189
+msgid "Business Address"
+msgstr "公司地址"
+
+#: lib/class.widget.php:190
+msgid "Business City"
+msgstr "公司所在城市"
+
+#: lib/class.widget.php:191
+msgid "Business State"
+msgstr "公司所在州"
+
+#: lib/class.widget.php:192
+msgid "Business Zip"
+msgstr "公司郵政編碼"
+
+#: lib/class.widget.php:193
+msgid "Business Country"
+msgstr "公司所在國家"
+
+#: lib/class.widget.php:194
+msgid "Notes"
+msgstr "備註"
+
+#: lib/class.widget.php:195
+msgid "Extra 3"
+msgstr "附加3"
+
+#: lib/class.widget.php:196
+msgid "Extra 4"
+msgstr "附加4"
+
+#: lib/class.widget.php:197
+msgid "Extra 5"
+msgstr "附加5"
+
+#: lib/class.widget.php:198
+msgid "Extra 6"
+msgstr "附加6"
+
+#: lib/class.widget.php:203
 msgid "Subscribe"
 msgstr "訂閱"
 
-#: lib/class.widget.php:157
+#: lib/class.widget.php:204
 msgid "Get the latest news and information direct from us to you!"
 msgstr "直接從我們這裡得到最新的新聞和信息！"
 
-#: lib/class.widget.php:164
+#: lib/class.widget.php:211
 msgid "Subscribe to Newsletter"
 msgstr "訂閱通訊"
 
-#: lib/class.widget.php:339
+#: lib/class.widget.php:386
 msgid "Please enter a valid email address."
 msgstr "請輸入一個可用的電郵地址。"
 
-#: lib/class.widget.php:340
+#: lib/class.widget.php:387
 msgid "Successfully queued subscription."
 msgstr "訂閱成功。"
 
-#: lib/class.widget.php:341
+#: lib/class.widget.php:388
 msgid "Failed to add subscription. Please try again later."
 msgstr "添加訂閱失敗。請重試。"
 
-#: lib/class.widget.php:342
+#: lib/class.widget.php:389
 msgid "A verification email has been sent."
 msgstr "一封驗證郵件已發送。"
 
-#: lib/class.widget.php:343
+#: lib/class.widget.php:390
 msgid "Failed to update subscription. Please try again later."
 msgstr "更改訂閱失敗。請重試"
 
-#: lib/class.widget.php:344
+#: lib/class.widget.php:391
 msgid "Successfully updated subscription."
 msgstr "訂閱更改成功。"
 
-#: lib/class.widget.php:345
+#: lib/class.widget.php:392
 msgid "Failed to communicate. Please try again later."
 msgstr "交流失敗。請重試。"
 
@@ -476,7 +576,7 @@ msgstr "電郵名稱"
 
 #: views/reports.level1.html.php:16
 msgid "Emails for API key"
-msgstr "API密鑰電郵數"
+msgstr "以下電郵的API密鑰"
 
 #: views/reports.level1.html.php:18
 msgid "Date Modified"
@@ -512,14 +612,11 @@ msgstr "發送電郵總數"
 
 #: views/reports.level2.html.php:32
 msgid "Opened Emails"
-msgstr "已讀電郵"
+msgstr "已讀電郵數"
 
 #: views/reports.level2.html.php:34 views/reports.level2.html.php:43
 #: views/reports.level2.html.php:52 views/reports.level2.html.php:59
 #: views/reports.level2.html.php:68 views/reports.level2.html.php:77
-#: views/reports.level2.html.php:97 views/reports.level2.html.php:100
-#: views/reports.level2.html.php:103 views/reports.level2.html.php:106
-#: views/reports.level2.html.php:109
 msgid "Click to view report"
 msgstr "點擊查閱報告"
 
@@ -535,11 +632,11 @@ msgstr "轉發電郵數"
 msgid "Emails Bounced"
 msgstr "退回電郵數"
 
-#: views/reports.level2.html.php:66 views/reports.level2.html.php:102
+#: views/reports.level2.html.php:66 views/reports.level2.html.php:101
 msgid "Unsubscribes"
-msgstr "退訂數"
+msgstr "退訂"
 
-#: views/reports.level2.html.php:75 views/reports.level2.html.php:141
+#: views/reports.level2.html.php:75 views/reports.level2.html.php:136
 msgid "Unopened"
 msgstr "未讀"
 
@@ -553,29 +650,29 @@ msgstr "電郵報告"
 
 #: views/reports.level2.html.php:99
 msgid "Bounces"
-msgstr "退回數"
+msgstr "退回"
+
+#: views/reports.level2.html.php:103
+msgid "Forwards"
+msgstr "轉發"
 
 #: views/reports.level2.html.php:105
-msgid "Forwards"
-msgstr "轉發數"
-
-#: views/reports.level2.html.php:108
 msgid "Unopens"
-msgstr "未讀數"
+msgstr "未讀"
 
-#: views/reports.level2.html.php:120
+#: views/reports.level2.html.php:115
 msgid "Opens by Location"
 msgstr "不同地點的已讀數"
 
-#: views/reports.level2.html.php:126
+#: views/reports.level2.html.php:121
 msgid "Click Performance"
 msgstr "點擊報告"
 
-#: views/reports.level2.html.php:139
+#: views/reports.level2.html.php:134
 msgid "Opened"
 msgstr "已讀"
 
-#: views/reports.level2.html.php:140
+#: views/reports.level2.html.php:135
 msgid "Bounced"
 msgstr "退回"
 
@@ -653,7 +750,7 @@ msgstr "必填"
 msgid "Tools"
 msgstr "工具"
 
-#: views/widget.admin.html.php:73
+#: views/widget.admin.html.php:72
 msgid "Email address"
 msgstr "電郵地址"
 
@@ -709,3 +806,9 @@ msgstr "beAutomated"
 #. Author URI of the plugin/theme
 msgid "http://www.beautomated.com/"
 msgstr "http://www.beautomated.com/"
+
+#~ msgid "Free 30 Day Benchmark Email Trial"
+#~ msgstr "30天免費試用Benchmark Email"
+
+#~ msgid "Signup for a 30-day FREE Trial"
+#~ msgstr "註冊一個30天試用"
