@@ -32,7 +32,7 @@ function bmebinding() {
 		return true;
 	});
 	jQuery('.widget').delegate('.bmefields', 'change', function() {
-		jQuery(this).parent().parent().find('.bmelabels').val(jQuery(this).val());
+		jQuery(this).parent().parent().find('.bmelabels').val(jQuery(this).find('option:selected').text());
 		return false;
 	});
 	jQuery('.widget').delegate('.bmedelete', 'click', function() {

@@ -60,41 +60,41 @@
 		foreach( $instance['fields'] as $key => $selected ) {
 			$i++;
 			if( ! $key ) { $key = 'INSERT-KEY'; }
-			$label = isset( $instance['fields_labels'][$key] )
-				? $instance['fields_labels'][$key] : $selected;
-			$required = isset( $instance['fields_required'][$key] )
-				? $instance['fields_required'][$key] : 0;
+			$label = isset( $instance['fields_labels'][$key] ) ? $instance['fields_labels'][$key] : $selected;
+			$required = isset( $instance['fields_required'][$key] ) ? $instance['fields_required'][$key] : 0;
 		?>
 		<tr<?php if ($i === 1) { echo ' style="display:none;" class="bmebase"'; } ?>>
+
 			<?php if ( $selected == 'Email' ) { ?>
-			<td>
-				<span style="padding:0 0 0 8px;">
-					<input type="hidden" value="Email" name="<?php echo $this->get_field_name('fields'); ?>[<?php echo $key; ?>]" />
-					[<?php _e( 'Email address', 'benchmark-email-lite' ); ?>]
-				</span>
-			</td>
-			<td>
-				<input type="text" size="15" maxlength="50" value="<?php echo $label; ?>" name="<?php echo $this->get_field_name('fields_labels'); ?>[<?php echo $key; ?>]" />
-			</td>
-			<td style="text-align:center;">
-				<input type="hidden" value="1" name="<?php echo $this->get_field_name('fields_required'); ?>[<?php echo $key; ?>]" />
-				<img src="images/yes.png" width="16" height="16" />
-			</td>
+				<td>
+					<span style="padding:0 0 0 8px;">
+						<input type="hidden" value="Email" name="<?php echo $this->get_field_name('fields'); ?>[<?php echo $key; ?>]" />
+						[<?php _e( 'Email address', 'benchmark-email-lite' ); ?>]
+					</span>
+				</td>
+				<td>
+					<input type="text" size="15" maxlength="50" value="<?php echo $label; ?>" name="<?php echo $this->get_field_name('fields_labels'); ?>[<?php echo $key; ?>]" />
+				</td>
+				<td style="text-align:center;">
+					<input type="hidden" value="1" name="<?php echo $this->get_field_name('fields_required'); ?>[<?php echo $key; ?>]" />
+					<img src="images/yes.png" width="16" height="16" />
+				</td>
 			<?php } else { ?>
-			<td>
-				<select class="bmefields" name="<?php echo $this->get_field_name('fields'); ?>[<?php echo $key; ?>]">
-				<?php foreach ($fields as $field) { ?>
-				<option<?php if ($selected == $field) { echo ' selected="selected"'; } ?>><?php echo $field; ?></option>
-				<?php } ?>
-				</select>
-			</td>
-			<td>
-				<input type="text" size="15" maxlength="50" class="bmelabels" value="<?php echo $label; ?>" name="<?php echo $this->get_field_name('fields_labels'); ?>[<?php echo $key; ?>]" />
-			</td>
-			<td style="text-align:center;">
-				<input type="checkbox" value="1" <?php checked($required, '1'); ?> name="<?php echo $this->get_field_name( 'fields_required' ); ?>[<?php echo $key; ?>]" />
-			</td>
+				<td>
+					<select class="bmefields" name="<?php echo $this->get_field_name('fields'); ?>[<?php echo $key; ?>]">
+					<?php foreach( $fields as $i => $field ) { ?>
+					<option value="<?php echo $field; ?>"<?php if( $selected == $field ) { echo ' selected="selected"'; } ?>><?php echo $fields_labels[$i]; ?></option>
+					<?php } ?>
+					</select>
+				</td>
+				<td>
+					<input type="text" size="15" maxlength="50" class="bmelabels" value="<?php echo $label; ?>" name="<?php echo $this->get_field_name('fields_labels'); ?>[<?php echo $key; ?>]" />
+				</td>
+				<td style="text-align:center;">
+					<input type="checkbox" value="1" <?php checked( $required, '1' ); ?> name="<?php echo $this->get_field_name( 'fields_required' ); ?>[<?php echo $key; ?>]" />
+				</td>
 			<?php } ?>
+
 			<td>
 				<a href="#" class="bmemoveup" title="Move up" style="text-decoration:none;">
 					<div style="float:left;background:transparent url(images/arrows.png) no-repeat 0 -36px;width:15px;height:15px;"> </div>
