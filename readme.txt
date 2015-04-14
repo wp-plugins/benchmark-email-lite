@@ -1,10 +1,10 @@
 === Benchmark Email Lite ===
 Contributors: beautomated, seanconklin, randywsandberg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B22PPZ3SC6WZE
-Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list
-Requires at least: 3.8
-Tested up to: 4.1
-Stable tag: 2.4.6
+Tags: widget, widgets, api, list, email, mail, news, register, registration, plugin, plugins, wordpress, sidebar, newsletter, benchmark email, benchmark email lite, beAutomated, mailing list, spanish, portuguese, chinese
+Requires at least: 3.1
+Tested up to: 4.1.1
+Stable tag: 2.5
 License: GPLv2
 
 Benchmark Email Lite lets you build an email list from your WordPress site, and easily send your subscribers email versions of your posts and pages.
@@ -135,10 +135,13 @@ Two reasons. First, Benchmark Email requested that we use this method because it
 
 == Changelog ==
 
-= 2.5 on TBD =
+= 2.5 on 2015-04-13 =
 
-* Added: prepopulation of Metabox Admin email name and from name fields.
+* Added: Support for widget signup form based subscriptions.
+* Added: Localization logic with embedded translation files for Spanish, Portuguese/BR, and Chinese/Traditional/TW regions.
+* Added: Pre-population of Metabox Admin email name and from name fields.
 * Updated: Consolidated loading graphic to WP core image. Replaced subscribe form LIs with DIVs.
+* Fixed: to existing subscribee updating on multiple list signup forms, returns error if any one list fails to update properly.
 
 = 2.4.6 on 2014-06-17 =
 
